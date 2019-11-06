@@ -5,5 +5,10 @@ using Unity.Entities;
 
 public struct XformComponent : IComponentData
 {
-    public boolean hasXform; // transform flag
+    public bool hasXform; // transform flag
+
+    public XformComponent(bool hasXform)
+    {
+        this.hasXform = hasXform;
+    }
 }

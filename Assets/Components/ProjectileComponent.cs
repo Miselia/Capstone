@@ -5,5 +5,10 @@ using Unity.Entities;
 
 public struct ProjectileComponent : IComponentData
 {
-    public string projectileName; // ID of the projectile
+    public int bouncesLeft; // Number of bounces, if any
+
+    public ProjectileComponent(int maximumBounces)
+    {
+        this.bouncesLeft = maximumBounces;
+    }
 }

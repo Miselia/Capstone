@@ -5,5 +5,10 @@ using Unity.Entities;
 
 public struct RotationComponent : IComponentData
 {
-    public Quaternion movementVector; // Rotation of the entity
+    public Quaternion rotation; // Rotation of the entity
+
+    public RotationComponent(Quaternion rotation)
+    {
+        this.rotation = rotation;
+    }
 }

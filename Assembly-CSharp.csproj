@@ -65,7 +65,12 @@
   <ItemGroup>
     <Compile Include="Assets\Components\MovementComponent.cs" />
     <Compile Include="Assets\Components\PlayerComponent.cs" />
+    <Compile Include="Assets\Components\ProjectileComponent.cs" />
+    <Compile Include="Assets\Components\RotationComponent.cs" />
     <Compile Include="Assets\Components\TestingComponent.cs" />
+    <Compile Include="Assets\Components\XformComp.cs" />
+    <Compile Include="Assets\Entities\PlayerEntity.cs" />
+    <Compile Include="Assets\Entities\ProjectileEntity.cs" />
     <Compile Include="Assets\Entities\TestingEntity.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <Reference Include="Unity.Timeline.Editor">
