@@ -73,6 +73,7 @@
     <Compile Include="Assets\Entities\PlayerEntity.cs" />
     <Compile Include="Assets\Entities\ProjectileEntity.cs" />
     <Compile Include="Assets\Entities\TestingEntity.cs" />
+    <Compile Include="Assets\Systems\CollisionDetectionSystem.cs" />
     <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <Reference Include="Unity.Timeline.Editor">
