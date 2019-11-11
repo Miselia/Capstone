@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Components\CollisionComponent.cs" />
     <Compile Include="Assets\Components\MovementComponent.cs" />
     <Compile Include="Assets\Components\PlayerComponent.cs" />
     <Compile Include="Assets\Components\ProjectileComponent.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\Entities\PlayerEntity.cs" />
     <Compile Include="Assets\Entities\ProjectileEntity.cs" />
     <Compile Include="Assets\Entities\TestingEntity.cs" />
+    <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
