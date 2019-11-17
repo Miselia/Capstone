@@ -25,8 +25,6 @@ public static class ProjectileEntity
         //em.SetComponentData(entity, new RotationComponent { rotation = new Quaternion(0, 1, 0, 0) });
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
 
->>>>>>> master
-
         return entity;
     }
 }
