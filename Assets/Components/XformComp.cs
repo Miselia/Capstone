@@ -9,9 +9,9 @@ public struct XformComponent : IComponentData
     public Vector2 CurrentPosition;
     public Vector2 LastPosition;
 
-    public XformComponent(bool hasXform, Vector2 position)
+    public XformComponent(Vector2 position)
     {
-        this.hasXform = hasXform;
+        this.hasXform = true;
         CurrentPosition = position;
         LastPosition = position;
     }

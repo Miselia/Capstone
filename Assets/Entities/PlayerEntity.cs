@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class PlayerEntity 
 {
-   public static Entity Create(EntityManager em, Vector2 position)
+   public static Entity Create(EntityManager em, Vector2 movementVector, Vector2 position, int playerID, int maxHealth)
     {
         Entity entity = em.CreateEntity();
 
@@ -14,9 +14,9 @@ public static class PlayerEntity
         em.AddComponent( entity, typeof(PlayerComponent) );
         //em.AddComponent( entity, typeof(SpriteComponent) );
 
-        em.SetComponentData(entity, new MovementComponent { movementVector = new Vector2(0, 10) });
-        em.SetComponentData(entity, new XformComponent { hasXform = true });
-        em.SetComponentData(entity, new PlayerComponent { healthRemaining = 3, playerName = "Left_Player" });
+        em.SetComponentData(entity, new MovementComponent(movementVector));
+        em.SetComponentData(entity, new XformComponent(position));
+        em.SetComponentData(entity, new PlayerComponent(playerID, maxHealth));
         //em.SetComponentData(entity, new SpriteComponent { insert_stuff_here });
 
         return entity;

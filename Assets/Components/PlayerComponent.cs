@@ -7,12 +7,12 @@ public struct PlayerComponent : IComponentData
 {
     // Things we may need
     // An "Input Method" if such exists in Unity already
-    public string playerName;
+    public int playerID;
     public int healthRemaining;
 
-    public PlayerComponent(string playerName, int maximumHealth)
+    public PlayerComponent(int playerID, int maximumHealth)
     {
-        this.playerName = playerName;
+        this.playerID = playerID;
         this.healthRemaining = maximumHealth;
     }
 }
