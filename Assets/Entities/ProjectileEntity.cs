@@ -22,7 +22,7 @@ public static class ProjectileEntity
 
         em.SetComponentData(entity, new MovementComponent(movementVector));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
-        em.SetComponentData(entity, new CollisionComponent(radius));
+        em.SetComponentData(entity, new CollisionComponent(radius, radius));
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
 
         return entity;

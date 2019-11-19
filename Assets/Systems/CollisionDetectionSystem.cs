@@ -18,7 +18,7 @@ public class CollisionDetectionSystem : ComponentSystem
                 checkedPairs.Add(firstEntity, new List<Entity>());
             }
 
-            Entities.ForEach((Entity secondEntity, ref Translation xform, ref CollisionComponent collComp) =>
+            Entities.ForEach((Entity secondEntity, ref Translation transform, ref CollisionComponent collisionComp) =>
             {
                 if(firstEntity == secondEntity)
                 {
@@ -44,13 +44,14 @@ public class CollisionDetectionSystem : ComponentSystem
                     {
                         HandleCircleCollisionWithBoundary(secondEntity, firstEntity);
                     }
-                    if (!EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
+                    if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
                     {
                         HandlePlayerCollisionWithProjectile(firstEntity, secondEntity);
                     }
-                    if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && !EntityManager.HasComponent<ProjectileComponent>(secondEntity))
+                    if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
                     {
                         HandlePlayerCollisionWithProjectile(secondEntity, firstEntity);
+                        Debug.Log("Projectile and Player Collided");
                     }
                 }
                 skipFlag = false;
@@ -69,7 +70,7 @@ public class CollisionDetectionSystem : ComponentSystem
             Vector2 nearestWallPosition = new Vector2(circleVector.x, boundaryVector.y);
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
             {
-                Console.WriteLine("circle entity collide with boundary");
+                Debug.Log("circle entity collide with boundary");
             }
         }
         if(EntityManager.GetComponentData<BoundaryComponent>(boundaryEntity).Normal.y == 0)
@@ -77,21 +78,24 @@ public class CollisionDetectionSystem : ComponentSystem
             Vector2 nearestWallPosition = new Vector2(boundaryVector.x, circleVector.y);
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
             {
-                Console.WriteLine("circle entity collide with boundary");
+                Debug.Log("circle entity collide with boundary");
             }
         }
     }
 
-    private void HandlePlayerCollisionWithProjectile(Entity playerEntity, Entity ProjectileEntity)
+    private void HandlePlayerCollisionWithProjectile(Entity playerEntity, Entity projectileEntity)
     {
         Vector3 playerVector = EntityManager.GetComponentData<Translation>(playerEntity).Value;
-        Vector3 projectileVector = EntityManager.GetComponentData<Translation>(ProjectileEntity).Value;
+        Vector3 projectileVector = EntityManager.GetComponentData<Translation>(projectileEntity).Value;
         float firstRadius = EntityManager.GetComponentData<CollisionComponent>(playerEntity).collisionRadius;
-        float secondRadius = EntityManager.GetComponentData<CollisionComponent>(ProjectileEntity).collisionRadius;
+        float secondRadius = EntityManager.GetComponentData<CollisionComponent>(projectileEntity).collisionRadius;
 
-        if( (new Vector2(playerVector.x,playerVector.y) - new Vector2(projectileVector.x,projectileVector.y)).magnitude > (firstRadius + secondRadius))
+        if( (new Vector2(playerVector.x,playerVector.y) - new Vector2(projectileVector.x,projectileVector.y)).magnitude < (firstRadius + secondRadius))
         {
-            Console.WriteLine("player entity collide with projectile");
+            // Insert a break point on the line below to ensure that collisions works correctly
+            EntityManager.SetComponentData<MovementComponent>(playerEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
+            EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
+            Debug.Log("player entity collide with projectile");
         }
     }
 }

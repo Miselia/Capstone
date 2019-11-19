@@ -23,7 +23,7 @@ public static class PlayerEntity
         
         em.SetComponentData(entity, new MovementComponent(movementVector));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
-        em.SetComponentData(entity, new CollisionComponent(radius));
+        em.SetComponentData(entity, new CollisionComponent(radius, radius));
         em.SetComponentData(entity, new PlayerComponent(playerID, maxHealth));
         em.SetSharedComponentData(entity, new RenderMesh {mesh = mesh, material = mat});
 

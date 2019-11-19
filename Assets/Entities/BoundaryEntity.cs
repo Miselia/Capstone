@@ -15,7 +15,7 @@ public static class BoundaryEntity
         //em.AddComponent(entity, typeof(SpriteComponent));
 
         em.SetComponentData(entity, new XformComponent(position));
-        em.SetComponentData(entity, new CollisionComponent(0.0f));
+        em.SetComponentData(entity, new CollisionComponent(0.0f, 1000));
         em.SetComponentData(entity, new BoundaryComponent(normal));
         //em.SetComponentData(entity, new SpriteComponent("sprite_file");
 
