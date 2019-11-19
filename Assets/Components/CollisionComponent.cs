@@ -6,9 +6,11 @@ using Unity.Entities;
 public struct CollisionComponent : IComponentData
 {
     public float collisionRadius;
+    public float width;
 
-    public CollisionComponent(float collisionRadius)
+    public CollisionComponent(float collisionRadius, float width)
     {
         this.collisionRadius = collisionRadius;
+        this.width = collisionRadius;
     }
 }
