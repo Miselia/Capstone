@@ -9,7 +9,7 @@ using Unity.Mathematics;
 public static class PlayerEntity 
 {
 
-   public static Entity Create(EntityManager em, Vector2 position, Vector2 movementVector, int playerID, int maxHealth, Mesh mesh, Material mat)
+   public static Entity Create(EntityManager em, Vector2 position, Vector2 movementVector, float radius, int playerID,  int maxHealth, Mesh mesh, Material mat)
     {
         Entity entity = em.CreateEntity();
 
