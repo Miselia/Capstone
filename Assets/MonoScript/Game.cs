@@ -14,8 +14,8 @@ public class Game : MonoBehaviour
     void Start()
     {
         entityManager = World.Active.EntityManager;
-        PlayerEntity.Create(entityManager, new Vector2(0,0), new Vector2(0, 0), 10.0f, 1, 3, mesh,mat);
-        ProjectileEntity.Create(entityManager, new Vector2(1000,1000), new Vector2(5, 0), 10.0f, projectileMesh, projectileMat);
+        PlayerEntity.Create(entityManager, new Vector2(0,2), new Vector2(0, 1), 2.0f, 1, 3, mesh,mat);
+        ProjectileEntity.Create(entityManager, new Vector2(5,0), new Vector2(1, 0), 10.0f, projectileMesh, projectileMat);
     }
 
     // Update is called once per frame

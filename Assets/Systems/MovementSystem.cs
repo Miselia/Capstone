@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using Unity.Transforms;
 
 public class MovementSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {
-        Entities.ForEach((ref MovementComponent moveComp, ref XformComponent xform) =>
+        Entities.ForEach((ref MovementComponent moveComp, ref Translation translation) =>
         {
-            xform.Move(moveComp.movementVector * Time.deltaTime);
+            translation.Value.y += moveComp.movementVector.y * Time.deltaTime;
+            translation.Value.x += moveComp.movementVector.x * Time.deltaTime;
         });
     }
 }

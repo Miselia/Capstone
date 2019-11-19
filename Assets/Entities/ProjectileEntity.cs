@@ -4,6 +4,7 @@ using Unity.Entities;
 using UnityEngine;
 using Unity.Rendering;
 using Unity.Transforms;
+using Unity.Mathematics;
 
 public static class ProjectileEntity
 {
@@ -11,18 +12,17 @@ public static class ProjectileEntity
     {
         Entity entity = em.CreateEntity();
 
-        em.AddComponent(entity, typeof(XformComponent));
         em.AddComponent(entity, typeof(MovementComponent));
         em.AddComponent(entity, typeof(CollisionComponent));
         em.AddComponent(entity, typeof(RenderMesh));
         em.AddComponent(entity, typeof(LocalToWorld));
         em.AddComponent(entity, typeof(ProjectileComponent));
         em.AddComponent(entity, typeof(Translation));
+        em.AddComponent(entity, typeof(Rotation));
 
         em.SetComponentData(entity, new MovementComponent(movementVector));
-        em.SetComponentData(entity, new XformComponent(position));
+        em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         em.SetComponentData(entity, new CollisionComponent(radius));
-        //em.SetComponentData(entity, new RotationComponent { rotation = new Quaternion(0, 1, 0, 0) });
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
 
         return entity;
