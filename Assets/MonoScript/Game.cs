@@ -14,8 +14,16 @@ public class Game : MonoBehaviour
     void Start()
     {
         entityManager = World.Active.EntityManager;
-        PlayerEntity.Create(entityManager, new Vector2(0,5), new Vector2(0, -1), 2.0f, 1, 3, mesh,mat);
-        ProjectileEntity.Create(entityManager, new Vector2(0,-5), new Vector2(0, 1), 2.0f, projectileMesh, projectileMat);
+        PlayerEntity.Create(entityManager, new Vector2(0,5), new Vector2(0, -1), 1.0f, 1, 0, mesh,mat);
+        ProjectileEntity.Create(entityManager, new Vector2(0,-5), new Vector2(0, 1), 1.0f, projectileMesh, projectileMat);
+
+        PlayerEntity.Create(entityManager, new Vector2(5, 0), new Vector2(1, -1), 1.0f, 1, 1, mesh, mat);
+        ProjectileEntity.Create(entityManager, new Vector2(-5, 0), new Vector2(-1, 1), 1.0f, projectileMesh, projectileMat);
+
+        BoundaryEntity.Create(entityManager, new Vector2(0, 7), new Vector2(0, -1));
+        BoundaryEntity.Create(entityManager, new Vector2(0, -7), new Vector2(0, 1));
+        BoundaryEntity.Create(entityManager, new Vector2(7, 0), new Vector2(-1, 0));
+        BoundaryEntity.Create(entityManager, new Vector2(-7, 0), new Vector2(1, 0));
     }
 
     // Update is called once per frame

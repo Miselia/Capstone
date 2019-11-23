@@ -39,10 +39,12 @@ public class CollisionDetectionSystem : ComponentSystem
                     if (!EntityManager.HasComponent<BoundaryComponent>(firstEntity) && EntityManager.HasComponent<BoundaryComponent>(secondEntity))
                     {
                         HandleCircleCollisionWithBoundary(firstEntity, secondEntity);
+                        Debug.Log("Circle and Wall Collision Check");
                     }
                     if (EntityManager.HasComponent<BoundaryComponent>(firstEntity) && !EntityManager.HasComponent<BoundaryComponent>(secondEntity))
                     {
                         HandleCircleCollisionWithBoundary(secondEntity, firstEntity);
+                        Debug.Log("Circle and Wall Collision Check");
                     }
                     if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
                     {
@@ -51,7 +53,7 @@ public class CollisionDetectionSystem : ComponentSystem
                     if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
                     {
                         HandlePlayerCollisionWithProjectile(secondEntity, firstEntity);
-                        Debug.Log("Projectile and Player Collided");
+                        //Debug.Log("Projectile and Player Collision Check");
                     }
                 }
                 skipFlag = false;
@@ -70,6 +72,7 @@ public class CollisionDetectionSystem : ComponentSystem
             Vector2 nearestWallPosition = new Vector2(circleVector.x, boundaryVector.y);
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
             {
+                EntityManager.SetComponentData<MovementComponent>(circleEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
                 Debug.Log("circle entity collide with boundary");
             }
         }
@@ -78,6 +81,7 @@ public class CollisionDetectionSystem : ComponentSystem
             Vector2 nearestWallPosition = new Vector2(boundaryVector.x, circleVector.y);
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
             {
+                EntityManager.SetComponentData<MovementComponent>(circleEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
                 Debug.Log("circle entity collide with boundary");
             }
         }

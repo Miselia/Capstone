@@ -75,6 +75,7 @@
     <Compile Include="Assets\Entities\PlayerEntity.cs" />
     <Compile Include="Assets\Entities\ProjectileEntity.cs" />
     <Compile Include="Assets\Entities\TestingEntity.cs" />
+    <Compile Include="Assets\Events\EventManager.cs" />
     <Compile Include="Assets\MonoScript\Game.cs" />
     <Compile Include="Assets\MonoScript\MenuScript.cs" />
     <Compile Include="Assets\Systems\CollisionDetectionSystem.cs" />
