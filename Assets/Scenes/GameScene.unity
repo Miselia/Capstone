@@ -248,5 +248,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   mat: {fileID: 2100000, guid: fdabef17d33b04648bc749542662712d, type: 2}
-  projectileMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   projectileMat: {fileID: 2100000, guid: 23982ce7a78c52e4e9e9f5aba67710a7, type: 2}
+  vertBoundaryMat: {fileID: 2100000, guid: 6c8c084de9e9803449e7300bc7bca7a6, type: 2}
+  horiBoundaryMat: {fileID: 2100000, guid: c5f06d5a79d2f794baa17001dee8829e, type: 2}
