@@ -6,6 +6,7 @@ using Unity.Entities;
 public class Game : MonoBehaviour
 {
     private EntityManager entityManager;
+    private EventManager eventManager;
     [SerializeField] private Mesh mesh;
     [SerializeField] private Material mat;
     [SerializeField] private Material projectileMat;
@@ -14,6 +15,7 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        eventManager = new EventManager();
         entityManager = World.Active.EntityManager;
         PlayerEntity.Create(entityManager, new Vector2(0,5), new Vector2(0, -1), 1.0f, 1, 0, mesh,mat);
         ProjectileEntity.Create(entityManager, new Vector2(0,-5), new Vector2(0, 1), 1.0f, mesh, projectileMat);
@@ -30,8 +32,9 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        eventManager.EmptyQueue();
     }
+
     public EntityManager getEntityManager()
     {
         return entityManager;
