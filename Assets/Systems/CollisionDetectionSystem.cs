@@ -83,6 +83,9 @@ public class CollisionDetectionSystem : ComponentSystem
             {
                 EntityManager.SetComponentData<MovementComponent>(circleEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
                 Debug.Log("circle entity collide with boundary");
+                // HOO BOY
+                EventManager.instance.QueueEvent(new CollisionEvent(circleEntity, boundaryEntity));
+                //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
             }
         }
     }
@@ -100,6 +103,9 @@ public class CollisionDetectionSystem : ComponentSystem
             EntityManager.SetComponentData<MovementComponent>(playerEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
             EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
             Debug.Log("player entity collide with projectile");
+            // HOO BOY
+            EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, projectileEntity));
+            //EventManager.instance.TriggerEvent(new CollisionEvent(playerEntity, projectileEntity));
         }
     }
 }

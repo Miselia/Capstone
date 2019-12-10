@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Events
+public interface IGenericEventListener
 {
-    public interface IGenericEventListener
-    {
-        bool HandleEvent(IGenericEvent evt);
-    }
+    bool HandleEvent(IGenericEvent evt);
 }

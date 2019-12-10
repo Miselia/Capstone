@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Events
+public interface IGenericEvent
 {
-    public interface IGenericEvent
-    {
-    }
 }

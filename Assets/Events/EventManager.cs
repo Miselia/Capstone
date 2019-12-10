@@ -1,21 +1,16 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
-using System.Collections;
 using System.Collections.Generic;
-using Events;
 using System;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+
 
 public class EventManager : MonoBehaviour
 {
     private Dictionary<Type, List<WeakReference<IGenericEventListener>>> eventDictionary;
-    private static EventManager eventManager;
+    public static EventManager eventManager;
     public List<IGenericEvent> queue = new List<IGenericEvent>();
-
-    /*public void Update()
-    {
-        EmptyQueue();
-    }*/
-
+    //public static EventManager instance { get; } = new EventManager();
     public static EventManager instance
     {
         get
@@ -48,6 +43,7 @@ public class EventManager : MonoBehaviour
 
     public void RegisterListener<T>(IGenericEventListener listener) where T : IGenericEvent
     {
+        //Debug.Log("Listener Registered");
         StartListening(typeof(T), listener);
     }
 
@@ -55,10 +51,15 @@ public class EventManager : MonoBehaviour
     {
         InitiateListener(type);
 
-        if(ContainsListener(eventDictionary[type], listener))
+        if (eventDictionary != null)
         {
-            throw new Exception("Listener already exists for: " + type.FullName);
+            if (ContainsListener(eventDictionary[type], listener))
+            {
+                throw new Exception("Listener already exists for: " + type.FullName);
+            }
         }
+        eventDictionary[type].Insert(0, new WeakReference<IGenericEventListener>(listener));
+        Debug.Log("Number of Keys" + eventDictionary.Keys.Count);
     }
 
     public void UnregisterListener(IGenericEventListener listener)
@@ -75,13 +76,13 @@ public class EventManager : MonoBehaviour
 
         InitiateListener(type);
 
-        foreach(WeakReference<IGenericEventListener> listen in eventDictionary[type])
+        foreach (WeakReference<IGenericEventListener> listen in eventDictionary[type])
         {
             IGenericEventListener check;
             listen.TryGetTarget(out check);
-            if(check != null)
+            if (check != null)
             {
-                if(check == listener)
+                if (check == listener)
                 {
                     eventDictionary[type].Remove(listen);
                     return true;
@@ -98,7 +99,8 @@ public class EventManager : MonoBehaviour
 
     public void EmptyQueue()
     {
-        while(queue.Count > 0)
+        //Debug.Log("Event queue being emptied");
+        while (queue.Count > 0)
         {
             TriggerEvent(queue[0]);
             queue.RemoveAt(0);
@@ -107,24 +109,32 @@ public class EventManager : MonoBehaviour
 
     public bool TriggerEvent(IGenericEvent evt)
     {
+        Debug.Log("Event Triggered");
         InitiateListener(evt.GetType());
+        //Debug.Log("Event Dictionary Type Count" + eventDictionary[evt.GetType()].Count);
 
         for (int i = eventDictionary[evt.GetType()].Count - 1; i >= 0; i--)
         {
+            Debug.Log("Event Dictionary Type Count" + eventDictionary[evt.GetType()].Count);
             if (i >= eventDictionary[evt.GetType()].Count)
+            {
+                Debug.Log("Calling Continue");
                 continue;
+            }
 
             WeakReference<IGenericEventListener> listen = eventDictionary[evt.GetType()][i];
             IGenericEventListener check;
             listen.TryGetTarget(out check);
-            if(check == null)
+            if (check == null)
             {
+                Debug.Log("Check was null");
                 Type type = evt.GetType();
                 UnregisterListener(check);
                 continue;
             }
             if (check.HandleEvent(evt))
             {
+                Debug.Log("Calling HandleEvent");
                 return true;
             }
         }
@@ -141,11 +151,11 @@ public class EventManager : MonoBehaviour
 
     private bool ContainsListener(List<WeakReference<IGenericEventListener>> LISTeners, IGenericEventListener listener)
     {
-        foreach(WeakReference<IGenericEventListener> listen in LISTeners)
+        foreach (WeakReference<IGenericEventListener> listen in LISTeners)
         {
             IGenericEventListener check;
             listen.TryGetTarget(out check);
-            if(check != null)
+            if (check != null)
             {
                 if (check == listener)
                     return true;
