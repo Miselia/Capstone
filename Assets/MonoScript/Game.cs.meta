@@ -3,11 +3,7 @@ guid: d983f420a3bb6674dac7c0640b0c047d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-  - mat: {fileID: 2100000, guid: fdabef17d33b04648bc749542662712d, type: 2}
-  - projectileMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-  - projectileMat: {fileID: 2100000, guid: 23982ce7a78c52e4e9e9f5aba67710a7, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
