@@ -82,11 +82,9 @@ public class CollisionDetectionSystem : ComponentSystem
 
         if(EntityManager.GetComponentData<BoundaryComponent>(boundaryEntity).Normal.x == 0)
         {
-            collidingPairs[circleEntity].Add(boundaryEntity);
             Vector2 nearestWallPosition = new Vector2(circleVector.x, boundaryVector.y);
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius )
             {
-                //EntityManager.SetComponentData<MovementComponent>(circleEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
                 collidingPairs[circleEntity].Add(boundaryEntity);
                 Debug.Log("circle entity collide with boundary");
                 // HOO BOY
@@ -100,7 +98,6 @@ public class CollisionDetectionSystem : ComponentSystem
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius )
             {
                 collidingPairs[circleEntity].Add(boundaryEntity);
-                //EntityManager.SetComponentData<MovementComponent>(circleEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
                 Debug.Log("circle entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(circleEntity, boundaryEntity));
@@ -119,9 +116,6 @@ public class CollisionDetectionSystem : ComponentSystem
         if( (new Vector2(playerVector.x,playerVector.y) - new Vector2(projectileVector.x,projectileVector.y)).magnitude < (firstRadius + secondRadius) )
         {
             collidingPairs[playerEntity].Add(projectileEntity);
-            // Insert a break point on the line below to ensure that collisions works correctly
-            //EntityManager.SetComponentData<MovementComponent>(playerEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
-            //EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent { movementVector = new Vector2(0, 0) });
             Debug.Log("player entity collide with projectile");
             // HOO BOY
             EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, projectileEntity));
