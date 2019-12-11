@@ -8,21 +8,28 @@ using Unity.Mathematics;
 public class ControlSystem : ComponentSystem
 {
 
-    //Spawner spawner = (Game)FindObjectOfType(typeof(Game)).getSpawner();
     protected override void OnUpdate()
     {
 
-        /*
-        if (Input.GetKeyDown("Q"))
-        {
-            
-            Entities.ForEach((ref CardComp card,ref ) =>
-            {
-                
-            });
-        }
-        */
         
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            spawn(1,1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            spawn(1,2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            spawn(1,3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            spawn(1,4);
+        }
+
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
@@ -69,7 +76,22 @@ public class ControlSystem : ComponentSystem
             });
         }
 
+    }
 
-
+    private void spawn(int player, int slot)
+    {
+        //if (spawnListeners != null)
+        // {
+            int id = 0;
+            Entities.ForEach((ref CardComp card) =>
+            {
+                if (card.cardSlot == slot && card.player == player)
+                {
+                    id = card.cardID;
+                }
+            });
+            //spawnListeners(cardID, player);
+            
+        //}
     }
 }

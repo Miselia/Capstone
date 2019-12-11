@@ -14,12 +14,13 @@ public class Game : MonoBehaviour
     
     // Start is called before the first frame update
     private EntityManager entityManager;
+    private Spawner spawner;
     [SerializeField] public EventManager eventManager;
     void Start()
     {
         eventManager = gameObject.AddComponent<EventManager>();
         entityManager = World.Active.EntityManager;
-        
+        spawner = new Spawner(entityManager, mesh, projectileMat);
         PlayerEntity.Create(entityManager, new Vector2(0,5), new Vector2(0, 0), 1.0f, 1, 0, mesh,mat);
 
         BoundaryEntity.Create(entityManager, new Vector2(0, 7), new Vector2(0, -1), mesh, horiBoundaryMat);
@@ -30,7 +31,7 @@ public class Game : MonoBehaviour
         CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 1, 1, mesh, cardMat);
         CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 2, 1, mesh, cardMat);
         CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 3, 1, mesh, cardMat);
-        getSpawner().spawn(1, 1);
+        spawner.spawn(1, 1);
     }
 
     // Update is called once per frame
@@ -45,7 +46,7 @@ public class Game : MonoBehaviour
     }
     public Spawner getSpawner()
     {
-        Spawner spawner = new Spawner(entityManager, mesh, projectileMat);
         return spawner;
     }
+    
 }
