@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class SpawnEvent : IGenericEvent
 {
-    public Entity entityA;
-    public Entity entityB;
+    public int player;
+    public int cardID;
 
-    public SpawnEvent(Entity entityA, Entity entityB)
+    public SpawnEvent(int player, int cardID)
     {
-        this.entityA = entityA;
-        this.entityB = entityB;
+        this.player = player;
+        this.cardID = cardID;
 
-        //Debug.Log("Collision Event Created");
+        Debug.Log("Spawn Event Created");
     }
 }

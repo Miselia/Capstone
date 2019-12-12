@@ -81,6 +81,7 @@
     <Compile Include="Assets\Events\EventListeners\SpawnListener.cs" />
     <Compile Include="Assets\Events\EventManager.cs" />
     <Compile Include="Assets\Events\GenericEvents\CollisionEvent.cs" />
+    <Compile Include="Assets\Events\GenericEvents\EndCollisionEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\SpawnEvent.cs" />
     <Compile Include="Assets\Events\IGenericEvent.cs" />
     <Compile Include="Assets\Events\IGenericEventListener.cs" />
