@@ -246,6 +246,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1383352480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1383352482}
+  - component: {fileID: 1383352481}
+  m_Layer: 0
+  m_Name: SpawnListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1383352481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383352480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147ec6ff109a32e439b598051854e2c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1383352482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383352480}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439098618
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +338,7 @@ MonoBehaviour:
   vertBoundaryMat: {fileID: 2100000, guid: 6c8c084de9e9803449e7300bc7bca7a6, type: 2}
   horiBoundaryMat: {fileID: 2100000, guid: c5f06d5a79d2f794baa17001dee8829e, type: 2}
   cardMat: {fileID: 2100000, guid: a54ae07e72232f94eb9e2ba9e7448d4f, type: 2}
-  eventManager: {fileID: 480388582}
+  eventManager: {fileID: 0}
 --- !u!1 &1484284698
 GameObject:
   m_ObjectHideFlags: 0
