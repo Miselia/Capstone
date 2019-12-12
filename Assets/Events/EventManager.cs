@@ -95,6 +95,7 @@ public class EventManager : MonoBehaviour
     public void QueueEvent(IGenericEvent evt)
     {
         queue.Add(evt);
+        Debug.Log("Spawn Event Added");
     }
 
     public void EmptyQueue()
@@ -162,5 +163,9 @@ public class EventManager : MonoBehaviour
             }
         }
         return false;
+    }
+    void Update()
+    {
+        eventManager.EmptyQueue();
     }
 }
