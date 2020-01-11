@@ -27,10 +27,10 @@ public class Game : MonoBehaviour, IGenericEventListener
         spawner = gameObject.AddComponent<Spawner>();
         PlayerEntity.Create(entityManager, new Vector2(0,5), new Vector2(0, 0), 0.5f, 1, 0, mesh,mat);
 
-        BoundaryEntity.Create(entityManager, new Vector2(0, 7), new Vector2(0, -1), mesh, horiBoundaryMat);
-        BoundaryEntity.Create(entityManager, new Vector2(0, -7), new Vector2(0, 1), mesh, horiBoundaryMat);
-        BoundaryEntity.Create(entityManager, new Vector2(7, 0), new Vector2(-1, 0), mesh, vertBoundaryMat);
-        BoundaryEntity.Create(entityManager, new Vector2(-7, 0), new Vector2(1, 0), mesh, vertBoundaryMat);
+        BoundaryEntity.Create(entityManager, new Vector2(0, 15), new Vector2(0, -1), mesh, horiBoundaryMat);
+        BoundaryEntity.Create(entityManager, new Vector2(0, -15), new Vector2(0, 1), mesh, horiBoundaryMat);
+        BoundaryEntity.Create(entityManager, new Vector2(15, 0), new Vector2(-1, 0), mesh, vertBoundaryMat);
+        BoundaryEntity.Create(entityManager, new Vector2(-15, 0), new Vector2(1, 0), mesh, vertBoundaryMat);
 
         CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 1, 1, mesh, cardMat);
         CardEntity.Create(entityManager, new Vector2(-10, -9), 2, 2, 1, mesh, cardMat);
