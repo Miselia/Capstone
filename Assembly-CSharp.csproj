@@ -72,9 +72,10 @@
     <Compile Include="Assets\Components\RotationComponent.cs" />
     <Compile Include="Assets\Components\TestingComponent.cs" />
     <Compile Include="Assets\Components\XformComp.cs" />
-    <Compile Include="Assets\Entities\BoundaryEntity.cs" />
     <Compile Include="Assets\Entities\CardEnitity.cs" />
+    <Compile Include="Assets\Entities\PlayerBoundaryEntity.cs" />
     <Compile Include="Assets\Entities\PlayerEntity.cs" />
+    <Compile Include="Assets\Entities\ProjectileBoundaryEntity.cs" />
     <Compile Include="Assets\Entities\ProjectileEntity.cs" />
     <Compile Include="Assets\Entities\TestingEntity.cs" />
     <Compile Include="Assets\Events\EventListeners\CollisionListener.cs" />

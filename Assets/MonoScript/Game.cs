@@ -6,6 +6,7 @@ using System;
 
 public class Game : MonoBehaviour, IGenericEventListener
 {
+    private int boundaryOffest = 10;
     [SerializeField] private Mesh mesh;
     [SerializeField] private Material mat;
     [SerializeField] private Material vertBoundaryMat;
@@ -25,12 +26,17 @@ public class Game : MonoBehaviour, IGenericEventListener
 
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
-        PlayerEntity.Create(entityManager, new Vector2(0,5), new Vector2(0, 0), 0.5f, 1, 0, mesh,mat);
+        PlayerEntity.Create(entityManager, new Vector2(0,0), new Vector2(0, 0), 0.5f, 1, 0, mesh,mat);
 
-        BoundaryEntity.Create(entityManager, new Vector2(0, 15), new Vector2(0, -1), mesh, horiBoundaryMat);
-        BoundaryEntity.Create(entityManager, new Vector2(0, -15), new Vector2(0, 1), mesh, horiBoundaryMat);
-        BoundaryEntity.Create(entityManager, new Vector2(15, 0), new Vector2(-1, 0), mesh, vertBoundaryMat);
-        BoundaryEntity.Create(entityManager, new Vector2(-15, 0), new Vector2(1, 0), mesh, vertBoundaryMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffest+boundaryOffest/2, 0), new Vector2(0, -1), mesh, horiBoundaryMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffest/2, 0), new Vector2(0, 1), mesh, horiBoundaryMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffest, -boundaryOffest/2), new Vector2(-1, 0), mesh, vertBoundaryMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffest, boundaryOffest/2), new Vector2(1, 0), mesh, vertBoundaryMat);
+
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffest-boundaryOffest/2, 0), new Vector2(0, -1), mesh, horiBoundaryMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffest/2, 0), new Vector2(0, 1), mesh, horiBoundaryMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffest, -boundaryOffest/2), new Vector2(-1, 0), mesh, vertBoundaryMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffest, boundaryOffest/2), new Vector2(1, 0), mesh, vertBoundaryMat);
 
         CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 1, 1, mesh, cardMat);
         CardEntity.Create(entityManager, new Vector2(-10, -9), 2, 2, 1, mesh, cardMat);
