@@ -10,8 +10,6 @@ public class ControlSystem : ComponentSystem
     private float movespeed = 5;
     protected override void OnUpdate()
     {
-
-        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             spawn(1,1);

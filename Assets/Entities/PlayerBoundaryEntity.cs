@@ -25,7 +25,7 @@ public static class PlayerBoundaryEntity
         em.SetComponentData(entity, new BoundaryComponent(normal));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
-        em.SetComponentData(entity, new Scale { Value = 14.25f });
+        em.SetComponentData(entity, new Scale { Value = 10.125f });
 
         return entity;
     }
