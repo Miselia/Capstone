@@ -86,6 +86,7 @@
     <Compile Include="Assets\Events\GenericEvents\SpawnEvent.cs" />
     <Compile Include="Assets\Events\IGenericEvent.cs" />
     <Compile Include="Assets\Events\IGenericEventListener.cs" />
+    <Compile Include="Assets\MonoScript\Deck.cs" />
     <Compile Include="Assets\MonoScript\Game.cs" />
     <Compile Include="Assets\MonoScript\MenuScript.cs" />
     <Compile Include="Assets\MonoScript\Spawner.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Assets\Systems\ControlSystem.cs" />
     <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
+    <None Include="Assets\Resources\player1.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

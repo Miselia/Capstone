@@ -18,6 +18,8 @@ public class Game : MonoBehaviour, IGenericEventListener
     // Start is called before the first frame update
     private EntityManager entityManager;
     private Spawner spawner;
+    private Deck playDeck1;
+    private Deck playDeck2;
     [SerializeField] public EventManager eventManager;
     void Start()
     {
@@ -39,10 +41,18 @@ public class Game : MonoBehaviour, IGenericEventListener
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffest, -boundaryOffest/2), new Vector2(0, 1), playerMesh, horiBoundaryMat);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffest, boundaryOffest/2), new Vector2(0, -1), playerMesh, horiBoundaryMat);
 
+        /*
         CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 1, 1, playerMesh, cardMat);
         CardEntity.Create(entityManager, new Vector2(-10, -9), 2, 2, 1, playerMesh, cardMat);
         CardEntity.Create(entityManager, new Vector2(-10, -9), 3, 3, 1, playerMesh, cardMat);
         CardEntity.Create(entityManager, new Vector2(-10, -9), 4, 4, 1, playerMesh, cardMat);
+        */
+        playDeck1 = new Deck("player1.txt");
+        //playDeck2 = new Deck("player2");
+        for(int i = 1; i <= 4; i++)
+        {
+            CardEntity.Create(entityManager, new Vector2(-10, -9), playDeck1.drawCard(), i, 1, playerMesh, cardMat);
+        }
     }
 
     public EntityManager getEntityManager()
@@ -68,4 +78,5 @@ public class Game : MonoBehaviour, IGenericEventListener
         if (collidingPairs[entityB].Contains(entityA))
             collidingPairs[entityB].Remove(entityA);
     }
+    
 }
