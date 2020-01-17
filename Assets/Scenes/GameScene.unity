@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d983f420a3bb6674dac7c0640b0c047d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  mesh2D: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   playerMat: {fileID: 2100000, guid: fdabef17d33b04648bc749542662712d, type: 2}
   vertBoundaryMat: {fileID: 2100000, guid: 6c8c084de9e9803449e7300bc7bca7a6, type: 2}
   horiBoundaryMat: {fileID: 2100000, guid: c5f06d5a79d2f794baa17001dee8829e, type: 2}
