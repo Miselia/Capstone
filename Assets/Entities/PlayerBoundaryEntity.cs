@@ -14,7 +14,7 @@ public static class PlayerBoundaryEntity
 
         em.AddComponent(entity, typeof(XformComponent));
         em.AddComponent(entity, typeof(CollisionComponent));
-        em.AddComponent(entity, typeof(BoundaryComponent));
+        em.AddComponent(entity, typeof(PlayerBoundaryComponent));
         em.AddComponent(entity, typeof(Translation));
         em.AddComponent(entity, typeof(RenderMesh));
         em.AddComponent(entity, typeof(LocalToWorld));
@@ -22,7 +22,7 @@ public static class PlayerBoundaryEntity
 
         em.SetComponentData(entity, new XformComponent(position));
         em.SetComponentData(entity, new CollisionComponent(0f, 1000));
-        em.SetComponentData(entity, new BoundaryComponent(normal));
+        em.SetComponentData(entity, new PlayerBoundaryComponent(normal));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
         em.SetComponentData(entity, new Scale { Value = 10.125f });
