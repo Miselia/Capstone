@@ -51,10 +51,11 @@ public class Game : MonoBehaviour, IGenericEventListener
         CardEntity.Create(entityManager, new Vector2(-10, -9), 2, 2, 1, mesh2D, cardMat);
         CardEntity.Create(entityManager, new Vector2(-10, -9), 3, 3, 1, mesh2D, cardMat);
         CardEntity.Create(entityManager, new Vector2(-10, -9), 4, 4, 1, mesh2D, cardMat);
+
         playDeck1 = new Deck("player1.txt");
         for(int i = 1; i <= 4; i++)
         {
-            CardEntity.Create(entityManager, new Vector2(-10, -9), playDeck1.drawCard(), i, 1, playerMesh, cardMat);
+            CardEntity.Create(entityManager, new Vector2(-10, -9), playDeck1.drawCard(), i, 1, mesh2D, cardMat);
         }
     }
 
