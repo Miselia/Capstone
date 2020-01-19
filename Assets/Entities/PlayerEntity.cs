@@ -5,6 +5,7 @@ using UnityEngine;
 using Unity.Rendering;
 using Unity.Transforms;
 using Unity.Mathematics;
+using Assets.Resources;
 
 public static class PlayerEntity 
 {
@@ -22,7 +23,7 @@ public static class PlayerEntity
         em.AddComponent(entity, typeof(Translation));
         em.AddComponent(entity, typeof(Scale));
 
-        em.SetComponentData(entity, new Scale { Value = radius * 2.35f });
+        em.SetComponentData(entity, new Scale { Value = radius * Constants.PlayerEntityScale });
         em.SetComponentData(entity, new MovementComponent(movementVector));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         em.SetComponentData(entity, new CollisionComponent(radius, radius));

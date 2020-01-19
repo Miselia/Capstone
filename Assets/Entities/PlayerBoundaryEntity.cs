@@ -5,6 +5,7 @@ using Unity.Rendering;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using Assets.Resources;
 
 public static class PlayerBoundaryEntity
 {
@@ -25,7 +26,7 @@ public static class PlayerBoundaryEntity
         em.SetComponentData(entity, new PlayerBoundaryComponent(normal));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
-        em.SetComponentData(entity, new Scale { Value = 10.125f });
+        em.SetComponentData(entity, new Scale { Value = Constants.PlayerBoundaryScale });
 
         return entity;
     }
