@@ -8,6 +8,7 @@
 
         // For example, this is the header for the variables related to the Game space itself \\
         public static readonly int PlayerBoundaryOffset = 10;
+        public static readonly int PlayerBoundarySize = 13;
         public static readonly int PlayerMaximumHealth = 3;
         public static readonly float PlayerRadius = 0.5f;
 
