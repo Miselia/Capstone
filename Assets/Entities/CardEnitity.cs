@@ -21,7 +21,7 @@ public static class CardEntity
         em.AddComponent(entity, typeof(Translation));
         em.AddComponent(entity, typeof(Scale));
 
-        em.SetComponentData(entity, new Scale { Value = 1 * Constants.CardEntityScale });
+        em.SetComponentData(entity, new Scale { Value = 2.35f });
         if(playerID == 1)
         {
             em.SetComponentData(entity, new Translation { Value = new float3(position.x + (cardSlot * 2), position.y, 0) });

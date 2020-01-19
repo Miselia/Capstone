@@ -22,7 +22,7 @@ public static class ProjectileEntity
         em.AddComponent(entity, typeof(Rotation));
         em.AddComponent(entity, typeof(Scale));
 
-        em.SetComponentData(entity, new Scale { Value = radius * Constants.ProjectileEntityScale });
+        em.SetComponentData(entity, new Scale { Value = radius * 2.35f});
         em.SetComponentData(entity, new MovementComponent(movementVector));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         em.SetComponentData(entity, new CollisionComponent(radius, radius));
