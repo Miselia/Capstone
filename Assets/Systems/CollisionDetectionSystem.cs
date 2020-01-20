@@ -6,11 +6,17 @@ using UnityEngine;
 
 public class CollisionDetectionSystem : ComponentSystem
 {
+    Game game;
+    protected override void OnStartRunning()
+    {
+        game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
+        base.OnStartRunning();
+    }
+
     protected override void OnUpdate()
     {
         Dictionary<Entity, List<Entity>> checkedPairs = new Dictionary<Entity, List<Entity>>();
         bool skipFlag = false;
-        Game game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
 
         Entities.ForEach((Entity firstEntity, ref Translation xform, ref CollisionComponent collComp) =>
         {
