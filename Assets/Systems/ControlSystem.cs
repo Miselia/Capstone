@@ -10,6 +10,7 @@ public class ControlSystem : ComponentSystem
     private float movespeed = 5;
     protected override void OnUpdate()
     {
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             spawn(1,1);
@@ -172,14 +173,23 @@ public class ControlSystem : ComponentSystem
     {
         
         int id = 0;
-        Entities.ForEach((ref CardComp card) =>
+        int currentMana = 0;
+        Entity p = new Entity();
+
+        Entities.ForEach((Entity e, ref PlayerComponent pID) =>
+        {
+            if (pID.playerID == player) p = e;
+        });
+
+        Entities.ForEach((Entity e, ref CardComp card) =>
         {
             if (card.cardSlot == slot && card.player == player)
             {
                 id = card.cardID;
+                EventManager.instance.QueueEvent(new SpawnEvent(e, p));
             }
         });
-        Debug.Log("id of Card: " + id);
-        EventManager.instance.QueueEvent(new SpawnEvent(player, id));
+        
+            
     }
 }

@@ -21,10 +21,19 @@ public class UIManager : MonoBehaviour, IGenericEventListener
         if (evt is UIUpdateEvent)
         {
             UIUpdateEvent ue = (UIUpdateEvent) evt;
-            player1Health.text = ("Health: " + ue.p1Health.ToString());
-            player2Health.text = ("Health: " + ue.p2Health.ToString());
-            player1Mana.text = ("Mana: " + ue.p1Mana.ToString());
-            player2Mana.text = ("Mana: " + ue.p2Mana.ToString());
+            Debug.Log("UI Update Event is handled");
+            if (ue.pID == 1)
+            {
+                player1Health.text = ("Health: " + ue.pHealth.ToString());
+                player1Mana.text = ("Mana: " + ue.pMana.ToString());
+                Debug.Log("UI Updated Player 1");
+            }
+            if (ue.pID == 2)
+            {
+                player2Health.text = ("Health: " + ue.pHealth.ToString());
+                player2Mana.text = ("Mana: " + ue.pMana.ToString());
+                Debug.Log("UI Updated Player 2");
+            }
 
             return true;
         }

@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class SpawnEvent : IGenericEvent
 {
-    public int player;
-    public int cardID;
+    public Entity card;
+    public Entity player;
 
-    public SpawnEvent(int player, int cardID)
+    public SpawnEvent(Entity card, Entity player)
     {
+        this.card = card;
         this.player = player;
-        this.cardID = cardID;
 
         Debug.Log("Spawn Event Created");
     }

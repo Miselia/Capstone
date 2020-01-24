@@ -24,34 +24,72 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         if (evt is SpawnEvent)
         {
             SpawnEvent se = (SpawnEvent) evt;
-            spawn(se.cardID, se.player);
+            int cardID = game.getEntityManager().GetComponentData<CardComp>(se.card).cardID;
+            int playerID = game.getEntityManager().GetComponentData<CardComp>(se.card).player;
+            int currentMana = game.getEntityManager().GetComponentData<PlayerComponent>(se.player).mana;
+            Entity player = se.player;
+            Entity card = se.card;
+            spawn(cardID, playerID, currentMana, card, player);
+            Debug.Log("Something is Spawned");
             return true;
         }
         return false;
     }
 
-    public void spawn(int cardID, int playerID)
+    public void spawn(int cardID, int playerID, int currentMana, Entity card, Entity player)
     {
+        int manaCost;
         switch (cardID)
         {
             case 1:
-                createBullet("normal", new Vector2(-5, -5), new Vector2(0, 3), 1.0f);
-                createBullet("normal", new Vector2(0, -5), new Vector2(0, 3), 0.5f);
-                createBullet("normal", new Vector2(5, -5), new Vector2(0, 3), 0.25f);
+                manaCost = 2;
+                if (checkMana(manaCost, currentMana))
+                {
+                    createBullet("normal", new Vector2(-5, -5), new Vector2(0, 3), 1.0f);
+                    createBullet("normal", new Vector2(0, -5), new Vector2(0, 3), 0.5f);
+                    createBullet("normal", new Vector2(5, -5), new Vector2(0, 3), 0.25f);
+                    
+
+                    adjustPlayerValues(player, -manaCost, 0);
+                    game.getEntityManager().AddComponent(card, typeof(DeleteComp));
+                    
+                }
                 break;
             case 2:
-                createBullet("normal", new Vector2(-5, 0), new Vector2(3, 0), 0.2f);
-                createBullet("normal", new Vector2(5, 0), new Vector2(-3, 0), 0.2f);
-                createBullet("normal", new Vector2(0, -5), new Vector2(0, 0.5f), 1.5f);
+                manaCost = 2;
+                if (checkMana(manaCost, currentMana))
+                {
+                    createBullet("normal", new Vector2(-5, 0), new Vector2(3, 0), 0.2f);
+                    createBullet("normal", new Vector2(5, 0), new Vector2(-3, 0), 0.2f);
+                    createBullet("normal", new Vector2(0, -5), new Vector2(0, 0.5f), 1.5f);
+                   
+
+                    adjustPlayerValues(player, -manaCost, 0);
+                    game.getEntityManager().AddComponent(card, typeof(DeleteComp));
+                }
                 break;
             case 3:
-                createBullet("normal", new Vector2(0, 4), new Vector2(0, -1), 2.0f);
+                manaCost = 2;
+                if (checkMana(manaCost, currentMana))
+                {
+                    createBullet("normal", new Vector2(0, 4), new Vector2(0, -1), 2.0f);
+
+                    adjustPlayerValues(player, -manaCost, 0);
+                    game.getEntityManager().AddComponent(card, typeof(DeleteComp));
+                }
                 break;
             case 4:
-                createBullet("normal", new Vector2(5, 5), new Vector2(-2, -2), 2.0f);
-                createBullet("normal", new Vector2(-5, 5), new Vector2(2, -2), 2.0f);
-                createBullet("normal", new Vector2(5, -5), new Vector2(-2, 2), 2.0f);
-                createBullet("normal", new Vector2(-5, -5), new Vector2(2, 2), 2.0f);
+                manaCost = 2;
+                if (checkMana(manaCost, currentMana))
+                {
+                    createBullet("normal", new Vector2(5, 5), new Vector2(-2, -2), 2.0f);
+                    createBullet("normal", new Vector2(-5, 5), new Vector2(2, -2), 2.0f);
+                    createBullet("normal", new Vector2(5, -5), new Vector2(-2, 2), 2.0f);
+                    createBullet("normal", new Vector2(-5, -5), new Vector2(2, 2), 2.0f);
+
+                    adjustPlayerValues(player, -manaCost, 0);
+                    game.getEntityManager().AddComponent(card, typeof(DeleteComp));
+                }
                 break;
         }
     }
@@ -64,4 +102,24 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 break;
         }
     }
+    private bool checkMana(int manaCost, int mana)
+    {
+        if ((mana - manaCost) < 0)
+        {
+            return false;
+        }
+        return true;
+    }
+    private void adjustPlayerValues(Entity player, int manaDelta, int healthDelta)
+    {
+        int currentHealth = game.getEntityManager().GetComponentData<PlayerComponent>(player).healthRemaining;
+        int currentMana = game.getEntityManager().GetComponentData<PlayerComponent>(player).mana;
+        int newHealth = currentHealth + healthDelta;
+        int newMana = currentMana + manaDelta;
+        int playerID = game.getEntityManager().GetComponentData<PlayerComponent>(player).playerID;
+        game.getEntityManager().SetComponentData<PlayerComponent>(player, new PlayerComponent(playerID, newHealth, newMana));
+
+        EventManager.instance.QueueEvent(new UIUpdateEvent(newHealth, newMana, playerID));
+    }
+    
 }

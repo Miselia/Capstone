@@ -3,18 +3,16 @@ using UnityEngine;
 
 public class UIUpdateEvent : IGenericEvent
 {
-    public int p1Health;
-    public int p2Health;
-    public int p1Mana;
-    public int p2Mana;
+    public int pHealth;
+    public int pMana;
+    public int pID;
 
-    public UIUpdateEvent(int p1Health, int p2Health, int p1Mana, int p2Mana)
+    public UIUpdateEvent(int pHealth, int pMana, int pID)
     {
-        this.p1Health = p1Health;
-        this.p2Health = p2Health;
-        this.p1Mana = p1Mana;
-        this.p2Mana = p2Mana;
+        this.pHealth = pHealth;
+        this.pMana = pMana;
+        this.pID = pID;
 
-        Debug.Log("UI Updated");
+        
     }
 }

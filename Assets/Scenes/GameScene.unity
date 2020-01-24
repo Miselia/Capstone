@@ -490,10 +490,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d983f420a3bb6674dac7c0640b0c047d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMesh: {fileID: 0}
-  playerMat: {fileID: 0}
-  vertBoundaryMat: {fileID: 2100000, guid: 6c8c084de9e9803449e7300bc7bca7a6, type: 2}
-  horiBoundaryMat: {fileID: 2100000, guid: c5f06d5a79d2f794baa17001dee8829e, type: 2}
+  mesh2D: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  playerMat: {fileID: 2100000, guid: fdabef17d33b04648bc749542662712d, type: 2}
+  vertPlayerBoundMat: {fileID: 2100000, guid: a2d213014f005744889248d333a99c00, type: 2}
+  horiPlayerBoundMat: {fileID: 2100000, guid: 04cb530448ed33b4f8303c7884fd9ec2, type: 2}
+  vertProjectileBoundMat: {fileID: 2100000, guid: 6c8c084de9e9803449e7300bc7bca7a6,
+    type: 2}
+  horiProjectileBoundMat: {fileID: 2100000, guid: c5f06d5a79d2f794baa17001dee8829e,
+    type: 2}
   cardMat: {fileID: 2100000, guid: a54ae07e72232f94eb9e2ba9e7448d4f, type: 2}
   eventManager: {fileID: 480388582}
 --- !u!1 &1484284698
@@ -891,7 +895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalMat: {fileID: 2100000, guid: 23982ce7a78c52e4e9e9f5aba67710a7, type: 2}
-  mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 3}
+  mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1935310851
 Transform:
   m_ObjectHideFlags: 0
