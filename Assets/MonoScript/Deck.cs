@@ -10,6 +10,7 @@ public class Deck
      * card data into/from the deck file to add illegal deck lists
      * TODO: Make card spawning code make a "deck and hand empty event" that notifies the deck so
      * that it can be shuffled in the deck class
+     * TODO: Make a "GetStartingHand" function that returns the top X values from deck[]
      */
 
     // Start is called before the first frame update
@@ -22,10 +23,15 @@ public class Deck
     {
         deck = new List<int>();
         this.filepath = "Assets/Resources/"+f;
-        Debug.Log(filepath);
         buildDeck(filepath);
 
         Shuffle(deck);
+        string output = "";
+        for(int i=0; i < deck.Count; i++)
+        {
+            output += deck[i] + " ,";
+        }
+        Debug.Log(filepath + output);
     }
 
     private void buildDeck(string file)
@@ -39,9 +45,9 @@ public class Deck
             {
                 string nextLine = reader.ReadLine();
                 nextLine.Replace("\n", "");
-                Debug.Log(nextLine);
+                //Debug.Log(nextLine);
                 int tempInt = int.Parse(nextLine);
-                Debug.Log(tempInt);
+                //Debug.Log(tempInt);
                 deck.Add(tempInt);
             }
         }
@@ -56,7 +62,7 @@ public class Deck
             int val = Random.Range(0, i);
             int temp = deck[0];
             deck[0] = deck[val];
-            deck[val] = val;
+            deck[val] = temp;
         }
     }
 
