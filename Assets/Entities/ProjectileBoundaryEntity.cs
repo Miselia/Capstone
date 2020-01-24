@@ -10,7 +10,7 @@ namespace Assets.Entities
     public class ProjectileBoundaryEntity
     {
         public static Entity Create(EntityManager em, Vector2 position, Vector2 normal,
-                                    Mesh mesh, Material mat)
+                                    Mesh mesh, Material mat, float scale, Color tint)
         {
             Entity entity = em.CreateEntity();
 
@@ -27,7 +27,8 @@ namespace Assets.Entities
             em.SetComponentData(entity, new BoundaryComponent(normal));
             em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
             em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
-            em.SetComponentData(entity, new Scale { Value = 30.5f });
+            em.SetComponentData(entity, new Scale { Value = scale });
+            mat.color = tint;
 
             return entity;
         }
