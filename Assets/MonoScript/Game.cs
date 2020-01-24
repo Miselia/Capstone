@@ -56,10 +56,7 @@ public class Game : MonoBehaviour, IGenericEventListener
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
 
         playDeck1 = new Deck("player1.txt");
-        for(int i = 1; i <= 4; i++)
-        {
-            CardEntity.Create(entityManager, new Vector2(-20, -11), playDeck1.drawCard(), i, 1, mesh2D, cardMat);
-        }
+        playDeck2 = new Deck("player2.txt");
     }
 
     public EntityManager getEntityManager()

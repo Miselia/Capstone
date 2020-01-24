@@ -97,6 +97,7 @@
     <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <None Include="Assets\Resources\player1.txt" />
+    <None Include="Assets\Resources\player2.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
