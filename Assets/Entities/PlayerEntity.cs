@@ -5,6 +5,7 @@ using UnityEngine;
 using Unity.Rendering;
 using Unity.Transforms;
 using Unity.Mathematics;
+using Assets.Resources;
 
 public static class PlayerEntity 
 {

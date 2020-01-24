@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using Assets.Resources;
 
 public class Spawner : MonoBehaviour, IGenericEventListener
 {
+    public int boundaryOffset = Constants.PlayerBoundaryOffset;
     [SerializeField] private Material normalMat;
     [SerializeField] private Mesh mesh;
     private EntityManager em;
