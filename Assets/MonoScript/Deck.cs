@@ -1,26 +1,31 @@
-﻿using System.Collections;
+﻿using Assets.Resources;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 public class Deck 
 {
+    /** TODO: Add code that checks the deck file for validity so that players can't inject/remove
+     * card data into/from the deck file to add illegal deck lists
+     * TODO: Make card spawning code make a "deck and hand empty event" that notifies the deck so
+     * that it can be shuffled in the deck class
+     */
+
     // Start is called before the first frame update
-    public Random rand;
+    private int maxDeckSize = Constants.MaxDeckSize;
     string filepath;
-    Stack<int> cards;
+    List<int> deck;
+    int topOfDeck = 0;
 
     public Deck(string f)
     {
-        cards = new Stack<int>();
+        deck = new List<int>();
         this.filepath = "Assets/Resources/"+f;
-        rand = new Random();
         Debug.Log(filepath);
         buildDeck(filepath);
 
-        // Cite this source: https://stackoverflow.com/questions/273313/randomize-a-listt by user "Shital Shah"
-        int[] deck = cards.ToArray();
-        //ShuffleAndStack(deck);
+        Shuffle(deck);
     }
 
     private void buildDeck(string file)
@@ -29,7 +34,6 @@ public class Deck
         bool flag = true;
         while(flag)
         {
-            
             if ( reader.Peek() == -1) flag = false;
             else
             {
@@ -38,24 +42,31 @@ public class Deck
                 Debug.Log(nextLine);
                 int tempInt = int.Parse(nextLine);
                 Debug.Log(tempInt);
-                cards.Push(tempInt);
+                deck.Add(tempInt);
             }
         }
     }
 
-    private void ShuffleAndStack(int[] deck)
+    // Cite this source: https://stackoverflow.com/questions/273313/randomize-a-listt by user "Shital Shah"
+    private void Shuffle(List<int> deck)
     {
-        for(int i = deck.Length; i > 0; i--)
+        for(int i = deck.Count; i > 0; i--)
         {
-            int temp = deck[i];
             // finish code from link
-            deck[i] = 0;
+            int val = Random.Range(0, i);
+            int temp = deck[0];
+            deck[0] = deck[val];
+            deck[val] = val;
         }
     }
 
     public int drawCard()
     {
-        if (cards.Count != 0) return cards.Pop();
+        if (maxDeckSize != topOfDeck)
+        {
+            topOfDeck += 1;
+            return deck[topOfDeck-1];
+        }
         else return 0;
     }
 
