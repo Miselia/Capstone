@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Components\CardComp.cs" />
     <Compile Include="Assets\Components\CollisionComponent.cs" />
+    <Compile Include="Assets\Components\DeleteComp.cs" />
     <Compile Include="Assets\Components\MovementComponent.cs" />
     <Compile Include="Assets\Components\PlayerBoundaryComponent.cs" />
     <Compile Include="Assets\Components\PlayerComponent.cs" />
@@ -85,15 +86,19 @@
     <Compile Include="Assets\Events\GenericEvents\CollisionEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\EndCollisionEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\SpawnEvent.cs" />
+    <Compile Include="Assets\Events\GenericEvents\UIUpdateEvent.cs" />
     <Compile Include="Assets\Events\IGenericEvent.cs" />
     <Compile Include="Assets\Events\IGenericEventListener.cs" />
     <Compile Include="Assets\MonoScript\Deck.cs" />
     <Compile Include="Assets\MonoScript\Game.cs" />
     <Compile Include="Assets\MonoScript\MenuScript.cs" />
     <Compile Include="Assets\MonoScript\Spawner.cs" />
+    <Compile Include="Assets\MonoScript\UIManager.cs" />
+    <Compile Include="Assets\Outl.cs" />
     <Compile Include="Assets\Resources\Constants.cs" />
     <Compile Include="Assets\Systems\CollisionDetectionSystem.cs" />
     <Compile Include="Assets\Systems\ControlSystem.cs" />
+    <Compile Include="Assets\Systems\Deletion System.cs" />
     <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <None Include="Assets\Resources\player1.txt" />

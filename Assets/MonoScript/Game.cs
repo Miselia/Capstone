@@ -59,10 +59,10 @@ public class Game : MonoBehaviour, IGenericEventListener
 
         playDeck1 = new Deck("player1.txt");
         playDeck2 = new Deck("player2.txt");
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 1, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 2, 2, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 3, 3, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 4, 4, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-20, -11), 1, 1, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-20, -11), 2, 2, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-20, -11), 3, 3, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-20, -11), 4, 4, 1, mesh2D, cardMat);
     }
 
     public EntityManager getEntityManager()
