@@ -101,10 +101,9 @@ public class CollisionDetectionSystem : ComponentSystem
             if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
             {
                 game.collidingPairs[projectileEntity].Add(boundaryEntity);
-                Debug.Log("Projectile entity collide with boundary");
+                //Debug.Log("Projectile entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity));
-                World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
             }
         }
         if (EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.y == 0)
@@ -113,10 +112,9 @@ public class CollisionDetectionSystem : ComponentSystem
             if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
             {
                 game.collidingPairs[projectileEntity].Add(boundaryEntity);
-                Debug.Log("Projectile entity collide with boundary");
+                //Debug.Log("Projectile entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity));
-                World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
             }
         }
     }
@@ -133,7 +131,7 @@ public class CollisionDetectionSystem : ComponentSystem
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius )
             {
                 game.collidingPairs[playerEntity].Add(boundaryEntity);
-                Debug.Log("Player entity collide with boundary");
+                //Debug.Log("Player entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity));
                 //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
@@ -145,7 +143,7 @@ public class CollisionDetectionSystem : ComponentSystem
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius )
             {
                 game.collidingPairs[playerEntity].Add(boundaryEntity);
-                Debug.Log("Player entity collide with boundary");
+                //Debug.Log("Player entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity));
                 //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
@@ -163,10 +161,9 @@ public class CollisionDetectionSystem : ComponentSystem
         if( (new Vector2(playerVector.x,playerVector.y) - new Vector2(projectileVector.x,projectileVector.y)).magnitude < (firstRadius + secondRadius) )
         {
             game.collidingPairs[playerEntity].Add(projectileEntity);
-            Debug.Log("player entity collide with projectile");
+            //Debug.Log("player entity collide with projectile");
             // HOO BOY
             EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, projectileEntity));
-            World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         }
     }
 }

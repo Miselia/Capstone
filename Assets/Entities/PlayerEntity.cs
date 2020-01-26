@@ -15,8 +15,8 @@ public static class PlayerEntity
         Entity entity = em.CreateEntity();
 
         
-        em.AddComponent( entity, typeof(MovementComponent) );
-        em.AddComponent( entity, typeof(PlayerComponent) );
+        em.AddComponent(entity, typeof(MovementComponent) );
+        em.AddComponent(entity, typeof(PlayerComponent) );
         em.AddComponent(entity, typeof(CollisionComponent));
         em.AddComponent(entity, typeof(RenderMesh));
         em.AddComponent(entity, typeof(LocalToWorld));
