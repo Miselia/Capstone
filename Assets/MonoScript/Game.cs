@@ -58,10 +58,12 @@ public class Game : MonoBehaviour, IGenericEventListener
         CardEntity.Create(entityManager, new Vector2(-10, -9), 4, 4, 1, mesh2D, cardMat);
     }
 
+    /*
     public EntityManager getEntityManager()
     {
         return entityManager;
     }
+    */
 
     public bool HandleEvent(IGenericEvent evt)
     {

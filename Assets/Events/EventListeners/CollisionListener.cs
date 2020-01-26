@@ -52,7 +52,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             projectileVector.y = nearestWallPosition.y + circleRadius;
             World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
             Debug.Log("Projectile position readjusted");
-            //EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
+            EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
         }
         if (World.Active.EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.y == 0)
         {

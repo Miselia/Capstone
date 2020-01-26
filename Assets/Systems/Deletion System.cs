@@ -15,7 +15,7 @@ public class DeletionSystem : ComponentSystem
         
         Entities.ForEach((Entity e,ref DeleteComp d) =>
         {
-            game.getEntityManager().DestroyEntity(e);
+            World.Active.EntityManager.DestroyEntity(e);
         });
     }
 }
