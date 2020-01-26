@@ -7,6 +7,7 @@ using UnityEngine;
 public class CollisionDetectionSystem : ComponentSystem
 {
     Game game;
+
     protected override void OnStartRunning()
     {
         game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
@@ -103,7 +104,7 @@ public class CollisionDetectionSystem : ComponentSystem
                 Debug.Log("Projectile entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity));
-                //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
+                World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
             }
         }
         if (EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.y == 0)
@@ -115,7 +116,7 @@ public class CollisionDetectionSystem : ComponentSystem
                 Debug.Log("Projectile entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity));
-                //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
+                World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
             }
         }
     }
@@ -165,7 +166,7 @@ public class CollisionDetectionSystem : ComponentSystem
             Debug.Log("player entity collide with projectile");
             // HOO BOY
             EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, projectileEntity));
-            //EventManager.instance.TriggerEvent(new CollisionEvent(playerEntity, projectileEntity));
+            World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         }
     }
 }
