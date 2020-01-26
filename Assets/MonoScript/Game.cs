@@ -63,6 +63,11 @@ public class Game : MonoBehaviour, IGenericEventListener
         CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 2, 2, 2, mesh2D, cardMat);
         CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 3, 3, 2, mesh2D, cardMat);
         CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 4, 4, 2, mesh2D, cardMat);
+
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2 * boundaryOffset, 0), new Vector2(1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(2 * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
     }
 
     /*
