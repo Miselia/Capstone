@@ -37,29 +37,33 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     public void spawn(int cardID, int playerID, int currentMana, Entity card, Entity player)
     {
         int manaCost;
+        int positionX;
+        if (playerID == 1) positionX = Constants.PlayerBoundaryOffset;
+        else positionX = Constants.PlayerBoundaryOffset;
         switch (cardID)
+        
         {
             case 1:
                 manaCost = 2;
                 if (checkMana(manaCost, currentMana))
                 {
-                    createBullet("normal", new Vector2(-5, -5), new Vector2(0, 3), 1.0f);
-                    createBullet("normal", new Vector2(0, -5), new Vector2(0, 3), 0.5f);
-                    createBullet("normal", new Vector2(5, -5), new Vector2(0, 3), 0.25f);
+                    createBullet("normal", new Vector2(positionX-5, -5), new Vector2(0, 3), 1.0f);
+                    createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.5f);
+                    createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.25f);
                     
 
                     adjustPlayerValues(player, -manaCost, 0);
+
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
-                    
                 }
                 break;
             case 2:
                 manaCost = 2;
                 if (checkMana(manaCost, currentMana))
                 {
-                    createBullet("normal", new Vector2(-5, 0), new Vector2(3, 0), 0.2f);
-                    createBullet("normal", new Vector2(5, 0), new Vector2(-3, 0), 0.2f);
-                    createBullet("normal", new Vector2(0, -5), new Vector2(0, 0.5f), 1.5f);
+                    createBullet("normal", new Vector2(positionX, 0), new Vector2(3, 0), 0.2f);
+                    createBullet("normal", new Vector2(positionX, 0), new Vector2(-3, 0), 0.2f);
+                    createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 0.5f), 1.5f);
                    
 
                     adjustPlayerValues(player, -manaCost, 0);
@@ -70,7 +74,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 manaCost = 2;
                 if (checkMana(manaCost, currentMana))
                 {
-                    createBullet("normal", new Vector2(0, 4), new Vector2(0, -1), 2.0f);
+                    createBullet("normal", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f);
 
                     adjustPlayerValues(player, -manaCost, 0);
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
@@ -80,10 +84,10 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 manaCost = 2;
                 if (checkMana(manaCost, currentMana))
                 {
-                    createBullet("normal", new Vector2(5, 5), new Vector2(-2, -2), 2.0f);
-                    createBullet("normal", new Vector2(-5, 5), new Vector2(2, -2), 2.0f);
-                    createBullet("normal", new Vector2(5, -5), new Vector2(-2, 2), 2.0f);
-                    createBullet("normal", new Vector2(-5, -5), new Vector2(2, 2), 2.0f);
+                    createBullet("normal", new Vector2(positionX, 5), new Vector2(-2, -2), 2.0f);
+                    createBullet("normal", new Vector2(positionX, 5), new Vector2(2, -2), 2.0f);
+                    createBullet("normal", new Vector2(positionX, -5), new Vector2(-2, 2), 2.0f);
+                    createBullet("normal", new Vector2(positionX, -5), new Vector2(2, 2), 2.0f);
 
                     adjustPlayerValues(player, -manaCost, 0);
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
