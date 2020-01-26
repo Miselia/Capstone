@@ -41,6 +41,8 @@ public class Game : MonoBehaviour, IGenericEventListener
 
         PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, mesh2D, playerMat);
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, mesh2D, playerMat);
+        EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 1));
+        EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 2));
 
         PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset+boundarySize/2, 0), new Vector2(-1, 0), mesh2D, vertPlayerBoundMat);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset-boundarySize/2, 0), new Vector2(1, 0), mesh2D, vertPlayerBoundMat);
@@ -52,10 +54,15 @@ public class Game : MonoBehaviour, IGenericEventListener
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, -boundarySize/2), new Vector2(0, 1), mesh2D, horiPlayerBoundMat);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, boundarySize/2), new Vector2(0, -1), mesh2D, horiPlayerBoundMat);
 
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 1, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 2, 2, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 3, 3, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 4, 4, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 1, 1, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 2, 2, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 3, 3, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 4, 4, 1, mesh2D, cardMat);
+
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 1, 1, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 2, 2, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 3, 3, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 4, 4, 2, mesh2D, cardMat);
     }
 
     /*

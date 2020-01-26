@@ -10,7 +10,7 @@ public class ControlSystem : ComponentSystem
     private float movespeed = 5;
     protected override void OnUpdate()
     {
-        
+        //Player 1
         if (Input.GetKeyDown(KeyCode.Q))
         {
             spawn(1,1);
@@ -166,6 +166,25 @@ public class ControlSystem : ComponentSystem
                     if (player.playerID == 1) move.movementVector.x = 0;
                 });
             }
+        }
+
+        //Player 2
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            spawn(2, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            spawn(2, 2);
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            spawn(2, 3);
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            spawn(2, 4);
         }
     }
 

@@ -39,7 +39,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         int manaCost;
         int positionX;
         if (playerID == 1) positionX = Constants.PlayerBoundaryOffset;
-        else positionX = Constants.PlayerBoundaryOffset;
+        else positionX = -Constants.PlayerBoundaryOffset;
         switch (cardID)
         
         {
