@@ -9,15 +9,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     public int boundaryOffset = Constants.PlayerBoundaryOffset;
     [SerializeField] private Material normalMat;
     [SerializeField] private Mesh mesh;
-    private EntityManager em;
-    private Game game;
 
     // Start is called before the first frame update
     void Start()
     {
         EventManager.instance.RegisterListener<SpawnEvent>(this);
-        game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
-        //em = 
         
     }
 
@@ -26,9 +22,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         if (evt is SpawnEvent)
         {
             SpawnEvent se = (SpawnEvent) evt;
-            int cardID = game.getEntityManager().GetComponentData<CardComp>(se.card).cardID;
-            int playerID = game.getEntityManager().GetComponentData<CardComp>(se.card).player;
-            int currentMana = game.getEntityManager().GetComponentData<PlayerComponent>(se.player).mana;
+            int cardID = World.Active.EntityManager.GetComponentData<CardComp>(se.card).cardID;
+            int playerID = World.Active.EntityManager.GetComponentData<CardComp>(se.card).player;
+            int currentMana = World.Active.EntityManager.GetComponentData<PlayerComponent>(se.player).mana;
             Entity player = se.player;
             Entity card = se.card;
             spawn(cardID, playerID, currentMana, card, player);
@@ -57,7 +53,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     
 
                     adjustPlayerValues(player, -manaCost, 0);
-                    game.getEntityManager().AddComponent(card, typeof(DeleteComp));
+
+                    World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
             case 2:
@@ -70,7 +67,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                    
 
                     adjustPlayerValues(player, -manaCost, 0);
-                    game.getEntityManager().AddComponent(card, typeof(DeleteComp));
+                    World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
             case 3:
@@ -80,7 +77,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("normal", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f);
 
                     adjustPlayerValues(player, -manaCost, 0);
-                    game.getEntityManager().AddComponent(card, typeof(DeleteComp));
+                    World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
             case 4:
@@ -93,7 +90,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("normal", new Vector2(positionX, -5), new Vector2(2, 2), 2.0f);
 
                     adjustPlayerValues(player, -manaCost, 0);
-                    game.getEntityManager().AddComponent(card, typeof(DeleteComp));
+                    World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
         }
@@ -103,7 +100,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         switch (type)
         {
             case "normal":
-                ProjectileEntity.Create(game.getEntityManager(), position, movementvector, radius, mesh, normalMat);
+                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, normalMat);
                 break;
         }
     }
@@ -117,12 +114,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     }
     private void adjustPlayerValues(Entity player, int manaDelta, int healthDelta)
     {
-        int currentHealth = game.getEntityManager().GetComponentData<PlayerComponent>(player).healthRemaining;
-        int currentMana = game.getEntityManager().GetComponentData<PlayerComponent>(player).mana;
+        int currentHealth = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).healthRemaining;
+        int currentMana = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana;
         int newHealth = currentHealth + healthDelta;
         int newMana = currentMana + manaDelta;
-        int playerID = game.getEntityManager().GetComponentData<PlayerComponent>(player).playerID;
-        game.getEntityManager().SetComponentData<PlayerComponent>(player, new PlayerComponent(playerID, newHealth, newMana));
+        int playerID = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).playerID;
+        World.Active.EntityManager.SetComponentData<PlayerComponent>(player, new PlayerComponent(playerID, newHealth, newMana));
 
         EventManager.instance.QueueEvent(new UIUpdateEvent(newHealth, newMana, playerID));
     }
