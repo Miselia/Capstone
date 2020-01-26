@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Resources;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
@@ -19,7 +20,9 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             if(World.Active.EntityManager.HasComponent<PlayerComponent>(ce.entityA) &&
                 World.Active.EntityManager.HasComponent<ProjectileComponent>(ce.entityB))
             {
+                //Debug.Log("Player x Projectile Collision before in CollisionListener");
                 PlayerProjectileCollisionHelper(ce.entityA, ce.entityB);
+                //Debug.Log("Player x Projectile Collision after in CollisionListener");
                 return true;
             }
             // Player x Boundary Collision
@@ -53,6 +56,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
             Debug.Log("Projectile position readjusted");
             EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
+            World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         }
         if (World.Active.EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.y == 0)
         {
@@ -61,6 +65,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
             Debug.Log("Projectile position readjusted");
             EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
+            World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         }
         return true;
     }
@@ -97,9 +102,13 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
         return true;
     }
 
-    private bool PlayerProjectileCollisionHelper(Entity player, Entity projectile)
+    private bool PlayerProjectileCollisionHelper(Entity playerEntity, Entity projectileEntity)
     {
-        World.Active.EntityManager.SetComponentData<MovementComponent>(projectile, new MovementComponent(new Vector2(0,0))); 
+        int[] values = World.Active.EntityManager.GetComponentData<PlayerComponent>(playerEntity).LoseHealth(Constants.DefaultProjectileDamage);
+        Debug.Log("Player Health after collision w/ projectile: " + values[0]);
+        EventManager.instance.QueueEvent(new EndCollisionEvent(playerEntity, projectileEntity));
+        EventManager.instance.QueueEvent(new UIUpdateEvent(values[0], values[1], values[2]));
+        World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         return true;
     }
 

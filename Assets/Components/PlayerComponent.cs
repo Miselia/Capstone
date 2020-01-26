@@ -19,4 +19,10 @@ public struct PlayerComponent : IComponentData
         this.maxMana = maxMana;
         this.mana = maxMana;
     }
+
+    public int[] LoseHealth(int damage)
+    {
+        healthRemaining -= damage;
+        return new int[] { healthRemaining, mana, playerID };
+    }
 }
