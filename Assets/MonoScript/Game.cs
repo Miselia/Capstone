@@ -52,10 +52,17 @@ public class Game : MonoBehaviour, IGenericEventListener
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, -boundarySize/2), new Vector2(0, 1), mesh2D, horiPlayerBoundMat);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, boundarySize/2), new Vector2(0, -1), mesh2D, horiPlayerBoundMat);
 
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 1, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 2, 2, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 3, 3, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 4, 4, 1, mesh2D, cardMat);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2 * boundaryOffset, 0), new Vector2(1,0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(2 * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
+
+        playDeck1 = new Deck("player1.txt");
+        playDeck2 = new Deck("player2.txt");
+        CardEntity.Create(entityManager, new Vector2(-20, -11), 1, 1, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-20, -11), 2, 2, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-20, -11), 3, 3, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-20, -11), 4, 4, 1, mesh2D, cardMat);
     }
 
     public EntityManager getEntityManager()

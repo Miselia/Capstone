@@ -12,6 +12,7 @@
         public static readonly int PlayerMaximumHealth = 3;
         public static readonly int PlayerMaximumMana = 10;
         public static readonly float PlayerRadius = 0.5f;
+        public static readonly int MaxDeckSize = 10;
 
         // Entities Don't really need constants since their constants are only used internally \\
         // However, if we decide we need them we can un-comment and then add them to Entity classes \\
