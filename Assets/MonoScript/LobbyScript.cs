@@ -13,6 +13,8 @@ public class LobbyScript : MonoBehaviour
     [SerializeField] private Dropdown p1DeckDropdown;
     [SerializeField] private Dropdown p2DeckDropdown;
     List<string> allFileNames;
+    public static string p1Deck;
+    public static string p2Deck;
 
     private void Start()
     {
@@ -35,17 +37,19 @@ public class LobbyScript : MonoBehaviour
 
     public void ChangeToGameScene()
     {
-        Debug.Log("p1: " + p1DeckDropdown.value);
-        Debug.Log("p2: " + p2DeckDropdown.value);
-
-        if(p1DeckDropdown.GetComponent<Dropdown>().value != 0 &&
-            p2DeckDropdown.GetComponent<Dropdown>().value != 0)
+        if(p1DeckDropdown.value != 0 &&
+           p2DeckDropdown.value != 0)
         {
             /** TODO:
              *    Make the GameScene transition actually work
              *    Pass in the two different deck files into the GameScene
+             *      Option 1: Store values in 'Object' type and call DontDestroyOnLoad(Object)
+             *      Option 2: Make these two values static, as static variables are always visible
              */
-            SceneManager.LoadScene("GameScene");
+
+            p1Deck = allFileNames[p1DeckDropdown.value];
+            p2Deck = allFileNames[p2DeckDropdown.value];
+            //SceneManager.LoadScene("GameScene");
         }
     }
 }
