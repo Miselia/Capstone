@@ -5,11 +5,6 @@ using Unity.Entities;
 
 public class DeletionSystem : ComponentSystem
 {
-    private Game game;
-    protected override void OnStartRunning()
-    {
-        game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
-    }
     protected override void OnUpdate()
     {
         

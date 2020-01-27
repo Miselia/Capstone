@@ -25,7 +25,7 @@ public class Deck
         this.filepath = "Assets/Resources/"+f;
         buildDeck(filepath);
 
-        Shuffle(deck);
+        Shuffle();
         string output = "";
         for(int i=0; i < deck.Count; i++)
         {
@@ -54,11 +54,12 @@ public class Deck
     }
 
     // Cite this source: https://stackoverflow.com/questions/273313/randomize-a-listt by user "Shital Shah"
-    private void Shuffle(List<int> deck)
+    public void Shuffle()
     {
         for(int i = deck.Count; i > 0; i--)
         {
             // finish code from link
+            topOfDeck = 0;
             int val = Random.Range(0, i);
             int temp = deck[0];
             deck[0] = deck[val];
