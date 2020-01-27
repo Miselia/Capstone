@@ -41,6 +41,10 @@ public class LobbyScript : MonoBehaviour
         if(p1DeckDropdown.GetComponent<Dropdown>().value != 0 &&
             p2DeckDropdown.GetComponent<Dropdown>().value != 0)
         {
+            /** TODO:
+             *    Make the GameScene transition actually work
+             *    Pass in the two different deck files into the GameScene
+             */
             SceneManager.LoadScene("GameScene");
         }
     }
