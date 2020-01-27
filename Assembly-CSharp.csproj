@@ -91,6 +91,7 @@
     <Compile Include="Assets\Events\IGenericEventListener.cs" />
     <Compile Include="Assets\MonoScript\Deck.cs" />
     <Compile Include="Assets\MonoScript\Game.cs" />
+    <Compile Include="Assets\MonoScript\LobbyScript.cs" />
     <Compile Include="Assets\MonoScript\MenuScript.cs" />
     <Compile Include="Assets\MonoScript\Spawner.cs" />
     <Compile Include="Assets\MonoScript\UIManager.cs" />
@@ -98,7 +99,7 @@
     <Compile Include="Assets\Resources\Constants.cs" />
     <Compile Include="Assets\Systems\CollisionDetectionSystem.cs" />
     <Compile Include="Assets\Systems\ControlSystem.cs" />
-    <Compile Include="Assets\Systems\Deletion System.cs" />
+    <Compile Include="Assets\Systems\DeletionSystem.cs" />
     <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <None Include="Assets\Resources\player1.txt" />

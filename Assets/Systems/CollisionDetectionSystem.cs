@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionDetectionSystem : ComponentSystem
 {
@@ -10,83 +11,89 @@ public class CollisionDetectionSystem : ComponentSystem
 
     protected override void OnStartRunning()
     {
-        game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
-        base.OnStartRunning();
+        if (SceneManager.GetActiveScene().name.Equals("GameScene"))
+        {
+            game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
+            base.OnStartRunning();
+        }
     }
 
     protected override void OnUpdate()
     {
-        Dictionary<Entity, List<Entity>> checkedPairs = new Dictionary<Entity, List<Entity>>();
-        bool skipFlag = false;
-
-        Entities.ForEach((Entity firstEntity, ref Translation xform, ref CollisionComponent collComp) =>
+        if (SceneManager.GetActiveScene().name.Equals("GameScene"))
         {
-            if(!game.collidingPairs.ContainsKey(firstEntity))
-            {
-                game.collidingPairs.Add(firstEntity, new List<Entity>());
-            }
-            if(!checkedPairs.ContainsKey(firstEntity))
-            {
-                checkedPairs.Add(firstEntity, new List<Entity>());
-            }
+            Dictionary<Entity, List<Entity>> checkedPairs = new Dictionary<Entity, List<Entity>>();
+            bool skipFlag = false;
 
-            Entities.ForEach((Entity secondEntity, ref Translation transform, ref CollisionComponent collisionComp) =>
+            Entities.ForEach((Entity firstEntity, ref Translation xform, ref CollisionComponent collComp) =>
             {
-                if(!game.collidingPairs.ContainsKey(secondEntity))
+                if (!game.collidingPairs.ContainsKey(firstEntity))
                 {
-                    game.collidingPairs.Add(secondEntity, new List<Entity>());
+                    game.collidingPairs.Add(firstEntity, new List<Entity>());
                 }
-                if(firstEntity == secondEntity)
+                if (!checkedPairs.ContainsKey(firstEntity))
                 {
-                    skipFlag = true;
-                }
-                if(checkedPairs[firstEntity].Contains(secondEntity))
-                {
-                    skipFlag = true;
-                }
-                if(EntityManager.HasComponent<PlayerBoundaryComponent>(firstEntity) && EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
-                {
-                    skipFlag = true;
-                }
-                if (game.collidingPairs[firstEntity].Contains(secondEntity) || game.collidingPairs[secondEntity].Contains(firstEntity))
-                {
-                    skipFlag = true;
+                    checkedPairs.Add(firstEntity, new List<Entity>());
                 }
 
-                if (!skipFlag)
+                Entities.ForEach((Entity secondEntity, ref Translation transform, ref CollisionComponent collisionComp) =>
                 {
+                    if (!game.collidingPairs.ContainsKey(secondEntity))
+                    {
+                        game.collidingPairs.Add(secondEntity, new List<Entity>());
+                    }
+                    if (firstEntity == secondEntity)
+                    {
+                        skipFlag = true;
+                    }
+                    if (checkedPairs[firstEntity].Contains(secondEntity))
+                    {
+                        skipFlag = true;
+                    }
+                    if (EntityManager.HasComponent<PlayerBoundaryComponent>(firstEntity) && EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
+                    {
+                        skipFlag = true;
+                    }
+                    if (game.collidingPairs[firstEntity].Contains(secondEntity) || game.collidingPairs[secondEntity].Contains(firstEntity))
+                    {
+                        skipFlag = true;
+                    }
+
+                    if (!skipFlag)
+                    {
                     // These internal method calls should instead be exported to a Event/Listener system to handle collision calculations
                     if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
-                    {
-                        HandlePlayerCollisionWithBoundary(game, firstEntity, secondEntity);
+                        {
+                            HandlePlayerCollisionWithBoundary(game, firstEntity, secondEntity);
                         //Debug.Log("Circle and Wall Collision Check");
                     }
-                    if (EntityManager.HasComponent<PlayerBoundaryComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
-                    {
-                        HandlePlayerCollisionWithBoundary(game, secondEntity, firstEntity);
+                        if (EntityManager.HasComponent<PlayerBoundaryComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
+                        {
+                            HandlePlayerCollisionWithBoundary(game, secondEntity, firstEntity);
                         //Debug.Log("Circle and Wall Collision Check");
                     }
-                    if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<ProjectileBoundaryComponent>(secondEntity))
-                    {
-                        HandleProjectileCollisionWithBoundary(game, firstEntity, secondEntity);
-                    }
-                    if (EntityManager.HasComponent<ProjectileBoundaryComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
-                    {
-                        HandleProjectileCollisionWithBoundary(game, secondEntity, firstEntity);
-                    }
-                    if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
-                    {
-                        HandlePlayerCollisionWithProjectile(game, firstEntity, secondEntity);
-                    }
-                    if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
-                    {
-                        HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity);
+                        if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<ProjectileBoundaryComponent>(secondEntity))
+                        {
+                            HandleProjectileCollisionWithBoundary(game, firstEntity, secondEntity);
+                        }
+                        if (EntityManager.HasComponent<ProjectileBoundaryComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
+                        {
+                            HandleProjectileCollisionWithBoundary(game, secondEntity, firstEntity);
+                        }
+                        if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
+                        {
+                            HandlePlayerCollisionWithProjectile(game, firstEntity, secondEntity);
+                        }
+                        if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
+                        {
+                            HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity);
                         //Debug.Log("Projectile and Player Collision Check");
                     }
-                }
-                skipFlag = false;
+                    }
+                    skipFlag = false;
+                });
             });
-        });
+        }
     }
 
     private void HandleProjectileCollisionWithBoundary(Game game, Entity projectileEntity, Entity boundaryEntity)
