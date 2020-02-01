@@ -57,17 +57,18 @@ public class Game : MonoBehaviour, IGenericEventListener
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, -boundarySize/2), new Vector2(0, 1), mesh2D, horiPlayerBoundMat);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, boundarySize/2), new Vector2(0, -1), mesh2D, horiPlayerBoundMat);
 
-        /*
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 1, 1, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 2, 2, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 3, 3, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 4, 4, 1, mesh2D, cardMat);
+        playDeck1 = new Deck(LobbyScript.p1Deck);
+        playDeck2 = new Deck(LobbyScript.p2Deck);
+
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 1, 1, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 2, 2, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 3, 3, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 4, 4, 1, mesh2D, cardMat);
 
         CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 1, 1, 2, mesh2D, cardMat);
         CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 2, 2, 2, mesh2D, cardMat);
         CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 3, 3, 2, mesh2D, cardMat);
         CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 4, 4, 2, mesh2D, cardMat);
-        */
 
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2 * boundaryOffset, 0), new Vector2(1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(2 * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
