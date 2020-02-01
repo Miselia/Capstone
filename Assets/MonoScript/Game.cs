@@ -44,6 +44,9 @@ public class Game : MonoBehaviour, IGenericEventListener
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 1));
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 2));
 
+        playDeck1 = new Deck("player1.txt");
+        playDeck2 = new Deck("player2.txt");
+
         PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset+boundarySize/2, 0), new Vector2(-1, 0), mesh2D, vertPlayerBoundMat);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset-boundarySize/2, 0), new Vector2(1, 0), mesh2D, vertPlayerBoundMat);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset, -boundarySize/2), new Vector2(0, 1), mesh2D, horiPlayerBoundMat);
@@ -54,15 +57,17 @@ public class Game : MonoBehaviour, IGenericEventListener
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, -boundarySize/2), new Vector2(0, 1), mesh2D, horiPlayerBoundMat);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, boundarySize/2), new Vector2(0, -1), mesh2D, horiPlayerBoundMat);
 
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 1, 1, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 2, 2, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 3, 3, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), 4, 4, 1, mesh2D, cardMat);
+        /*
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 1, 1, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 2, 2, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 3, 3, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 4, 4, 1, mesh2D, cardMat);
 
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 1, 1, 2, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 2, 2, 2, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 3, 3, 2, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset, -9), 4, 4, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 1, 1, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 2, 2, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 3, 3, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 4, 4, 2, mesh2D, cardMat);
+        */
 
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2 * boundaryOffset, 0), new Vector2(1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(2 * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
@@ -87,6 +92,36 @@ public class Game : MonoBehaviour, IGenericEventListener
         }
         return false;
     }
+
+    public int drawCardFromDeck(int player, int cardSlot)
+    {
+       if(player == 1)
+        {
+            int nextCard = playDeck1.drawCard();
+            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(-boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, mesh2D, cardMat);
+            //else playDeck1.Shuffle();
+            return nextCard;
+        }
+       else
+       {
+            int nextCard = playDeck2.drawCard();
+            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, mesh2D, cardMat);
+            //else playDeck2.Shuffle();
+            return nextCard;
+        }
+    }
+    public void reshuffle(int player)
+    {
+        if (player == 1)
+        {
+            playDeck1.Shuffle();
+        }
+        else
+        {
+            playDeck2.Shuffle();
+        }
+    }
+
 
     private void HandleEndCollisionEvent(Entity entityA, Entity entityB)
     {
