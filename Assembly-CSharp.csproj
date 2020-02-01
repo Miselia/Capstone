@@ -100,6 +100,8 @@
     <Compile Include="Assets\Systems\CollisionDetectionSystem.cs" />
     <Compile Include="Assets\Systems\ControlSystem.cs" />
     <Compile Include="Assets\Systems\DeletionSystem.cs" />
+    <Compile Include="Assets\Systems\DrawSystem.cs" />
+    <Compile Include="Assets\Systems\ManaSystem.cs" />
     <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <None Include="Assets\Resources\player1.txt" />

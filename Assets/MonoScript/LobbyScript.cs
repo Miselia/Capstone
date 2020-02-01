@@ -13,8 +13,10 @@ public class LobbyScript : MonoBehaviour
     [SerializeField] private Dropdown p1DeckDropdown;
     [SerializeField] private Dropdown p2DeckDropdown;
     List<string> allFileNames;
-    public static string p1Deck;
-    public static string p2Deck;
+    public static string p1DeckString;
+    public static string p2DeckString;
+    public static Deck p1Deck;
+    public static Deck p2Deck;
 
     private void Start()
     {
@@ -47,9 +49,15 @@ public class LobbyScript : MonoBehaviour
              *      Option 2: Make these two values static, as static variables are always visible
              */
 
-            p1Deck = allFileNames[p1DeckDropdown.value];
-            p2Deck = allFileNames[p2DeckDropdown.value];
-            //SceneManager.LoadScene("GameScene");
+            p1DeckString = allFileNames[p1DeckDropdown.value];
+            p2DeckString = allFileNames[p2DeckDropdown.value];
+            p1Deck = new Deck(p1DeckString + ".txt");
+            p2Deck = new Deck(p2DeckString + ".txt");
+
+            if (p1Deck != null && p2Deck != null)
+                SceneManager.LoadScene("GameScene");
         }
+        else
+            Debug.Log("Decks not valid, try again");
     }
 }
