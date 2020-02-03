@@ -84,7 +84,7 @@ public class Game : MonoBehaviour, IGenericEventListener
         return false;
     }
 
-    public int drawCardFromDeck(int player, int cardSlot)
+    public int DrawCardFromDeck(int player, int cardSlot)
     {
        if(player == 1)
         {
@@ -101,7 +101,7 @@ public class Game : MonoBehaviour, IGenericEventListener
             return nextCard;
         }
     }
-    public void reshuffle(int player)
+    public void Reshuffle(int player)
     {
         if (player == 1)
         {

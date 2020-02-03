@@ -11,11 +11,8 @@ public class CollisionDetectionSystem : ComponentSystem
 
     protected override void OnStartRunning()
     {
-        if (SceneManager.GetActiveScene().name.Equals("GameScene"))
-        {
-            game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
-            base.OnStartRunning();
-        }
+        game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
+        base.OnStartRunning();
     }
 
     protected override void OnUpdate()

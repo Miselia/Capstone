@@ -55,7 +55,9 @@ public class LobbyScript : MonoBehaviour
             p2Deck = new Deck(p2DeckString + ".txt");
 
             if (p1Deck != null && p2Deck != null)
+            {
                 SceneManager.LoadScene("GameScene");
+            }
         }
         else
             Debug.Log("Decks not valid, try again");

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using UnityEngine.SceneManagement;
 
 public class DrawSystem : ComponentSystem
 {
     private Game game;
     bool[] emptySlots1;
     bool[] emptySlots2;
+
     protected override void OnStartRunning()
     {
         game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
@@ -16,36 +18,35 @@ public class DrawSystem : ComponentSystem
     }
     protected override void OnUpdate()
     {
-        for(int p =1; p <= 2; p++)
+        if (SceneManager.GetActiveScene().name.Equals("GameScene"))
         {
-            for (int c = 1; c <= 4; c++)
+            for (int p = 1; p <= 2; p++)
             {
-                bool flag = true;
-                Entities.ForEach((ref CardComp card) =>
+                for (int c = 1; c <= 4; c++)
                 {
-                    if (card.player == p && card.cardSlot == c) flag = false;
-                });
-                if (flag)
-                {
-                    if (game.drawCardFromDeck(p, c) == 0)
+                    bool flag = true;
+                    Entities.ForEach((ref CardComp card) =>
                     {
-                        setEmpty(p, c);
-                        if (checkAllEmpty(p) == true)
+                        if (card.player == p && card.cardSlot == c) flag = false;
+                    });
+                    if (flag)
+                    {
+                        if (game.DrawCardFromDeck(p, c) == 0)
                         {
-                            game.reshuffle(p);
-                            setAllEmpty(p);
+                            SetEmpty(p, c);
+                            if (CheckAllEmpty(p) == true)
+                            {
+                                game.Reshuffle(p);
+                                SetAllEmpty(p);
+                            }
                         }
+
                     }
-                  
                 }
             }
         }
-       
-
-
-
     }
-    private void setAllEmpty(int player)
+    private void SetAllEmpty(int player)
     {
         if (player == 1)
         {
@@ -62,7 +63,7 @@ public class DrawSystem : ComponentSystem
             }
         }
     }
-    private bool checkAllEmpty(int player)
+    private bool CheckAllEmpty(int player)
     {
         if (player == 1)
         {
@@ -81,7 +82,7 @@ public class DrawSystem : ComponentSystem
             return true;
         }
     }
-    private void setEmpty(int player, int card)
+    private void SetEmpty(int player, int card)
     {
         if (player == 1)
         {
