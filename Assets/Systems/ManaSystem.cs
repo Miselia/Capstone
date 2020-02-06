@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using Assets.Resources;
 
 public class ManaSystem : ComponentSystem
 {
-
     protected override void OnUpdate()
     {
-        /*
-        Entities.ForEach(( ref PlayerComp p) =>
+      
+        Entities.ForEach(( ref PlayerComponent p) =>
         {
-            p.mana = p.mana + 1;
-            if (p.mana > Constants.PlayerMaximumMana) p.mana = Constants.PlayerMaximumMana;
+            
+            //float newMana = p.mana + p.manaRegen;
+            int[] values = { 0, 0, 0 };
+            values = p.adjustMana(0);
+            
+
+                values = p.setMana(p.maxMana);
+            
+            EventManager.instance.QueueEvent(new UIUpdateEvent(values[0],values[1],values[2]));
         });
-        */
+        
     }
 }
