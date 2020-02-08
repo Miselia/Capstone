@@ -12,7 +12,8 @@ public class Game : MonoBehaviour, IGenericEventListener
     private int boundaryOffset = Constants.PlayerBoundaryOffset;
     private int boundarySize = Constants.PlayerBoundarySize;
     private int maxHealth = Constants.PlayerMaximumHealth;
-    private int maxMana = Constants.PlayerMaximumMana;
+    private float maxMana = Constants.PlayerMaximumMana;
+    private float manaRegen = Constants.PlayerManaRegen;
     private float playerRadius = Constants.PlayerRadius;
 
     [SerializeField] private Mesh mesh2D;
@@ -21,7 +22,7 @@ public class Game : MonoBehaviour, IGenericEventListener
     [SerializeField] private Material horiPlayerBoundMat;
     [SerializeField] private Material vertProjectileBoundMat;
     [SerializeField] private Material horiProjectileBoundMat;
-    [SerializeField] private Material cardMat;
+    [SerializeField] private List<Material> cardMaterialLibrary;
 
     public Dictionary<Entity, List<Entity>> collidingPairs = new Dictionary<Entity, List<Entity>>();
 
@@ -39,11 +40,12 @@ public class Game : MonoBehaviour, IGenericEventListener
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
 
-        PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, mesh2D, playerMat);
-        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, mesh2D, playerMat);
-        EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 1));
+        PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
+        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
+        /*
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 2));
-
+        EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 1));
+        */
         playDeck1 = new Deck("player1.txt");
         playDeck2 = new Deck("player2.txt");
 
@@ -98,14 +100,14 @@ public class Game : MonoBehaviour, IGenericEventListener
        if(player == 1)
         {
             int nextCard = playDeck1.drawCard();
-            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(-boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, mesh2D, cardMat);
+            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(-boundaryOffset - 7.5f, -7.5f), nextCard, cardSlot, player, mesh2D, cardMaterialLibrary[nextCard]);
             //else playDeck1.Shuffle();
             return nextCard;
         }
        else
        {
             int nextCard = playDeck2.drawCard();
-            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, mesh2D, cardMat);
+            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7.5f, -7.5f), nextCard, cardSlot, player, mesh2D, cardMaterialLibrary[nextCard]);
             //else playDeck2.Shuffle();
             return nextCard;
         }

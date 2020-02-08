@@ -4,7 +4,7 @@ using UnityEngine;
 public class UIUpdateEvent : IGenericEvent
 {
     public int pHealth;
-    public int pMana;
+    public float pMana;
     public int pID;
 
     public UIUpdateEvent(int pHealth, int pMana, int pID)
