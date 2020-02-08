@@ -16,8 +16,8 @@ public class Game : MonoBehaviour, IGenericEventListener
 
     // Start is called before the first frame update
     private EntityManager entityManager;
-    private Spawner spawner;
     [SerializeField] public EventManager eventManager;
+    [SerializeField] public Spawner spawner;
     void Start()
     {
         eventManager = gameObject.AddComponent<EventManager>();

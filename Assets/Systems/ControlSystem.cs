@@ -15,6 +15,7 @@ public class ControlSystem : ComponentSystem
         if (Input.GetKeyDown(KeyCode.Q))
         {
             spawn(1,1);
+            Debug.Log("BUTTON DOWN");
         }
         if (Input.GetKeyDown(KeyCode.E))
         {

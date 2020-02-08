@@ -287,7 +287,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439098618
 GameObject:
@@ -337,7 +337,8 @@ MonoBehaviour:
   vertBoundaryMat: {fileID: 2100000, guid: 6c8c084de9e9803449e7300bc7bca7a6, type: 2}
   horiBoundaryMat: {fileID: 2100000, guid: c5f06d5a79d2f794baa17001dee8829e, type: 2}
   cardMat: {fileID: 2100000, guid: a54ae07e72232f94eb9e2ba9e7448d4f, type: 2}
-  eventManager: {fileID: 0}
+  eventManager: {fileID: 480388582}
+  spawner: {fileID: 1935310850}
 --- !u!1 &1484284698
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,5 +425,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

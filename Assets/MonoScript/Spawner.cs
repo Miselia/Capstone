@@ -21,6 +21,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
     public bool HandleEvent(IGenericEvent evt)
     {
+        Debug.Log("Handling Spawn Event");
         if (evt is SpawnEvent)
         {
             SpawnEvent se = (SpawnEvent) evt;
