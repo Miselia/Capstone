@@ -3,19 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 using System;
+using Assets.Entities;
+using Assets.Resources;
 
 public class Game : MonoBehaviour, IGenericEventListener
 {
-    [SerializeField] private Mesh mesh;
-    [SerializeField] private Material mat;
-    [SerializeField] private Material vertBoundaryMat;
-    [SerializeField] private Material horiBoundaryMat;
+    // boundaryOffset represents how far the center of a player boundary is from the center of the screen
+    private int boundaryOffset = Constants.PlayerBoundaryOffset;
+    private int boundarySize = Constants.PlayerBoundarySize;
+    private int maxHealth = Constants.PlayerMaximumHealth;
+    private int maxMana = Constants.PlayerMaximumMana;
+    private float playerRadius = Constants.PlayerRadius;
+
+    [SerializeField] private Mesh mesh2D;
+    [SerializeField] private Material playerMat;
+    [SerializeField] private Material vertPlayerBoundMat;
+    [SerializeField] private Material horiPlayerBoundMat;
+    [SerializeField] private Material vertProjectileBoundMat;
+    [SerializeField] private Material horiProjectileBoundMat;
     [SerializeField] private Material cardMat;
 
     public Dictionary<Entity, List<Entity>> collidingPairs = new Dictionary<Entity, List<Entity>>();
 
     // Start is called before the first frame update
     private EntityManager entityManager;
+    private Deck playDeck1;
+    private Deck playDeck2;
     [SerializeField] public EventManager eventManager;
     [SerializeField] public Spawner spawner;
     void Start()
@@ -25,23 +38,49 @@ public class Game : MonoBehaviour, IGenericEventListener
 
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
-        PlayerEntity.Create(entityManager, new Vector2(0,5), new Vector2(0, 0), 0.5f, 1, 0, mesh,mat);
 
-        BoundaryEntity.Create(entityManager, new Vector2(0, 7), new Vector2(0, -1), mesh, horiBoundaryMat);
-        BoundaryEntity.Create(entityManager, new Vector2(0, -7), new Vector2(0, 1), mesh, horiBoundaryMat);
-        BoundaryEntity.Create(entityManager, new Vector2(7, 0), new Vector2(-1, 0), mesh, vertBoundaryMat);
-        BoundaryEntity.Create(entityManager, new Vector2(-7, 0), new Vector2(1, 0), mesh, vertBoundaryMat);
+        PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, mesh2D, playerMat);
+        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, mesh2D, playerMat);
+        EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 1));
+        EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 2));
 
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 1, 1, 1, mesh, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 2, 2, 1, mesh, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 3, 3, 1, mesh, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-10, -9), 4, 4, 1, mesh, cardMat);
+        playDeck1 = new Deck("player1.txt");
+        playDeck2 = new Deck("player2.txt");
+
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset+boundarySize/2, 0), new Vector2(-1, 0), mesh2D, vertPlayerBoundMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset-boundarySize/2, 0), new Vector2(1, 0), mesh2D, vertPlayerBoundMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset, -boundarySize/2), new Vector2(0, 1), mesh2D, horiPlayerBoundMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset, boundarySize/2), new Vector2(0, -1), mesh2D, horiPlayerBoundMat);
+
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset-boundarySize/2, 0), new Vector2(1, 0), mesh2D, vertPlayerBoundMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset+boundarySize/2, 0), new Vector2(-1, 0), mesh2D, vertPlayerBoundMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, -boundarySize/2), new Vector2(0, 1), mesh2D, horiPlayerBoundMat);
+        PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, boundarySize/2), new Vector2(0, -1), mesh2D, horiPlayerBoundMat);
+
+        /*
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 1, 1, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 2, 2, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 3, 3, 1, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(-boundaryOffset-7, -7.5f), 4, 4, 1, mesh2D, cardMat);
+
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 1, 1, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 2, 2, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 3, 3, 2, mesh2D, cardMat);
+        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), 4, 4, 2, mesh2D, cardMat);
+        */
+
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2 * boundaryOffset, 0), new Vector2(1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(2 * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
     }
 
+    /*
     public EntityManager getEntityManager()
     {
         return entityManager;
     }
+    */
 
     public bool HandleEvent(IGenericEvent evt)
     {
@@ -54,6 +93,36 @@ public class Game : MonoBehaviour, IGenericEventListener
         return false;
     }
 
+    public int drawCardFromDeck(int player, int cardSlot)
+    {
+       if(player == 1)
+        {
+            int nextCard = playDeck1.drawCard();
+            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(-boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, mesh2D, cardMat);
+            //else playDeck1.Shuffle();
+            return nextCard;
+        }
+       else
+       {
+            int nextCard = playDeck2.drawCard();
+            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, mesh2D, cardMat);
+            //else playDeck2.Shuffle();
+            return nextCard;
+        }
+    }
+    public void reshuffle(int player)
+    {
+        if (player == 1)
+        {
+            playDeck1.Shuffle();
+        }
+        else
+        {
+            playDeck2.Shuffle();
+        }
+    }
+
+
     private void HandleEndCollisionEvent(Entity entityA, Entity entityB)
     {
         if (collidingPairs[entityA].Contains(entityB))
@@ -61,4 +130,5 @@ public class Game : MonoBehaviour, IGenericEventListener
         if (collidingPairs[entityB].Contains(entityA))
             collidingPairs[entityB].Remove(entityA);
     }
+    
 }

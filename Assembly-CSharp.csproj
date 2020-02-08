@@ -55,18 +55,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Components\BoundaryComponent.cs" />
      <Compile Include="Assets\Components\CardComp.cs" />
      <Compile Include="Assets\Components\CollisionComponent.cs" />
+     <Compile Include="Assets\Components\DeleteComp.cs" />
      <Compile Include="Assets\Components\MovementComponent.cs" />
+     <Compile Include="Assets\Components\PlayerBoundaryComponent.cs" />
      <Compile Include="Assets\Components\PlayerComponent.cs" />
+     <Compile Include="Assets\Components\ProjectileBoundaryComponent.cs" />
      <Compile Include="Assets\Components\ProjectileComponent.cs" />
      <Compile Include="Assets\Components\RotationComponent.cs" />
      <Compile Include="Assets\Components\TestingComponent.cs" />
      <Compile Include="Assets\Components\XformComp.cs" />
-     <Compile Include="Assets\Entities\BoundaryEntity.cs" />
      <Compile Include="Assets\Entities\CardEnitity.cs" />
+     <Compile Include="Assets\Entities\PlayerBoundaryEntity.cs" />
      <Compile Include="Assets\Entities\PlayerEntity.cs" />
+     <Compile Include="Assets\Entities\ProjectileBoundaryEntity.cs" />
      <Compile Include="Assets\Entities\ProjectileEntity.cs" />
      <Compile Include="Assets\Entities\TestingEntity.cs" />
      <Compile Include="Assets\Events\EventListeners\CollisionListener.cs" />
@@ -75,15 +78,25 @@
      <Compile Include="Assets\Events\GenericEvents\CollisionEvent.cs" />
      <Compile Include="Assets\Events\GenericEvents\EndCollisionEvent.cs" />
      <Compile Include="Assets\Events\GenericEvents\SpawnEvent.cs" />
+     <Compile Include="Assets\Events\GenericEvents\UIUpdateEvent.cs" />
      <Compile Include="Assets\Events\IGenericEvent.cs" />
      <Compile Include="Assets\Events\IGenericEventListener.cs" />
+     <Compile Include="Assets\MonoScript\Deck.cs" />
      <Compile Include="Assets\MonoScript\Game.cs" />
      <Compile Include="Assets\MonoScript\MenuScript.cs" />
      <Compile Include="Assets\MonoScript\Spawner.cs" />
+     <Compile Include="Assets\MonoScript\UIManager.cs" />
+     <Compile Include="Assets\Outl.cs" />
+     <Compile Include="Assets\Resources\Constants.cs" />
      <Compile Include="Assets\Systems\CollisionDetectionSystem.cs" />
      <Compile Include="Assets\Systems\ControlSystem.cs" />
+     <Compile Include="Assets\Systems\Deletion System.cs" />
+     <Compile Include="Assets\Systems\DrawSystem.cs" />
+     <Compile Include="Assets\Systems\ManaSystem.cs" />
      <Compile Include="Assets\Systems\MovementSystem.cs" />
      <Compile Include="Assets\Systems\TestingSystem.cs" />
+     <None Include="Assets\Resources\player1.txt" />
+     <None Include="Assets\Resources\player2.txt" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
