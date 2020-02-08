@@ -10,7 +10,7 @@ using Assets.Resources;
 public static class PlayerEntity 
 {
 
-   public static Entity Create(EntityManager em, Vector2 position, Vector2 movementVector, float radius, int playerID,  int maxHealth, int maxMana, Mesh mesh, Material mat)
+   public static Entity Create(EntityManager em, Vector2 position, Vector2 movementVector, float radius, int playerID,  int maxHealth, float maxMana, float manaRegen, Mesh mesh, Material mat)
     {
         Entity entity = em.CreateEntity();
 
@@ -27,7 +27,7 @@ public static class PlayerEntity
         em.SetComponentData(entity, new MovementComponent(movementVector));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         em.SetComponentData(entity, new CollisionComponent(radius, radius));
-        em.SetComponentData(entity, new PlayerComponent(playerID, maxHealth, maxMana));
+        em.SetComponentData(entity, new PlayerComponent(playerID, maxHealth, maxMana, manaRegen));
         em.SetSharedComponentData(entity, new RenderMesh {mesh = mesh, material = mat});
 
         return entity;

@@ -104,11 +104,14 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
 
     private bool PlayerProjectileCollisionHelper(Entity playerEntity, Entity projectileEntity)
     {
+        /*
         int[] values = World.Active.EntityManager.GetComponentData<PlayerComponent>(playerEntity).LoseHealth(Constants.DefaultProjectileDamage);
         Debug.Log("Player Health after collision w/ projectile: " + values[0]);
         EventManager.instance.QueueEvent(new EndCollisionEvent(playerEntity, projectileEntity));
         EventManager.instance.QueueEvent(new UIUpdateEvent(values[0], values[1], values[2]));
+        */
         World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
+        //World.Active.EntityManager.SetComponentData(projectileEntity, new DeleteComp(60));
         return true;
     }
 

@@ -498,7 +498,12 @@ MonoBehaviour:
     type: 2}
   horiProjectileBoundMat: {fileID: 2100000, guid: c5f06d5a79d2f794baa17001dee8829e,
     type: 2}
-  cardMat: {fileID: 2100000, guid: a54ae07e72232f94eb9e2ba9e7448d4f, type: 2}
+  cardMaterialLibrary:
+  - {fileID: 2100000, guid: a54ae07e72232f94eb9e2ba9e7448d4f, type: 2}
+  - {fileID: 2100000, guid: 1deef9c49534b614592ac9b7e14c288e, type: 2}
+  - {fileID: 2100000, guid: 3fca24bc5ba053f4d95dbfe3544d2205, type: 2}
+  - {fileID: 2100000, guid: b718783e6ce1144479e41871df44a0ba, type: 2}
+  - {fileID: 2100000, guid: 3a016d7816f7d484e9f304909c119335, type: 2}
   eventManager: {fileID: 480388582}
 --- !u!1 &1484284698
 GameObject:
@@ -895,7 +900,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boundaryOffset: 10
-  normalMat: {fileID: 2100000, guid: 23982ce7a78c52e4e9e9f5aba67710a7, type: 2}
+  projectileMaterialLibrary:
+  - {fileID: 2100000, guid: 23982ce7a78c52e4e9e9f5aba67710a7, type: 2}
+  - {fileID: 2100000, guid: 4ce77a1d3f371e247b4aa9fc861647b0, type: 2}
+  - {fileID: 2100000, guid: 356d141759bf97e459338a80b8b59764, type: 2}
+  - {fileID: 2100000, guid: 54c5340928e7cd842a7bb9d038777028, type: 2}
   mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1935310851
 Transform:
