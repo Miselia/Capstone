@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Resources;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
@@ -19,19 +20,21 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             if(World.Active.EntityManager.HasComponent<PlayerComponent>(ce.entityA) &&
                 World.Active.EntityManager.HasComponent<ProjectileComponent>(ce.entityB))
             {
+                //Debug.Log("Player x Projectile Collision before in CollisionListener");
                 PlayerProjectileCollisionHelper(ce.entityA, ce.entityB);
+                //Debug.Log("Player x Projectile Collision after in CollisionListener");
                 return true;
             }
             // Player x Boundary Collision
             if(World.Active.EntityManager.HasComponent<PlayerComponent>(ce.entityA) &&
-                World.Active.EntityManager.HasComponent<BoundaryComponent>(ce.entityB))
+                World.Active.EntityManager.HasComponent<PlayerBoundaryComponent>(ce.entityB))
             {
                 PlayerBoundaryCollisionHelper(ce.entityA, ce.entityB);
                 return true;
             }
             // Projectile x Boundary Collision
             if(World.Active.EntityManager.HasComponent<ProjectileComponent>(ce.entityA) &&
-                World.Active.EntityManager.HasComponent<BoundaryComponent>(ce.entityB))
+                World.Active.EntityManager.HasComponent<ProjectileBoundaryComponent>(ce.entityB))
             {
                 ProjectileBoundaryCollisionHelper(ce.entityA, ce.entityB);
                 return true;
@@ -46,21 +49,23 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
         Vector3 boundaryVector = World.Active.EntityManager.GetComponentData<Translation>(boundaryEntity).Value;
         float circleRadius = World.Active.EntityManager.GetComponentData<CollisionComponent>(projectileEntity).collisionRadius;
 
-        if (World.Active.EntityManager.GetComponentData<BoundaryComponent>(boundaryEntity).Normal.x == 0)
+        if (World.Active.EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.x == 0)
         {
             Vector2 nearestWallPosition = new Vector2(projectileVector.x, boundaryVector.y);
             projectileVector.y = nearestWallPosition.y + circleRadius;
             World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
             Debug.Log("Projectile position readjusted");
-            //EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
+            EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
+            World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         }
-        if (World.Active.EntityManager.GetComponentData<BoundaryComponent>(boundaryEntity).Normal.y == 0)
+        if (World.Active.EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.y == 0)
         {
             Vector2 nearestWallPosition = new Vector2(boundaryVector.x, projectileVector.y);
             projectileVector.x = nearestWallPosition.x + circleRadius;
             World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
             Debug.Log("Projectile position readjusted");
-            //EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
+            EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
+            World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         }
         return true;
     }
@@ -71,10 +76,10 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
         Vector3 boundaryVector = World.Active.EntityManager.GetComponentData<Translation>(boundaryEntity).Value;
         float circleRadius = World.Active.EntityManager.GetComponentData<CollisionComponent>(playerEntity).collisionRadius;
 
-        if (World.Active.EntityManager.GetComponentData<BoundaryComponent>(boundaryEntity).Normal.x == 0)
+        if (World.Active.EntityManager.GetComponentData<PlayerBoundaryComponent>(boundaryEntity).Normal.x == 0)
         {
             Vector2 nearestWallPosition = new Vector2(playerVector.x, boundaryVector.y);
-            playerVector.y = nearestWallPosition.y + World.Active.EntityManager.GetComponentData<BoundaryComponent>(boundaryEntity).Normal.y * circleRadius;
+            playerVector.y = nearestWallPosition.y + World.Active.EntityManager.GetComponentData<PlayerBoundaryComponent>(boundaryEntity).Normal.y * circleRadius;
             World.Active.EntityManager.SetComponentData<Translation>(playerEntity,
                 new Translation { Value = new Unity.Mathematics.float3(playerVector.x, playerVector.y, playerVector.z) });
             /*World.Active.EntityManager.SetComponentData<Translation>(playerEntity,
@@ -82,10 +87,10 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             Debug.Log("Player position readjusted");
             EventManager.instance.QueueEvent(new EndCollisionEvent(playerEntity, boundaryEntity));
         }
-        if(World.Active.EntityManager.GetComponentData<BoundaryComponent>(boundaryEntity).Normal.y == 0)
+        if(World.Active.EntityManager.GetComponentData<PlayerBoundaryComponent>(boundaryEntity).Normal.y == 0)
         {
             Vector2 nearestWallPosition = new Vector2(boundaryVector.x, playerVector.y);
-            playerVector.x = nearestWallPosition.x + World.Active.EntityManager.GetComponentData<BoundaryComponent>(boundaryEntity).Normal.x * circleRadius;
+            playerVector.x = nearestWallPosition.x + World.Active.EntityManager.GetComponentData<PlayerBoundaryComponent>(boundaryEntity).Normal.x * circleRadius;
             World.Active.EntityManager.SetComponentData<Translation>(playerEntity,
                 new Translation { Value = new Unity.Mathematics.float3(playerVector.x, playerVector.y, playerVector.z) });
             /*World.Active.EntityManager.SetComponentData<Translation>(playerEntity,
@@ -97,9 +102,13 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
         return true;
     }
 
-    private bool PlayerProjectileCollisionHelper(Entity player, Entity projectile)
+    private bool PlayerProjectileCollisionHelper(Entity playerEntity, Entity projectileEntity)
     {
-        World.Active.EntityManager.SetComponentData<MovementComponent>(projectile, new MovementComponent(new Vector2(0,0))); 
+        int[] values = World.Active.EntityManager.GetComponentData<PlayerComponent>(playerEntity).LoseHealth(Constants.DefaultProjectileDamage);
+        Debug.Log("Player Health after collision w/ projectile: " + values[0]);
+        EventManager.instance.QueueEvent(new EndCollisionEvent(playerEntity, projectileEntity));
+        EventManager.instance.QueueEvent(new UIUpdateEvent(values[0], values[1], values[2]));
+        World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         return true;
     }
 

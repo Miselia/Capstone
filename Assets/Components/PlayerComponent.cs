@@ -9,10 +9,20 @@ public struct PlayerComponent : IComponentData
     // An "Input Method" if such exists in Unity already
     public int playerID;
     public int healthRemaining;
+    public int maxMana;
+    public int mana;
 
-    public PlayerComponent(int playerID, int maximumHealth)
+    public PlayerComponent(int playerID, int maximumHealth, int maxMana)
     {
         this.playerID = playerID;
         this.healthRemaining = maximumHealth;
+        this.maxMana = maxMana;
+        this.mana = maxMana;
+    }
+
+    public int[] LoseHealth(int damage)
+    {
+        healthRemaining -= damage;
+        return new int[] { healthRemaining, mana, playerID };
     }
 }

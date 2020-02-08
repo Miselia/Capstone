@@ -5,6 +5,7 @@ using UnityEngine;
 using Unity.Rendering;
 using Unity.Transforms;
 using Unity.Mathematics;
+using Assets.Resources;
 
 public static class CardEntity
 {
@@ -20,10 +21,10 @@ public static class CardEntity
         em.AddComponent(entity, typeof(Translation));
         em.AddComponent(entity, typeof(Scale));
 
-        em.SetComponentData(entity, new Scale { Value = 1 * 2.35f });
+        em.SetComponentData(entity, new Scale { Value = 2.35f });
         if(playerID == 1)
         {
-            em.SetComponentData(entity, new Translation { Value = new float3(position.x + (cardSlot*2), position.y, 0) });
+            em.SetComponentData(entity, new Translation { Value = new float3(position.x + (cardSlot * 2), position.y, 0) });
         }
         if(playerID == 2)
         {
