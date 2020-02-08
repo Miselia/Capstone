@@ -20,7 +20,7 @@ public struct PlayerComponent : IComponentData
         this.maxMana = maxMana;
         this.manaRegen = manaRegen;
         this.mana = maxMana;
-        EventManager.instance.QueueEvent(new UIUpdateEvent(healthRemaining, mana, playerID));
+        EventManager.instance.QueueEvent(new UIUpdateEvent(healthRemaining, (int)Mathf.Floor(mana), playerID));
 
         Debug.Log("Constructor being called for player");
     }
@@ -37,7 +37,7 @@ public struct PlayerComponent : IComponentData
         Debug.Log("Player Mana Adjusted to" + mana);
         int tempMana = (int)Mathf.Floor(mana);
         Debug.Log("PlayerMana casted to: " + tempMana);
-        return new int[] { healthRemaining, (int)Mathf.Floor(mana), playerID };
+        return new int[] { healthRemaining, tempMana, playerID };
     }
     
     public int[] setMana(float value)

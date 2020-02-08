@@ -125,12 +125,18 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     }
     private void adjustPlayerValues(Entity player, float manaDelta, int healthDelta)
     {
-        
-        int[] values = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).adjustMana(manaDelta);
+
+        //int[] values = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).adjustMana(manaDelta);
+        /*
+        int[] values = { 0, 0, 0 };
+        values[1] = (int) Mathf.Floor(World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana);
+        values[0] = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).healthRemaining;
+        values[2] = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).playerID;
 
         EventManager.instance.QueueEvent(new UIUpdateEvent(values[0], values[1], values[2]));
-
-
+        */
+        World.Active.EntityManager.AddComponent(player, typeof(ManaDeltaComp));
+        World.Active.EntityManager.SetComponentData(player, new ManaDeltaComp(manaDelta));
     }
 
 }

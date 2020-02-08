@@ -7,7 +7,7 @@ public class UIUpdateEvent : IGenericEvent
     public float pMana;
     public int pID;
 
-    public UIUpdateEvent(int pHealth, float pMana, int pID)
+    public UIUpdateEvent(int pHealth, int pMana, int pID)
     {
         this.pHealth = pHealth;
         this.pMana = pMana;
