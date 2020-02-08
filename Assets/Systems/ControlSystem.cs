@@ -343,6 +343,7 @@ public class ControlSystem : ComponentSystem
         {
             if (card.cardSlot == slot && card.player == player)
             {
+                Debug.Log("Card Slot: " + card.cardSlot + " Player: " + card.player);
                 id = card.cardID;
                 EventManager.instance.QueueEvent(new SpawnEvent(e, p));
             }

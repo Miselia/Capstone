@@ -28,10 +28,10 @@ public class Game : MonoBehaviour, IGenericEventListener
 
     // Start is called before the first frame update
     private EntityManager entityManager;
+    private Spawner spawner;
     private Deck playDeck1;
     private Deck playDeck2;
     [SerializeField] public EventManager eventManager;
-    [SerializeField] public Spawner spawner;
     void Start()
     {
         eventManager = gameObject.AddComponent<EventManager>();
