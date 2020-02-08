@@ -2,48 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using UnityEngine.SceneManagement;
 
 public class DrawSystem : ComponentSystem
 {
     private Game game;
     bool[] emptySlots1;
     bool[] emptySlots2;
-    protected override void OnStartRunning()
+    bool gameInitialized;
+
+    private void Initialize()
     {
         game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
         emptySlots1 = new bool[] { false, false, false, false };
         emptySlots2 = new bool[] { false, false, false, false };
+        gameInitialized = true;
     }
+
     protected override void OnUpdate()
     {
-        for(int p =1; p <= 2; p++)
+        if (SceneManager.GetActiveScene().name == "GameScene")
         {
-            for (int c = 1; c <= 4; c++)
+            if (!gameInitialized)
+                Initialize();
+
+            for (int p = 1; p <= 2; p++)
             {
-                bool flag = true;
-                Entities.ForEach((ref CardComp card) =>
+                for (int c = 1; c <= 4; c++)
                 {
-                    if (card.player == p && card.cardSlot == c) flag = false;
-                });
-                if (flag)
-                {
-                    if (game.drawCardFromDeck(p, c) == 0)
+                    bool flag = true;
+                    Entities.ForEach((ref CardComp card) =>
                     {
-                        setEmpty(p, c);
-                        if (checkAllEmpty(p) == true)
+                        if (card.player == p && card.cardSlot == c) flag = false;
+                    });
+                    if (flag)
+                    {
+                        if (game.drawCardFromDeck(p, c) == 0)
                         {
-                            game.reshuffle(p);
-                            setAllEmpty(p);
+                            setEmpty(p, c);
+                            if (checkAllEmpty(p) == true)
+                            {
+                                game.reshuffle(p);
+                                setAllEmpty(p);
+                            }
                         }
+
                     }
-                  
                 }
             }
         }
-       
-
-
-
     }
     private void setAllEmpty(int player)
     {
