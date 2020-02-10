@@ -171,8 +171,7 @@ public class ControlSystem : ComponentSystem
                 }
             }
 
-            //Player 2
-
+            //PLAYER 2
             if (Input.GetKeyDown(KeyCode.Y))
             {
                 spawn(2, 1);
@@ -189,163 +188,145 @@ public class ControlSystem : ComponentSystem
             {
                 spawn(2, 4);
             }
-        }
 
-        //PLAYER 2
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            spawn(2, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            spawn(2, 2);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            spawn(2, 3);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            spawn(2, 4);
-        }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                if (Input.GetKey(KeyCode.K))
+                {
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.y = 0;
+                    });
+                }
+                else
+                {
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.y = movespeed;
+                    });
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                if (Input.GetKey(KeyCode.I))
+                {
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.y = 0;
+                    });
+                }
+                else
+                {
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.y = -movespeed;
+                    });
+                }
+            }
 
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (Input.GetKey(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.J))
             {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                if (Input.GetKey(KeyCode.L))
                 {
-                    if (player.playerID == 2) move.movementVector.y = 0;
-                });
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.x = 0;
+                    });
+                }
+                else
+                {
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.x = -movespeed;
+                    });
+                }
             }
-            else
+            if (Input.GetKeyDown(KeyCode.L))
             {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                if (Input.GetKey(KeyCode.J))
                 {
-                    if (player.playerID == 2) move.movementVector.y = movespeed;
-                });
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            if (Input.GetKey(KeyCode.I))
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.x = 0;
+                    });
+                }
+                else
                 {
-                    if (player.playerID == 2) move.movementVector.y = 0;
-                });
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.x = movespeed;
+                    });
+                }
             }
-            else
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
-                {
-                    if (player.playerID == 2) move.movementVector.y = -movespeed;
-                });
-            }
-        }
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            if (Input.GetKey(KeyCode.L))
+            if (Input.GetKeyUp(KeyCode.I))
             {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                if (Input.GetKey(KeyCode.K))
                 {
-                    if (player.playerID == 2) move.movementVector.x = 0;
-                });
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.y = -movespeed;
+                    });
+                }
+                else
+                {
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.y = 0;
+                    });
+                }
             }
-            else
+            if (Input.GetKeyUp(KeyCode.K))
             {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                if (Input.GetKey(KeyCode.I))
                 {
-                    if (player.playerID == 2) move.movementVector.x = -movespeed;
-                });
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            if (Input.GetKey(KeyCode.J))
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.y = movespeed;
+                    });
+                }
+                else
                 {
-                    if (player.playerID == 2) move.movementVector.x = 0;
-                });
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.y = 0;
+                    });
+                }
             }
-            else
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
-                {
-                    if (player.playerID == 2) move.movementVector.x = movespeed;
-                });
-            }
-        }
 
-        if (Input.GetKeyUp(KeyCode.I))
-        {
-            if (Input.GetKey(KeyCode.K))
+            if (Input.GetKeyUp(KeyCode.J))
             {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                if (Input.GetKey(KeyCode.L))
                 {
-                    if (player.playerID == 2) move.movementVector.y = -movespeed;
-                });
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.x = movespeed;
+                    });
+                }
+                else
+                {
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.x = 0;
+                    });
+                }
             }
-            else
+            if (Input.GetKeyUp(KeyCode.L))
             {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                if (Input.GetKey(KeyCode.J))
                 {
-                    if (player.playerID == 2) move.movementVector.y = 0;
-                });
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.K))
-        {
-            if (Input.GetKey(KeyCode.I))
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.x = -movespeed;
+                    });
+                }
+                else
                 {
-                    if (player.playerID == 2) move.movementVector.y = movespeed;
-                });
-            }
-            else
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
-                {
-                    if (player.playerID == 2) move.movementVector.y = 0;
-                });
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.J))
-        {
-            if (Input.GetKey(KeyCode.L))
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
-                {
-                    if (player.playerID == 2) move.movementVector.x = movespeed;
-                });
-            }
-            else
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
-                {
-                    if (player.playerID == 2) move.movementVector.x = 0;
-                });
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.L))
-        {
-            if (Input.GetKey(KeyCode.J))
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
-                {
-                    if (player.playerID == 2) move.movementVector.x = -movespeed;
-                });
-            }
-            else
-            {
-                Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
-                {
-                    if (player.playerID == 2) move.movementVector.x = 0;
-                });
+                    Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
+                    {
+                        if (player.playerID == 2) move.movementVector.x = 0;
+                    });
+                }
             }
         }
     }
