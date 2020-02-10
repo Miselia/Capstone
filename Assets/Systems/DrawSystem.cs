@@ -37,13 +37,13 @@ public class DrawSystem : ComponentSystem
                     });
                     if (flag)
                     {
-                        if (game.drawCardFromDeck(p, c) == 0)
+                        if (game.DrawCardFromDeck(p, c) == 0)
                         {
-                            setEmpty(p, c);
-                            if (checkAllEmpty(p) == true)
+                            SetEmpty(p, c);
+                            if (CheckAllEmpty(p) == true)
                             {
-                                game.reshuffle(p);
-                                setAllEmpty(p);
+                                game.Reshuffle(p);
+                                SetAllEmpty(p);
                             }
                         }
 
