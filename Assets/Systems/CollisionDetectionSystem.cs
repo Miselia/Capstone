@@ -8,17 +8,21 @@ using UnityEngine.SceneManagement;
 public class CollisionDetectionSystem : ComponentSystem
 {
     Game game;
+    bool gameInitialized;
 
-    protected override void OnStartRunning()
+    private void Initialize()
     {
         game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
-        base.OnStartRunning();
+        gameInitialized = true;
     }
 
     protected override void OnUpdate()
     {
-        if (SceneManager.GetActiveScene().name.Equals("GameScene"))
+        if (SceneManager.GetActiveScene().name == "GameScene")
         {
+            if (!gameInitialized)
+                Initialize();
+
             Dictionary<Entity, List<Entity>> checkedPairs = new Dictionary<Entity, List<Entity>>();
             bool skipFlag = false;
 
@@ -58,34 +62,37 @@ public class CollisionDetectionSystem : ComponentSystem
 
                     if (!skipFlag)
                     {
-                    // These internal method calls should instead be exported to a Event/Listener system to handle collision calculations
-                    if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
+                        // These internal method calls should instead be exported to a Event/Listener system to handle collision calculations
+                        if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
                         {
                             HandlePlayerCollisionWithBoundary(game, firstEntity, secondEntity);
-                        //Debug.Log("Circle and Wall Collision Check");
-                    }
-                        if (EntityManager.HasComponent<PlayerBoundaryComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
+                            Debug.Log("Player and Player Boundary Collision Check");
+                        }
+                        else if (EntityManager.HasComponent<PlayerBoundaryComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
                         {
                             HandlePlayerCollisionWithBoundary(game, secondEntity, firstEntity);
-                        //Debug.Log("Circle and Wall Collision Check");
-                    }
-                        if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<ProjectileBoundaryComponent>(secondEntity))
+                            Debug.Log("Player Boundary and Player Collision Check");
+                        }
+                        else if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<ProjectileBoundaryComponent>(secondEntity))
                         {
                             HandleProjectileCollisionWithBoundary(game, firstEntity, secondEntity);
+                            Debug.Log("Projectile and Projectile Boundary Collision Check");
                         }
-                        if (EntityManager.HasComponent<ProjectileBoundaryComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
+                        else if (EntityManager.HasComponent<ProjectileBoundaryComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
                         {
                             HandleProjectileCollisionWithBoundary(game, secondEntity, firstEntity);
+                            Debug.Log("Projectile Boundary and Projectile Collision Check");
                         }
-                        if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
+                        else if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
                         {
                             HandlePlayerCollisionWithProjectile(game, firstEntity, secondEntity);
+                            Debug.Log("Player and Projectile Collision Check");
                         }
-                        if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
+                        else if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
                         {
                             HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity);
-                        //Debug.Log("Projectile and Player Collision Check");
-                    }
+                            Debug.Log("Projectile and Player Collision Check");
+                        }
                     }
                     skipFlag = false;
                 });
@@ -105,7 +112,7 @@ public class CollisionDetectionSystem : ComponentSystem
             if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
             {
                 game.collidingPairs[projectileEntity].Add(boundaryEntity);
-                //Debug.Log("Projectile entity collide with boundary");
+                Debug.Log("Projectile entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity));
             }
@@ -135,7 +142,7 @@ public class CollisionDetectionSystem : ComponentSystem
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius )
             {
                 game.collidingPairs[playerEntity].Add(boundaryEntity);
-                //Debug.Log("Player entity collide with boundary");
+                Debug.Log("Player entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity));
                 //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
@@ -147,7 +154,7 @@ public class CollisionDetectionSystem : ComponentSystem
             if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius )
             {
                 game.collidingPairs[playerEntity].Add(boundaryEntity);
-                //Debug.Log("Player entity collide with boundary");
+                Debug.Log("Player entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity));
                 //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
@@ -165,7 +172,7 @@ public class CollisionDetectionSystem : ComponentSystem
         if( (new Vector2(playerVector.x,playerVector.y) - new Vector2(projectileVector.x,projectileVector.y)).magnitude < (firstRadius + secondRadius) )
         {
             game.collidingPairs[playerEntity].Add(projectileEntity);
-            //Debug.Log("player entity collide with projectile");
+            Debug.Log("player entity collide with projectile");
             // HOO BOY
             EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, projectileEntity));
         }

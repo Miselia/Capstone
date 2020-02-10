@@ -7,7 +7,7 @@ using Assets.Resources;
 public class Spawner : MonoBehaviour, IGenericEventListener
 {
     public int boundaryOffset = Constants.PlayerBoundaryOffset;
-    [SerializeField] private Material normalMat;
+    [SerializeField] private List<Material> projectileMaterialLibrary;
     [SerializeField] private Mesh mesh;
 
     // Start is called before the first frame update
@@ -19,24 +19,26 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
     public bool HandleEvent(IGenericEvent evt)
     {
+        Debug.Log("Handling Spawn Event");
         if (evt is SpawnEvent)
         {
             SpawnEvent se = (SpawnEvent) evt;
-            int cardID = World.Active.EntityManager.GetComponentData<CardComp>(se.card).cardID;
-            int playerID = World.Active.EntityManager.GetComponentData<CardComp>(se.card).player;
-            int currentMana = World.Active.EntityManager.GetComponentData<PlayerComponent>(se.player).mana;
             Entity player = se.player;
             Entity card = se.card;
-            spawn(cardID, playerID, currentMana, card, player);
+            
+            spawn(card, player);
             Debug.Log("Something is Spawned");
             return true;
         }
         return false;
     }
 
-    public void spawn(int cardID, int playerID, int currentMana, Entity card, Entity player)
+    public void spawn( Entity card, Entity player)
     {
-        int manaCost;
+        int cardID = World.Active.EntityManager.GetComponentData<CardComp>(card).cardID;
+        int playerID = World.Active.EntityManager.GetComponentData<CardComp>(card).player;
+        float currentMana = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana;
+        float manaCost;
         int positionX;
         if (playerID == 1) positionX = Constants.PlayerBoundaryOffset;
         else positionX = -Constants.PlayerBoundaryOffset;
@@ -52,29 +54,30 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.25f);
                     
 
-                    adjustPlayerValues(player, -manaCost, 0);
+                    adjustPlayerValues(player, manaCost, 0);
 
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
             case 2:
-                manaCost = 2;
+                manaCost = 10;
                 if (checkMana(manaCost, currentMana))
                 {
-                    createBullet("normal", new Vector2(positionX, 0), new Vector2(3, 0), 0.2f);
-                    createBullet("normal", new Vector2(positionX, 0), new Vector2(-3, 0), 0.2f);
-                    createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 0.5f), 1.5f);
+                    createBullet("fire", new Vector2(positionX, 0), new Vector2(3, 0), 0.2f);
+                    createBullet("fire", new Vector2(positionX, 0), new Vector2(-3, 0), 0.2f);
+                    createBullet("fire", new Vector2(positionX, -5), new Vector2(0, 0.5f), 1.5f);
                    
 
                     adjustPlayerValues(player, -manaCost, 0);
+                    
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
             case 3:
-                manaCost = 2;
+                manaCost = 3;
                 if (checkMana(manaCost, currentMana))
                 {
-                    createBullet("normal", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f);
+                    createBullet("purple", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f);
 
                     adjustPlayerValues(player, -manaCost, 0);
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
@@ -84,12 +87,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 manaCost = 2;
                 if (checkMana(manaCost, currentMana))
                 {
-                    createBullet("normal", new Vector2(positionX, 5), new Vector2(-2, -2), 2.0f);
-                    createBullet("normal", new Vector2(positionX, 5), new Vector2(2, -2), 2.0f);
-                    createBullet("normal", new Vector2(positionX, -5), new Vector2(-2, 2), 2.0f);
-                    createBullet("normal", new Vector2(positionX, -5), new Vector2(2, 2), 2.0f);
+                    createBullet("red", new Vector2(positionX, 5), new Vector2(-2, -2), 2.0f);
+                    createBullet("red", new Vector2(positionX, 5), new Vector2(2, -2), 2.0f);
+                    createBullet("red", new Vector2(positionX, -5), new Vector2(-2, 2), 2.0f);
+                    createBullet("red", new Vector2(positionX, -5), new Vector2(2, 2), 2.0f);
 
-                    adjustPlayerValues(player, -manaCost, 0);
+                    adjustPlayerValues(player, manaCost, 0);
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
@@ -100,11 +103,20 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         switch (type)
         {
             case "normal":
-                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, normalMat);
+                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, projectileMaterialLibrary[0]);
+                break;
+            case "fire":
+                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, projectileMaterialLibrary[1]);
+                break;
+            case "purple":
+                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, projectileMaterialLibrary[2]);
+                break;
+            case "red":
+                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, projectileMaterialLibrary[3]);
                 break;
         }
     }
-    private bool checkMana(int manaCost, int mana)
+    private bool checkMana(float manaCost, float mana)
     {
         if ((mana - manaCost) < 0)
         {
@@ -112,16 +124,20 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         }
         return true;
     }
-    private void adjustPlayerValues(Entity player, int manaDelta, int healthDelta)
+    private void adjustPlayerValues(Entity player, float manaDelta, int healthDelta)
     {
-        int currentHealth = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).healthRemaining;
-        int currentMana = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana;
-        int newHealth = currentHealth + healthDelta;
-        int newMana = currentMana + manaDelta;
-        int playerID = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).playerID;
-        World.Active.EntityManager.SetComponentData<PlayerComponent>(player, new PlayerComponent(playerID, newHealth, newMana));
 
-        EventManager.instance.QueueEvent(new UIUpdateEvent(newHealth, newMana, playerID));
+        //int[] values = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).adjustMana(manaDelta);
+        /*
+        int[] values = { 0, 0, 0 };
+        values[1] = (int) Mathf.Floor(World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana);
+        values[0] = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).healthRemaining;
+        values[2] = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).playerID;
+
+        EventManager.instance.QueueEvent(new UIUpdateEvent(values[0], values[1], values[2]));
+        */
+        World.Active.EntityManager.AddComponent(player, typeof(ManaDeltaComp));
+        World.Active.EntityManager.SetComponentData(player, new ManaDeltaComp(manaDelta));
     }
-    
+
 }

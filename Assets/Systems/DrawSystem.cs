@@ -9,17 +9,23 @@ public class DrawSystem : ComponentSystem
     private Game game;
     bool[] emptySlots1;
     bool[] emptySlots2;
+    bool gameInitialized;
 
-    protected override void OnStartRunning()
+    private void Initialize()
     {
         game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
         emptySlots1 = new bool[] { false, false, false, false };
         emptySlots2 = new bool[] { false, false, false, false };
+        gameInitialized = true;
     }
+
     protected override void OnUpdate()
     {
-        if (SceneManager.GetActiveScene().name.Equals("GameScene"))
+        if (SceneManager.GetActiveScene().name == "GameScene")
         {
+            if (!gameInitialized)
+                Initialize();
+
             for (int p = 1; p <= 2; p++)
             {
                 for (int c = 1; c <= 4; c++)
@@ -31,13 +37,13 @@ public class DrawSystem : ComponentSystem
                     });
                     if (flag)
                     {
-                        if (game.DrawCardFromDeck(p, c) == 0)
+                        if (game.drawCardFromDeck(p, c) == 0)
                         {
-                            SetEmpty(p, c);
-                            if (CheckAllEmpty(p) == true)
+                            setEmpty(p, c);
+                            if (checkAllEmpty(p) == true)
                             {
-                                game.Reshuffle(p);
-                                SetAllEmpty(p);
+                                game.reshuffle(p);
+                                setAllEmpty(p);
                             }
                         }
 

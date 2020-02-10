@@ -12,7 +12,8 @@ public class Game : MonoBehaviour, IGenericEventListener
     private int boundaryOffset = Constants.PlayerBoundaryOffset;
     private int boundarySize = Constants.PlayerBoundarySize;
     private int maxHealth = Constants.PlayerMaximumHealth;
-    private int maxMana = Constants.PlayerMaximumMana;
+    private float maxMana = Constants.PlayerMaximumMana;
+    private float manaRegen = Constants.PlayerManaRegen;
     private float playerRadius = Constants.PlayerRadius;
 
     [SerializeField] private Mesh mesh2D;
@@ -21,7 +22,7 @@ public class Game : MonoBehaviour, IGenericEventListener
     [SerializeField] private Material horiPlayerBoundMat;
     [SerializeField] private Material vertProjectileBoundMat;
     [SerializeField] private Material horiProjectileBoundMat;
-    [SerializeField] private Material cardMat;
+    [SerializeField] private List<Material> cardMaterialLibrary;
 
     public Dictionary<Entity, List<Entity>> collidingPairs = new Dictionary<Entity, List<Entity>>();
 
@@ -39,10 +40,17 @@ public class Game : MonoBehaviour, IGenericEventListener
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
 
-        PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, mesh2D, playerMat);
-        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, mesh2D, playerMat);
+        PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
+        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
+        
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 1));
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, maxMana, 2));
+
+        playDeck1 = new Deck("player1.txt");
+        playDeck2 = new Deck("player2.txt");
+        
+        playDeck1 = new Deck("player1.txt");
+        playDeck2 = new Deck("player2.txt");
 
         PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset+boundarySize/2, 0), new Vector2(-1, 0), mesh2D, vertPlayerBoundMat);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset-boundarySize/2, 0), new Vector2(1, 0), mesh2D, vertPlayerBoundMat);
