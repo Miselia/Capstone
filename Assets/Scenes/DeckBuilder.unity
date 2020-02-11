@@ -120,6 +120,64 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1744853044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1744853046}
+  - component: {fileID: 1744853045}
+  m_Layer: 0
+  m_Name: Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1744853045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744853044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d983f420a3bb6674dac7c0640b0c047d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh2D: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  playerMat: {fileID: 2100000, guid: fdabef17d33b04648bc749542662712d, type: 2}
+  vertPlayerBoundMat: {fileID: 2100000, guid: a2d213014f005744889248d333a99c00, type: 2}
+  horiPlayerBoundMat: {fileID: 2100000, guid: 04cb530448ed33b4f8303c7884fd9ec2, type: 2}
+  vertProjectileBoundMat: {fileID: 2100000, guid: 6c8c084de9e9803449e7300bc7bca7a6,
+    type: 2}
+  horiProjectileBoundMat: {fileID: 2100000, guid: c5f06d5a79d2f794baa17001dee8829e,
+    type: 2}
+  cardMaterialLibrary:
+  - {fileID: 2100000, guid: a54ae07e72232f94eb9e2ba9e7448d4f, type: 2}
+  - {fileID: 2100000, guid: 1deef9c49534b614592ac9b7e14c288e, type: 2}
+  - {fileID: 2100000, guid: 3fca24bc5ba053f4d95dbfe3544d2205, type: 2}
+  - {fileID: 2100000, guid: b718783e6ce1144479e41871df44a0ba, type: 2}
+  - {fileID: 2100000, guid: 3a016d7816f7d484e9f304909c119335, type: 2}
+  eventManager: {fileID: 0}
+--- !u!4 &1744853046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744853044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1830107442
 GameObject:
   m_ObjectHideFlags: 0

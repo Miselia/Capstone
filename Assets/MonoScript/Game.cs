@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 using System;
@@ -9,7 +8,7 @@ using Assets.Resources;
 public class Game : MonoBehaviour, IGenericEventListener
 {
     // boundaryOffset represents how far the center of a player boundary is from the center of the screen
-    private int boundaryOffset = Constants.PlayerBoundaryOffset;
+    private int boundaryOffset = Constants.GameBoundaryOffset;
     private int boundarySize = Constants.PlayerBoundarySize;
     private int maxHealth = Constants.PlayerMaximumHealth;
     private float maxMana = Constants.PlayerMaximumMana;
