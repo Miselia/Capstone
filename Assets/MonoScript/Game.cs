@@ -4,8 +4,9 @@ using Unity.Entities;
 using System;
 using Assets.Entities;
 using Assets.Resources;
+using Assets.MonoScript;
 
-public class Game : MonoBehaviour, IGenericEventListener
+public class Game : MonoBehaviour, IGame
 {
     // boundaryOffset represents how far the center of a player boundary is from the center of the screen
     private int boundaryOffset = Constants.GameBoundaryOffset;
@@ -23,7 +24,7 @@ public class Game : MonoBehaviour, IGenericEventListener
     [SerializeField] private Material horiProjectileBoundMat;
     [SerializeField] private List<Material> cardMaterialLibrary;
 
-    public Dictionary<Entity, List<Entity>> collidingPairs = new Dictionary<Entity, List<Entity>>();
+    private Dictionary<Entity, List<Entity>> collidingPairs = new Dictionary<Entity, List<Entity>>();
 
     // Start is called before the first frame update
     private EntityManager entityManager;
@@ -124,5 +125,9 @@ public class Game : MonoBehaviour, IGenericEventListener
         if (collidingPairs[entityB].Contains(entityA))
             collidingPairs[entityB].Remove(entityA);
     }
-    
+
+    public Dictionary<Entity, List<Entity>> GetCollidingPairs()
+    {
+        return collidingPairs;
+    }
 }

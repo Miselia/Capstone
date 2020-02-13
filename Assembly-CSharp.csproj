@@ -90,10 +90,11 @@
     <Compile Include="Assets\Events\GenericEvents\UIUpdateEvent.cs" />
     <Compile Include="Assets\Events\IGenericEvent.cs" />
     <Compile Include="Assets\Events\IGenericEventListener.cs" />
-    <Compile Include="Assets\MonoScript\AbstractGame.cs" />
     <Compile Include="Assets\MonoScript\CardData.cs" />
     <Compile Include="Assets\MonoScript\Deck.cs" />
+    <Compile Include="Assets\MonoScript\DeckBuilderGame.cs" />
     <Compile Include="Assets\MonoScript\Game.cs" />
+    <Compile Include="Assets\MonoScript\IGame.cs" />
     <Compile Include="Assets\MonoScript\LobbyScript.cs" />
     <Compile Include="Assets\MonoScript\MenuScript.cs" />
     <Compile Include="Assets\MonoScript\Spawner.cs" />
