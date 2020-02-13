@@ -59,18 +59,6 @@ public class Game : MonoBehaviour, IGame
         playDeck1 = LobbyScript.p1Deck;
         playDeck2 = LobbyScript.p2Deck;
 
-        /*
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), playDeck1.DrawCard(), 1, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), playDeck1.DrawCard(), 2, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), playDeck1.DrawCard(), 3, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), playDeck1.DrawCard(), 4, 1, mesh2D, cardMat);
-
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), playDeck2.DrawCard(), 1, 2, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), playDeck2.DrawCard(), 2, 2, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), playDeck2.DrawCard(), 3, 2, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), playDeck2.DrawCard(), 4, 2, mesh2D, cardMat);
-        */
-
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2 * boundaryOffset, 0), new Vector2(1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(2 * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
