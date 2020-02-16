@@ -10,7 +10,7 @@ using Assets.Resources;
 public static class CardEntity
 {
 
-    public static Entity Create(EntityManager em, Vector2 position, int cardID, int cardSlot, int playerID, Mesh mesh, Material mat)
+    public static Entity Create(EntityManager em, Vector2 position, int cardID, int cardSlot, int playerID, float manaCost, Mesh mesh, Material mat)
     {
         Entity entity = em.CreateEntity();
 
@@ -32,7 +32,7 @@ public static class CardEntity
             em.SetComponentData(entity, new Translation { Value = new float3(position.x + (cardSlot * 2f), position.y, 0) });
         }
         
-        em.SetComponentData(entity, new CardComp(cardID, cardSlot, playerID));
+        em.SetComponentData(entity, new CardComp(cardID, cardSlot, playerID, manaCost));
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
 
         return entity;

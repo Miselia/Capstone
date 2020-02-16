@@ -37,13 +37,13 @@ public class DrawSystem : ComponentSystem
                     });
                     if (flag)
                     {
-                        if (game.drawCardFromDeck(p, c) == 0)
+                        if (game.DrawCardFromDeck(p, c) == 0)
                         {
-                            setEmpty(p, c);
-                            if (checkAllEmpty(p) == true)
+                            SetEmpty(p, c);
+                            if (CheckAllEmpty(p) == true)
                             {
-                                game.reshuffle(p);
-                                setAllEmpty(p);
+                                game.Reshuffle(p);
+                                SetAllEmpty(p);
                             }
                         }
 
@@ -52,7 +52,7 @@ public class DrawSystem : ComponentSystem
             }
         }
     }
-    private void setAllEmpty(int player)
+    private void SetAllEmpty(int player)
     {
         if (player == 1)
         {
@@ -69,7 +69,7 @@ public class DrawSystem : ComponentSystem
             }
         }
     }
-    private bool checkAllEmpty(int player)
+    private bool CheckAllEmpty(int player)
     {
         if (player == 1)
         {
@@ -88,7 +88,7 @@ public class DrawSystem : ComponentSystem
             return true;
         }
     }
-    private void setEmpty(int player, int card)
+    private void SetEmpty(int player, int card)
     {
         if (player == 1)
         {

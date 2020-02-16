@@ -23,18 +23,21 @@ public class Deck
     {
         deck = new List<int>();
         this.filepath = "Assets/Resources/"+f;
-        buildDeck(filepath);
-
-        Shuffle();
-        string output = "";
-        for(int i=0; i < deck.Count; i++)
+        if (!buildDeck(filepath))
+            deck = null;
+        else
         {
-            output += deck[i] + " ,";
+            Shuffle();
+            string output = "";
+            for (int i = 0; i < deck.Count; i++)
+            {
+                output += deck[i] + " ,";
+            }
+            Debug.Log(filepath + output);
         }
-        Debug.Log(filepath + output);
     }
 
-    private void buildDeck(string file)
+    private bool buildDeck(string file)
     {
         StreamReader reader = new StreamReader(file);
         bool flag = true;
@@ -51,6 +54,10 @@ public class Deck
                 deck.Add(tempInt);
             }
         }
+        if (deck.Count > Constants.MaxDeckSize)
+            return false;
+        else
+            return true;
     }
 
     // Cite this source: https://stackoverflow.com/questions/273313/randomize-a-listt by user "Shital Shah"
@@ -67,7 +74,7 @@ public class Deck
         }
     }
 
-    public int drawCard()
+    public int DrawCard()
     {
         if (maxDeckSize != topOfDeck)
         {
