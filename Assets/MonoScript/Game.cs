@@ -22,7 +22,9 @@ public class Game : MonoBehaviour, IGenericEventListener
     [SerializeField] private Material horiPlayerBoundMat;
     [SerializeField] private Material vertProjectileBoundMat;
     [SerializeField] private Material horiProjectileBoundMat;
-    [SerializeField] private List<Material> cardMaterialLibrary;
+    [SerializeField] private CardLibrary cl;
+
+    private List<CardData> cardLibrary;
 
     public Dictionary<Entity, List<Entity>> collidingPairs = new Dictionary<Entity, List<Entity>>();
 
@@ -39,6 +41,9 @@ public class Game : MonoBehaviour, IGenericEventListener
 
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
+
+        cardLibrary = cl.GetListByID(0);
+        //Debug.Log(cardLibrary[0].cardName + "," + cardLibrary[1].cardName + "," + cardLibrary[2].cardName + "," + cardLibrary[3].cardName);
 
         PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
@@ -57,7 +62,7 @@ public class Game : MonoBehaviour, IGenericEventListener
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, boundarySize/2), new Vector2(0, -1), mesh2D, horiPlayerBoundMat);
 
         playDeck1 = LobbyScript.p1Deck;
-        playDeck2 = LobbyScript.p2Deck;
+        playDeck2 = LobbyScript.p2Deck; 
 
         /*
         CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), playDeck1.DrawCard(), 1, 1, mesh2D, cardMat);
@@ -93,14 +98,14 @@ public class Game : MonoBehaviour, IGenericEventListener
        if(player == 1)
         {
             int nextCard = playDeck1.DrawCard();
-            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(-boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, mesh2D, cardMaterialLibrary[nextCard]);
+            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(-boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, cardLibrary[nextCard].manaCost, mesh2D, cardLibrary[nextCard].getMaterial());
             //else playDeck1.Shuffle();
             return nextCard;
         }
        else
        {
             int nextCard = playDeck2.DrawCard();
-            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, mesh2D, cardMaterialLibrary[nextCard]);
+            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, cardLibrary[nextCard].manaCost, mesh2D, cardLibrary[nextCard].getMaterial());
             //else playDeck2.Shuffle();
             return nextCard;
         }

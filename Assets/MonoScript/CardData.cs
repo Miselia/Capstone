@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardData : MonoBehaviour
+public class CardData
 {
 
-    private int cardID;
-    private string cardName;
-    private float manaCost;
+    public int cardID;
+    public string cardName;
+    public float manaCost;
     private int faction; //0 Unassigned, 1 Fantasy, 2 Steampunk, 3 Horror, 4 Sci-Fi
     private string traits;
     private Material material;
