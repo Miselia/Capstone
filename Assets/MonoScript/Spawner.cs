@@ -38,7 +38,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         int cardID = World.Active.EntityManager.GetComponentData<CardComp>(card).cardID;
         int playerID = World.Active.EntityManager.GetComponentData<CardComp>(card).player;
         float currentMana = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana;
-        float manaCost;
+        float manaCost  = World.Active.EntityManager.GetComponentData<CardComp>(card).manaCost;
         int positionX;
         if (playerID == 1) positionX = Constants.GameBoundaryOffset;
         else positionX = -Constants.GameBoundaryOffset;
@@ -46,7 +46,6 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         
         {
             case 1:
-                manaCost = 2;
                 if (checkMana(manaCost, currentMana))
                 {
                     createBullet("normal", new Vector2(positionX-5, -5), new Vector2(0, 3), 1.0f);
@@ -54,13 +53,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.25f);
                     
 
-                    adjustPlayerValues(player, manaCost, 0);
+                    adjustPlayerValues(player, -manaCost, 0);
 
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
             case 2:
-                manaCost = 10;
                 if (checkMana(manaCost, currentMana))
                 {
                     createBullet("fire", new Vector2(positionX, 0), new Vector2(3, 0), 0.2f);
@@ -74,7 +72,6 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 }
                 break;
             case 3:
-                manaCost = 3;
                 if (checkMana(manaCost, currentMana))
                 {
                     createBullet("purple", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f);
@@ -84,7 +81,6 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 }
                 break;
             case 4:
-                manaCost = 2;
                 if (checkMana(manaCost, currentMana))
                 {
                     createBullet("red", new Vector2(positionX, 5), new Vector2(-2, -2), 2.0f);
@@ -92,7 +88,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("red", new Vector2(positionX, -5), new Vector2(-2, 2), 2.0f);
                     createBullet("red", new Vector2(positionX, -5), new Vector2(2, 2), 2.0f);
 
-                    adjustPlayerValues(player, manaCost, 0);
+                    adjustPlayerValues(player, -manaCost, 0);
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
