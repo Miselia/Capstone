@@ -5,7 +5,7 @@ using Unity.Entities;
 using Assets.Resources;
 using UnityEngine.SceneManagement;
 
-public class ManaSystem : ComponentSystem
+public class PlayerValueSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {
@@ -16,6 +16,13 @@ public class ManaSystem : ComponentSystem
 
                 p.mana = p.mana + delta.delta;
                 World.Active.EntityManager.RemoveComponent<ManaDeltaComp>(e);
+
+            });
+            Entities.ForEach((Entity e, ref PlayerComponent p, ref HealthDeltaComp delta) =>
+            {
+
+                p.healthRemaining = p.healthRemaining + delta.delta;
+                World.Active.EntityManager.RemoveComponent<HealthDeltaComp>(e);
 
             });
             Entities.ForEach((ref PlayerComponent p) =>
