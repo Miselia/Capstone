@@ -6,7 +6,7 @@ using Assets.Resources;
 
 public class Spawner : MonoBehaviour, IGenericEventListener
 {
-    public int boundaryOffset = Constants.PlayerBoundaryOffset;
+    public int boundaryOffset = Constants.GameBoundaryOffset;
     [SerializeField] private List<Material> projectileMaterialLibrary;
     [SerializeField] private Mesh mesh;
 
@@ -40,8 +40,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         float currentMana = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana;
         float manaCost;
         int positionX;
-        if (playerID == 1) positionX = Constants.PlayerBoundaryOffset;
-        else positionX = -Constants.PlayerBoundaryOffset;
+        if (playerID == 1) positionX = Constants.GameBoundaryOffset;
+        else positionX = -Constants.GameBoundaryOffset;
         switch (cardID)
         
         {

@@ -11,7 +11,7 @@ public class ControlSystem : ComponentSystem
     private float movespeed = 5;
     protected override void OnUpdate()
     {
-        if (SceneManager.GetActiveScene().name.Equals("GameScene"))
+        if (SceneManager.GetActiveScene().name.Equals("GameScene") || SceneManager.GetActiveScene().name == "DeckBuilder")
         {
             //Player 1
             if (Input.GetKeyDown(KeyCode.Q))

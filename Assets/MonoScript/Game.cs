@@ -1,15 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 using System;
 using Assets.Entities;
 using Assets.Resources;
+using Assets.MonoScript;
 
-public class Game : MonoBehaviour, IGenericEventListener
+public class Game : MonoBehaviour, IGame
 {
     // boundaryOffset represents how far the center of a player boundary is from the center of the screen
-    private int boundaryOffset = Constants.PlayerBoundaryOffset;
+    private int boundaryOffset = Constants.GameBoundaryOffset;
     private int boundarySize = Constants.PlayerBoundarySize;
     private int maxHealth = Constants.PlayerMaximumHealth;
     private float maxMana = Constants.PlayerMaximumMana;
@@ -26,7 +26,7 @@ public class Game : MonoBehaviour, IGenericEventListener
 
     private List<CardData> cardLibrary;
 
-    public Dictionary<Entity, List<Entity>> collidingPairs = new Dictionary<Entity, List<Entity>>();
+    private Dictionary<Entity, List<Entity>> collidingPairs = new Dictionary<Entity, List<Entity>>();
 
     // Start is called before the first frame update
     private EntityManager entityManager;
@@ -64,22 +64,10 @@ public class Game : MonoBehaviour, IGenericEventListener
         playDeck1 = LobbyScript.p1Deck;
         playDeck2 = LobbyScript.p2Deck; 
 
-        /*
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), playDeck1.DrawCard(), 1, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), playDeck1.DrawCard(), 2, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), playDeck1.DrawCard(), 3, 1, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(-boundaryOffset, -9), playDeck1.DrawCard(), 4, 1, mesh2D, cardMat);
-
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), playDeck2.DrawCard(), 1, 2, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), playDeck2.DrawCard(), 2, 2, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), playDeck2.DrawCard(), 3, 2, mesh2D, cardMat);
-        CardEntity.Create(entityManager, new Vector2(boundaryOffset-7, -7.5f), playDeck2.DrawCard(), 4, 2, mesh2D, cardMat);
-        */
-
-        ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2 * boundaryOffset, 0), new Vector2(1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
-        ProjectileBoundaryEntity.Create(entityManager, new Vector2(2 * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.red);
-        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
-        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 40.3f, Color.red);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2 * boundaryOffset, 0), new Vector2(1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.clear);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(2 * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.clear);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 40.3f, Color.clear);
+        ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 40.3f, Color.clear);
     }
 
     public bool HandleEvent(IGenericEvent evt)
@@ -130,5 +118,9 @@ public class Game : MonoBehaviour, IGenericEventListener
         if (collidingPairs[entityB].Contains(entityA))
             collidingPairs[entityB].Remove(entityA);
     }
-    
+
+    public Dictionary<Entity, List<Entity>> GetCollidingPairs()
+    {
+        return collidingPairs;
+    }
 }
