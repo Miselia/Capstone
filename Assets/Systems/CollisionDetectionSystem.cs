@@ -117,6 +117,7 @@ public class CollisionDetectionSystem : ComponentSystem
                 EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity));
             }
         }
+
         if (EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.y == 0)
         {
             Vector2 nearestWallPosition = new Vector2(boundaryVector.x, circleVector.y);
