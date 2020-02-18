@@ -91,6 +91,8 @@
     <Compile Include="Assets\Events\GenericEvents\UIUpdateEvent.cs" />
     <Compile Include="Assets\Events\IGenericEvent.cs" />
     <Compile Include="Assets\Events\IGenericEventListener.cs" />
+    <Compile Include="Assets\MonoScript\ButtonListButton.cs" />
+    <Compile Include="Assets\MonoScript\ButtonListController.cs" />
     <Compile Include="Assets\MonoScript\CardData.cs" />
     <Compile Include="Assets\MonoScript\CardLibrary.cs" />
     <Compile Include="Assets\MonoScript\Deck.cs" />
