@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class ButtonListController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private GameObject buttonPrefab;
     void Start()
     {
-        
-    }
+        CardLibrary cl = (CardLibrary)GameObject.Find("CardLibrary").GetComponent("CardLibrary");
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach(CardData data in cl.GetListByName(0))
+        {
+            GameObject button = Instantiate(buttonPrefab) as GameObject;
+            button.SetActive(true);
+
+            button.GetComponent<ButtonPrefab>().SetText(data.getName());
+            button.transform.SetParent(buttonPrefab.transform.parent, false);
+        }
     }
 }
