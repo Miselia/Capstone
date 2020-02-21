@@ -6,10 +6,11 @@ using System.Linq;
 public class CardLibrary: MonoBehaviour
 {
     [SerializeField] private List<Material> cardMaterialLibrary;
-    private List<CardData> cardList = new List<CardData>();
+    private List<CardData> cardList;
     // Start is called before the first frame update
     void Start()
     {
+        cardList = new List<CardData>();
         //CardID, Name, manaCost, faction, traits, material
         //0 Unassigned, 1 Fantasy, 2 Steampunk, 3 Horror, 4 Sci-Fi
         cardList.Add(new CardData(0,"Default", 0, 0, "None", cardMaterialLibrary[0]));
@@ -31,20 +32,26 @@ public class CardLibrary: MonoBehaviour
     */
     public List<CardData> GetListByID(int faction)
     {
-        cardList = cardList.OrderBy(c => c.cardID).ToList(); 
-        return cardList;
+        /*cardList = cardList.OrderBy(c => c.cardID).ToList(); 
+        return cardList;*/
+        return cardList.OrderBy(c => c.cardID).ToList();
     }
     public List<CardData> GetListByName(int faction)
     {
-        cardList = cardList.OrderBy(c => c.cardName).ToList();
+        /*cardList = cardList.OrderBy(c => c.cardName).ToList();
         //Debug.Log(cardList.Count);
-        return cardList;
+        return cardList;*/
+        return cardList.OrderBy(c => c.cardName).ToList();
     }
     public List<CardData> GetListByMana(int faction)
     {
-        cardList = cardList.OrderBy(c => c.manaCost).ToList();
-        return cardList;
+        /*cardList = cardList.OrderBy(c => c.manaCost).ToList();
+        return cardList;*/
+        return cardList.OrderBy(c => c.manaCost).ToList();
     }
 
-
+    public CardData GetCardData(int id)
+    {
+        return cardList[id];
+    }
 }

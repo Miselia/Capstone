@@ -11,6 +11,6 @@ public class SpawnEvent : IGenericEvent
         this.card = card;
         this.player = player;
 
-        Debug.Log("Spawn Event Created");
+        //Debug.Log("Spawn Event Created");
     }
 }
