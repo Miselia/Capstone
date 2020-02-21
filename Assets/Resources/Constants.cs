@@ -7,7 +7,7 @@
         // And start a new section describing the general use of the new constants \\
 
         // For example, this is the header for the variables related to the Game space itself \\
-        public static readonly int GameBoundaryOffset = 10;
+        public static readonly int GameBoundaryOffset = 7;
         public static readonly int PlayerBoundarySize = 13;
         public static readonly int DeckBuilderBoundaryOffset = 0;
 

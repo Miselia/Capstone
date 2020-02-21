@@ -21,15 +21,15 @@ public static class CardEntity
         em.AddComponent(entity, typeof(Translation));
         em.AddComponent(entity, typeof(Scale));
 
-        em.SetComponentData(entity, new Scale { Value = 1.5f });
+        em.SetComponentData(entity, new Scale { Value = 2f });
         if(playerID == 1)
         {
-            em.SetComponentData(entity, new Translation { Value = new float3(position.x + (cardSlot * 2f), position.y, 0) });
+            em.SetComponentData(entity, new Translation { Value = new float3(position.x + (cardSlot * 2.5f-0.5f), position.y, 0) });
         }
         if(playerID == 2)
         {
             //Add position change for 2nd player cards
-            em.SetComponentData(entity, new Translation { Value = new float3(position.x + (cardSlot * 2f), position.y, 0) });
+            em.SetComponentData(entity, new Translation { Value = new float3(position.x + (cardSlot * 2.5f-0.5f), position.y, 0) });
         }
         
         em.SetComponentData(entity, new CardComp(cardID, cardSlot, playerID, manaCost));
