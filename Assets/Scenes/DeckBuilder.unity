@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 8694632}
   - component: {fileID: 8694631}
   - component: {fileID: 8694630}
+  - component: {fileID: 8694633}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -220,7 +221,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e867454719579f40b18b69a858a1b52, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -238,6 +239,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8694628}
   m_CullTransparentMesh: 0
+--- !u!114 &8694633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8694628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d15497f5dfa6d429334844fba96b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonText: {fileID: 1753609541}
+  listControl: {fileID: 1984319801}
 --- !u!1 &91520710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,6 +1369,7 @@ GameObject:
   - component: {fileID: 1984319799}
   - component: {fileID: 1984319798}
   - component: {fileID: 1984319800}
+  - component: {fileID: 1984319801}
   m_Layer: 5
   m_Name: ButtonScrollList
   m_TagString: Untagged
@@ -1448,6 +1464,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1984319801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984319796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e89bedc87698d478edc574ac252ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: 8694628}
 --- !u!1 &2098853550
 GameObject:
   m_ObjectHideFlags: 0
