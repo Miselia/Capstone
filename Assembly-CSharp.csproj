@@ -115,97 +115,97 @@
     <None Include="Assets\Resources\player1.txt" />
     <None Include="Assets\Resources\player2.txt" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities.Properties">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Entities.Properties.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Entities.Properties.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Jobs">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Jobs.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Jobs.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Jobs.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Jobs.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Jobs.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Entities.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Entities.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities.StaticTypeRegistry">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Entities.StaticTypeRegistry.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Entities.StaticTypeRegistry.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Collections">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Collections.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Scenes.Hybrid">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Scenes.Hybrid.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Scenes.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Scenes.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Scenes.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Scenes.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Extensions">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Mathematics.Extensions.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Mathematics.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Extensions.Hybrid">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Mathematics.Extensions.Hybrid.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Mathematics.Extensions.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rendering.Hybrid">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Rendering.Hybrid.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Rendering.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities.BuildUtils">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Entities.BuildUtils.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Entities.BuildUtils.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities.Hybrid">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Properties">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Properties.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Properties.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Transforms">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Transforms.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Transforms.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Transforms.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Transforms.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Transforms.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Transforms.Hybrid">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/ScriptAssemblies/Unity.Transforms.Hybrid.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Transforms.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -385,10 +385,10 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Unsafe">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/PackageCache/com.unity.burst@1.1.2/Unity.Burst.Unsafe.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/PackageCache/com.unity.burst@1.1.2/Unity.Burst.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>C:/Homework/Capstone/Capstone/Library/PackageCache/com.unity.collections@0.1.1-preview/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/PackageCache/com.unity.collections@0.1.1-preview/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.10f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
