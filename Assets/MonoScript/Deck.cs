@@ -37,10 +37,16 @@ public class Deck
         }
     }
 
+    public Deck()
+    {
+        deck = new List<int>();
+    }
+
     private bool buildDeck(string file)
     {
         StreamReader reader = new StreamReader(file);
         bool flag = true;
+        bool deckLimitReached = false;
         while(flag)
         {
             if ( reader.Peek() == -1) flag = false;
@@ -51,10 +57,11 @@ public class Deck
                 //Debug.Log(nextLine);
                 int tempInt = int.Parse(nextLine);
                 //Debug.Log(tempInt);
-                deck.Add(tempInt);
+                if (AddCard(tempInt) == false)
+                    deckLimitReached = true;
             }
         }
-        if (deck.Count > Constants.MaxDeckSize)
+        if (deckLimitReached)
             return false;
         else
             return true;
@@ -84,4 +91,19 @@ public class Deck
         else return 0;
     }
 
+    public bool AddCard(int cardID)
+    {
+        if (deck.Count < maxDeckSize)
+        {
+            deck.Add(cardID);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public bool RemoveCard(int cardID)
+    {
+        return deck.Remove(cardID);
+    }
 }

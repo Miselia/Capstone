@@ -12,13 +12,14 @@ public class CardButtonPrefab : MonoBehaviour
     {
         buttonText.text = inputText;
     }
-    public void Initialize(string cardName, int cardNum)
+    public void Initialize(string cardName, int cardNum, Material cardMat)
     {
         buttonText.text = cardName;
         cardNumber = cardNum;
+        gameObject.GetComponent<Image>().material = cardMat;
     }
 
-    public void Onclick()
+    public void OnPrefabClicked()
     {
         listControl.ButtonClicked(cardNumber);
     }

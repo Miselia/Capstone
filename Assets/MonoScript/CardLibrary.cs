@@ -8,7 +8,7 @@ public class CardLibrary: MonoBehaviour
     [SerializeField] private List<Material> cardMaterialLibrary;
     private List<CardData> cardList;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         cardList = new List<CardData>();
         //CardID, Name, manaCost, faction, traits, material
@@ -20,7 +20,6 @@ public class CardLibrary: MonoBehaviour
         cardList.Add(new CardData(4, "Red Coin", 5, 2, "", cardMaterialLibrary[4]));
 
         Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
-
     }
 
     // Update is called once per frame
