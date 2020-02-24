@@ -11,6 +11,7 @@
         public static readonly int PlayerBoundarySize = 13;
         public static readonly int DeckBuilderBoundaryOffset = 0;
 
+        public static readonly int PlayerMovementSpeed = 5;
         public static readonly int PlayerMaximumHealth = 3;
         public static readonly float PlayerMaximumMana = 20f;
         public static readonly float PlayerManaRegen = 0.05f;

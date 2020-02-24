@@ -8,42 +8,43 @@ using Assets.MonoScript;
 
 public class DeckBuilderGame : MonoBehaviour, IGame
 {
-    private int boundaryOffset;
-    private int boundarySize;
-    private int maxHealth;
-    private float maxMana;
-    private float manaRegen;
-    private float playerRadius;
-    private Dictionary<Entity, List<Entity>> collidingPairs;
+    private int boundaryOffset = Constants.GameBoundaryOffset;
+    private int boundarySize = Constants.PlayerBoundarySize;
+    private int maxHealth = Constants.PlayerMaximumHealth;
+    private float maxMana = Constants.PlayerMaximumMana;
+    private float manaRegen = Constants.PlayerManaRegen;
+    private float playerRadius = Constants.PlayerRadius;
+    private Dictionary<Entity, List<Entity>> collidingPairs = new Dictionary<Entity, List<Entity>>();
 
     private EntityManager entityManager;
     private Spawner spawner;
 
-    public EventManager eventManager;
+    [SerializeField] public EventManager eventManager;
     [SerializeField] private Mesh mesh2D;
     [SerializeField] private Material playerMat;
     [SerializeField] private Material vertPlayerBoundMat;
     [SerializeField] private Material horiPlayerBoundMat;
     [SerializeField] private Material vertProjectileBoundMat;
     [SerializeField] private Material horiProjectileBoundMat;
+    [SerializeField] private CardLibrary cl;
+
+    bool[] playerHand;
+
+    private List<CardData> cardLibrary;
+    private Deck builderDeck;
 
     void Start()
     {
+        playerHand = new bool[] { false, false, false, false };
+        builderDeck = new Deck();
+
         eventManager = gameObject.AddComponent<EventManager>();
         EventManager.instance.RegisterListener<EndCollisionEvent>(this);
 
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
 
-        collidingPairs = new Dictionary<Entity, List<Entity>>();
-
-        boundaryOffset = Constants.GameBoundaryOffset;
-        boundarySize = Constants.PlayerBoundarySize;
-
-        maxHealth = Constants.PlayerMaximumHealth;
-        maxMana = Constants.PlayerMaximumMana;
-        manaRegen = Constants.PlayerManaRegen;
-        playerRadius = Constants.PlayerRadius;
+        cardLibrary = cl.GetListByID(0);
 
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
 
@@ -84,4 +85,44 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     {
         return collidingPairs;
     }
+
+    /*public bool AddCardtoHand(int cardID)
+    {
+        int nextSlot = FindOpenHandSlot();
+        if (nextSlot != -1)
+        {
+            CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), cardID, nextSlot, 1, cardList[cardID].manaCost, mesh2D, cardList[cardID].getMaterial());
+            return true;
+        }
+        else
+            return false;
+    }*/
+
+    public bool AddCardToDeck(int cardID)
+    {
+        return builderDeck.AddCard(cardID);
+    }
+
+    public bool RemoveCardFromDeck(int cardID)
+    {
+        return builderDeck.RemoveCard(cardID);
+    }
+
+    public List<CardData> GetCardLibrary()
+    {
+        return cardLibrary;
+    }
+
+    /*private int FindOpenHandSlot()
+    {
+        for(int i=0; i<playerHand.Length; i++)
+        {
+            if(playerHand[i] == false)
+            {
+                playerHand[i] = true;
+                return i;
+            }
+        }
+        return -1;
+    }*/
 }
