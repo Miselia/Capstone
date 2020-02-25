@@ -5,6 +5,7 @@ using System;
 using Assets.Entities;
 using Assets.Resources;
 using Assets.MonoScript;
+using Assets.Events.GenericEvents;
 
 public class DeckBuilderGame : MonoBehaviour, IGame
 {
@@ -31,7 +32,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     bool[] playerHand;
 
     private List<CardData> cardLibrary;
-    private Deck builderDeck;
+    public Deck builderDeck;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
 
         eventManager = gameObject.AddComponent<EventManager>();
         EventManager.instance.RegisterListener<EndCollisionEvent>(this);
+        EventManager.instance.RegisterListener<AddCardtoDeckEvent>(this);
 
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
@@ -70,6 +72,23 @@ public class DeckBuilderGame : MonoBehaviour, IGame
             HandleEndCollisionEvent(ece.entityA, ece.entityB);
             return true;
         }
+        if (evt is AddCardtoDeckEvent)
+        {
+            Debug.Log("Add Card to Deck Event recieved");
+            AddCardtoDeckEvent acd = evt as AddCardtoDeckEvent;
+            bool result = AddCardToDeck(acd.cardID);
+            if (result)
+            {
+                Debug.Log("Calling Add to Deck List UI");
+                EventManager.instance.QueueEvent(new AddCardtoDeckScrollListEvent(acd.cardID, acd.cardName));
+                return true;
+            }
+            else
+            {
+                Debug.Log("Add to Deck List failed, abort add to UI");
+                return false;
+            }
+        }
         return false;
     }
 
@@ -98,7 +117,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
             return false;
     }*/
 
-    public bool AddCardToDeck(int cardID)
+    private bool AddCardToDeck(int cardID)
     {
         return builderDeck.AddCard(cardID);
     }
