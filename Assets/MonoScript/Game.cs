@@ -62,7 +62,8 @@ public class Game : MonoBehaviour, IGame
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, boundarySize/2), new Vector2(0, -1), mesh2D, horiPlayerBoundMat);
 
         playDeck1 = LobbyScript.p1Deck;
-        playDeck2 = LobbyScript.p2Deck; 
+        playDeck2 = LobbyScript.p2Deck;
+        Debug.Log(playDeck1.getFactions());
 
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2.5f * boundaryOffset, 0), new Vector2(1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.clear);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(2.5f * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.clear);

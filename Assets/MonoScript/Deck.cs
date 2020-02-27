@@ -18,6 +18,9 @@ public class Deck
     string filepath;
     List<int> deck;
     int topOfDeck = 0;
+    string primaryFaction = "";
+    string secondaryFaction = "";
+
 
     public Deck(string f)
     {
@@ -45,6 +48,8 @@ public class Deck
     private bool buildDeck(string file)
     {
         StreamReader reader = new StreamReader(file);
+        primaryFaction = reader.ReadLine().Replace("\n", "");
+        secondaryFaction = reader.ReadLine().Replace("\n", "");
         bool flag = true;
         bool deckLimitReached = false;
         while(flag)
@@ -89,6 +94,10 @@ public class Deck
             return deck[topOfDeck-1];
         }
         else return 0;
+    }
+    public string getFactions()
+    {
+        return primaryFaction + " " + secondaryFaction;
     }
 
     public bool AddCard(int cardID)
