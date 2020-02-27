@@ -101,6 +101,7 @@
     <Compile Include="Assets\MonoScript\DeckBuilder\DeckBuilderGame.cs" />
     <Compile Include="Assets\MonoScript\DeckBuilder\DeckButtonPrefab.cs" />
     <Compile Include="Assets\MonoScript\DeckBuilder\DeckListController.cs" />
+    <Compile Include="Assets\MonoScript\DeckLobbyScript.cs" />
     <Compile Include="Assets\MonoScript\Game.cs" />
     <Compile Include="Assets\MonoScript\IGame.cs" />
     <Compile Include="Assets\MonoScript\LobbyScript.cs" />
