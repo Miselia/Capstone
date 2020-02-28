@@ -6,13 +6,6 @@ using UnityEngine;
 
 public class Deck 
 {
-    /** TODO: Add code that checks the deck file for validity so that players can't inject/remove
-     * card data into/from the deck file to add illegal deck lists
-     * TODO: Make card spawning code make a "deck and hand empty event" that notifies the deck so
-     * that it can be shuffled in the deck class
-     * TODO: Make a "GetStartingHand" function that returns the top X values from deck[]
-     */
-
     // Start is called before the first frame update
     private int maxDeckSize = Constants.MaxDeckSize;
     string filepath;
@@ -40,9 +33,11 @@ public class Deck
         }
     }
 
-    public Deck()
+    public Deck(string primary, string secondary)
     {
         deck = new List<int>();
+        primaryFaction = primary;
+        secondaryFaction = secondary;
     }
 
     private bool buildDeck(string file)

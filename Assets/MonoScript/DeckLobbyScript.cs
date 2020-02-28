@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeckLobbyScript : MonoBehaviour
@@ -10,22 +11,20 @@ public class DeckLobbyScript : MonoBehaviour
     // All new game options
     [SerializeField] private Dropdown factionChoices1;
     [SerializeField] private Dropdown factionChoices2;
+    List<string> allFactionNames;
     private string factionChoice1;
     private string factionChoice2;
 
     // All edit deck options
     [SerializeField] private Dropdown decksAvailable;
+    List<string> allFileNames;
+    private string loadedDeck;
 
     public static Deck chosenDeck;
-    List<string> allFileNames;
 
     public void Start()
     {
-        /*
-         * The Start() function will be used to dynamically define the options
-         * In the deck loading section of the UI only, as the faction chioces
-         * can simply be placed directly into the Dropdowns from the Unity editor
-         */
+        // The section initializes the Decks Available choice (load deck from file) dropdown
         allFileNames = new List<string>();
         allFileNames.Add("None");
 
@@ -38,15 +37,39 @@ public class DeckLobbyScript : MonoBehaviour
         }
 
         decksAvailable.AddOptions(allFileNames);
+
+        // This section initializes the Faction choice (new deck creation) dropdowns
+        allFactionNames.Clear();
+        allFactionNames.Add("Fantasy");
+        allFactionNames.Add("Steampunk");
+        allFactionNames.Add("Horror");
+        allFactionNames.Add("Sci-Fi");
+
+        factionChoices1.AddOptions(allFactionNames);
+        factionChoices2.AddOptions(allFactionNames);
     }
 
     public void NewDeckToDeckBuilder()
     {
         Debug.Log("New deck to deck builder clicked");
+        if (factionChoices1.value != 0 && factionChoices2.value != 0)
+        {
+            factionChoice1 = allFileNames[factionChoices1.value];
+            factionChoice2 = allFileNames[factionChoices2.value];
+
+            chosenDeck = new Deck(factionChoice1, factionChoice2);
+            SceneManager.LoadScene("DeckBuilder");
+        }
     }
 
     public void EditDeckToDeckBuilder()
     {
         Debug.Log("Edit deck to deck builder clicked");
+        if (decksAvailable.value != 0)
+        {
+            //loadedDeck = allFileNames[]
+
+            //chosenDeck = new Deck()
+        }
     }
 }
