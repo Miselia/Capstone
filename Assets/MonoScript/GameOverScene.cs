@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 //using UnityEngine.SceneManagement;
 
-public class MenuScript : MonoBehaviour
+public class GameOverScene : MonoBehaviour
 {
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
+
 }
     
