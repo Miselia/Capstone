@@ -13,16 +13,32 @@ public class DrawSystem : ComponentSystem
 
     private void Initialize()
     {
+        /*
         game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
         emptySlots1 = new bool[] { false, false, false, false };
         emptySlots2 = new bool[] { false, false, false, false };
         gameInitialized = true;
+        */
     }
 
     protected override void OnUpdate()
     {
         if (SceneManager.GetActiveScene().name == "GameScene")
         {
+            emptySlots1 = new bool[] { false, false, false, false };
+            emptySlots2 = new bool[] { false, false, false, false };
+            Entities.ForEach((ref CardComp card) =>
+            {
+                if (card.player == 1 && card.cardSlot == 1) emptySlots1[1] = true;
+                if (card.player == 1 && card.cardSlot == 1) emptySlots1[1] = true;
+                if (card.player == 1 && card.cardSlot == 1) emptySlots1[1] = true;
+                if (card.player == 1 && card.cardSlot == 1) emptySlots1[1] = true;
+                if (card.player == 2 && card.cardSlot == 1) emptySlots1[1] = true;
+                if (card.player == 2 && card.cardSlot == 1) emptySlots1[1] = true;
+                if (card.player == 2 && card.cardSlot == 1) emptySlots1[1] = true;
+                if (card.player == 2 && card.cardSlot == 1) emptySlots1[1] = true;
+            });
+            /*
             if (!gameInitialized)
                 Initialize();
 
@@ -50,6 +66,7 @@ public class DrawSystem : ComponentSystem
                     }
                 }
             }
+            */
         }
     }
     private void SetAllEmpty(int player)
