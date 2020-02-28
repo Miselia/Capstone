@@ -37,7 +37,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     void Start()
     {
         playerHand = new bool[] { false, false, false, false };
-        builderDeck = new Deck();
+        builderDeck = DeckLobbyScript.chosenDeck;
 
         eventManager = gameObject.AddComponent<EventManager>();
         EventManager.instance.RegisterListener<EndCollisionEvent>(this);

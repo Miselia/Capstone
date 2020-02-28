@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 public class DeckLobbyScript : MonoBehaviour
 {
-    // All new game options
-    [SerializeField] private Dropdown factionChoices1;
-    [SerializeField] private Dropdown factionChoices2;
+    // All new deck options
+    [SerializeField] private Dropdown factionChoicesDropdown1;
+    [SerializeField] private Dropdown factionChoicesDropdown2;
     List<string> allFactionNames;
     private string factionChoice1;
     private string factionChoice2;
@@ -39,23 +39,28 @@ public class DeckLobbyScript : MonoBehaviour
         decksAvailable.AddOptions(allFileNames);
 
         // This section initializes the Faction choice (new deck creation) dropdowns
-        allFactionNames.Clear();
+        allFactionNames = new List<string>();
+        allFactionNames.Add("None");
+
+        factionChoicesDropdown1.options.Clear();
+        factionChoicesDropdown2.options.Clear();
+
         allFactionNames.Add("Fantasy");
         allFactionNames.Add("Steampunk");
         allFactionNames.Add("Horror");
         allFactionNames.Add("Sci-Fi");
 
-        factionChoices1.AddOptions(allFactionNames);
-        factionChoices2.AddOptions(allFactionNames);
+        factionChoicesDropdown1.AddOptions(allFactionNames);
+        factionChoicesDropdown2.AddOptions(allFactionNames);
     }
 
     public void NewDeckToDeckBuilder()
     {
         Debug.Log("New deck to deck builder clicked");
-        if (factionChoices1.value != 0 && factionChoices2.value != 0)
+        if (factionChoicesDropdown1.value != 0 && factionChoicesDropdown2.value != 0)
         {
-            factionChoice1 = allFileNames[factionChoices1.value];
-            factionChoice2 = allFileNames[factionChoices2.value];
+            factionChoice1 = allFactionNames[factionChoicesDropdown1.value];
+            factionChoice2 = allFactionNames[factionChoicesDropdown2.value];
 
             chosenDeck = new Deck(factionChoice1, factionChoice2);
             SceneManager.LoadScene("DeckBuilder");
@@ -67,9 +72,10 @@ public class DeckLobbyScript : MonoBehaviour
         Debug.Log("Edit deck to deck builder clicked");
         if (decksAvailable.value != 0)
         {
-            //loadedDeck = allFileNames[]
+            loadedDeck = allFileNames[decksAvailable.value];
 
-            //chosenDeck = new Deck()
+            chosenDeck = new Deck(loadedDeck + ".txt");
+            SceneManager.LoadScene("DeckBuilder");
         }
     }
 }
