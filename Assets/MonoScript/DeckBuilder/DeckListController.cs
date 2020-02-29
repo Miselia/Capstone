@@ -9,22 +9,18 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
     [SerializeField] private DeckBuilderGame dbGame;
     void Start()
     {
-        /*List<CardData> cl = dbGame.GetCardLibrary();
-
-        foreach (CardData data in cl)
-        {
-            GameObject button = Instantiate(buttonPrefab) as GameObject;
-            button.SetActive(true);
-
-            button.GetComponent<DeckButtonPrefab>().Initialize(data.getName(), data.getID());
-            button.transform.SetParent(buttonPrefab.transform.parent, false);
-        }*/
         EventManager.instance.RegisterListener<AddCardtoDeckScrollListEvent>(this);
 
         /* 
          * Have the decklist content populate based on the Deck file that was loaded
          * into the DeckBuilderGame
          */
+
+        List<CardData> cl = dbGame.GetCardLibrary();
+        foreach (int id in dbGame.builderDeck.GetDeck())
+        {
+            AddButtontoDeckListUI(cl[id].cardID, cl[id].cardName);
+        }
     }
 
     public void ButtonClicked(int id)

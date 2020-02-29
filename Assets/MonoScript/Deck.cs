@@ -8,11 +8,11 @@ public class Deck
 {
     // Start is called before the first frame update
     private int maxDeckSize = Constants.MaxDeckSize;
-    string filepath;
-    List<int> deck;
+    private string filepath;
+    private List<int> deck;
     int topOfDeck = 0;
-    string primaryFaction = "";
-    string secondaryFaction = "";
+    private string primaryFaction = "";
+    private string secondaryFaction = "";
 
 
     public Deck(string f)
@@ -109,5 +109,10 @@ public class Deck
     public bool RemoveCard(int cardID)
     {
         return deck.Remove(cardID);
+    }
+
+    public List<int> GetDeck()
+    {
+        return deck;
     }
 }
