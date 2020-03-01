@@ -21,12 +21,14 @@ public class GameOverListener : MonoBehaviour, IGenericEventListener
             
             GameOverEvent ge = evt as GameOverEvent;
             Debug.Log("Game Over Event UwU");
-            if (ge.pID == 1) SceneManager.LoadScene("GameOver"); ;
-            if (ge.pID == 2) SceneManager.LoadScene("GameOver"); ;
+            World.Active.GetExistingSystem<DrawSystem>().Enabled = false;
             foreach (Entity e in World.Active.EntityManager.GetAllEntities())
             {
-                World.Active.EntityManager.AddComponent(e, typeof(DeleteComp));
+                World.Active.EntityManager.DestroyEntity(e);
             }
+            if (ge.pID == 1) SceneManager.LoadScene("GameOver"); ;
+            if (ge.pID == 2) SceneManager.LoadScene("GameOver"); ;
+            
 
                 return true;
         }

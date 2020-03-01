@@ -31,7 +31,12 @@ public static class CardEntity
             //Add position change for 2nd player cards
             em.SetComponentData(entity, new Translation { Value = new float3(position.x + (cardSlot * 2.5f-0.5f), position.y, 0) });
         }
-        
+        if (playerID == 0)
+        {
+            //Add position change for 2nd player cards
+            em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
+        }
+
         em.SetComponentData(entity, new CardComp(cardID, cardSlot, playerID, manaCost));
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
 

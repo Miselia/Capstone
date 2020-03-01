@@ -38,12 +38,15 @@ public class Game : MonoBehaviour, IGame
     {
         eventManager = gameObject.AddComponent<EventManager>();
         EventManager.instance.RegisterListener<EndCollisionEvent>(this);
-
+        
+        
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
 
         cardLibrary = cl.GetListByID(0);
         //Debug.Log(cardLibrary[0].cardName + "," + cardLibrary[1].cardName + "," + cardLibrary[2].cardName + "," + cardLibrary[3].cardName);
+        World.Active.GetExistingSystem<DrawSystem>().Enabled = true;
+
 
         PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
@@ -69,6 +72,7 @@ public class Game : MonoBehaviour, IGame
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(2.5f * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.clear);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, 1.5f * boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 40.3f, Color.clear);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, 1.5f * -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 40.3f, Color.clear);
+        CardEntity.Create(entityManager, new Vector2(0,-15f), 0, 0, 0, cardLibrary[0].manaCost, mesh2D, cardLibrary[0].getMaterial());
     }
 
     public bool HandleEvent(IGenericEvent evt)
