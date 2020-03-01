@@ -91,6 +91,7 @@
     <Compile Include="Assets\Events\GenericEvents\CollisionEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\EndCollisionEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\GameOverEvent.cs" />
+    <Compile Include="Assets\Events\GenericEvents\InitializeDeckBuilderUIEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\SpawnEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\UIUpdateEvent.cs" />
     <Compile Include="Assets\Events\IGenericEvent.cs" />

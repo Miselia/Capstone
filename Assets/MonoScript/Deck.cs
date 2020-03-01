@@ -20,16 +20,20 @@ public class Deck
         deck = new List<int>();
         this.filepath = "Assets/Resources/"+f;
         if (!buildDeck(filepath))
+        {
+            Debug.Log("Filepath not found");
             deck = null;
+        }
         else
         {
             Shuffle();
-            string output = "";
+            string output = " ";
             for (int i = 0; i < deck.Count; i++)
             {
                 output += deck[i] + " ,";
             }
             Debug.Log(filepath + output);
+            Debug.Log("Filepath loaded correctly");
         }
     }
 
@@ -62,9 +66,15 @@ public class Deck
             }
         }
         if (deckLimitReached)
+        {
+            Debug.Log("Deck limit reached at Deck size = " + deck.Count);
             return false;
+        }
         else
+        {
+            Debug.Log("Deck limit NOT reached. Deck size = " + deck.Count);
             return true;
+        }
     }
 
     // Cite this source: https://stackoverflow.com/questions/273313/randomize-a-listt by user "Shital Shah"

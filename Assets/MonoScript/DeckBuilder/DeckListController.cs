@@ -7,22 +7,31 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
 {
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private DeckBuilderGame dbGame;
+
     void Start()
     {
         EventManager.instance.RegisterListener<AddCardtoDeckScrollListEvent>(this);
-
+        EventManager.instance.RegisterListener<InitializeDeckBuilderUIEvent>(this);
+    }
+    private void Initialize()
+    {
         /* 
          * Have the decklist content populate based on the Deck file that was loaded
          * into the DeckBuilderGame
          */
 
         List<CardData> cl = dbGame.GetCardLibrary();
+        Debug.Log("Card libray is null " + (cl == null));
+
+        dbGame.GetDeck();
+
         foreach (int id in dbGame.builderDeck.GetDeck())
         {
             AddButtontoDeckListUI(cl[id].cardID, cl[id].cardName);
         }
     }
 
+    // We may want to implement this before presentation
     public void ButtonClicked(int id)
     {
         Debug.Log("Button added to DeckListController");
@@ -34,6 +43,12 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
         {
             AddCardtoDeckScrollListEvent add = evt as AddCardtoDeckScrollListEvent;
             AddButtontoDeckListUI(add.cardID, add.cardName);
+            return true;
+        }
+        if (evt is InitializeDeckBuilderUIEvent)
+        {
+            Debug.Log("InitializeDeckBuilderUIEvent received");
+            Initialize();
             return true;
         }
         return false;
