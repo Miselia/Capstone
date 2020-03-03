@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class LobbyScript : MonoBehaviour
 {
-    //void Start() { }
-    //void Update() { }
-
     [SerializeField] private Dropdown p1DeckDropdown;
     [SerializeField] private Dropdown p2DeckDropdown;
     List<string> allFileNames;

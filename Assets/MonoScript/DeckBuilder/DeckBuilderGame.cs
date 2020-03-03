@@ -34,10 +34,13 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     private List<CardData> cardLibrary;
     public Deck builderDeck;
 
+
     void Start()
     {
+        Debug.Log(typeof(ButtonListController).ToString());
         playerHand = new bool[] { false, false, false, false };
-        builderDeck = new Deck();
+        GetDeck();
+        Debug.Log("Builder deck is null: " + (builderDeck == null));
 
         eventManager = gameObject.AddComponent<EventManager>();
         EventManager.instance.RegisterListener<EndCollisionEvent>(this);
@@ -62,6 +65,9 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(2*boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.clear);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset, boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 20.0f, Color.clear);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset, -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 20.0f, Color.clear);
+
+        EventManager.instance.QueueEvent(new InitializeDeckBuilderListUIEvent());
+        EventManager.instance.QueueEvent(new InitializeDeckBuilerDeckUIEvent());
     }
 
     public bool HandleEvent(IGenericEvent evt)
@@ -98,6 +104,11 @@ public class DeckBuilderGame : MonoBehaviour, IGame
             collidingPairs[entityA].Remove(entityB);
         if (collidingPairs[entityB].Contains(entityA))
             collidingPairs[entityB].Remove(entityA);
+    }
+
+    public void GetDeck()
+    {
+        builderDeck = DeckLobbyScript.chosenDeck;
     }
 
     public Dictionary<Entity, List<Entity>> GetCollidingPairs()

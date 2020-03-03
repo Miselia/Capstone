@@ -16,7 +16,7 @@
         public static readonly float PlayerMaximumMana = 20f;
         public static readonly float PlayerManaRegen = 0.05f;
         public static readonly float PlayerRadius = 0.5f;
-        public static readonly int MaxDeckSize = 10;
+        public static readonly int MaxDeckSize = 15;
         public static readonly int DefaultProjectileDamage = 1;
 
         //Entities Don't really need constants since their constants are only used internally \\
