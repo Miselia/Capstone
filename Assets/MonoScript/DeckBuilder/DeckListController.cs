@@ -11,7 +11,7 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
     void Start()
     {
         EventManager.instance.RegisterListener<AddCardtoDeckScrollListEvent>(this);
-        EventManager.instance.RegisterListener<InitializeDeckBuilderDeckUIEvent>(this);
+        EventManager.instance.RegisterListener<InitializeDeckBuilerDeckUIEvent>(this);
     }
     private void InitializationFunction()
     {
@@ -44,7 +44,7 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
             AddButtontoDeckListUI(add.cardID, add.cardName);
             return true;
         }
-        if (evt is InitializeDeckBuilderListUIEvent)
+        if (evt is InitializeDeckBuilerDeckUIEvent)
         {
             Debug.Log("KKKKKKKKKKKKKKKKKKKKKKKKKKKK");
             InitializationFunction();

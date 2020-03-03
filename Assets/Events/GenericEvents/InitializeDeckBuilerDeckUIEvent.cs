@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Events.GenericEvents
 {
-    public class InitializeDeckBuilderDeckUIEvent : IGenericEvent
+    public class InitializeDeckBuilerDeckUIEvent : IGenericEvent
     {
     }
 }
