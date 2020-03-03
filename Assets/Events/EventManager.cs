@@ -109,7 +109,6 @@ public class EventManager : MonoBehaviour
 
     public bool TriggerEvent(IGenericEvent evt)
     {
-        Debug.Log("Event Triggered");
         InitiateListener(evt.GetType());
         //Debug.Log("Event Dictionary Type Count" + eventDictionary[evt.GetType()].Count);
 
@@ -145,6 +144,7 @@ public class EventManager : MonoBehaviour
     {
         if(!eventDictionary.ContainsKey(type))
         {
+            Debug.Log("Type: " + type.ToString() + " registered as listener");
             eventDictionary.Add(type, new List<WeakReference<IGenericEventListener>>());
         }
     }

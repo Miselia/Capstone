@@ -37,6 +37,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
 
     void Start()
     {
+        Debug.Log(typeof(ButtonListController).ToString());
         playerHand = new bool[] { false, false, false, false };
         GetDeck();
         Debug.Log("Builder deck is null: " + (builderDeck == null));
