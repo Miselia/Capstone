@@ -14,16 +14,18 @@ public class CollisionDetectionSystem : ComponentSystem
     private void Initialize()
     {
         game = (IGame)GameObject.Find("Game").GetComponent(typeof(IGame));
-        gameInitialized = true;
+        //gameInitialized = true;
     }
 
     protected override void OnUpdate()
     {
         if (SceneManager.GetActiveScene().name == "GameScene" || SceneManager.GetActiveScene().name == "DeckBuilder")
         {
+            /*
             if (!gameInitialized)
                 Initialize();
-
+            */
+            Initialize();
             Dictionary<Entity, List<Entity>> checkedPairs = new Dictionary<Entity, List<Entity>>();
             bool skipFlag = false;
 

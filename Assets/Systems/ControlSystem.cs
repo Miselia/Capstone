@@ -5,10 +5,11 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 using UnityEngine.SceneManagement;
+using Assets.Resources;
 
 public class ControlSystem : ComponentSystem
 {
-    private float movespeed = 5;
+    private float movespeed = Constants.PlayerMovementSpeed;
     protected override void OnUpdate()
     {
         if (SceneManager.GetActiveScene().name.Equals("GameScene") || SceneManager.GetActiveScene().name == "DeckBuilder")

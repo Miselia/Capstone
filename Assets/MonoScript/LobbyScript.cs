@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class LobbyScript : MonoBehaviour
 {
-    //void Start() { }
-    //void Update() { }
-
     [SerializeField] private Dropdown p1DeckDropdown;
     [SerializeField] private Dropdown p2DeckDropdown;
     List<string> allFileNames;
@@ -42,13 +39,6 @@ public class LobbyScript : MonoBehaviour
         if(p1DeckDropdown.value != 0 &&
            p2DeckDropdown.value != 0)
         {
-            /** TODO:
-             *    Make the GameScene transition actually work
-             *    Pass in the two different deck files into the GameScene
-             *      Option 1: Store values in 'Object' type and call DontDestroyOnLoad(Object)
-             *      Option 2: Make these two values static, as static variables are always visible
-             */
-
             p1DeckString = allFileNames[p1DeckDropdown.value];
             p2DeckString = allFileNames[p2DeckDropdown.value];
             p1Deck = new Deck(p1DeckString + ".txt");
@@ -61,5 +51,9 @@ public class LobbyScript : MonoBehaviour
         }
         else
             Debug.Log("Decks not valid, try again");
+    }
+    public void Back()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

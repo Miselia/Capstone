@@ -7,15 +7,16 @@
         // And start a new section describing the general use of the new constants \\
 
         // For example, this is the header for the variables related to the Game space itself \\
-        public static readonly int GameBoundaryOffset = 10;
+        public static readonly int GameBoundaryOffset = 7;
         public static readonly int PlayerBoundarySize = 13;
         public static readonly int DeckBuilderBoundaryOffset = 0;
 
+        public static readonly int PlayerMovementSpeed = 5;
         public static readonly int PlayerMaximumHealth = 3;
         public static readonly float PlayerMaximumMana = 20f;
         public static readonly float PlayerManaRegen = 0.05f;
         public static readonly float PlayerRadius = 0.5f;
-        public static readonly int MaxDeckSize = 10;
+        public static readonly int MaxDeckSize = 15;
         public static readonly int DefaultProjectileDamage = 1;
 
         //Entities Don't really need constants since their constants are only used internally \\
