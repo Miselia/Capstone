@@ -72,4 +72,8 @@ public class DeckLobbyScript : MonoBehaviour
             //chosenDeck = new Deck()
         }
     }
+    public void Back()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }

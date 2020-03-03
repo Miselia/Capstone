@@ -55,4 +55,8 @@ public class LobbyScript : MonoBehaviour
         else
             Debug.Log("Decks not valid, try again");
     }
+    public void Back()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }

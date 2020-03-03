@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Resources;
+using UnityEngine.SceneManagement;
 
 
 public class UIManager : MonoBehaviour, IGenericEventListener
@@ -51,5 +52,9 @@ public class UIManager : MonoBehaviour, IGenericEventListener
             return true;
         }
         return false;
+    }
+    public void Back()
+    {
+        SceneManager.LoadScene("DeckBuilderLobby");
     }
 }

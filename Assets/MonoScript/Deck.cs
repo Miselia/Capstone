@@ -39,6 +39,12 @@ public class Deck
         primaryFaction = primary;
         secondaryFaction = secondary;
     }
+    public Deck()
+    {
+        deck = new List<int>();
+        primaryFaction = "Fantasy";
+        secondaryFaction = "Steampunk";
+    }
 
     private bool buildDeck(string file)
     {

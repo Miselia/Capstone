@@ -9,7 +9,7 @@ using Assets.Events.GenericEvents;
 
 public class DeckBuilderGame : MonoBehaviour, IGame
 {
-    private int boundaryOffset = Constants.GameBoundaryOffset;
+    private int boundaryOffset = Constants.GameBoundaryOffset + 4;
     private int boundarySize = Constants.PlayerBoundarySize;
     private int maxHealth = Constants.PlayerMaximumHealth;
     private float maxMana = Constants.PlayerMaximumMana;
