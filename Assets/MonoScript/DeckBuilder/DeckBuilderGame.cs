@@ -66,7 +66,8 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset, boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 20.0f, Color.clear);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(boundaryOffset, -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 20.0f, Color.clear);
 
-        EventManager.instance.QueueEvent(new InitializeDeckBuilderUIEvent());
+        EventManager.instance.QueueEvent(new InitializeDeckBuilderListUIEvent());
+        EventManager.instance.QueueEvent(new InitializeDeckBuilderDeckUIEvent());
     }
 
     public bool HandleEvent(IGenericEvent evt)

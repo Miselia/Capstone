@@ -11,7 +11,7 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
     void Start()
     {
         EventManager.instance.RegisterListener<AddCardtoDeckScrollListEvent>(this);
-        EventManager.instance.RegisterListener<InitializeDeckBuilderUIEvent>(this);
+        EventManager.instance.RegisterListener<InitializeDeckBuilderDeckUIEvent>(this);
     }
     private void InitializationFunction()
     {
@@ -19,7 +19,7 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
          * Have the decklist content populate based on the Deck file that was loaded
          * into the DeckBuilderGame
          */
-
+        Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
         List<CardData> cl = dbGame.GetCardLibrary();
 
         dbGame.GetDeck();
@@ -44,8 +44,9 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
             AddButtontoDeckListUI(add.cardID, add.cardName);
             return true;
         }
-        if (evt is InitializeDeckBuilderUIEvent)
+        if (evt is InitializeDeckBuilderListUIEvent)
         {
+            Debug.Log("KKKKKKKKKKKKKKKKKKKKKKKKKKKK");
             InitializationFunction();
             return true;
         }
