@@ -106,9 +106,9 @@ public class Deck
         }
         else return 0;
     }
-    public string getFactions()
+    public string[] getFactions()
     {
-        return primaryFaction + " " + secondaryFaction;
+        return new string[] { primaryFaction, secondaryFaction };
     }
 
     public bool AddCard(int cardID)

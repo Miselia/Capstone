@@ -49,7 +49,8 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
 
-        cardLibrary = cl.GetListByID(0);
+        cardLibrary = cl.GetListByID(builderDeck.getFactions()[0]);
+        cardLibrary.AddRange(cl.GetListByID(builderDeck.getFactions()[1]));
 
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
 
