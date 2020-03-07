@@ -49,7 +49,12 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
 
-        cardLibrary = cl.GetListByID(0);
+
+        
+
+        cardLibrary = cl.GetListByID(builderDeck.getFactions()[0]);
+        cardLibrary.AddRange(cl.GetListByID(builderDeck.getFactions()[1]));
+
         World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = true;
         World.Active.GetExistingSystem<ControlSystem>().Enabled = true;
         World.Active.GetExistingSystem<DeletionSystem>().Enabled = true;
