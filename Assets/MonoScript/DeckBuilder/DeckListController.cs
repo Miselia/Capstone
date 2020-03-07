@@ -20,13 +20,16 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
          * into the DeckBuilderGame
          */
         Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+        // "cl" contains one copy of each unique card data found in the deck
         List<CardData> cl = dbGame.GetCardLibrary();
-
-        dbGame.GetDeck();
 
         foreach (int id in dbGame.builderDeck.GetDeck())
         {
-            AddButtontoDeckListUI(cl[id].cardID, cl[id].cardName);
+            foreach(CardData cd in cl)
+            {
+                if (cd.cardID == id)
+                    AddButtontoDeckListUI(cd.cardID, cd.cardName);
+            }
         }
     }
 
