@@ -10,21 +10,18 @@ public class DeletionSystem : ComponentSystem
     private Game game;
     protected override void OnStartRunning()
     {
-        if (SceneManager.GetActiveScene().name.Equals("GameScene") || SceneManager.GetActiveScene().name == "DeckBuilder")
-        {
-        } 
+        game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
     }
     protected override void OnUpdate()
     {
-        if (SceneManager.GetActiveScene().name.Equals("GameScene") || SceneManager.GetActiveScene().name == "DeckBuilder")
-        {
-            game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
+        
+        //game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
         
         Entities.ForEach((Entity e, ref DeleteComp d, ref Translation t) =>
             {
                 
                     World.Active.EntityManager.DestroyEntity(e);
             });
-        }
+        
     }
 }

@@ -12,8 +12,7 @@ public class ControlSystem : ComponentSystem
     private float movespeed = Constants.PlayerMovementSpeed;
     protected override void OnUpdate()
     {
-        if (SceneManager.GetActiveScene().name.Equals("GameScene") || SceneManager.GetActiveScene().name == "DeckBuilder")
-        {
+       
             //Player 1
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -329,7 +328,7 @@ public class ControlSystem : ComponentSystem
                     });
                 }
             }
-        }
+        
     }
 
     private void spawn(int player, int slot)

@@ -99,7 +99,7 @@ public class Deck
 
     public int DrawCard()
     {
-        if (maxDeckSize != topOfDeck)
+        if (deck.Count > topOfDeck)
         {
             topOfDeck += 1;
             return deck[topOfDeck-1];

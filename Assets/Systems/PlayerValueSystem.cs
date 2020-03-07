@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerValueSystem : ComponentSystem
 {
+
     protected override void OnUpdate()
     {
-        if (SceneManager.GetActiveScene().name.Equals("GameScene") || SceneManager.GetActiveScene().name == "DeckBuilder")
-        {
+        
             Entities.ForEach((Entity e, ref PlayerComponent p, ref ManaDeltaComp delta) =>
             {
 
@@ -42,6 +42,6 @@ public class PlayerValueSystem : ComponentSystem
                 EventManager.instance.QueueEvent(new UIUpdateEvent(p.healthRemaining, (int)Mathf.Floor(p.mana), p.playerID));
 
             });
-        }
+        
     }
 }

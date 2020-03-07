@@ -50,6 +50,11 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         spawner = gameObject.AddComponent<Spawner>();
 
         cardLibrary = cl.GetListByID(0);
+        World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = true;
+        World.Active.GetExistingSystem<ControlSystem>().Enabled = true;
+        World.Active.GetExistingSystem<DeletionSystem>().Enabled = true;
+        World.Active.GetExistingSystem<MovementSystem>().Enabled = true;
+        World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = true;
 
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
 

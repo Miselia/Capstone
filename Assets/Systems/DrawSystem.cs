@@ -9,23 +9,19 @@ public class DrawSystem : ComponentSystem
     private Game game;
     bool[] emptySlots1;
     bool[] emptySlots2;
-    // gameInitialized;
-
-    private void Initialize()
+    protected override void OnStartRunning()
     {
-
         game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
+    }
+    private void Initialize()
+    { 
         emptySlots1 = new bool[] { false, false, false, false };
         emptySlots2 = new bool[] { false, false, false, false };
-        //gameInitialized = true;
     }
 
     protected override void OnUpdate()
     {
-        Debug.Log("Draw System is still running");
-        if (SceneManager.GetActiveScene().name.Equals("GameScene"))
-        {
-            Debug.Log("Code makes it past the check for GameScene");
+        
             Initialize();
             Entities.ForEach((ref CardComp card) =>
             {
@@ -51,8 +47,10 @@ public class DrawSystem : ComponentSystem
                         int newCard = game.DrawCardFromDeck(p, c);
                         if (newCard == 0)
                         {
+                            
                             if (CheckAllEmpty(p) == true)
                             {
+                                Debug.Log("Checked if empty");
                                 game.Reshuffle(p);
                             }
                         }
@@ -61,7 +59,7 @@ public class DrawSystem : ComponentSystem
                 }
             }
             
-        }
+        
     }
     protected override void OnDestroy()
     {
