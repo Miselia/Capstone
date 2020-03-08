@@ -42,7 +42,7 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
         foreach(CardData cd in dbGame.GetCardLibrary())
         {
             if (cd.cardID == id)
-                CardEntity.Create(World.Active.EntityManager, new Vector2(), cd.cardID, 0, 1, cd.manaCost, dbGame.mesh2D, cd.getMaterial());
+                CardEntity.Create(World.Active.EntityManager, new Vector2(), cd.cardID, 1, 1, cd.manaCost, dbGame.mesh2D, cd.getMaterial());
         }
     }
 
