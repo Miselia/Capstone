@@ -39,6 +39,16 @@ public class CardLibrary: MonoBehaviour
     {
         return library[faction].OrderBy(c => c.cardID).ToList();
     }
+    public List<CardData> GetAllByID()
+    {
+        List<CardData> cardLibrary = new List<CardData>();
+        cardLibrary = GetListByID("Default");
+        cardLibrary.AddRange(GetListByID("Fantasy"));
+        cardLibrary.AddRange(GetListByID("Steampunk"));
+        cardLibrary.AddRange(GetListByID("Horror"));
+        cardLibrary.AddRange(GetListByID("Sci-Fi"));
+        return cardLibrary.OrderBy(c => c.cardID).ToList();
+    }
     public List<CardData> GetListByName(string faction)
     {
         return library[faction].OrderBy(c => c.cardName).ToList();
@@ -54,3 +64,4 @@ public class CardLibrary: MonoBehaviour
     }
     */
 }
+
