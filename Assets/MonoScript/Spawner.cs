@@ -94,6 +94,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 break;
         }
     }
+
+    /*public bool playCard(int cardID, int playerID, float currentMana, float manaCost, float positionX)
+    {
+
+    }*/
+
     private void createBullet(string type, Vector2 position, Vector2 movementvector, float radius)
     {
         switch (type)

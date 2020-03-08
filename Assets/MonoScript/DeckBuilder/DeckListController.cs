@@ -1,6 +1,7 @@
 ﻿using Assets.Events.GenericEvents;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 public class DeckListController : MonoBehaviour, IGenericEventListener
@@ -33,10 +34,16 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
         }
     }
 
-    // We may want to implement this before presentation
     public void ButtonClicked(int id)
     {
-        Debug.Log("Button added to DeckListController");
+
+        //EventManager.eventManager.QueueEvent(new SpawnEvent(
+        //    new CardEntity.Create(World.Active.EntityManager, new Vector2(), id, 0, 1, ))
+        foreach(CardData cd in dbGame.GetCardLibrary())
+        {
+            if (cd.cardID == id)
+                CardEntity.Create(World.Active.EntityManager, new Vector2(), cd.cardID, 0, 1, cd.manaCost, dbGame.mesh2D, cd.getMaterial());
+        }
     }
 
     public bool HandleEvent(IGenericEvent evt)

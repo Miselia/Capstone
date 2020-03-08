@@ -21,7 +21,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     private Spawner spawner;
 
     [SerializeField] public EventManager eventManager;
-    [SerializeField] private Mesh mesh2D;
+    [SerializeField] public Mesh mesh2D;
     [SerializeField] private Material playerMat;
     [SerializeField] private Material vertPlayerBoundMat;
     [SerializeField] private Material horiPlayerBoundMat;
