@@ -43,7 +43,7 @@ public class Game : MonoBehaviour, IGame
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
 
-        cardLibrary = cl.GetListByID("Default");
+        
         //Debug.Log(cardLibrary[0].cardName + "," + cardLibrary[1].cardName + "," + cardLibrary[2].cardName + "," + cardLibrary[3].cardName);
         World.Active.GetExistingSystem<DrawSystem>().Enabled = true;
         World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = true;
@@ -51,6 +51,8 @@ public class Game : MonoBehaviour, IGame
         World.Active.GetExistingSystem<DeletionSystem>().Enabled = true;
         World.Active.GetExistingSystem<MovementSystem>().Enabled = true;
         World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = true;
+
+        cardLibrary = cl.GetAllByID();
 
         PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
@@ -94,6 +96,7 @@ public class Game : MonoBehaviour, IGame
        if(player == 1)
         {
             int nextCard = playDeck1.DrawCard();
+            Debug.Log("NextCard: " + nextCard);
             if (nextCard > 0) CardEntity.Create(entityManager, new Vector2(-boundaryOffset - 7, -7.5f), nextCard, cardSlot, player, cardLibrary[nextCard].manaCost, mesh2D, cardLibrary[nextCard].getMaterial());
             //else playDeck1.Shuffle();
             return nextCard;
