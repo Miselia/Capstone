@@ -702,7 +702,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.57500005}
   m_AnchorMax: {x: 1, y: 0.57500005}
-  m_AnchoredPosition: {x: -35.4, y: 195.37248}
+  m_AnchoredPosition: {x: -35.4, y: 168.691}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &387888283
@@ -1228,8 +1228,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.6, y: -31.394999}
-  m_SizeDelta: {x: 145.5, y: 459.69}
+  m_AnchoredPosition: {x: -16.6, y: 0}
+  m_SizeDelta: {x: 145.5, y: 396.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &675082201
 MonoBehaviour:
@@ -1432,8 +1432,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.6, y: -31.390997}
-  m_SizeDelta: {x: 145.5, y: 459.7}
+  m_AnchoredPosition: {x: -16.6, y: -0.00051689}
+  m_SizeDelta: {x: 145.5, y: 396.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863077440
 MonoBehaviour:
@@ -1875,6 +1875,7 @@ GameObject:
   - component: {fileID: 1212930906}
   - component: {fileID: 1212930905}
   - component: {fileID: 1212930904}
+  - component: {fileID: 1212930908}
   m_Layer: 5
   m_Name: DeckScrollList
   m_TagString: Untagged
@@ -1983,6 +1984,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212930902}
   m_CullTransparentMesh: 0
+--- !u!114 &1212930908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212930902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1266470972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2190,7 +2203,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1930219756}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9934492
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2583,7 +2596,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -35.4, y: 229.845}
+  m_AnchoredPosition: {x: -35.4, y: 198.45001}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1608774222
@@ -3247,6 +3260,7 @@ GameObject:
   - component: {fileID: 1984319798}
   - component: {fileID: 1984319800}
   - component: {fileID: 1984319801}
+  - component: {fileID: 1984319802}
   m_Layer: 5
   m_Name: ButtonScrollList
   m_TagString: Untagged
@@ -3355,6 +3369,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 8694628}
   dbGame: {fileID: 1744853047}
+--- !u!114 &1984319802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984319796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1989943739
 GameObject:
   m_ObjectHideFlags: 0
@@ -3437,7 +3463,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 348530275}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99199086
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

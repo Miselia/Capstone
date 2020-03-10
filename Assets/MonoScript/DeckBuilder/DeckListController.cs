@@ -20,7 +20,6 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
          * Have the decklist content populate based on the Deck file that was loaded
          * into the DeckBuilderGame
          */
-        Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
         // "cl" contains one copy of each unique card data found in the deck
         List<CardData> cl = dbGame.GetCardLibrary();
 
@@ -42,7 +41,8 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
         foreach(CardData cd in dbGame.GetCardLibrary())
         {
             if (cd.cardID == id)
-                CardEntity.Create(World.Active.EntityManager, new Vector2(), cd.cardID, 1, 1, cd.manaCost, dbGame.mesh2D, cd.getMaterial());
+                dbGame.AddCardtoHand(id);
+            //CardEntity.Create(World.Active.EntityManager, new Vector2(), cd.cardID, 1, 1, cd.manaCost, dbGame.mesh2D, cd.getMaterial());
         }
     }
 
@@ -56,7 +56,6 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
         }
         if (evt is InitializeDeckBuilerDeckUIEvent)
         {
-            Debug.Log("KKKKKKKKKKKKKKKKKKKKKKKKKKKK");
             InitializationFunction();
             return true;
         }

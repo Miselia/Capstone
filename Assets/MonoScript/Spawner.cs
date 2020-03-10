@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 using Assets.Resources;
+using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour, IGenericEventListener
 {
@@ -39,9 +40,14 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         int playerID = World.Active.EntityManager.GetComponentData<CardComp>(card).player;
         float currentMana = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana;
         float manaCost  = World.Active.EntityManager.GetComponentData<CardComp>(card).manaCost;
-        int positionX;
-        if (playerID == 1) positionX = Constants.GameBoundaryOffset;
-        else positionX = -Constants.GameBoundaryOffset;
+
+        // If playerID = 1 then use Positive offset, else use negative offset
+        // If in GameScene use GameBoundaryOffset, else use DeckBuilderBoundaryOffset
+        int positionX = (playerID == 1) ? 
+            (SceneManager.GetActiveScene().name.Equals("GameScene")) ? Constants.GameBoundaryOffset : Constants.DeckBuilderBoundaryOffset :
+            (SceneManager.GetActiveScene().name.Equals("GameScene")) ? -Constants.GameBoundaryOffset : -Constants.DeckBuilderBoundaryOffset;
+
+
         switch (cardID)
         
         {
@@ -50,7 +56,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 {
                     createBullet("normal", new Vector2(positionX-5, -5), new Vector2(0, 3), 1.0f);
                     createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.5f);
-                    createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.25f);
+                    createBullet("normal", new Vector2(positionX+5, -5), new Vector2(0, 3), 0.25f);
                     
 
                     adjustPlayerValues(player, -manaCost, 0);

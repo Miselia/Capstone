@@ -9,7 +9,7 @@ using Assets.Events.GenericEvents;
 
 public class DeckBuilderGame : MonoBehaviour, IGame
 {
-    private int boundaryOffset = Constants.GameBoundaryOffset + 4;
+    private int boundaryOffset = Constants.DeckBuilderBoundaryOffset;
     private int boundarySize = Constants.PlayerBoundarySize;
     private int maxHealth = Constants.PlayerMaximumHealth;
     private float maxMana = Constants.PlayerMaximumMana;
@@ -29,7 +29,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     [SerializeField] private Material horiProjectileBoundMat;
     [SerializeField] private CardLibrary cl;
 
-    bool[] playerHand;
+    int[] playerHand;
 
     private List<CardData> cardLibrary;
     public Deck builderDeck;
@@ -38,19 +38,17 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     void Start()
     {
         Debug.Log(typeof(ButtonListController).ToString());
-        playerHand = new bool[] { false, false, false, false };
+        playerHand = new int[] { -1, -1, -1, -1 };
         GetDeck();
         Debug.Log("Builder deck is null: " + (builderDeck == null));
 
         eventManager = gameObject.AddComponent<EventManager>();
         EventManager.instance.RegisterListener<EndCollisionEvent>(this);
         EventManager.instance.RegisterListener<AddCardtoDeckEvent>(this);
+        EventManager.instance.RegisterListener<DeckBuilderHandAdjustEvent>(this);
 
         entityManager = World.Active.EntityManager;
         spawner = gameObject.AddComponent<Spawner>();
-
-
-        
 
         cardLibrary = cl.GetListByID(builderDeck.getFactions()[0]);
         cardLibrary.AddRange(cl.GetListByID(builderDeck.getFactions()[1]));
@@ -105,7 +103,30 @@ public class DeckBuilderGame : MonoBehaviour, IGame
                 return false;
             }
         }
+        if (evt is DeckBuilderHandAdjustEvent)
+        {
+            DeckBuilderHandAdjustEvent se = evt as DeckBuilderHandAdjustEvent;
+            AdjustPlayerHand(se.card);
+            return true;
+        }
         return false;
+    }
+
+    private void AdjustPlayerHand(Entity card)
+    {
+        // This code does not terminate early since the max number of checks is the max hand size of 4
+        for(int i=0; i<playerHand.Length; i++)
+        {
+            if(playerHand[i] == entityManager.GetComponentData<CardComp>(card).cardID)
+            {
+                playerHand[i] = -1;
+                Debug.Log("Player Hand [" + i + "] changed to -1 from spawn call");
+            }
+            else
+            {
+                Debug.Log("Player Hand [" + i + "] not adjusted from spawn call");
+            }
+        }
     }
 
     private void HandleEndCollisionEvent(Entity entityA, Entity entityB)
@@ -126,17 +147,17 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         return collidingPairs;
     }
 
-    /*public bool AddCardtoHand(int cardID)
+    public bool AddCardtoHand(int cardID)
     {
-        int nextSlot = FindOpenHandSlot();
+        int nextSlot = FindOpenHandSlot(cardID);
         if (nextSlot != -1)
         {
-            CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), cardID, nextSlot, 1, cardList[cardID].manaCost, mesh2D, cardList[cardID].getMaterial());
+            CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), cardID, nextSlot, 1, cl.GetAllByID()[cardID].manaCost, mesh2D, cl.GetAllByID()[cardID].getMaterial());
             return true;
         }
         else
             return false;
-    }*/
+    }
 
     private bool AddCardToDeck(int cardID)
     {
@@ -153,16 +174,16 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         return cardLibrary;
     }
 
-    /*private int FindOpenHandSlot()
+    private int FindOpenHandSlot(int id)
     {
         for(int i=0; i<playerHand.Length; i++)
         {
-            if(playerHand[i] == false)
+            if(playerHand[i] == -1)
             {
-                playerHand[i] = true;
-                return i;
+                playerHand[i] = id;
+                return i+1;
             }
         }
         return -1;
-    }*/
+    }
 }

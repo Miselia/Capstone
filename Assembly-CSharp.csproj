@@ -93,6 +93,7 @@
     <Compile Include="Assets\Events\GenericEvents\GameOverEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\InitializeDeckBuilderListUIEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\InitializeDeckBuilerDeckUIEvent.cs" />
+    <Compile Include="Assets\Events\GenericEvents\Settings Event Template1.cs" />
     <Compile Include="Assets\Events\GenericEvents\SpawnEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\UIUpdateEvent.cs" />
     <Compile Include="Assets\Events\IGenericEvent.cs" />

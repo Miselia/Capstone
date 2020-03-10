@@ -349,6 +349,7 @@ public class ControlSystem : ComponentSystem
                 Debug.Log("Card Slot: " + card.cardSlot + " Player: " + card.player);
                 id = card.cardID;
                 EventManager.instance.QueueEvent(new SpawnEvent(e, p));
+                EventManager.instance.QueueEvent(new DeckBuilderHandAdjustEvent(e));
             }
         });
         
