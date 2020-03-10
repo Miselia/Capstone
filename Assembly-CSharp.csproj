@@ -101,6 +101,7 @@
     <Compile Include="Assets\MonoScript\Bar.cs" />
     <Compile Include="Assets\MonoScript\CardData.cs" />
     <Compile Include="Assets\MonoScript\CardLibrary.cs" />
+    <Compile Include="Assets\MonoScript\CenteredRectangle.cs" />
     <Compile Include="Assets\MonoScript\Deck.cs" />
     <Compile Include="Assets\MonoScript\DeckBuilder\ButtonListController.cs" />
     <Compile Include="Assets\MonoScript\DeckBuilder\CardButtonPrefab.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Assets\MonoScript\IGame.cs" />
     <Compile Include="Assets\MonoScript\LobbyScript.cs" />
     <Compile Include="Assets\MonoScript\MenuScript.cs" />
+    <Compile Include="Assets\MonoScript\QuadTreeNode.cs" />
     <Compile Include="Assets\MonoScript\Spawner.cs" />
     <Compile Include="Assets\MonoScript\UIManager.cs" />
     <Compile Include="Assets\Resources\Constants.cs" />
