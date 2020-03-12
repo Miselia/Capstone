@@ -1,4 +1,5 @@
-﻿using Assets.Resources;
+﻿using Assets.Components;
+using Assets.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,9 @@ namespace Assets.MonoScript
             if (!allNodes && leaves.Count < maxLeavesBeforeSubTrees)
             {
                 leaves.Add(entity);
-                entity.GetComponent<QuadTreeReferenceComponent>().node = this;
+                /*World.Active.EntityManager.SetComponentData<QuadTreeReferenceComponent>(entity, new QuadTreeReferenceComponent(this));
+                World.Active.EntityManager.AddComponentData<QuadTreeReferenceComponent>(entity, new QuadTreeReferenceComponent(this));*/
+                World.Active.EntityManager.AddComponentObject(entity, new QuadTreeReferenceComponent(this));
             }
             else
             {
@@ -72,11 +75,11 @@ namespace Assets.MonoScript
                 }
                 else
                 {
-                    XformComponent xfrom = entity.GetComponent<TransformComponent>();
+                    XformComponent xfrom = World.Active.EntityManager.GetComponentData<XformComponent>(entity);
                     bool noIntersect = true;
                     foreach (QuadTreeNode qtn in subNodes)
                     {
-                        CenteredRectangle entityAABB = entity.GetComponent<CollisionComponent>()
+                        CenteredRectangle entityAABB = World.Active.EntityManager.GetComponentData<CollisionComponent>(entity)
                                                         .GetAABB((float)Math.Cos(xfrom.Rotation),
                                                         (float)Math.Sin(xfrom.Rotation),
                                                         xfrom.Scale);
@@ -92,7 +95,7 @@ namespace Assets.MonoScript
                     if (noIntersect)
                     {
                         leaves.Add(entity);
-                        entity.GetComponent<QuadTreeReferenceComponent>().node = this;
+                        World.Active.EntityManager.AddComponentObject(entity, new QuadTreeReferenceComponent(this));
                     }
                 }
             }
