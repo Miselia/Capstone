@@ -45,6 +45,12 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
             //CardEntity.Create(World.Active.EntityManager, new Vector2(), cd.cardID, 1, 1, cd.manaCost, dbGame.mesh2D, cd.getMaterial());
         }
     }
+    public void ButtonRightClicked(int id)
+    {
+        Debug.Log("Detect RightClick");
+        Debug.Log(dbGame.RemoveCardFromDeck(id));
+
+    }
 
     public bool HandleEvent(IGenericEvent evt)
     {

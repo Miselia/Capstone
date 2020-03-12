@@ -13,12 +13,14 @@ public class Deck
     int topOfDeck = 0;
     private string primaryFaction = "";
     private string secondaryFaction = "";
+    private string deckName = "";
 
 
     public Deck(string f)
     {
         deck = new List<int>();
-        this.filepath = "Assets/Resources/"+f;
+        deckName = f;
+        this.filepath = "Assets/Resources/"+deckName + ".txt";
         if (!buildDeck(filepath))
         {
             Debug.Log("Filepath not found");
@@ -37,9 +39,11 @@ public class Deck
         }
     }
 
-    public Deck(string primary, string secondary)
+    public Deck(string primary, string secondary, string name)
     {
         deck = new List<int>();
+        deckName = name;
+        this.filepath = "Assets/Resources/" + deckName + ".txt";
         primaryFaction = primary;
         secondaryFaction = secondary;
     }
@@ -57,9 +61,9 @@ public class Deck
         secondaryFaction = reader.ReadLine().Replace("\n", "");
         bool flag = true;
         bool deckLimitReached = false;
-        while(flag)
+        while (flag)
         {
-            if ( reader.Peek() == -1) flag = false;
+            if (reader.Peek() == -1) flag = false;
             else
             {
                 string nextLine = reader.ReadLine();
@@ -81,6 +85,22 @@ public class Deck
             Debug.Log("Deck limit NOT reached. Deck size = " + deck.Count);
             return true;
         }
+    }
+    public void SaveDeck()
+    {
+        /*
+        if (!File.Exists(filepath))
+        {
+            File.CreateText(filepath);
+        }
+        */
+        StreamWriter writer = new StreamWriter((filepath), false);
+        writer.WriteLine(primaryFaction);
+        writer.WriteLine(secondaryFaction);
+        for (int i = 0; i < deck.Count; i++) { 
+            writer.WriteLine(deck[i]);
+        }
+        writer.Close();
     }
 
     // Cite this source: https://stackoverflow.com/questions/273313/randomize-a-listt by user "Shital Shah"

@@ -41,8 +41,8 @@ public class LobbyScript : MonoBehaviour
         {
             p1DeckString = allFileNames[p1DeckDropdown.value];
             p2DeckString = allFileNames[p2DeckDropdown.value];
-            p1Deck = new Deck(p1DeckString + ".txt");
-            p2Deck = new Deck(p2DeckString + ".txt");
+            p1Deck = new Deck(p1DeckString);
+            p2Deck = new Deck(p2DeckString);
 
             if (p1Deck != null && p2Deck != null)
             {

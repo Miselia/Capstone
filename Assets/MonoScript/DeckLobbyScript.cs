@@ -11,9 +11,11 @@ public class DeckLobbyScript : MonoBehaviour
     // All new deck options
     [SerializeField] private Dropdown factionChoicesDropdown1;
     [SerializeField] private Dropdown factionChoicesDropdown2;
+    [SerializeField] private InputField deckNameField;
     List<string> allFactionNames;
     private string factionChoice1;
     private string factionChoice2;
+    private string newDeckName;
 
     // All edit deck options
     [SerializeField] private Dropdown decksAvailable;
@@ -61,9 +63,10 @@ public class DeckLobbyScript : MonoBehaviour
         {
             factionChoice1 = allFactionNames[factionChoicesDropdown1.value];
             factionChoice2 = allFactionNames[factionChoicesDropdown2.value];
+            newDeckName = deckNameField.text;
 
             Debug.Log("Created Deck: " + factionChoice1);
-            chosenDeck = new Deck(factionChoice1, factionChoice2);
+            chosenDeck = new Deck(factionChoice1, factionChoice2, newDeckName);
             SceneManager.LoadScene("DeckBuilder");
         }
     }
@@ -76,7 +79,7 @@ public class DeckLobbyScript : MonoBehaviour
             loadedDeck = allFileNames[decksAvailable.value];
 
             Debug.Log("Loaded deck " + loadedDeck + ".txt");
-            chosenDeck = new Deck(loadedDeck + ".txt");
+            chosenDeck = new Deck(loadedDeck);
             SceneManager.LoadScene("DeckBuilder");
         }
     }

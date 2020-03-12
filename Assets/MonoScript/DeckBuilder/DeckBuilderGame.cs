@@ -6,6 +6,7 @@ using Assets.Entities;
 using Assets.Resources;
 using Assets.MonoScript;
 using Assets.Events.GenericEvents;
+using UnityEngine.SceneManagement;
 
 public class DeckBuilderGame : MonoBehaviour, IGame
 {
@@ -128,7 +129,23 @@ public class DeckBuilderGame : MonoBehaviour, IGame
             }
         }
     }
-
+    public void SaveAndExit()
+    {
+        builderDeck.SaveDeck();
+        
+        World.Active.GetExistingSystem<DrawSystem>().Enabled = false;
+        World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = false;
+        World.Active.GetExistingSystem<ControlSystem>().Enabled = false;
+        World.Active.GetExistingSystem<DeletionSystem>().Enabled = false;
+        World.Active.GetExistingSystem<MovementSystem>().Enabled = false;
+        World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = false;
+        foreach (Entity e in World.Active.EntityManager.GetAllEntities())
+        {
+            World.Active.EntityManager.DestroyEntity(e);
+        }
+        SceneManager.LoadScene("DeckBuilderLobby"); ;
+        
+    }
     private void HandleEndCollisionEvent(Entity entityA, Entity entityB)
     {
         if (collidingPairs[entityA].Contains(entityB))
