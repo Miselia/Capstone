@@ -98,6 +98,18 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
                 }
                 break;
+            case 5:
+                if (checkMana(manaCost, currentMana))
+                {
+                    if(SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
+
+                    createBullet("etherBuff", new Vector2(-positionX+5, +5), new Vector2(0, 0), 0.5f);
+                    createBullet("etherBuff", new Vector2(-positionX-5, -5), new Vector2(0, 0), 0.5f);
+
+                    adjustPlayerValues(player, -manaCost, 0);
+                    World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
+                }
+                break;
         }
     }
 
@@ -111,16 +123,24 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         switch (type)
         {
             case "normal":
-                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, projectileMaterialLibrary[0]);
+                ProjectileEntity.Create(World.Active.EntityManager, -1, position, movementvector, radius, mesh, projectileMaterialLibrary[0]);
                 break;
             case "fire":
-                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, projectileMaterialLibrary[1]);
+                ProjectileEntity.Create(World.Active.EntityManager, -1, position, movementvector, radius, mesh, projectileMaterialLibrary[1]);
                 break;
             case "purple":
-                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, projectileMaterialLibrary[2]);
+                ProjectileEntity.Create(World.Active.EntityManager, -1, position, movementvector, radius, mesh, projectileMaterialLibrary[2]);
                 break;
             case "red":
-                ProjectileEntity.Create(World.Active.EntityManager, position, movementvector, radius, mesh, projectileMaterialLibrary[3]);
+                ProjectileEntity.Create(World.Active.EntityManager, -1, position, movementvector, radius, mesh, projectileMaterialLibrary[3]);
+                break;
+            case "etherBuff":
+                Entity e = ProjectileEntity.Create(World.Active.EntityManager, 0, position, movementvector, radius, mesh, projectileMaterialLibrary[4]);
+                World.Active.EntityManager.AddComponent(e, typeof(ManaRegenBuffComp));
+                World.Active.EntityManager.SetComponentData(e, new ManaRegenBuffComp(0.5f,120));
+                World.Active.EntityManager.AddComponent(e, typeof(DeleteComp));
+                World.Active.EntityManager.SetComponentData(e, new DeleteComp(300));
+
                 break;
         }
     }

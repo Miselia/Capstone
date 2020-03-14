@@ -19,9 +19,11 @@ public class DeletionSystem : ComponentSystem
         
         Entities.ForEach((Entity e, ref DeleteComp d, ref Translation t) =>
             {
-                
+                if(d.buffer <= 0)
                     World.Active.EntityManager.DestroyEntity(e);
+                d.buffer--;
             });
+
         
     }
 }

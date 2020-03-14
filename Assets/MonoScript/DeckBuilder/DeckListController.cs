@@ -76,4 +76,5 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
         button.GetComponent<DeckButtonPrefab>().Initialize(name, id);
         button.transform.SetParent(buttonPrefab.transform.parent, false);
     }
+    
 }

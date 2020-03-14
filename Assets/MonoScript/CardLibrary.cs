@@ -22,8 +22,9 @@ public class CardLibrary: MonoBehaviour
         library["Default"].Add(new CardData(0, "Default", 0, 0, "None", cardMaterialLibrary[0]));
         library["Horror"].Add(new CardData(1, "Blood Boil", 2, 3, "Speed+", cardMaterialLibrary[1]));
         library["Fantasy"].Add(new CardData(2, "Fire Bolt", 3, 1, "Fire", cardMaterialLibrary[2]));
-        library["Sci-Fi"].Add(new CardData(3, "Purple Shot", 4, 4, "", cardMaterialLibrary[3]));
-        library["Steampunk"].Add(new CardData(4, "Red Coin", 5, 2, "", cardMaterialLibrary[4]));
+        library["Sci-Fi"].Add(new CardData(3, "Plasma Bolt", 4, 4, "", cardMaterialLibrary[3]));
+        library["Steampunk"].Add(new CardData(4, "Red Coins", 5, 2, "", cardMaterialLibrary[4]));
+        library["Fantasy"].Add(new CardData(5, "Glimpse Into The Ether", 4, 1, "ManaRegen+", cardMaterialLibrary[5]));
 
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }

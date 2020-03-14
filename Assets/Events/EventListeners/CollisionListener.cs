@@ -110,9 +110,17 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
         EventManager.instance.QueueEvent(new EndCollisionEvent(playerEntity, projectileEntity));
         EventManager.instance.QueueEvent(new UIUpdateEvent(values[0], values[1], values[2]));
         */
+        if (World.Active.EntityManager.HasComponent<ManaRegenBuffComp>(projectileEntity))
+        {
+            World.Active.EntityManager.AddComponent(playerEntity, typeof(ManaRegenBuffComp));
+            World.Active.EntityManager.SetComponentData(playerEntity, World.Active.EntityManager.GetComponentData<ManaRegenBuffComp>(projectileEntity));
+        }
+
+        int projectileDamage = World.Active.EntityManager.GetComponentData<ProjectileComponent>(projectileEntity).damage;
         World.Active.EntityManager.AddComponent(playerEntity, typeof(HealthDeltaComp));
-        World.Active.EntityManager.SetComponentData(playerEntity, new HealthDeltaComp(-Constants.DefaultProjectileDamage));
+        World.Active.EntityManager.SetComponentData(playerEntity, new HealthDeltaComp(projectileDamage));
         World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
+        World.Active.EntityManager.SetComponentData(projectileEntity, new DeleteComp(0));
         //World.Active.EntityManager.SetComponentData(projectileEntity, new DeleteComp(60));
         return true;
     }
