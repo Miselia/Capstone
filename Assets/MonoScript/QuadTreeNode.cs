@@ -79,7 +79,7 @@ namespace Assets.MonoScript
                     bool noIntersect = true;
                     foreach (QuadTreeNode qtn in subNodes)
                     {
-                        CenteredRectangle entityAABB = World.Active.EntityManager.GetComponentData<CollisionComponent>(entity)
+                        /*CenteredRectangle entityAABB = World.Active.EntityManager.GetComponentData<CollisionComponent>(entity)
                                                         .GetAABB((float)Math.Cos(xfrom.Rotation),
                                                         (float)Math.Sin(xfrom.Rotation),
                                                         xfrom.Scale);
@@ -90,7 +90,7 @@ namespace Assets.MonoScript
                             qtn.AddReference(entity);
                             noIntersect = false;
                             break;
-                        }
+                        }*/
                     }
                     if (noIntersect)
                     {

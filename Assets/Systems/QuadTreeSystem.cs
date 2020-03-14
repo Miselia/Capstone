@@ -12,7 +12,7 @@ namespace Assets.Systems
 {
     public class QuadTreeSystem : ComponentSystem
     {
-        private const int quadrandYMultiplier = 1000;
+        private const int quadrandYMultiplier = 1;
         private const int quadrantCellSize = 5;
 
         private static int GetPositionHashMapKey(float3 position)
@@ -27,7 +27,7 @@ namespace Assets.Systems
             line.transform.position = origin;
             line.AddComponent<LineRenderer>();
             LineRenderer lr = line.GetComponent<LineRenderer>();
-            lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+            lr.material = new Material(Shader.Find("Specular"));
             lr.startColor = color;
             lr.endColor = color;
             lr.startWidth = 0.1f;
@@ -41,12 +41,17 @@ namespace Assets.Systems
         {
             Vector3 lowerLeft = new Vector3(
                 math.floor(position.x / quadrantCellSize) * quadrantCellSize,
-                math.floor(position.y / quadrantCellSize * quadrantCellSize));
+                math.floor(position.y / quadrantCellSize) * quadrantCellSize);
 
-            DrawLine(lowerLeft, lowerLeft + new Vector3(1, 0) * quadrantCellSize, Color.white);
+            /*DrawLine(lowerLeft, lowerLeft + new Vector3(1, 0) * quadrantCellSize, Color.white);
             DrawLine(lowerLeft, lowerLeft + new Vector3(0, 1) * quadrantCellSize, Color.white);
             DrawLine(lowerLeft + new Vector3(1, 0) * quadrantCellSize, lowerLeft, Color.white);
-            DrawLine(lowerLeft + new Vector3(0, 1) * quadrantCellSize, lowerLeft, Color.white);
+            DrawLine(lowerLeft + new Vector3(0, 1) * quadrantCellSize, lowerLeft, Color.white);*/
+            Debug.DrawLine(lowerLeft, lowerLeft + new Vector3(1, 0) * quadrantCellSize);
+            Debug.DrawLine(lowerLeft, lowerLeft + new Vector3(0, 1) * quadrantCellSize);
+            Debug.DrawLine(lowerLeft + new Vector3(1, 0) * quadrantCellSize, lowerLeft + new Vector3(1,1) * quadrantCellSize);
+            Debug.DrawLine(lowerLeft + new Vector3(0, 1) * quadrantCellSize, lowerLeft + new Vector3(1,1) * quadrantCellSize);
+            Debug.Log(GetPositionHashMapKey(position) + " " + position);
         }
 
         private int GetEntityCount(NativeMultiHashMap<int, Entity> map, int key)
@@ -54,7 +59,7 @@ namespace Assets.Systems
             Entity entity;
             NativeMultiHashMapIterator<int> itr;
             int count = 0;
-            map.TryGetFirstValue(key, out entity, out itr))
+            if(map.TryGetFirstValue(key, out entity, out itr))
             {
                 do
                 {
@@ -67,17 +72,21 @@ namespace Assets.Systems
 
         protected override void OnUpdate()
         {
-            EntityQuery eq = GetEntityQuery(typeof(Translation));
+            EntityQuery eq = GetEntityQuery(typeof(Translation), typeof(CollisionComponent));
+            Debug.Log("Entity count = " + eq.CalculateEntityCount());
             NativeMultiHashMap<int, Entity> quadTreeMap = new NativeMultiHashMap<int, Entity>(eq.CalculateEntityCount(), Allocator.TempJob);
 
-            Entities.ForEach((Entity entity, ref Translation translation) =>
+            Entities.ForEach((Entity entity, ref Translation translation, ref CollisionComponent col) =>
             {
                 int hashMapKey = GetPositionHashMapKey(translation.Value);
                 quadTreeMap.Add(hashMapKey, entity);
+                //Debug.Log("Entity added to map: Key = " + hashMapKey + " , entity = " + entity.ToString());
             });
 
-            DrawQuadrant(Input.mousePosition);
-            Debug.Log(GetEntityCount(quadTreeMap, GetPositionHashMapKey(Input.mousePosition)));
+            Debug.Log("Total number of entities = " + quadTreeMap.Length);
+
+            DrawQuadrant(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            Debug.Log("Entities in Quadrant " + GetPositionHashMapKey(Input.mousePosition) + " = " + GetEntityCount(quadTreeMap, GetPositionHashMapKey(Input.mousePosition)));
             quadTreeMap.Dispose();
         }
     }
