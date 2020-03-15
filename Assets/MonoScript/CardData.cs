@@ -45,6 +45,4 @@ public class CardData
     {
         return material;
     }
-
-
 }

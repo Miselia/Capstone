@@ -2,39 +2,29 @@
  * Implementation based on Code Monkey tutorial found here: https://www.youtube.com/watch?v=hP4Vu6JbzSo&t=722s
  */
 
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
 namespace Assets.Systems
 {
+    public struct QuadrantData
+    {
+        public Entity entity;
+        public float3 position;
+    }
     public class QuadTreeSystem : ComponentSystem
     {
-        private const int quadrandYMultiplier = 1;
+        private const int quadrandYMultiplier = 10;
         private const int quadrantCellSize = 5;
 
         private static int GetPositionHashMapKey(float3 position)
         {
             return (int)(math.floor(position.x / quadrantCellSize) + (quadrandYMultiplier * math.floor(position.y / quadrantCellSize)));
-        }
-
-        // Citation: https://answers.unity.com/questions/8338/how-to-draw-a-line-using-script.html
-        private void DrawLine(Vector3 origin, Vector3 destination, Color color, float duration = 0.2f)
-        {
-            GameObject line = new GameObject();
-            line.transform.position = origin;
-            line.AddComponent<LineRenderer>();
-            LineRenderer lr = line.GetComponent<LineRenderer>();
-            lr.material = new Material(Shader.Find("Specular"));
-            lr.startColor = color;
-            lr.endColor = color;
-            lr.startWidth = 0.1f;
-            lr.endWidth = 0.1f;
-            lr.SetPosition(0, origin);
-            lr.SetPosition(1, destination);
-            GameObject.Destroy(line, duration);
         }
 
         private void DrawQuadrant(float3 position)
@@ -51,7 +41,7 @@ namespace Assets.Systems
             Debug.DrawLine(lowerLeft, lowerLeft + new Vector3(0, 1) * quadrantCellSize);
             Debug.DrawLine(lowerLeft + new Vector3(1, 0) * quadrantCellSize, lowerLeft + new Vector3(1,1) * quadrantCellSize);
             Debug.DrawLine(lowerLeft + new Vector3(0, 1) * quadrantCellSize, lowerLeft + new Vector3(1,1) * quadrantCellSize);
-            Debug.Log(GetPositionHashMapKey(position) + " " + position);
+            //Debug.Log(GetPositionHashMapKey(position) + " " + position);
         }
 
         private int GetEntityCount(NativeMultiHashMap<int, Entity> map, int key)
@@ -70,23 +60,38 @@ namespace Assets.Systems
             return count;
         }
 
+        [BurstCompile]
+        private struct SetQuadrantHashMapJob : IJobForEachWithEntity<Translation, CollisionComponent>
+        {
+            public NativeMultiHashMap<int, QuadrantData>.ParallelWriter quadTreeMap;
+
+            public void Execute(Entity entity, int index, ref Translation translation, ref CollisionComponent col)
+            {
+                int hashMapKey = GetPositionHashMapKey(translation.Value);
+                quadTreeMap.Add(hashMapKey, new QuadrantData {
+                    entity = entity,
+                    position = translation.Value
+                });
+            }
+        }
+
         protected override void OnUpdate()
         {
             EntityQuery eq = GetEntityQuery(typeof(Translation), typeof(CollisionComponent));
             Debug.Log("Entity count = " + eq.CalculateEntityCount());
-            NativeMultiHashMap<int, Entity> quadTreeMap = new NativeMultiHashMap<int, Entity>(eq.CalculateEntityCount(), Allocator.TempJob);
+            NativeMultiHashMap<int, QuadrantData> quadTreeMap = new NativeMultiHashMap<int, QuadrantData>(eq.CalculateEntityCount(), Allocator.TempJob);
 
-            Entities.ForEach((Entity entity, ref Translation translation, ref CollisionComponent col) =>
+            SetQuadrantHashMapJob sqj = new SetQuadrantHashMapJob
             {
-                int hashMapKey = GetPositionHashMapKey(translation.Value);
-                quadTreeMap.Add(hashMapKey, entity);
-                //Debug.Log("Entity added to map: Key = " + hashMapKey + " , entity = " + entity.ToString());
-            });
+                quadTreeMap = quadTreeMap.AsParallelWriter(),
+            };
+            JobHandle job = JobForEachExtensions.Schedule(sqj, eq);
+            job.Complete();
 
-            Debug.Log("Total number of entities = " + quadTreeMap.Length);
+            //Debug.Log("Total number of entities = " + quadTreeMap.Length);
 
             DrawQuadrant(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            Debug.Log("Entities in Quadrant " + GetPositionHashMapKey(Input.mousePosition) + " = " + GetEntityCount(quadTreeMap, GetPositionHashMapKey(Input.mousePosition)));
+            //Debug.Log("Entities in Quadrant " + GetPositionHashMapKey(Camera.main.ScreenToWorldPoint(Input.mousePosition)) + " = " + GetEntityCount(quadTreeMap, GetPositionHashMapKey(Camera.main.WorldToScreenPoint(Input.mousePosition))));
             quadTreeMap.Dispose();
         }
     }
