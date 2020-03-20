@@ -52,7 +52,7 @@ public class Game : MonoBehaviour, IGame
         World.Active.GetExistingSystem<DeletionSystem>().Enabled = true;
         World.Active.GetExistingSystem<MovementSystem>().Enabled = true;
         World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = true;
-        World.Active.GetExistingSystem<QuadTreeSystem>().Enabled = true;
+        //World.Active.GetExistingSystem<QuadTreeSystem>().Enabled = true;
 
         cardLibrary = cl.GetAllByID();
 

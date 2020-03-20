@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.Mathematics;
 
 namespace Assets.MonoScript
 {
@@ -11,24 +12,24 @@ namespace Assets.MonoScript
     {
         public float width;
         public float height;
-        public Vector2 center;
-        public Vector2 topLeft;
-        public Vector2 botRight;
+        public float3 center;
+        public float3 topLeft;
+        public float3 botRight;
 
-        public CenteredRectangle(float w, float h, Vector2 c)
+        public CenteredRectangle(float width, float height, float3 center)
         {
-            width = w;
-            height = h;
-            center = c;
-            topLeft = new Vector2(center.X - width / 2, center.Y + height / 2);
-            botRight = new Vector2(center.X + width / 2, center.Y - height / 2);
+            this.width = width;
+            this.height = height;
+            this.center = center;
+            topLeft = new float3(center.x - width / 2, center.y + height / 2, 0);
+            botRight = new float3(center.x + width / 2, center.y - height / 2, 0);
         }
 
         public bool Intersects(CenteredRectangle other)
         {
-            if (topLeft.X > other.botRight.X || other.topLeft.X > botRight.X)
+            if (topLeft.x > other.botRight.x || other.topLeft.x > botRight.x)
                 return false;
-            if (topLeft.Y < other.botRight.Y || other.topLeft.Y < botRight.Y)
+            if (topLeft.y < other.botRight.y || other.topLeft.y < botRight.y)
                 return false;
 
             return true;
@@ -36,8 +37,8 @@ namespace Assets.MonoScript
 
         public bool Contains(CenteredRectangle other)
         {
-            if (topLeft.X <= other.topLeft.X && topLeft.Y >= other.topLeft.Y &&
-                botRight.X >= other.botRight.X && botRight.Y <= other.botRight.Y)
+            if (topLeft.x <= other.topLeft.x && topLeft.y >= other.topLeft.y &&
+                botRight.x >= other.botRight.x && botRight.y <= other.botRight.y)
             {
                 return true;
             }

@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{1EE98971-DB57-CCE3-EB35-7D60258BAC4D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -125,6 +126,7 @@
     <Compile Include="Assets\Systems\DrawSystem.cs" />
     <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\PlayerValueSystem.cs" />
+    <Compile Include="Assets\Systems\QuadrantSystem.cs" />
     <Compile Include="Assets\Systems\QuadTreeSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <None Include="Assets\Resources\player1.txt" />

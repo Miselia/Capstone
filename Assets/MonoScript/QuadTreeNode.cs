@@ -7,6 +7,8 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace Assets.MonoScript
 {
@@ -51,16 +53,16 @@ namespace Assets.MonoScript
                 if (!allNodes)
                 {
                     subNodes.Add(new QuadTreeNode(new CenteredRectangle(centeredRect.width / 2, centeredRect.height / 2,
-                                                                        new Vector2(centeredRect.center.X - centeredRect.width/2, centeredRect.center.Y - centeredRect.height/2)),
+                                                                        new float3(centeredRect.center.x - centeredRect.width/2, centeredRect.center.y - centeredRect.height/2, 0)),
                                                                         this));
                     subNodes.Add(new QuadTreeNode(new CenteredRectangle(centeredRect.width / 2, centeredRect.height / 2,
-                                                                        new Vector2(centeredRect.center.X + centeredRect.width / 2, centeredRect.center.Y - centeredRect.height / 2)),
+                                                                        new float3(centeredRect.center.x + centeredRect.width / 2, centeredRect.center.y - centeredRect.height / 2, 0)),
                                                                         this));
                     subNodes.Add(new QuadTreeNode(new CenteredRectangle(centeredRect.width / 2, centeredRect.height / 2,
-                                                                        new Vector2(centeredRect.center.X - centeredRect.width / 2, centeredRect.center.Y + centeredRect.height / 2)),
+                                                                        new float3(centeredRect.center.x - centeredRect.width / 2, centeredRect.center.y + centeredRect.height / 2, 0)),
                                                                         this));
                     subNodes.Add(new QuadTreeNode(new CenteredRectangle(centeredRect.width / 2, centeredRect.height / 2,
-                                                                        new Vector2(centeredRect.center.X + centeredRect.width / 2, centeredRect.center.Y + centeredRect.height / 2)),
+                                                                        new float3(centeredRect.center.x + centeredRect.width / 2, centeredRect.center.y + centeredRect.height / 2, 0)),
                                                                         this));
                     allNodes = true;
 
@@ -75,10 +77,13 @@ namespace Assets.MonoScript
                 }
                 else
                 {
-                    XformComponent xfrom = World.Active.EntityManager.GetComponentData<XformComponent>(entity);
+                    Translation translation = World.Active.EntityManager.GetComponentData<Translation>(entity);
+                    CollisionComponent coll = World.Active.EntityManager.GetComponentData<CollisionComponent>(entity);
+
                     bool noIntersect = true;
                     foreach (QuadTreeNode qtn in subNodes)
                     {
+                        CenteredRectangle entityBounds = new CenteredRectangle(coll.collisionRadius, coll.collisionRadius, translation.Value);
                         /*CenteredRectangle entityAABB = World.Active.EntityManager.GetComponentData<CollisionComponent>(entity)
                                                         .GetAABB((float)Math.Cos(xfrom.Rotation),
                                                         (float)Math.Sin(xfrom.Rotation),
