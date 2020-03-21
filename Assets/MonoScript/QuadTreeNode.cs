@@ -39,14 +39,11 @@ namespace Assets.MonoScript
             subNodes = new List<QuadTreeNode>(4);
         }
 
-        public void AddReference(Entity entity)
+        public void AddReference(Entity entity, CollisionComponent coll, Translation translation)
         {
             if (!allNodes && leaves.Count < maxLeavesBeforeSubTrees)
             {
                 leaves.Add(entity);
-                /*World.Active.EntityManager.SetComponentData<QuadTreeReferenceComponent>(entity, new QuadTreeReferenceComponent(this));
-                World.Active.EntityManager.AddComponentData<QuadTreeReferenceComponent>(entity, new QuadTreeReferenceComponent(this));*/
-                World.Active.EntityManager.AddComponentObject(entity, new QuadTreeReferenceComponent(this));
             }
             else
             {
@@ -69,21 +66,20 @@ namespace Assets.MonoScript
                     List<Entity> temp = new List<Entity>();
                     temp.AddRange(leaves);
                     leaves.Clear();
-                    AddReference(entity);
+                    AddReference(entity, coll, translation);
                     foreach (Entity e in temp)
                     {
-                        AddReference(e);
+                        AddReference(e, World.Active.EntityManager.GetComponentData<CollisionComponent>(e), World.Active.EntityManager.GetComponentData<Translation>(e));
                     }
                 }
                 else
                 {
-                    Translation translation = World.Active.EntityManager.GetComponentData<Translation>(entity);
-                    CollisionComponent coll = World.Active.EntityManager.GetComponentData<CollisionComponent>(entity);
+                    /*Translation translation = World.Active.EntityManager.GetComponentData<Translation>(entity);
+                    CollisionComponent coll = World.Active.EntityManager.GetComponentData<CollisionComponent>(entity);*/
 
-                    bool noIntersect = true;
+                    bool noContains = true;
                     foreach (QuadTreeNode qtn in subNodes)
                     {
-                        CenteredRectangle entityBounds = new CenteredRectangle(coll.collisionRadius, coll.collisionRadius, translation.Value);
                         /*CenteredRectangle entityAABB = World.Active.EntityManager.GetComponentData<CollisionComponent>(entity)
                                                         .GetAABB((float)Math.Cos(xfrom.Rotation),
                                                         (float)Math.Sin(xfrom.Rotation),
@@ -96,8 +92,15 @@ namespace Assets.MonoScript
                             noIntersect = false;
                             break;
                         }*/
+                        CenteredRectangle entityBounds = new CenteredRectangle(coll.collisionRadius, coll.collisionRadius, translation.Value);
+                        if(qtn.centeredRect.Contains(entityBounds))
+                        {
+                            qtn.AddReference(entity, coll, translation);
+                            noContains = false;
+                            break;
+                        }
                     }
-                    if (noIntersect)
+                    if (noContains)
                     {
                         leaves.Add(entity);
                         World.Active.EntityManager.AddComponentObject(entity, new QuadTreeReferenceComponent(this));
