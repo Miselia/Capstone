@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.MonoScript;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Jobs;
+using UnityEngine;
 
 namespace Assets.Systems
 {
@@ -14,16 +16,29 @@ namespace Assets.Systems
         [BurstCompile]
         private struct Job : IJob
         {
-
+            public float deltaTime;
             public void Execute()
             {
-                throw new NotImplementedException();
+                foreach(QuadTreeNode node in QuadTreeSystem.rootNode.subNodes)
+                {
+
+                }
             }
+        }
+
+        private void FindDeepestBranchNode(QuadTreeNode)
+        {
+
         }
 
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-            
+            Job job = new Job
+            {
+                deltaTime = Time.deltaTime,
+            };
+
+            return job.Schedule(inputDeps);
         }
     }
 }

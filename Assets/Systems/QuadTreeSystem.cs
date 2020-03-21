@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Transforms;
@@ -13,7 +14,9 @@ using UnityEngine;
 
 public class QuadTreeSystem : JobComponentSystem
 {
+    public static SortedDictionary<int, List<QuadTreeNode>> quadTreeMap;
     public static QuadTreeNode rootNode;
+
 
     [BurstCompile]
     private struct Job: IJobForEachWithEntity<CollisionComponent, Translation>
@@ -37,8 +40,10 @@ public class QuadTreeSystem : JobComponentSystem
 
     protected override void OnCreate()
     {
+        quadTreeMap = new SortedDictionary<int, List<QuadTreeNode>>();
+        rootNode = new QuadTreeNode(new CenteredRectangle(3 * Constants.GameBoundaryOffset, 3 * Constants.GameBoundaryOffset, new Unity.Mathematics.float3()));
         float offset = Constants.GameBoundaryOffset;
-        rootNode = new QuadTreeNode(new CenteredRectangle(3 * offset, 3 * offset, new Unity.Mathematics.float3()));
         base.OnCreate();
     }
 }
+
