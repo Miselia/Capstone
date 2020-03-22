@@ -19,16 +19,11 @@ namespace Assets.Systems
             public float deltaTime;
             public void Execute()
             {
-                foreach(QuadTreeNode node in QuadTreeSystem.rootNode.subNodes)
+                foreach(QuadTreeNode node in QuadTreeSystem.quadTreeMap.Values)
                 {
-
+                    // Code to draw here
                 }
             }
-        }
-
-        private void FindDeepestBranchNode(QuadTreeNode)
-        {
-
         }
 
         protected override JobHandle OnUpdate(JobHandle inputDeps)

@@ -6,15 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Unity.Entities;
 
-namespace Assets.Components
+public struct QuadTreeReferenceComponent : IComponentData
 {
-    public class QuadTreeReferenceComponent : IComponentData
-    {
-        public QuadTreeNode node;
+    public int parentID;
         
-        public QuadTreeReferenceComponent(QuadTreeNode n)
-        {
-            node = n;
-        }
+    public QuadTreeReferenceComponent(int parentID)
+    {
+        this.parentID = parentID;
     }
 }

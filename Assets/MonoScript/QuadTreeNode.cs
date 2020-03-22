@@ -1,5 +1,4 @@
-﻿using Assets.Components;
-using Assets.Resources;
+﻿using Assets.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +30,7 @@ namespace Assets.MonoScript
             leaves = new List<Entity>();
             maxLeavesBeforeSubTrees = Constants.QuadTreeMaxReferences;
             subNodes = new List<QuadTreeNode>(4);
-            QuadTreeSystem.quadTreeMap.Add(0, new List<QuadTreeNode>(5));
-            QuadTreeSystem.quadTreeMap[0].Add(this);
+            QuadTreeSystem.quadTreeMap.Add(0, this);
         }
         public QuadTreeNode(CenteredRectangle bounds, QuadTreeNode parent, int leafNumber)
         {
@@ -42,8 +40,7 @@ namespace Assets.MonoScript
             leaves = new List<Entity>();
             maxLeavesBeforeSubTrees = Constants.QuadTreeMaxReferences;
             subNodes = new List<QuadTreeNode>(4);
-            QuadTreeSystem.quadTreeMap.Add(quadTreeRootID, new List<QuadTreeNode>(5));
-            QuadTreeSystem.quadTreeMap[quadTreeRootID].Add(this);
+            QuadTreeSystem.quadTreeMap.Add(quadTreeRootID, this);
         }
 
         public void AddReference(Entity entity, CollisionComponent coll, Translation translation)
@@ -51,6 +48,7 @@ namespace Assets.MonoScript
             if (!allNodes && leaves.Count < maxLeavesBeforeSubTrees)
             {
                 leaves.Add(entity);
+                World.Active.EntityManager.SetComponentData(entity, new QuadTreeReferenceComponent(quadTreeRootID));
             }
             else
             {
@@ -95,6 +93,7 @@ namespace Assets.MonoScript
                     if (noContains)
                     {
                         leaves.Add(entity);
+                        World.Active.EntityManager.SetComponentData(entity, new QuadTreeReferenceComponent(quadTreeRootID));
                     }
                 }
             }
