@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Entities;
 using Assets.Entities;
+using Assets.Systems;
 //using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
@@ -22,6 +23,11 @@ public class MenuScript : MonoBehaviour
         World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = false;
         World.Active.GetExistingSystem<TestingSystem>().Enabled = false;
 
+        World.Active.GetExistingSystem<QuadrantSystem>().Enabled = false;
+        //World.Active.GetExistingSystem<QuadTreeJobDrawingSystem>().Enabled = false;
+        //World.Active.GetExistingSystem<QuadTreeJobSystem>().Enabled = false;
+        World.Active.GetExistingSystem<QuadTreeSystem>().Enabled = false;
+        World.Active.GetExistingSystem<QuadTreeDrawingSystem>().Enabled = false;
     }
 }
     

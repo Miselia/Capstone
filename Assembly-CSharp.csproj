@@ -126,7 +126,7 @@
     <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\PlayerValueSystem.cs" />
     <Compile Include="Assets\Systems\QuadrantSystem.cs" />
-    <Compile Include="Assets\Systems\QuadTreeDrawningSystem.cs" />
+    <Compile Include="Assets\Systems\QuadTreeDrawingSystem.cs" />
     <Compile Include="Assets\Systems\QuadTreeSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <None Include="Assets\Resources\player1.txt" />

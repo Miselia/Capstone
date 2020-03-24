@@ -21,6 +21,7 @@ public static class ProjectileEntity
         em.AddComponent(entity, typeof(Translation));
         em.AddComponent(entity, typeof(Rotation));
         em.AddComponent(entity, typeof(Scale));
+        em.AddComponent(entity, typeof(QuadTreeReferenceComponent));
 
         em.SetComponentData(entity, new Scale { Value = radius * 2.35f});
         em.SetComponentData(entity, new MovementComponent(movementVector));
@@ -28,6 +29,7 @@ public static class ProjectileEntity
         em.SetComponentData(entity, new Rotation { Value = quaternion.Euler(0,0, Mathf.Atan2(movementVector.x, movementVector.y))});
         em.SetComponentData(entity, new CollisionComponent(radius, radius));
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
+        em.SetComponentData(entity, new QuadTreeReferenceComponent(-1));
 
         return entity;
     }

@@ -5,43 +5,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
 using Unity.Transforms;
-using UnityEngine;
 
-public class QuadTreeSystem : JobComponentSystem
+namespace Assets.Systems
 {
-    public static SortedDictionary<int, QuadTreeNode> quadTreeMap;
-
-    [BurstCompile]
-    private struct Job: IJobForEachWithEntity<CollisionComponent, Translation>
+    public class QuadTreeSystem : ComponentSystem
     {
-        public float deltaTime;
+        private QuadTreeNode rootNode;
+        public static Dictionary<int, QuadTreeNode> quadTreeDict;
 
-        public static QuadTreeNode rootNode = new QuadTreeNode(new CenteredRectangle(3 * Constants.GameBoundaryOffset, 3 * Constants.GameBoundaryOffset, new Unity.Mathematics.float3()));
-        public void Execute(Entity entity, int index, ref CollisionComponent collComp, ref Translation translation)
+        protected override void OnUpdate()
         {
-            rootNode.AddReference(entity, collComp, translation);
+            rootNode = new QuadTreeNode(new CenteredRectangle(3 * Constants.GameBoundaryOffset, 3 * Constants.GameBoundaryOffset, new Unity.Mathematics.float3()));
+            Entities.ForEach((Entity e, ref CollisionComponent coll, ref Translation translation) =>
+            {
+                rootNode.AddReference(e, coll, translation);
+            });
+        }
+
+        protected override void OnCreate()
+        {
+            quadTreeDict = new Dictionary<int, QuadTreeNode>();
+            base.OnCreate();
         }
     }
-
-    protected override JobHandle OnUpdate(JobHandle inputDeps)
-    {
-        Job job = new Job
-        {
-            deltaTime = Time.deltaTime,
-        };
-        return job.Schedule(this, inputDeps);
-    }
-
-    protected override void OnCreate()
-    {
-        quadTreeMap = new SortedDictionary<int, QuadTreeNode>();
-        float offset = Constants.GameBoundaryOffset;
-        base.OnCreate();
-    }
 }
-

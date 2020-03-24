@@ -9,7 +9,7 @@ using Unity.Entities;
 public struct QuadTreeReferenceComponent : IComponentData
 {
     public int parentID;
-        
+    
     public QuadTreeReferenceComponent(int parentID)
     {
         this.parentID = parentID;

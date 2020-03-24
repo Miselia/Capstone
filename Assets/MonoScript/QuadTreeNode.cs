@@ -1,4 +1,5 @@
 ﻿using Assets.Resources;
+using Assets.Systems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,11 @@ using Unity.Transforms;
 
 namespace Assets.MonoScript
 {
+    /*public struct QuadNode
+    {
+        public QuadTreeNode qtn;
+    }*/
+
     public class QuadTreeNode
     {
         public int quadTreeRootID;
@@ -30,7 +36,8 @@ namespace Assets.MonoScript
             leaves = new List<Entity>();
             maxLeavesBeforeSubTrees = Constants.QuadTreeMaxReferences;
             subNodes = new List<QuadTreeNode>(4);
-            QuadTreeSystem.quadTreeMap.Add(0, this);
+            QuadTreeSystem.quadTreeDict.Add(0, this);
+            //QuadTreeJobSystem.quadTreeHashMap.Add(quadTreeRootID, new QuadNode { qtn = this });
         }
         public QuadTreeNode(CenteredRectangle bounds, QuadTreeNode parent, int leafNumber)
         {
@@ -40,7 +47,8 @@ namespace Assets.MonoScript
             leaves = new List<Entity>();
             maxLeavesBeforeSubTrees = Constants.QuadTreeMaxReferences;
             subNodes = new List<QuadTreeNode>(4);
-            QuadTreeSystem.quadTreeMap.Add(quadTreeRootID, this);
+            QuadTreeSystem.quadTreeDict.Add(quadTreeRootID, this);
+            //QuadTreeJobSystem.quadTreeHashMap.Add(quadTreeRootID, new QuadNode { qtn = this });
         }
 
         public void AddReference(Entity entity, CollisionComponent coll, Translation translation)

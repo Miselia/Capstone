@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace Assets.MonoScript
 {
@@ -12,17 +12,17 @@ namespace Assets.MonoScript
     {
         public float width;
         public float height;
-        public float3 center;
-        public float3 topLeft;
-        public float3 botRight;
+        public Vector3 center;
+        public Vector3 topLeft;
+        public Vector3 botRight;
 
-        public CenteredRectangle(float width, float height, float3 center)
+        public CenteredRectangle(float width, float height, Vector3 center)
         {
             this.width = width;
             this.height = height;
             this.center = center;
-            topLeft = new float3(center.x - width / 2, center.y + height / 2, 0);
-            botRight = new float3(center.x + width / 2, center.y - height / 2, 0);
+            topLeft = new Vector3(center.x - width / 2, center.y + height / 2, 0);
+            botRight = new Vector3(center.x + width / 2, center.y - height / 2, 0);
         }
 
         public bool Intersects(CenteredRectangle other)

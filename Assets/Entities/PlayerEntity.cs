@@ -22,6 +22,7 @@ public static class PlayerEntity
         em.AddComponent(entity, typeof(LocalToWorld));
         em.AddComponent(entity, typeof(Translation));
         em.AddComponent(entity, typeof(Scale));
+        em.AddComponent(entity, typeof(QuadTreeReferenceComponent));
 
         em.SetComponentData(entity, new Scale { Value = radius * 2.35f });
         em.SetComponentData(entity, new MovementComponent(movementVector));
@@ -29,6 +30,7 @@ public static class PlayerEntity
         em.SetComponentData(entity, new CollisionComponent(radius, radius));
         em.SetComponentData(entity, new PlayerComponent(playerID, maxHealth, maxMana, manaRegen));
         em.SetSharedComponentData(entity, new RenderMesh {mesh = mesh, material = mat});
+        em.SetComponentData(entity, new QuadTreeReferenceComponent(-1));
 
         return entity;
     }
