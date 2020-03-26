@@ -47,7 +47,7 @@ public class Game : MonoBehaviour, IGame
         
         //Debug.Log(cardLibrary[0].cardName + "," + cardLibrary[1].cardName + "," + cardLibrary[2].cardName + "," + cardLibrary[3].cardName);
         World.Active.GetExistingSystem<DrawSystem>().Enabled = true;
-        //World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = true;
+        World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = true;
         World.Active.GetExistingSystem<ControlSystem>().Enabled = true;
         World.Active.GetExistingSystem<DeletionSystem>().Enabled = true;
         World.Active.GetExistingSystem<MovementSystem>().Enabled = true;
@@ -55,6 +55,7 @@ public class Game : MonoBehaviour, IGame
 
         World.Active.GetExistingSystem<QuadTreeSystem>().Enabled = true;
         World.Active.GetExistingSystem<QuadTreeDrawingSystem>().Enabled = true;
+        //World.Active.GetExistingSystem<CollisionBoxDrawingSystem>().Enabled = true;
         //World.Active.GetExistingSystem<QuadTreeJobSystem>().Enabled = true;
         //World.Active.GetExistingSystem<QuadTreeJobDrawingSystem>().Enabled = true;
 

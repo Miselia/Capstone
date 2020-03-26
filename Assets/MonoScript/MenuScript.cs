@@ -28,6 +28,7 @@ public class MenuScript : MonoBehaviour
         //World.Active.GetExistingSystem<QuadTreeJobSystem>().Enabled = false;
         World.Active.GetExistingSystem<QuadTreeSystem>().Enabled = false;
         World.Active.GetExistingSystem<QuadTreeDrawingSystem>().Enabled = false;
+        //World.Active.GetExistingSystem<CollisionBoxDrawingSystem>().Enabled = false;
     }
 }
     

@@ -1,4 +1,5 @@
 ﻿using Assets.MonoScript;
+using Assets.Systems;
 using System;
 using System.Collections.Generic;
 using Unity.Entities;
@@ -19,11 +20,6 @@ public class CollisionDetectionSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        
-        /*
-        if (!gameInitialized)
-            Initialize();
-        */
         Initialize();
         Dictionary<Entity, List<Entity>> checkedPairs = new Dictionary<Entity, List<Entity>>();
         bool skipFlag = false;
@@ -39,7 +35,76 @@ public class CollisionDetectionSystem : ComponentSystem
                 checkedPairs.Add(firstEntity, new List<Entity>());
             }
 
-            Entities.ForEach((Entity secondEntity, ref Translation transform, ref CollisionComponent collisionComp) =>
+            int parentInt = World.Active.EntityManager.GetComponentData<QuadTreeReferenceComponent>(firstEntity).parentID;
+            QuadTreeNode parent = QuadTreeSystem.quadTreeDict[parentInt];
+
+            while(parent != null)
+            {
+                List<Entity> leaves = parent.leaves;
+
+                foreach(Entity secondEntity in leaves)
+                {
+                    if (!game.GetCollidingPairs().ContainsKey(secondEntity))
+                    {
+                        game.GetCollidingPairs().Add(secondEntity, new List<Entity>());
+                    }
+                    if (firstEntity == secondEntity)
+                    {
+                        skipFlag = true;
+                    }
+                    if (checkedPairs[firstEntity].Contains(secondEntity))
+                    {
+                        skipFlag = true;
+                    }
+                    if (EntityManager.HasComponent<PlayerBoundaryComponent>(firstEntity) && EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
+                    {
+                        skipFlag = true;
+                    }
+                    if (game.GetCollidingPairs()[firstEntity].Contains(secondEntity) || game.GetCollidingPairs()[secondEntity].Contains(firstEntity))
+                    {
+                        skipFlag = true;
+                    }
+
+                    if (!skipFlag)
+                    {
+                        // These internal method calls should instead be exported to a Event/Listener system to handle collision calculations
+                        if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
+                        {
+                            HandlePlayerCollisionWithBoundary(game, firstEntity, secondEntity);
+                            Debug.Log("Player and Player Boundary Collision Check");
+                        }
+                        else if (EntityManager.HasComponent<PlayerBoundaryComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
+                        {
+                            HandlePlayerCollisionWithBoundary(game, secondEntity, firstEntity);
+                            Debug.Log("Player Boundary and Player Collision Check");
+                        }
+                        else if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<ProjectileBoundaryComponent>(secondEntity))
+                        {
+                            HandleProjectileCollisionWithBoundary(game, firstEntity, secondEntity);
+                            Debug.Log("Projectile and Projectile Boundary Collision Check");
+                        }
+                        else if (EntityManager.HasComponent<ProjectileBoundaryComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
+                        {
+                            HandleProjectileCollisionWithBoundary(game, secondEntity, firstEntity);
+                            Debug.Log("Projectile Boundary and Projectile Collision Check");
+                        }
+                        else if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
+                        {
+                            HandlePlayerCollisionWithProjectile(game, firstEntity, secondEntity);
+                            Debug.Log("Player and Projectile Collision Check");
+                        }
+                        else if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
+                        {
+                            HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity);
+                            Debug.Log("Projectile and Player Collision Check");
+                        }
+                    }
+                    skipFlag = false;
+                }
+                parent = parent.parent;
+            }
+
+            /*Entities.ForEach((Entity secondEntity, ref Translation transform, ref CollisionComponent collisionComp) =>
             {
                 if (!game.GetCollidingPairs().ContainsKey(secondEntity))
                 {
@@ -97,7 +162,7 @@ public class CollisionDetectionSystem : ComponentSystem
                     }
                 }
                 skipFlag = false;
-            });
+            });*/
         });
         
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using Assets.MonoScript;
 
 public struct CollisionComponent : IComponentData
 {

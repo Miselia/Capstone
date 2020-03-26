@@ -63,16 +63,16 @@ namespace Assets.MonoScript
                 if (!allNodes)
                 {
                     subNodes.Add(new QuadTreeNode(new CenteredRectangle(centeredRect.width / 2, centeredRect.height / 2,
-                                                                        new float3(centeredRect.center.x - centeredRect.width/2, centeredRect.center.y - centeredRect.height/2, 0)),
+                                                                        new float3(centeredRect.center.x - centeredRect.width / 4, centeredRect.center.y - centeredRect.height / 4, 0)),
                                                                         this, 1));
                     subNodes.Add(new QuadTreeNode(new CenteredRectangle(centeredRect.width / 2, centeredRect.height / 2,
-                                                                        new float3(centeredRect.center.x + centeredRect.width / 2, centeredRect.center.y - centeredRect.height / 2, 0)),
+                                                                        new float3(centeredRect.center.x + centeredRect.width / 4, centeredRect.center.y - centeredRect.height / 4, 0)),
                                                                         this, 2));
                     subNodes.Add(new QuadTreeNode(new CenteredRectangle(centeredRect.width / 2, centeredRect.height / 2,
-                                                                        new float3(centeredRect.center.x - centeredRect.width / 2, centeredRect.center.y + centeredRect.height / 2, 0)),
+                                                                        new float3(centeredRect.center.x - centeredRect.width / 4, centeredRect.center.y + centeredRect.height / 4, 0)),
                                                                         this, 3));
                     subNodes.Add(new QuadTreeNode(new CenteredRectangle(centeredRect.width / 2, centeredRect.height / 2,
-                                                                        new float3(centeredRect.center.x + centeredRect.width / 2, centeredRect.center.y + centeredRect.height / 2, 0)),
+                                                                        new float3(centeredRect.center.x + centeredRect.width / 4, centeredRect.center.y + centeredRect.height / 4, 0)),
                                                                         this, 4));
                     allNodes = true;
 
@@ -90,7 +90,7 @@ namespace Assets.MonoScript
                     bool noContains = true;
                     foreach (QuadTreeNode qtn in subNodes)
                     {
-                        CenteredRectangle entityBounds = new CenteredRectangle(coll.collisionRadius, coll.collisionRadius, translation.Value);
+                        CenteredRectangle entityBounds = new CenteredRectangle(coll.width, coll.collisionRadius, translation.Value);
                         if(qtn.centeredRect.Contains(entityBounds))
                         {
                             qtn.AddReference(entity, coll, translation);

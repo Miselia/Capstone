@@ -17,7 +17,8 @@ namespace Assets.Systems
 
         protected override void OnUpdate()
         {
-            rootNode = new QuadTreeNode(new CenteredRectangle(3 * Constants.GameBoundaryOffset, 3 * Constants.GameBoundaryOffset, new Unity.Mathematics.float3()));
+            quadTreeDict.Clear();
+            rootNode = new QuadTreeNode(new CenteredRectangle(6 * Constants.GameBoundaryOffset, 3 * Constants.GameBoundaryOffset, new Unity.Mathematics.float3()));
             Entities.ForEach((Entity e, ref CollisionComponent coll, ref Translation translation) =>
             {
                 rootNode.AddReference(e, coll, translation);
