@@ -67,6 +67,7 @@
     <Compile Include="Assets\Components\CollisionComponent.cs" />
     <Compile Include="Assets\Components\DeleteComp.cs" />
     <Compile Include="Assets\Components\HealthDeltaComp.cs" />
+    <Compile Include="Assets\Components\IsBoundaryComponent.cs" />
     <Compile Include="Assets\Components\ManaDeltaComp.cs" />
     <Compile Include="Assets\Components\MovementComponent.cs" />
     <Compile Include="Assets\Components\PlayerBoundaryComponent.cs" />

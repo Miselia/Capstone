@@ -51,9 +51,20 @@ namespace Assets.MonoScript
             //QuadTreeJobSystem.quadTreeHashMap.Add(quadTreeRootID, new QuadNode { qtn = this });
         }
 
+        /*
+         * AddReference always seeks to add an entity to the QuadTree starting at the root node
+         * Any code that therefore immediately adds to the leaves of the current node (the first is parent)
+         * will therefore be added to the root node immediately
+         */
         public void AddReference(Entity entity, CollisionComponent coll, Translation translation)
         {
-            if (!allNodes && leaves.Count < maxLeavesBeforeSubTrees)
+            /* Temp Solution, ALL BOUNDARIES ARE ADDED TO THE ROOT NODE'S LEAVES */
+            if (World.Active.EntityManager.HasComponent<PlayerBoundaryComponent>(entity) || World.Active.EntityManager.HasComponent<ProjectileBoundaryComponent>(entity))
+            {
+                leaves.Add(entity);
+                World.Active.EntityManager.SetComponentData(entity, new QuadTreeReferenceComponent(quadTreeRootID));
+            }
+            else if (!allNodes && leaves.Count < maxLeavesBeforeSubTrees)
             {
                 leaves.Add(entity);
                 World.Active.EntityManager.SetComponentData(entity, new QuadTreeReferenceComponent(quadTreeRootID));

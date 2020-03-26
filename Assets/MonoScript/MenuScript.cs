@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Entities;
-using Assets.Entities;
 using Assets.Systems;
 //using UnityEngine.SceneManagement;
 
@@ -27,7 +26,9 @@ public class MenuScript : MonoBehaviour
         //World.Active.GetExistingSystem<QuadTreeJobDrawingSystem>().Enabled = false;
         //World.Active.GetExistingSystem<QuadTreeJobSystem>().Enabled = false;
         World.Active.GetExistingSystem<QuadTreeSystem>().Enabled = false;
+
         World.Active.GetExistingSystem<QuadTreeDrawingSystem>().Enabled = false;
+        World.Active.GetExistingSystem<CollisionBoxDrawingSystem>().Enabled = false;
         //World.Active.GetExistingSystem<CollisionBoxDrawingSystem>().Enabled = false;
     }
 }
