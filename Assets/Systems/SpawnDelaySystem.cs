@@ -16,7 +16,7 @@ public class SpawnDelaySystem : ComponentSystem
                 World.Active.EntityManager.AddComponent(e, typeof(MovementComponent));
                 World.Active.EntityManager.SetComponentData(e, new MovementComponent(d.movementVector));
                 World.Active.EntityManager.AddComponent(e, typeof(CollisionComponent));
-                World.Active.EntityManager.SetComponentData(e, new CollisionComponent(d.radius,d.radius));
+                World.Active.EntityManager.SetComponentData(e, new CollisionComponent(d.radius,d.radius, 0x03));
                 World.Active.EntityManager.SetComponentData(e, new Scale { Value = d.radius * 2.35f });
                 World.Active.EntityManager.RemoveComponent<SpawnDelayComp>(e);
             }

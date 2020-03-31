@@ -2,11 +2,11 @@
 using UnityEngine;
 using Unity.Entities;
 using System;
-using Assets.Entities;
 using Assets.Resources;
 using Assets.MonoScript;
 using Assets.Events.GenericEvents;
 using UnityEngine.SceneManagement;
+using Assets.Systems;
 
 public class DeckBuilderGame : MonoBehaviour, IGame
 {
@@ -54,6 +54,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         cardLibrary = cl.GetListByID(builderDeck.getFactions()[0]);
         cardLibrary.AddRange(cl.GetListByID(builderDeck.getFactions()[1]));
 
+        World.Active.GetExistingSystem<QuadTreeSystem>().Enabled = true;
         World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = true;
         World.Active.GetExistingSystem<ControlSystem>().Enabled = true;
         World.Active.GetExistingSystem<DeletionSystem>().Enabled = true;
