@@ -38,6 +38,11 @@ public class PlayerValueSystem : ComponentSystem
                     
                     EventManager.instance.QueueEvent(new GameOverEvent(p.playerID));
                     Debug.Log("Game Over Event Sent");
+                    p.healthRemaining = Constants.PlayerMaximumHealth;
+                }
+                if (p.healthRemaining > Constants.PlayerMaximumHealth)
+                {
+                    p.healthRemaining = Constants.PlayerMaximumHealth;
                 }
                 EventManager.instance.QueueEvent(new UIUpdateEvent(p.healthRemaining, (int)Mathf.Floor(p.mana), p.playerID));
 

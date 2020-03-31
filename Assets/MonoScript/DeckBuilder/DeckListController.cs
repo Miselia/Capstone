@@ -28,7 +28,7 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
             foreach(CardData cd in cl)
             {
                 if (cd.cardID == id)
-                    AddButtontoDeckListUI(cd.cardID, cd.cardName);
+                    AddButtontoDeckListUI(cd.cardID, cd.cardName,cd.getTraits(),cd.getFlavor());
             }
         }
     }
@@ -51,13 +51,14 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
         Debug.Log(dbGame.RemoveCardFromDeck(id));
 
     }
+    
 
     public bool HandleEvent(IGenericEvent evt)
     {
         if (evt is AddCardtoDeckScrollListEvent)
         {
             AddCardtoDeckScrollListEvent add = evt as AddCardtoDeckScrollListEvent;
-            AddButtontoDeckListUI(add.cardID, add.cardName);
+            AddButtontoDeckListUI(add.cardID, add.cardName, add.traits, add.flavor);
             return true;
         }
         if (evt is InitializeDeckBuilerDeckUIEvent)
@@ -68,12 +69,12 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
         return false;
     }
 
-    private void AddButtontoDeckListUI(int id, string name)
+    private void AddButtontoDeckListUI(int id, string name, string traits, string flavor)
     {
         GameObject button = Instantiate(buttonPrefab) as GameObject;
         button.SetActive(true);
 
-        button.GetComponent<DeckButtonPrefab>().Initialize(name, id);
+        button.GetComponent<DeckButtonPrefab>().Initialize(name, id, traits, flavor);
         button.transform.SetParent(buttonPrefab.transform.parent, false);
     }
     

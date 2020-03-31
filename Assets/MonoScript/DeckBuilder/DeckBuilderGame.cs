@@ -95,7 +95,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
             if (result)
             {
                 Debug.Log("Calling Add to Deck List UI");
-                EventManager.instance.QueueEvent(new AddCardtoDeckScrollListEvent(acd.cardID, acd.cardName));
+                EventManager.instance.QueueEvent(new AddCardtoDeckScrollListEvent(acd.cardID, acd.cardName, acd.traits, acd. flavor));
                 return true;
             }
             else

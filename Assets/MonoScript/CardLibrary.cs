@@ -19,12 +19,18 @@ public class CardLibrary: MonoBehaviour
 
         //CardID, Name, manaCost, faction, traits, material
         //0 Unassigned, 1 Fantasy, 2 Steampunk, 3 Horror, 4 Sci-Fi
-        library["Default"].Add(new CardData(0, "Default", 0, 0, "None", cardMaterialLibrary[0]));
-        library["Horror"].Add(new CardData(1, "Blood Boil", 2, 3, "Speed+", cardMaterialLibrary[1]));
-        library["Fantasy"].Add(new CardData(2, "Fire Bolt", 3, 1, "Fire", cardMaterialLibrary[2]));
-        library["Sci-Fi"].Add(new CardData(3, "Plasma Bolt", 4, 4, "", cardMaterialLibrary[3]));
-        library["Steampunk"].Add(new CardData(4, "Red Coins", 5, 2, "", cardMaterialLibrary[4]));
-        library["Fantasy"].Add(new CardData(5, "Glimpse Into The Ether", 4, 1, "ManaRegen+", cardMaterialLibrary[5]));
+        library["Default"].Add(new CardData(0, "Default", 0, 0, "None", "None", cardMaterialLibrary[0]));
+        library["Horror"].Add(new CardData(1, "Blood Boil", 2, 3, "Speed+", "You just make daddy so angry", cardMaterialLibrary[1]));
+        library["Fantasy"].Add(new CardData(2, "Fire Bolt", 3, 1, "", "3rd Level Spell", cardMaterialLibrary[2]));
+        library["Sci-Fi"].Add(new CardData(3, "Plasma Bolt", 4, 4, "", "3rd Level Plasma", cardMaterialLibrary[3]));
+        library["Steampunk"].Add(new CardData(4, "Red Coins", 5, 2, "", "Collect all 8 for a star!",cardMaterialLibrary[4]));
+        library["Fantasy"].Add(new CardData(5, "Glimpse Into The Ether", 4, 1, "ManaRegen+","The Ether Glimpses back", cardMaterialLibrary[5]));
+        library["Fantasy"].Add(new CardData(6, "Wandering Woodsprite", 4, 1, "Healing", "A helpful friend to all", cardMaterialLibrary[6]));
+        library["Fantasy"].Add(new CardData(7, "Akashic Records", 7, 1, "Random Cards", "Randomness in all things", cardMaterialLibrary[7]));
+        library["Fantasy"].Add(new CardData(8, "Well of Knowledge", 3, 1, "Next Heal/Damage doubled", "Knowledge is power", cardMaterialLibrary[8]));
+        library["Fantasy"].Add(new CardData(9, "Magic Record", 5, 1, "Double cast next card", "I'll save this spell for later", cardMaterialLibrary[9]));
+        library["Sci-Fi"].Add(new CardData(10, "Nano Barrier", 7, 4, "Create a barrier that can't be moved through", "No, you can't pass go", cardMaterialLibrary[10]));
+        library["Sci-Fi"].Add(new CardData(11, "Gravity Well", 4, 4, "Well pulls projectiles in", "Zucc", cardMaterialLibrary[11]));
 
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }

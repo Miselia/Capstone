@@ -58,6 +58,8 @@
      <Compile Include="Assets\Components\CardComp.cs" />
      <Compile Include="Assets\Components\CollisionComponent.cs" />
      <Compile Include="Assets\Components\DeleteComp.cs" />
+     <Compile Include="Assets\Components\DoubleCastComp.cs" />
+     <Compile Include="Assets\Components\GravityComponent.cs" />
      <Compile Include="Assets\Components\HealthDeltaComp.cs" />
      <Compile Include="Assets\Components\ManaDeltaComp.cs" />
      <Compile Include="Assets\Components\ManaRegenBuffComp.cs" />
@@ -67,7 +69,9 @@
      <Compile Include="Assets\Components\ProjectileBoundaryComponent.cs" />
      <Compile Include="Assets\Components\ProjectileComponent.cs" />
      <Compile Include="Assets\Components\RotationComponent.cs" />
+     <Compile Include="Assets\Components\SpawnDelayComp.cs" />
      <Compile Include="Assets\Components\TestingComponent.cs" />
+     <Compile Include="Assets\Components\ValueIncreaseComp.cs" />
      <Compile Include="Assets\Components\XformComp.cs" />
      <Compile Include="Assets\Entities\CardEnitity.cs" />
      <Compile Include="Assets\Entities\PlayerBoundaryEntity.cs" />
@@ -114,12 +118,16 @@
      <Compile Include="Assets\Systems\ControlSystem.cs" />
      <Compile Include="Assets\Systems\DeletionSystem.cs" />
      <Compile Include="Assets\Systems\DrawSystem.cs" />
+     <Compile Include="Assets\Systems\GravitySystem.cs" />
      <Compile Include="Assets\Systems\MovementSystem.cs" />
      <Compile Include="Assets\Systems\PlayerValueSystem.cs" />
+     <Compile Include="Assets\Systems\SpawnDelaySystem.cs" />
      <Compile Include="Assets\Systems\TestingSystem.cs" />
+     <None Include="Assets\Resources\Science Fantasy.txt" />
      <None Include="Assets\Resources\player1.txt" />
      <None Include="Assets\Resources\GlimpseTest.txt" />
      <None Include="Assets\Resources\FireAndPlasma.txt" />
+     <None Include="Assets\Resources\Dead Space.txt" />
      <None Include="Assets\Resources\SteamyHorror.txt" />
      <None Include="Assets\Resources\player2.txt" />
  <Reference Include="Unity.Timeline.Editor">

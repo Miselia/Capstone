@@ -8,7 +8,10 @@ public class DeckButtonPrefab : MonoBehaviour, IPointerClickHandler
 {
     private int cardNumber;
     [SerializeField] private Text buttonText;
+    [SerializeField] private Text info;
     [SerializeField] private DeckListController listControl;
+    private string traits;
+    private string flavor;
     public UnityEvent leftClick;
     public UnityEvent middleClick;
     public UnityEvent rightClick;
@@ -16,10 +19,12 @@ public class DeckButtonPrefab : MonoBehaviour, IPointerClickHandler
     {
         buttonText.text = inputText;
     }
-    public void Initialize(string cardName, int cardNum)
+    public void Initialize(string cardName, int cardNum, string traits, string flavor)
     {
         buttonText.text = cardName;
         cardNumber = cardNum;
+        this.traits = traits;
+        this.flavor = flavor;
     }
 
     public void OnPrefabClicked()
@@ -36,7 +41,7 @@ public class DeckButtonPrefab : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
             leftClick.Invoke();
         else if (eventData.button == PointerEventData.InputButton.Middle)
-            middleClick.Invoke();
+            info.text = (buttonText.text + "\n" + traits + "\n" + flavor);
         else if (eventData.button == PointerEventData.InputButton.Right)
             rightClick.Invoke();
     }

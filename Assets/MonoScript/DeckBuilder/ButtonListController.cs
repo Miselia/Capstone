@@ -24,15 +24,15 @@ public class ButtonListController : MonoBehaviour, IGenericEventListener
             GameObject button = Instantiate(buttonPrefab) as GameObject;
             button.SetActive(true);
 
-            button.GetComponent<CardButtonPrefab>().Initialize(data.getName(), data.getID(), data.getMaterial()) ;
+            button.GetComponent<CardButtonPrefab>().Initialize(data.getName(), data.getID(), data.getMaterial(), data.getTraits(), data.getFlavor()) ;
             button.transform.SetParent(buttonPrefab.transform.parent, false);
         }
     }
 
-    public void ButtonClicked(int id, string cardName)
+    public void ButtonClicked(int id, string cardName, string traits, string flavor)
     {
         Debug.Log("Card attempt add to deck");
-        EventManager.instance.QueueEvent(new AddCardtoDeckEvent(id, cardName));
+        EventManager.instance.QueueEvent(new AddCardtoDeckEvent(id, cardName, traits, flavor));
     }
 
     public bool HandleEvent(IGenericEvent evt)
