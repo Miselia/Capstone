@@ -30,7 +30,8 @@ public class CardLibrary: MonoBehaviour
         library["Fantasy"].Add(new CardData(8, "Well of Knowledge", 3, 1, "Next Heal/Damage doubled", "Knowledge is power", cardMaterialLibrary[8]));
         library["Fantasy"].Add(new CardData(9, "Magic Record", 5, 1, "Double cast next card", "I'll save this spell for later", cardMaterialLibrary[9]));
         library["Sci-Fi"].Add(new CardData(10, "Nano Barrier", 7, 4, "Create a barrier that can't be moved through", "No, you can't pass go", cardMaterialLibrary[10]));
-        library["Sci-Fi"].Add(new CardData(11, "Gravity Well", 4, 4, "Well pulls projectiles in", "Zucc", cardMaterialLibrary[11]));
+        library["Sci-Fi"].Add(new CardData(11, "Gravity Well", 7, 4, "Well pulls projectiles in", "Zucc", cardMaterialLibrary[11]));
+        library["Sci-Fi"].Add(new CardData(12, "Electromagnetic Projectiles", 6, 4, "", "That's some pretty good ping", cardMaterialLibrary[12]));
 
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }

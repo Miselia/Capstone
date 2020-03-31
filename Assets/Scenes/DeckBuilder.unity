@@ -3086,6 +3086,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 026a40405457fec42a55b2fc2f7e60b4, type: 2}
   - {fileID: 2100000, guid: ec0061e42fafb7649aa0e816baeca3c3, type: 2}
   - {fileID: 2100000, guid: 72a7deed8507fdc4186bf283eae36c50, type: 2}
+  - {fileID: 2100000, guid: db5a6592ab59ca347b846010bde61245, type: 2}
   mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1751335438
 Transform:
@@ -3867,6 +3868,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 53e1f0214ebc28f45b9d529dc34a84d8, type: 2}
   - {fileID: 2100000, guid: 3f85e1426b800d1489bda3a44414addc, type: 2}
   - {fileID: 2100000, guid: a9b2ad4c6c0e5ba4e864c9fd7f61a10d, type: 2}
+  - {fileID: 2100000, guid: 5f133241a6eb20b4ab7e3c95182d627a, type: 2}
 --- !u!4 &2098853552
 Transform:
   m_ObjectHideFlags: 0

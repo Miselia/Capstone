@@ -21,7 +21,9 @@ public class GravitySystem : ComponentSystem
                 {
                     Vector2 pos2 = new Vector2(projectilePosition.Value.x, projectilePosition.Value.y);
                     if (Vector2.Distance(pos, pos2) <= rad) {
-                        moveComp.movementVector = Vector2.MoveTowards(pos2, pos, str);
+                        Vector2 gravityForceDirection = pos - pos2;
+                        gravityForceDirection.Normalize();
+                        moveComp.movementVector += gravityForceDirection/2;
                      }
                 });
             });

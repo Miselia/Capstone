@@ -158,8 +158,25 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 11:
                     //Gravity Well
-                    createBullet("gravityWell",new Vector2(positionX * 1.5f, 0), new Vector2(0, 0), 1f, damage, 0);
+                    createBullet("gravityWell",new Vector2(positionX, 0), new Vector2(0, 0), 1f, damage, 0);
 
+                    break;
+                case 12:
+                    //Electromagnetic Projectiles
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer);
+
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer+ 80);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer + 80);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 80);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 80);
+
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer + 160);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer + 160);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 160);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 160);
                     break;
             }
             if (fixedValue == 0)
@@ -214,12 +231,15 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.SetComponentData(barrier, new DeleteComp(420));
                 break;
             case "gravityWell":
-                Entity gravity = ProjectileEntity.Create(World.Active.EntityManager, 1, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[8]);
+                Entity gravity = ProjectileEntity.Create(World.Active.EntityManager, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[8]);
                 World.Active.EntityManager.RemoveComponent(gravity, typeof(ProjectileComponent));
                 World.Active.EntityManager.AddComponent(gravity, typeof(GravityComponent));
-                World.Active.EntityManager.SetComponentData(gravity, new GravityComponent(4,0.2f));
+                World.Active.EntityManager.SetComponentData(gravity, new GravityComponent(7,0.2f));
                 World.Active.EntityManager.AddComponent(gravity, typeof(DeleteComp));
                 World.Active.EntityManager.SetComponentData(gravity, new DeleteComp(300));
+                break;
+            case "eProjectile":
+                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[9]);
                 break;
         }
     }
