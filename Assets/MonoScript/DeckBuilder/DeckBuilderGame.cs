@@ -2,7 +2,6 @@
 using UnityEngine;
 using Unity.Entities;
 using System;
-using Assets.Entities;
 using Assets.Resources;
 using Assets.MonoScript;
 using Assets.Events.GenericEvents;

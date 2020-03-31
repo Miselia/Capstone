@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Entities;
-using Assets.Entities;
+using Assets.Systems;
 //using UnityEngine.SceneManagement;
 
 public class GameOverScene : MonoBehaviour
@@ -21,7 +21,9 @@ public class GameOverScene : MonoBehaviour
         World.Active.GetExistingSystem<MovementSystem>().Enabled = false;
         World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = false;
         World.Active.GetExistingSystem<TestingSystem>().Enabled = false;
-
+        World.Active.GetExistingSystem<CollisionBoxDrawingSystem>().Enabled = false;
+        World.Active.GetExistingSystem<QuadTreeDrawingSystem>().Enabled = false;
+        World.Active.GetExistingSystem<QuadTreeSystem>().Enabled = false;
     }
 }
     

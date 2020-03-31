@@ -2,7 +2,6 @@
 using UnityEngine;
 using Unity.Entities;
 using System;
-using Assets.Entities;
 using Assets.Resources;
 
 namespace Assets.MonoScript

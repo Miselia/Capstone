@@ -19,6 +19,8 @@
         public static readonly int MaxDeckSize = 15;
         public static readonly int DefaultProjectileDamage = 1;
 
+        public static readonly int QuadTreeMaxReferences = 4;
+
         //Entities Don't really need constants since their constants are only used internally \\
         //However, if we decide we need them we can un-comment and then add them to Entity classes \\
         //public static readonly float PlayerBoundaryScale = 10.125f;

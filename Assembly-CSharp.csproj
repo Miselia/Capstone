@@ -774,6 +774,7 @@
     <Compile Include="Assets\Components\CollisionComponent.cs" />
     <Compile Include="Assets\Components\DeleteComp.cs" />
     <Compile Include="Assets\Components\HealthDeltaComp.cs" />
+    <Compile Include="Assets\Components\IsBoundaryComponent.cs" />
     <Compile Include="Assets\Components\ManaDeltaComp.cs" />
     <Compile Include="Assets\Components\ManaRegenBuffComp.cs" />
     <Compile Include="Assets\Components\MovementComponent.cs" />
@@ -781,6 +782,7 @@
     <Compile Include="Assets\Components\PlayerComponent.cs" />
     <Compile Include="Assets\Components\ProjectileBoundaryComponent.cs" />
     <Compile Include="Assets\Components\ProjectileComponent.cs" />
+    <Compile Include="Assets\Components\QuadTreeReferenceComponent.cs" />
     <Compile Include="Assets\Components\RotationComponent.cs" />
     <Compile Include="Assets\Components\TestingComponent.cs" />
     <Compile Include="Assets\Components\XformComp.cs" />
@@ -809,6 +811,7 @@
     <Compile Include="Assets\MonoScript\Bar.cs" />
     <Compile Include="Assets\MonoScript\CardData.cs" />
     <Compile Include="Assets\MonoScript\CardLibrary.cs" />
+    <Compile Include="Assets\MonoScript\CenteredRectangle.cs" />
     <Compile Include="Assets\MonoScript\Deck.cs" />
     <Compile Include="Assets\MonoScript\DeckBuilder\ButtonListController.cs" />
     <Compile Include="Assets\MonoScript\DeckBuilder\CardButtonPrefab.cs" />
@@ -821,16 +824,21 @@
     <Compile Include="Assets\MonoScript\IGame.cs" />
     <Compile Include="Assets\MonoScript\LobbyScript.cs" />
     <Compile Include="Assets\MonoScript\MenuScript.cs" />
+    <Compile Include="Assets\MonoScript\QuadTreeNode.cs" />
     <Compile Include="Assets\MonoScript\Spawner.cs" />
     <Compile Include="Assets\MonoScript\UIManager.cs" />
     <Compile Include="Assets\Resources\Constants.cs" />
     <Compile Include="Assets\Systems\BuffSystem.cs" />
+    <Compile Include="Assets\Systems\CollisionBoxDrawingSystem.cs" />
     <Compile Include="Assets\Systems\CollisionDetectionSystem.cs" />
     <Compile Include="Assets\Systems\ControlSystem.cs" />
     <Compile Include="Assets\Systems\DeletionSystem.cs" />
     <Compile Include="Assets\Systems\DrawSystem.cs" />
     <Compile Include="Assets\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Systems\PlayerValueSystem.cs" />
+    <Compile Include="Assets\Systems\QuadrantSystem.cs" />
+    <Compile Include="Assets\Systems\QuadTreeDrawingSystem.cs" />
+    <Compile Include="Assets\Systems\QuadTreeSystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <None Include="Assets\Resources\player1.txt" />
     <None Include="Assets\Resources\GlimpseTest.txt" />
