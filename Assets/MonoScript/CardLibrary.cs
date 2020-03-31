@@ -32,6 +32,11 @@ public class CardLibrary: MonoBehaviour
         library["Sci-Fi"].Add(new CardData(10, "Nano Barrier", 7, 4, "Create a barrier that can't be moved through", "No, you can't pass go", cardMaterialLibrary[10]));
         library["Sci-Fi"].Add(new CardData(11, "Gravity Well", 7, 4, "Well pulls projectiles in", "Zucc", cardMaterialLibrary[11]));
         library["Sci-Fi"].Add(new CardData(12, "Electromagnetic Projectiles", 6, 4, "", "That's some pretty good ping", cardMaterialLibrary[12]));
+        // 13
+        library["Steampunk"].Add(new CardData(14, "Lead Rain", 5, 2, "", "Make your opponent's life a bullet-hell", cardMaterialLibrary[14]));
+        library["Steampunk"].Add(new CardData(15, "Spray 'n Pray", 4, 2, "", "Let it gooo!", cardMaterialLibrary[15]));
+        library["Steampunk"].Add(new CardData(16, "Well Oiled Machine", 2, 2, "Speed+", "WD-40 always does the trick", cardMaterialLibrary[16]));
+        library["Steampunk"].Add(new CardData(16, "Gear Box", 6, 2, "", "Spawn projectiles that circle your opponent's borders", cardMaterialLibrary[17]));
 
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }
