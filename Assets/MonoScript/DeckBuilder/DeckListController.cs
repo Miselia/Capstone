@@ -47,7 +47,7 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
     }
     public void ButtonRightClicked(int id)
     {
-        Debug.Log("Detect RightClick");
+        //Debug.Log("Detect RightClick");
         Debug.Log(dbGame.RemoveCardFromDeck(id));
 
     }

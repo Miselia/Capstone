@@ -211,9 +211,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 16:
                     // Well Oiled Machine
                     damage = 0;
-                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -positionX;
 
                     createBullet("oil", new Vector2(positionX, 0), new Vector2(), 0.5f, damage, timer);
+                    break;
+                case 17:
+                    // Gear Box
+                    createBullet("gear", new Vector2(positionX - 1, -2), new Vector2(0, 1), 0.75f, damage, timer);
                     break;
             }
             if (fixedValue == 0)
@@ -281,7 +285,14 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[10]);
                 break;
             case "oil":
-                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[11]);
+                Entity oil = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[11]);
+                World.Active.EntityManager.AddComponent(oil, typeof(DeleteComp));
+                World.Active.EntityManager.SetComponentData(oil, new DeleteComp(300));
+                break;
+            case "gear":
+                Entity gear = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x05);
+                World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
+                World.Active.EntityManager.SetComponentData(gear, new DeleteComp(500));
                 break;
         }
     }

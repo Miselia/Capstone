@@ -16,11 +16,11 @@ public class ButtonListController : MonoBehaviour, IGenericEventListener
     private void InitializationFunction()
     {
         List<CardData> cl = dbGame.GetCardLibrary();
-        Debug.Log("CardLibrary count in ButtonListController " + cl.Count);
+        //Debug.Log("CardLibrary count in ButtonListController " + cl.Count);
 
         foreach(CardData data in cl)
         {
-            Debug.Log("Initiating button with " + data.cardName + ", " + data.cardID);
+            //Debug.Log("Initiating button with " + data.cardName + ", " + data.cardID);
             GameObject button = Instantiate(buttonPrefab) as GameObject;
             button.SetActive(true);
 
@@ -31,7 +31,7 @@ public class ButtonListController : MonoBehaviour, IGenericEventListener
 
     public void ButtonClicked(int id, string cardName, string traits, string flavor)
     {
-        Debug.Log("Card attempt add to deck");
+        //Debug.Log("Card attempt add to deck");
         EventManager.instance.QueueEvent(new AddCardtoDeckEvent(id, cardName, traits, flavor));
     }
 
@@ -40,7 +40,7 @@ public class ButtonListController : MonoBehaviour, IGenericEventListener
         if (evt is AddCardtoDeckScrollListEvent)
         {
             AddCardtoDeckScrollListEvent add = evt as AddCardtoDeckScrollListEvent;
-            Debug.Log("Name " + add.cardName + " ID: " + add.cardID + " added to deck list");
+            //Debug.Log("Name " + add.cardName + " ID: " + add.cardID + " added to deck list");
             return true;
         }
         if (evt is InitializeDeckBuilderListUIEvent)

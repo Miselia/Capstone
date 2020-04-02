@@ -21,6 +21,9 @@ public class MenuScript : MonoBehaviour
         World.Active.GetExistingSystem<MovementSystem>().Enabled = false;
         World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = false;
         World.Active.GetExistingSystem<TestingSystem>().Enabled = false;
+        World.Active.GetExistingSystem<BuffSystem>().Enabled = false;
+        World.Active.GetExistingSystem<GravitySystem>().Enabled = false;
+        World.Active.GetExistingSystem<SpawnDelaySystem>().Enabled = false;
 
         World.Active.GetExistingSystem<QuadrantSystem>().Enabled = false;
         //World.Active.GetExistingSystem<QuadTreeJobDrawingSystem>().Enabled = false;

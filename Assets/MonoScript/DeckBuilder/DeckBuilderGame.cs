@@ -41,7 +41,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         Debug.Log(typeof(ButtonListController).ToString());
         playerHand = new int[] { -1, -1, -1, -1 };
         GetDeck();
-        Debug.Log("Builder deck is null: " + (builderDeck == null));
+        //Debug.Log("Builder deck is null: " + (builderDeck == null));
 
         eventManager = gameObject.AddComponent<EventManager>();
         EventManager.instance.RegisterListener<EndCollisionEvent>(this);
@@ -60,6 +60,8 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         World.Active.GetExistingSystem<DeletionSystem>().Enabled = true;
         World.Active.GetExistingSystem<MovementSystem>().Enabled = true;
         World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = true;
+        World.Active.GetExistingSystem<BuffSystem>().Enabled = true;
+        World.Active.GetExistingSystem<SpawnDelaySystem>().Enabled = true;
 
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
 
@@ -90,18 +92,18 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         }
         if (evt is AddCardtoDeckEvent)
         {
-            Debug.Log("Add Card to Deck Event recieved");
+            //Debug.Log("Add Card to Deck Event recieved");
             AddCardtoDeckEvent acd = evt as AddCardtoDeckEvent;
             bool result = AddCardToDeck(acd.cardID);
             if (result)
             {
-                Debug.Log("Calling Add to Deck List UI");
+                //Debug.Log("Calling Add to Deck List UI");
                 EventManager.instance.QueueEvent(new AddCardtoDeckScrollListEvent(acd.cardID, acd.cardName, acd.traits, acd. flavor));
                 return true;
             }
             else
             {
-                Debug.Log("Add to Deck List failed, abort add to UI");
+                //Debug.Log("Add to Deck List failed, abort add to UI");
                 return false;
             }
         }
@@ -122,11 +124,11 @@ public class DeckBuilderGame : MonoBehaviour, IGame
             if(playerHand[i] == entityManager.GetComponentData<CardComp>(card).cardID)
             {
                 playerHand[i] = -1;
-                Debug.Log("Player Hand [" + i + "] changed to -1 from spawn call");
+                //Debug.Log("Player Hand [" + i + "] changed to -1 from spawn call");
             }
             else
             {
-                Debug.Log("Player Hand [" + i + "] not adjusted from spawn call");
+                //Debug.Log("Player Hand [" + i + "] not adjusted from spawn call");
             }
         }
     }

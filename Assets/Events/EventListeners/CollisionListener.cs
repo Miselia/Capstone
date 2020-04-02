@@ -17,30 +17,66 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             CollisionEvent ce = evt as CollisionEvent;
 
             // Signifies Player x Projectile Collision
-            if(World.Active.EntityManager.HasComponent<PlayerComponent>(ce.entityA) &&
-                World.Active.EntityManager.HasComponent<ProjectileComponent>(ce.entityB))
+            if(ce.collisionMask == 1)
             {
                 //Debug.Log("Player x Projectile Collision before in CollisionListener");
                 PlayerProjectileCollisionHelper(ce.entityA, ce.entityB);
                 //Debug.Log("Player x Projectile Collision after in CollisionListener");
                 return true;
             }
-            // Player x Boundary Collision
-            if(World.Active.EntityManager.HasComponent<PlayerComponent>(ce.entityA) &&
-                World.Active.EntityManager.HasComponent<PlayerBoundaryComponent>(ce.entityB))
-            {
-                PlayerBoundaryCollisionHelper(ce.entityA, ce.entityB);
-                return true;
-            }
             // Projectile x Boundary Collision
-            if(World.Active.EntityManager.HasComponent<ProjectileComponent>(ce.entityA) &&
-                World.Active.EntityManager.HasComponent<ProjectileBoundaryComponent>(ce.entityB))
+            if (ce.collisionMask == 2)
             {
                 ProjectileBoundaryCollisionHelper(ce.entityA, ce.entityB);
                 return true;
             }
+            // Player x Boundary Collision
+            if (ce.collisionMask == 4)
+            {
+                PlayerBoundaryCollisionHelper(ce.entityA, ce.entityB);
+                return true;
+            }
+            if (ce.collisionMask == 8)
+            {
+                GearBoundaryCollisionHelper(ce.entityA, ce.entityB);
+                return true;
+            }
         }
         return false;
+    }
+
+    private bool GearBoundaryCollisionHelper(Entity gearEntity, Entity playBoundEntity)
+    {
+        Vector3 playerVector = World.Active.EntityManager.GetComponentData<Translation>(gearEntity).Value;
+        Vector3 boundaryVector = World.Active.EntityManager.GetComponentData<Translation>(playBoundEntity).Value;
+        float circleRadius = World.Active.EntityManager.GetComponentData<CollisionComponent>(gearEntity).collisionRadius;
+        Vector2 boundNormal = World.Active.EntityManager.GetComponentData<PlayerBoundaryComponent>(playBoundEntity).Normal;
+
+        if (boundNormal.x == 0)
+        {
+            Vector2 nearestWallPosition = new Vector2(playerVector.x, boundaryVector.y);
+            playerVector.y = nearestWallPosition.y + boundNormal.y * circleRadius;
+            World.Active.EntityManager.SetComponentData<Translation>(gearEntity,
+                new Translation { Value = new Unity.Mathematics.float3(playerVector.x, playerVector.y, playerVector.z) });
+
+            //Debug.Log("Gear position and movement readjusted");
+            World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
+                new MovementComponent { movementVector = new Vector2(-boundNormal.y, 0) });
+            EventManager.instance.QueueEvent(new EndCollisionEvent(gearEntity, playBoundEntity));
+        }
+        if (boundNormal.y == 0)
+        {
+            Vector2 nearestWallPosition = new Vector2(boundaryVector.x, playerVector.y);
+            playerVector.x = nearestWallPosition.x + boundNormal.x * circleRadius;
+            World.Active.EntityManager.SetComponentData<Translation>(gearEntity,
+                new Translation { Value = new Unity.Mathematics.float3(playerVector.x, playerVector.y, playerVector.z) });
+
+            //Debug.Log("Gear position and movement readjusted");
+            World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
+                new MovementComponent { movementVector = new Vector2(0, boundNormal.x) });
+            EventManager.instance.QueueEvent(new EndCollisionEvent(gearEntity, playBoundEntity));
+        }
+        return true;
     }
 
     private bool ProjectileBoundaryCollisionHelper(Entity projectileEntity, Entity boundaryEntity)
@@ -54,7 +90,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             Vector2 nearestWallPosition = new Vector2(projectileVector.x, boundaryVector.y);
             projectileVector.y = nearestWallPosition.y + circleRadius;
             World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
-            Debug.Log("Projectile position readjusted");
+            //Debug.Log("Projectile position readjusted");
             EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
             World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         }
@@ -63,7 +99,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             Vector2 nearestWallPosition = new Vector2(boundaryVector.x, projectileVector.y);
             projectileVector.x = nearestWallPosition.x + circleRadius;
             World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
-            Debug.Log("Projectile position readjusted");
+            //Debug.Log("Projectile position readjusted");
             EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
             World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
         }
@@ -84,7 +120,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 new Translation { Value = new Unity.Mathematics.float3(playerVector.x, playerVector.y, playerVector.z) });
             /*World.Active.EntityManager.SetComponentData<Translation>(playerEntity,
                 new Translation { Value = new Unity.Mathematics.float3(0, 0, 0) });*/
-            Debug.Log("Player position readjusted");
+            //Debug.Log("Player position readjusted");
             EventManager.instance.QueueEvent(new EndCollisionEvent(playerEntity, boundaryEntity));
         }
         if(World.Active.EntityManager.GetComponentData<PlayerBoundaryComponent>(boundaryEntity).Normal.y == 0)
@@ -95,7 +131,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 new Translation { Value = new Unity.Mathematics.float3(playerVector.x, playerVector.y, playerVector.z) });
             /*World.Active.EntityManager.SetComponentData<Translation>(playerEntity,
                 new Translation { Value = new Unity.Mathematics.float3(0, 0, 0) });*/
-            Debug.Log("Player position readjusted");
+            //Debug.Log("Player position readjusted");
             EventManager.instance.QueueEvent(new EndCollisionEvent(playerEntity, boundaryEntity));
         }
 

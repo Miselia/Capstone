@@ -39,13 +39,16 @@ public class CollisionDetectionSystem : ComponentSystem
 
         int parentInt = World.Active.EntityManager.GetComponentData<QuadTreeReferenceComponent>(firstEntity).parentID;
         QuadTreeNode parent = QuadTreeSystem.quadTreeDict[parentInt];
+        byte firstMask = EntityManager.GetComponentData<CollisionComponent>(firstEntity).mask;
 
         while (parent != null)
         {
+            byte secondMask;
             List<Entity> leaves = parent.leaves;
 
             foreach (Entity secondEntity in leaves)
-            {
+            {                
+                secondMask = EntityManager.GetComponentData<CollisionComponent>(secondEntity).mask;
                 if (!game.GetCollidingPairs().ContainsKey(secondEntity))
                 {
                     game.GetCollidingPairs().Add(secondEntity, new List<Entity>());
@@ -62,21 +65,57 @@ public class CollisionDetectionSystem : ComponentSystem
                 {
                     skipFlag = true;
                 }
-                if ((EntityManager.GetComponentData<CollisionComponent>(firstEntity).mask & EntityManager.GetComponentData<CollisionComponent>(secondEntity).mask) == 0)
+                if ((firstMask & secondMask) == 0)
                 {
                     skipFlag = true;
                     //Debug.Log("Skipped due to incompatible byte comparison");
+                }
+                if (firstMask == secondMask)
+                {
+                    skipFlag = true;
+                    // Skipped because two of the same type should never collide
                 }
                 if (game.GetCollidingPairs()[firstEntity].Contains(secondEntity) || game.GetCollidingPairs()[secondEntity].Contains(firstEntity))
                 {
                     skipFlag = true;
                 }
-                if (skipFlag)
-                    skipCounter += 1;
 
                 if (!skipFlag)
                 {
                     collisionCounter++;
+                    int compare = firstMask & secondMask;
+                    switch(compare)
+                    {
+                        case 1:
+                            // Player x Projectile Collision
+                            if(EntityManager.HasComponent<PlayerComponent>(firstEntity))
+                                HandlePlayerCollisionWithProjectile(game, firstEntity, secondEntity, compare);
+                            else
+                                HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity, compare);
+                            break;
+                        case 2:
+                            // Projectile x Projectile Boundary Collision
+                            if(EntityManager.HasComponent<ProjectileComponent>(firstEntity))
+                                HandleProjectileCollisionWithBoundary(game, firstEntity, secondEntity, compare);
+                            else
+                                HandleProjectileCollisionWithBoundary(game, secondEntity, firstEntity, compare);
+                            break;
+                        case 4:
+                            // Player x Player Boundary Collision
+                            if(EntityManager.HasComponent<PlayerComponent>(firstEntity))
+                                HandlePlayerCollisionWithBoundary(game, firstEntity, secondEntity, compare);
+                            else
+                                HandlePlayerCollisionWithBoundary(game, secondEntity, firstEntity, compare);
+                            break;
+                        case 8:
+                            // Gear x Player Boundary Collision
+                            if(EntityManager.HasComponent<ProjectileComponent>(firstEntity))
+                                HandleGearCollisionWithBoundary(game, firstEntity, secondEntity, compare);
+                            else
+                                HandleGearCollisionWithBoundary(game, secondEntity, firstEntity, compare);
+                            break;
+                    }
+                    /*
                     // These internal method calls should instead be exported to a Event/Listener system to handle collision calculations
                     if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
                     {
@@ -101,7 +140,7 @@ public class CollisionDetectionSystem : ComponentSystem
                     else if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
                     {
                         HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity);
-                    }
+                    }*/
                 }
                 skipFlag = false;
             }
@@ -112,7 +151,39 @@ public class CollisionDetectionSystem : ComponentSystem
         
     }
 
-    private void HandleProjectileCollisionWithBoundary(IGame game, Entity projectileEntity, Entity boundaryEntity)
+    private void HandleGearCollisionWithBoundary(IGame game, Entity gearEntity, Entity playerBoundEntity, int mask)
+    {
+        Vector3 circleVector = EntityManager.GetComponentData<Translation>(gearEntity).Value;
+        Vector3 boundaryVector = EntityManager.GetComponentData<Translation>(playerBoundEntity).Value;
+        float circleRadius = EntityManager.GetComponentData<CollisionComponent>(gearEntity).collisionRadius;
+
+        if (EntityManager.GetComponentData<PlayerBoundaryComponent>(playerBoundEntity).Normal.x == 0)
+        {
+            Vector2 nearestWallPosition = new Vector2(circleVector.x, boundaryVector.y);
+            if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
+            {
+                game.GetCollidingPairs()[gearEntity].Add(playerBoundEntity);
+                //Debug.Log("Player entity collide with boundary");
+                // HOO BOY
+                EventManager.instance.QueueEvent(new CollisionEvent(gearEntity, playerBoundEntity, mask));
+                //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
+            }
+        }
+        if (EntityManager.GetComponentData<PlayerBoundaryComponent>(gearEntity).Normal.y == 0)
+        {
+            Vector2 nearestWallPosition = new Vector2(boundaryVector.x, circleVector.y);
+            if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
+            {
+                game.GetCollidingPairs()[gearEntity].Add(playerBoundEntity);
+                //Debug.Log("Player entity collide with boundary");
+                // HOO BOY
+                EventManager.instance.QueueEvent(new CollisionEvent(gearEntity, playerBoundEntity, mask));
+                //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
+            }
+        }
+    }
+
+    private void HandleProjectileCollisionWithBoundary(IGame game, Entity projectileEntity, Entity boundaryEntity, int mask)
     {
         Vector3 circleVector = EntityManager.GetComponentData<Translation>(projectileEntity).Value;
         Vector3 boundaryVector = EntityManager.GetComponentData<Translation>(boundaryEntity).Value;
@@ -126,7 +197,7 @@ public class CollisionDetectionSystem : ComponentSystem
                 game.GetCollidingPairs()[projectileEntity].Add(boundaryEntity);
                 //Debug.Log("Projectile entity collide with boundary");
                 // HOO BOY
-                EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity));
+                EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity, mask));
             }
         }
 
@@ -138,12 +209,12 @@ public class CollisionDetectionSystem : ComponentSystem
                 game.GetCollidingPairs()[projectileEntity].Add(boundaryEntity);
                 //Debug.Log("Projectile entity collide with boundary");
                 // HOO BOY
-                EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity));
+                EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity, mask));
             }
         }
     }
 
-    private void HandlePlayerCollisionWithBoundary(IGame game, Entity playerEntity, Entity boundaryEntity)
+    private void HandlePlayerCollisionWithBoundary(IGame game, Entity playerEntity, Entity boundaryEntity, int mask)
     {
         Vector3 circleVector = EntityManager.GetComponentData<Translation>(playerEntity).Value;
         Vector3 boundaryVector = EntityManager.GetComponentData<Translation>(boundaryEntity).Value;
@@ -157,7 +228,7 @@ public class CollisionDetectionSystem : ComponentSystem
                 game.GetCollidingPairs()[playerEntity].Add(boundaryEntity);
                 //Debug.Log("Player entity collide with boundary");
                 // HOO BOY
-                EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity));
+                EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity, mask));
                 //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
             }
         }
@@ -169,13 +240,13 @@ public class CollisionDetectionSystem : ComponentSystem
                 game.GetCollidingPairs()[playerEntity].Add(boundaryEntity);
                 //Debug.Log("Player entity collide with boundary");
                 // HOO BOY
-                EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity));
+                EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity, mask));
                 //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
             }
         }
     }
 
-    private void HandlePlayerCollisionWithProjectile(IGame game, Entity playerEntity, Entity projectileEntity)
+    private void HandlePlayerCollisionWithProjectile(IGame game, Entity playerEntity, Entity projectileEntity, int mask)
     {
         Vector3 playerVector = EntityManager.GetComponentData<Translation>(playerEntity).Value;
         Vector3 projectileVector = EntityManager.GetComponentData<Translation>(projectileEntity).Value;
@@ -187,7 +258,7 @@ public class CollisionDetectionSystem : ComponentSystem
             game.GetCollidingPairs()[playerEntity].Add(projectileEntity);
             //Debug.Log("player entity collide with projectile");
             // HOO BOY
-            EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, projectileEntity));
+            EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, projectileEntity, mask));
         }
     }
 }

@@ -58,14 +58,14 @@ public class DeckLobbyScript : MonoBehaviour
 
     public void NewDeckToDeckBuilder()
     {
-        Debug.Log("New deck to deck builder clicked");
+        //Debug.Log("New deck to deck builder clicked");
         if (factionChoicesDropdown1.value != 0 && factionChoicesDropdown2.value != 0)
         {
             factionChoice1 = allFactionNames[factionChoicesDropdown1.value];
             factionChoice2 = allFactionNames[factionChoicesDropdown2.value];
             newDeckName = deckNameField.text;
 
-            Debug.Log("Created Deck: " + factionChoice1);
+            //Debug.Log("Created Deck: " + factionChoice1);
             chosenDeck = new Deck(factionChoice1, factionChoice2, newDeckName);
             SceneManager.LoadScene("DeckBuilder");
         }
@@ -78,7 +78,7 @@ public class DeckLobbyScript : MonoBehaviour
         {
             loadedDeck = allFileNames[decksAvailable.value];
 
-            Debug.Log("Loaded deck " + loadedDeck + ".txt");
+            //Debug.Log("Loaded deck " + loadedDeck + ".txt");
             chosenDeck = new Deck(loadedDeck);
             SceneManager.LoadScene("DeckBuilder");
         }
