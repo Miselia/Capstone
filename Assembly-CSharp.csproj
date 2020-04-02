@@ -69,6 +69,7 @@
      <Compile Include="Assets\Components\PlayerComponent.cs" />
      <Compile Include="Assets\Components\ProjectileBoundaryComponent.cs" />
      <Compile Include="Assets\Components\ProjectileComponent.cs" />
+     <Compile Include="Assets\Components\ProjectileSpeedBuffComp.cs" />
      <Compile Include="Assets\Components\QuadTreeReferenceComponent.cs" />
      <Compile Include="Assets\Components\RotationComponent.cs" />
      <Compile Include="Assets\Components\SpawnDelayComp.cs" />
@@ -137,6 +138,7 @@
      <None Include="Assets\Resources\FireAndPlasma.txt" />
      <None Include="Assets\Resources\Dead Space.txt" />
      <None Include="Assets\Resources\SteamyHorror.txt" />
+     <None Include="Assets\Resources\MagiTech.txt" />
      <None Include="Assets\Resources\player2.txt" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

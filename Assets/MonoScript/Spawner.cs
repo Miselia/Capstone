@@ -178,6 +178,37 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 160);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 160);
                     break;
+                case 13:
+
+                    //Overcharge
+                    foreach (Entity e in World.Active.EntityManager.GetAllEntities())
+                    {
+                        if(World.Active.EntityManager.HasComponent<ProjectileComponent>(e) && World.Active.EntityManager.HasComponent<MovementComponent>(e))
+                        {
+                            World.Active.EntityManager.AddComponent(e, typeof(ProjectileSpeedBuffComp));
+                            World.Active.EntityManager.SetComponentData(e, new ProjectileSpeedBuffComp(3,180,new Vector2(0,0)));
+                        }
+                    }
+                    break;
+                case 14:
+                    break;
+                case 15:
+                    break;
+                case 16:
+                    break;
+                case 17:
+                    break;
+                case 18:
+                    //Overcharge
+                    foreach (Entity e in World.Active.EntityManager.GetAllEntities())
+                    {
+                        if (World.Active.EntityManager.HasComponent<ProjectileComponent>(e) && World.Active.EntityManager.HasComponent<MovementComponent>(e))
+                        {
+                            World.Active.EntityManager.AddComponent(e, typeof(ProjectileSpeedBuffComp));
+                            World.Active.EntityManager.SetComponentData(e, new ProjectileSpeedBuffComp(0, 240, new Vector2(0, 0)));
+                        }
+                    }
+                    break;
             }
             if (fixedValue == 0)
             {
