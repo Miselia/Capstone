@@ -178,6 +178,43 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 160);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 160);
                     break;
+                case 14:
+                    // Lead Rain
+                    createBullet("bullet", new Vector2(positionX - 2, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer);
+                    createBullet("bullet", new Vector2(positionX, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer);
+                    createBullet("bullet", new Vector2(positionX + 2, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer);
+
+                    createBullet("bullet", new Vector2(positionX - 3, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer + 30);
+                    createBullet("bullet", new Vector2(positionX - 1, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer + 30);
+                    createBullet("bullet", new Vector2(positionX + 1, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer + 30);
+
+                    createBullet("bullet", new Vector2(positionX - 1, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer + 60);
+                    createBullet("bullet", new Vector2(positionX + 1, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer + 60);
+                    createBullet("bullet", new Vector2(positionX + 3, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer + 60);
+
+                    createBullet("bullet", new Vector2(positionX - 3, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer + 90);
+                    createBullet("bullet", new Vector2(positionX - 1, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer + 90);
+                    createBullet("bullet", new Vector2(positionX + 1, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer + 90);
+                    break;
+                case 15:
+                    // Spray and Pray
+                    createBullet("bullet", new Vector2(positionX, -positionX), new Vector2(0.1f, positionX / Mathf.Abs(positionX) * 0.9f), 0.5f, damage, timer);
+                    createBullet("bullet", new Vector2(positionX, -positionX), new Vector2(0.2f, positionX / Mathf.Abs(positionX) * 0.8f), 0.5f, damage, timer + 20);
+                    createBullet("bullet", new Vector2(positionX, -positionX), new Vector2(0.3f, positionX / Mathf.Abs(positionX) * 0.7f), 0.5f, damage, timer + 40);
+                    createBullet("bullet", new Vector2(positionX, -positionX), new Vector2(0.4f, positionX / Mathf.Abs(positionX) * 0.6f), 0.5f, damage, timer + 60);
+                    createBullet("bullet", new Vector2(positionX, -positionX), new Vector2(0.5f, positionX / Mathf.Abs(positionX) * 0.5f), 0.5f, damage, timer + 80);
+                    createBullet("bullet", new Vector2(positionX, -positionX), new Vector2(0.6f, positionX / Mathf.Abs(positionX) * 0.4f), 0.5f, damage, timer + 100);
+                    createBullet("bullet", new Vector2(positionX, -positionX), new Vector2(0.7f, positionX / Mathf.Abs(positionX) * 0.3f), 0.5f, damage, timer + 120);
+                    createBullet("bullet", new Vector2(positionX, -positionX), new Vector2(0.8f, positionX / Mathf.Abs(positionX) * 0.2f), 0.5f, damage, timer + 140);
+                    createBullet("bullet", new Vector2(positionX, -positionX), new Vector2(0.9f, positionX / Mathf.Abs(positionX) * 0.1f), 0.5f, damage, timer + 180);
+                    break;
+                case 16:
+                    // Well Oiled Machine
+                    damage = 0;
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
+
+                    createBullet("oil", new Vector2(positionX, 0), new Vector2(), 0.5f, damage, timer);
+                    break;
             }
             if (fixedValue == 0)
             {
@@ -220,7 +257,6 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.SetComponentData(ether, new ManaRegenBuffComp(0.5f,120));
                 World.Active.EntityManager.AddComponent(ether, typeof(DeleteComp));
                 World.Active.EntityManager.SetComponentData(ether, new DeleteComp(300));
-
                 break;
             case "water":
                 ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[6]);
@@ -240,6 +276,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 break;
             case "eProjectile":
                 ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[9]);
+                break;
+            case "bullet":
+                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[10]);
+                break;
+            case "oil":
+                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[11]);
                 break;
         }
     }
