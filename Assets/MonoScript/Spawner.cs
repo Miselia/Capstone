@@ -51,6 +51,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         {
             int damage = -1;
             int timer = time;
+            EventManager.instance.QueueEvent(new SoundEvent(0));
             if (World.Active.EntityManager.HasComponent<ValueIncreaseComp>(player))
             {
                 World.Active.EntityManager.RemoveComponent<ValueIncreaseComp>(player);
