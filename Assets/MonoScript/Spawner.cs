@@ -51,6 +51,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         {
             int damage = -1;
             int timer = time;
+            EventManager.instance.QueueEvent(new SoundEvent(0));
             if (World.Active.EntityManager.HasComponent<ValueIncreaseComp>(player))
             {
                 World.Active.EntityManager.RemoveComponent<ValueIncreaseComp>(player);
@@ -178,6 +179,18 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 160);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 160);
                     break;
+                case 13:
+
+                    //Overcharge
+                    foreach (Entity e in World.Active.EntityManager.GetAllEntities())
+                    {
+                        if(World.Active.EntityManager.HasComponent<ProjectileComponent>(e) && World.Active.EntityManager.HasComponent<MovementComponent>(e))
+                        {
+                            World.Active.EntityManager.AddComponent(e, typeof(ProjectileSpeedBuffComp));
+                            World.Active.EntityManager.SetComponentData(e, new ProjectileSpeedBuffComp(3,180,new Vector2(0,0)));
+                        }
+                    }
+                    break;
                 case 14:
                     // Lead Rain
                     createBullet("bullet", new Vector2(positionX - 2, positionX), new Vector2(0, -0.5f), 0.5f, damage, timer);
@@ -218,6 +231,17 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 17:
                     // Gear Box
                     createBullet("gear", new Vector2(positionX - 1, -2), new Vector2(0, 1), 0.75f, damage, timer);
+                    break;
+                case 18:
+                    //Overcharge
+                    foreach (Entity e in World.Active.EntityManager.GetAllEntities())
+                    {
+                        if (World.Active.EntityManager.HasComponent<ProjectileComponent>(e) && World.Active.EntityManager.HasComponent<MovementComponent>(e))
+                        {
+                            World.Active.EntityManager.AddComponent(e, typeof(ProjectileSpeedBuffComp));
+                            World.Active.EntityManager.SetComponentData(e, new ProjectileSpeedBuffComp(0, 240, new Vector2(0, 0)));
+                        }
+                    }
                     break;
             }
             if (fixedValue == 0)

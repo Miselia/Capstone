@@ -30,13 +30,14 @@ public class CardLibrary: MonoBehaviour
         library["Fantasy"].Add(new CardData(8, "Well of Knowledge", 3, 1, "Next Heal/Damage doubled", "Knowledge is power", cardMaterialLibrary[8]));
         library["Fantasy"].Add(new CardData(9, "Magic Record", 5, 1, "Double cast next card", "I'll save this spell for later", cardMaterialLibrary[9]));
         library["Sci-Fi"].Add(new CardData(10, "Nano Barrier", 7, 4, "Create a barrier that can't be moved through", "No, you can't pass go", cardMaterialLibrary[10]));
-        library["Sci-Fi"].Add(new CardData(11, "Gravity Well", 7, 4, "Well pulls projectiles in", "Zucc", cardMaterialLibrary[11]));
+        library["Sci-Fi"].Add(new CardData(11, "Gravity Well", 7, 4, "Well pulls projectiles in.", "Zucc", cardMaterialLibrary[11]));
         library["Sci-Fi"].Add(new CardData(12, "Electromagnetic Projectiles", 6, 4, "", "That's some pretty good ping", cardMaterialLibrary[12]));
-        // 13
+        library["Sci-Fi"].Add(new CardData(13, "Overcharge", 4, 4, "Enhances speed of all projectiles", "Gotta go fast!", cardMaterialLibrary[13]));
         library["Steampunk"].Add(new CardData(14, "Lead Rain", 5, 2, "", "Make your opponent's life a bullet-hell", cardMaterialLibrary[14]));
         library["Steampunk"].Add(new CardData(15, "Spray 'n Pray", 4, 2, "", "Let it gooo!", cardMaterialLibrary[15]));
         library["Steampunk"].Add(new CardData(16, "Well Oiled Machine", 2, 2, "Speed+", "WD-40 always does the trick", cardMaterialLibrary[16]));
         library["Steampunk"].Add(new CardData(16, "Gear Box", 6, 2, "", "Spawn projectiles that circle your opponent's borders", cardMaterialLibrary[17]));
+        library["Sci-Fi"].Add(new CardData(18, "Chronosis", 6, 4, "Stops all projectiles currently on screen, then returns to the vector they were previously on.", "Stop, (In the name of love/Hammer time)", cardMaterialLibrary[18]));
 
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }

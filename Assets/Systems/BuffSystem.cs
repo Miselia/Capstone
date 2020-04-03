@@ -23,7 +23,29 @@ public class BuffSystem : ComponentSystem
             }
             mb.timer--;
         });
-       
+
+        //ProjectileSpeedBuff
+        Entities.ForEach((Entity e, ref ProjectileComponent p, ref ProjectileSpeedBuffComp psb, ref MovementComponent m) =>
+        {
+            if(psb.timer == psb.maxTimer)
+            {
+                psb.original = m.movementVector;
+                m.movementVector = m.movementVector * psb.value;
+            }
+            
+            
+
+            if (psb.timer <= 0)
+            {
+                m.movementVector = psb.original;
+                World.Active.EntityManager.RemoveComponent<ProjectileSpeedBuffComp>(e);
+            }
+            psb.timer--;
+
+            
+            
+        });
+
 
     }
 }
