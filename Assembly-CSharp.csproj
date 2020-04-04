@@ -145,6 +145,7 @@
     <None Include="Assets\Resources\Science Fantasy.txt" />
     <None Include="Assets\Resources\player1.txt" />
     <None Include="Assets\Resources\GlimpseTest.txt" />
+    <None Include="Assets\Resources\Bullet Hell.txt" />
     <None Include="Assets\Resources\FireAndPlasma.txt" />
     <None Include="Assets\Resources\Dead Space.txt" />
     <None Include="Assets\Resources\SteamyHorror.txt" />

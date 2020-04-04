@@ -17,10 +17,10 @@ public class SpawnDelaySystem : ComponentSystem
                 World.Active.EntityManager.SetComponentData(e, new MovementComponent(d.movementVector));
                 World.Active.EntityManager.AddComponent(e, typeof(CollisionComponent));
                 World.Active.EntityManager.SetComponentData(e, new CollisionComponent(d.radius,d.radius,d.mask));
-                World.Active.EntityManager.SetComponentData(e, new Scale { Value = d.radius * 2.35f });
+                World.Active.EntityManager.SetComponentData(e, new Scale { Value = d.radius * 2 });
                 World.Active.EntityManager.RemoveComponent<SpawnDelayComp>(e);
             }
-            else World.Active.EntityManager.SetComponentData(e, new Scale { Value = (d.radius * 2.35f)/d.timer });
+            else World.Active.EntityManager.SetComponentData(e, new Scale { Value = (d.radius * 2)/d.timer });
             d.timer--;
             
         });
