@@ -36,7 +36,7 @@ public class CardLibrary: MonoBehaviour
         library["Steampunk"].Add(new CardData(14, "Lead Rain", 5, 2, "", "Make your opponent's life a bullet-hell", cardMaterialLibrary[14]));
         library["Steampunk"].Add(new CardData(15, "Spray 'n Pray", 4, 2, "", "Let it gooo!", cardMaterialLibrary[15]));
         library["Steampunk"].Add(new CardData(16, "Well Oiled Machine", 2, 2, "Speed+", "WD-40 always does the trick", cardMaterialLibrary[16]));
-        library["Steampunk"].Add(new CardData(16, "Gear Box", 6, 2, "", "Spawn projectiles that circle your opponent's borders", cardMaterialLibrary[17]));
+        library["Steampunk"].Add(new CardData(17, "Gear Box", 6, 2, "", "Spawn projectiles that circle your opponent's borders", cardMaterialLibrary[17]));
         library["Sci-Fi"].Add(new CardData(18, "Chronosis", 6, 4, "Stops all projectiles currently on screen, then returns to the vector they were previously on.", "Stop, (In the name of love/Hammer time)", cardMaterialLibrary[18]));
 
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());

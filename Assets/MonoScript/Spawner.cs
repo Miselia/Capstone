@@ -295,7 +295,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.SetComponentData(barrier, new DeleteComp(420));
                 break;
             case "gravityWell":
-                Entity gravity = ProjectileEntity.Create(World.Active.EntityManager, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[8]);
+                Entity gravity = ProjectileEntity.Create(World.Active.EntityManager, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[8], 0x00);
                 World.Active.EntityManager.RemoveComponent(gravity, typeof(ProjectileComponent));
                 World.Active.EntityManager.AddComponent(gravity, typeof(GravityComponent));
                 World.Active.EntityManager.SetComponentData(gravity, new GravityComponent(7,0.2f));

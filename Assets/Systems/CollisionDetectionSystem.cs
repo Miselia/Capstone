@@ -198,6 +198,7 @@ public class CollisionDetectionSystem : ComponentSystem
                 //Debug.Log("Projectile entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity, mask));
+                Debug.Log("Collision with Normal.x = 0");
             }
         }
 
@@ -210,6 +211,7 @@ public class CollisionDetectionSystem : ComponentSystem
                 //Debug.Log("Projectile entity collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity, mask));
+                Debug.Log("Collision with Normal.y = 0");
             }
         }
     }

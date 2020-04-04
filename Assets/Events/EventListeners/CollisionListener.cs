@@ -81,28 +81,37 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
 
     private bool ProjectileBoundaryCollisionHelper(Entity projectileEntity, Entity boundaryEntity)
     {
-        Vector3 projectileVector = World.Active.EntityManager.GetComponentData<Translation>(projectileEntity).Value;
-        Vector3 boundaryVector = World.Active.EntityManager.GetComponentData<Translation>(boundaryEntity).Value;
-        float circleRadius = World.Active.EntityManager.GetComponentData<CollisionComponent>(projectileEntity).collisionRadius;
+        Debug.Log("Projectile collision with projectile boundary");
+        bool exists = World.Active.EntityManager.Exists(projectileEntity);
 
-        if (World.Active.EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.x == 0)
+        if (exists)
         {
-            Vector2 nearestWallPosition = new Vector2(projectileVector.x, boundaryVector.y);
-            projectileVector.y = nearestWallPosition.y + circleRadius;
-            World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
-            //Debug.Log("Projectile position readjusted");
-            EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
-            World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
+            Vector3 projectileVector = World.Active.EntityManager.GetComponentData<Translation>(projectileEntity).Value;
+            Vector3 boundaryVector = World.Active.EntityManager.GetComponentData<Translation>(boundaryEntity).Value;
+            float circleRadius = World.Active.EntityManager.GetComponentData<CollisionComponent>(projectileEntity).collisionRadius;
+
+            if (World.Active.EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.x == 0)
+            {
+                Vector2 nearestWallPosition = new Vector2(projectileVector.x, boundaryVector.y);
+                projectileVector.y = nearestWallPosition.y + circleRadius;
+                World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
+                //Debug.Log("Projectile position readjusted");
+                EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
+                World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
+                World.Active.EntityManager.SetComponentData(projectileEntity, new DeleteComp(0));
+            }
+            if (World.Active.EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.y == 0)
+            {
+                Vector2 nearestWallPosition = new Vector2(boundaryVector.x, projectileVector.y);
+                projectileVector.x = nearestWallPosition.x + circleRadius;
+                World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
+                //Debug.Log("Projectile position readjusted");
+                EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
+                World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
+                World.Active.EntityManager.SetComponentData(projectileEntity, new DeleteComp(0));
+            }
         }
-        if (World.Active.EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.y == 0)
-        {
-            Vector2 nearestWallPosition = new Vector2(boundaryVector.x, projectileVector.y);
-            projectileVector.x = nearestWallPosition.x + circleRadius;
-            World.Active.EntityManager.SetComponentData<MovementComponent>(projectileEntity, new MovementComponent(new Vector2(0, 0)));
-            //Debug.Log("Projectile position readjusted");
-            EventManager.instance.QueueEvent(new EndCollisionEvent(projectileEntity, boundaryEntity));
-            World.Active.EntityManager.AddComponent(projectileEntity, typeof(DeleteComp));
-        }
+        Debug.Log("Does projectile entity exist: " + exists);
         return true;
     }
 
