@@ -5,10 +5,12 @@ using Unity.Entities;
 
 public struct RotationComponent : IComponentData
 {
-    public Quaternion rotation; // Rotation of the entity
+    // Rotating with direction is done by default
+    // If this is false, then it is implied that the entity rotates over time, as determined by the RotationSystem until this is changed
+    public bool rotateWithMovementDirection;
 
-    public RotationComponent(Quaternion rotation)
+    public RotationComponent(bool rotateWithDirection)
     {
-        this.rotation = rotation;
+        rotateWithMovementDirection = rotateWithDirection;
     }
 }

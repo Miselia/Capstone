@@ -61,7 +61,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
 
             //Debug.Log("Gear position and movement readjusted");
             World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
-                new MovementComponent { movementVector = new Vector2(-boundNormal.y, 0) });
+                new MovementComponent { movementVector = new Vector2(-boundNormal.y * 5, 0) });
             EventManager.instance.QueueEvent(new EndCollisionEvent(gearEntity, playBoundEntity));
         }
         if (boundNormal.y == 0)
@@ -73,7 +73,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
 
             //Debug.Log("Gear position and movement readjusted");
             World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
-                new MovementComponent { movementVector = new Vector2(0, boundNormal.x) });
+                new MovementComponent { movementVector = new Vector2(0, boundNormal.x * 5) });
             EventManager.instance.QueueEvent(new EndCollisionEvent(gearEntity, playBoundEntity));
         }
         return true;

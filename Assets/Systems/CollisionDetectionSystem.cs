@@ -153,6 +153,7 @@ public class CollisionDetectionSystem : ComponentSystem
 
     private void HandleGearCollisionWithBoundary(IGame game, Entity gearEntity, Entity playerBoundEntity, int mask)
     {
+        Debug.Log("Gear collided with Player Boundary");
         Vector3 circleVector = EntityManager.GetComponentData<Translation>(gearEntity).Value;
         Vector3 boundaryVector = EntityManager.GetComponentData<Translation>(playerBoundEntity).Value;
         float circleRadius = EntityManager.GetComponentData<CollisionComponent>(gearEntity).collisionRadius;
@@ -169,7 +170,7 @@ public class CollisionDetectionSystem : ComponentSystem
                 //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
             }
         }
-        if (EntityManager.GetComponentData<PlayerBoundaryComponent>(gearEntity).Normal.y == 0)
+        if (EntityManager.GetComponentData<PlayerBoundaryComponent>(playerBoundEntity).Normal.y == 0)
         {
             Vector2 nearestWallPosition = new Vector2(boundaryVector.x, circleVector.y);
             if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)

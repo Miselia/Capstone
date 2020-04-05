@@ -140,6 +140,7 @@
     <Compile Include="Assets\Systems\QuadrantSystem.cs" />
     <Compile Include="Assets\Systems\QuadTreeDrawingSystem.cs" />
     <Compile Include="Assets\Systems\QuadTreeSystem.cs" />
+    <Compile Include="Assets\Systems\RotationSystem.cs" />
     <Compile Include="Assets\Systems\SpawnDelaySystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <None Include="Assets\Resources\Science Fantasy.txt" />

@@ -117,7 +117,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 7:
                     //Akashic Records
-                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -positionX;
 
                     int num1 = 7;
                     int num2 = 7;
@@ -193,44 +193,48 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 14:
                     // Lead Rain
-                    createBullet("bullet", new Vector2(positionX - 3, 5), new Vector2(0, -1.0f), 0.5f, damage, timer);
-                    createBullet("bullet", new Vector2(positionX, 5), new Vector2(0, -1.0f), 0.5f, damage, timer);
-                    createBullet("bullet", new Vector2(positionX + 3, 5), new Vector2(0, -1.0f), 0.5f, damage, timer);
+                    Vector2 down = new Vector2(0, -2f);
+                    createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.5f, damage, timer);
+                    createBullet("bullet", new Vector2(positionX, 5), down, 0.5f, damage, timer);
+                    createBullet("bullet", new Vector2(positionX + 3, 5), down, 0.5f, damage, timer);
 
-                    createBullet("bullet", new Vector2(positionX - 4.5f, 5), new Vector2(0, -1.0f), 0.5f, damage, timer + 100);
-                    createBullet("bullet", new Vector2(positionX - 1.5f, 5), new Vector2(0, -1.0f), 0.5f, damage, timer + 100);
-                    createBullet("bullet", new Vector2(positionX + 1.5f, 5), new Vector2(0, -1.0f), 0.5f, damage, timer + 100);
+                    createBullet("bullet", new Vector2(positionX - 4.5f, 5), down, 0.5f, damage, timer + 100);
+                    createBullet("bullet", new Vector2(positionX - 1.5f, 5), down, 0.5f, damage, timer + 100);
+                    createBullet("bullet", new Vector2(positionX + 1.5f, 5), down, 0.5f, damage, timer + 100);
                                                                                           
-                    createBullet("bullet", new Vector2(positionX - 3, 5), new Vector2(0, -1.0f), 0.5f, damage, timer + 200);
-                    createBullet("bullet", new Vector2(positionX, 5), new Vector2(0, -1.0f), 0.5f, damage, timer + 200);
-                    createBullet("bullet", new Vector2(positionX + 3, 5), new Vector2(0, -1.0f), 0.5f, damage, timer + 200);
+                    createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.5f, damage, timer + 200);
+                    createBullet("bullet", new Vector2(positionX, 5), down, 0.5f, damage, timer + 200);
+                    createBullet("bullet", new Vector2(positionX + 3, 5), down, 0.5f, damage, timer + 200);
                                                                                           
-                    createBullet("bullet", new Vector2(positionX - 1.5f, 5), new Vector2(0, -1.0f), 0.5f, damage, timer + 300);
-                    createBullet("bullet", new Vector2(positionX + 1.5f, 5), new Vector2(0, -1.0f), 0.5f, damage, timer + 300);
-                    createBullet("bullet", new Vector2(positionX + 4.5f, 5), new Vector2(0, -1.0f), 0.5f, damage, timer + 300);
+                    createBullet("bullet", new Vector2(positionX - 1.5f, 5), down, 0.5f, damage, timer + 300);
+                    createBullet("bullet", new Vector2(positionX + 1.5f, 5), down, 0.5f, damage, timer + 300);
+                    createBullet("bullet", new Vector2(positionX + 4.5f, 5), down, 0.5f, damage, timer + 300);
                     break;
                 case 15:
                     // Spray and Pray
-                    createBullet("bullet", new Vector2(positionX, -5), new Vector2(positionX / Mathf.Abs(positionX) * 0.2f, 1.8f), 0.5f, damage, timer);
-                    createBullet("bullet", new Vector2(positionX, -5), new Vector2(positionX / Mathf.Abs(positionX) * 0.4f, 1.6f), 0.5f, damage, timer + 20);
-                    createBullet("bullet", new Vector2(positionX, -5), new Vector2(positionX / Mathf.Abs(positionX) * 0.6f, 1.4f), 0.5f, damage, timer + 40);
-                    createBullet("bullet", new Vector2(positionX, -5), new Vector2(positionX / Mathf.Abs(positionX) * 0.8f, 1.2f), 0.5f, damage, timer + 60);
-                    createBullet("bullet", new Vector2(positionX, -5), new Vector2(positionX / Mathf.Abs(positionX) * 1.0f, 1.0f), 0.5f, damage, timer + 80);
-                    createBullet("bullet", new Vector2(positionX, -5), new Vector2(positionX / Mathf.Abs(positionX) * 1.2f, 0.8f), 0.5f, damage, timer + 100);
-                    createBullet("bullet", new Vector2(positionX, -5), new Vector2(positionX / Mathf.Abs(positionX) * 1.4f, 0.6f), 0.5f, damage, timer + 120);
-                    createBullet("bullet", new Vector2(positionX, -5), new Vector2(positionX / Mathf.Abs(positionX) * 1.6f, 0.4f), 0.5f, damage, timer + 140);
-                    createBullet("bullet", new Vector2(positionX, -5), new Vector2(positionX / Mathf.Abs(positionX) * 1.8f, 0.2f), 0.5f, damage, timer + 180);
+                    int speed = 3;
+                    int direction = -positionX / Mathf.Abs(positionX);
+                    Vector2 bottomCorner = new Vector2(positionX - direction * 5, -5);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.1f * speed, 0.9f * speed), 0.5f, damage, timer);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.2f * speed, 0.8f * speed), 0.5f, damage, timer + 20);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.3f * speed, 0.7f * speed), 0.5f, damage, timer + 40);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.4f * speed, 0.6f * speed), 0.5f, damage, timer + 60);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.5f * speed, 0.5f * speed), 0.5f, damage, timer + 80);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.6f * speed, 0.4f * speed), 0.5f, damage, timer + 100);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.7f * speed, 0.3f * speed), 0.5f, damage, timer + 120);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.8f * speed, 0.2f * speed), 0.5f, damage, timer + 140);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.9f * speed, 0.1f * speed), 0.5f, damage, timer + 180);
                     break;
                 case 16:
                     // Well Oiled Machine
                     damage = 0;
-                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -positionX;
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
-                    createBullet("oil", new Vector2(positionX, 0), new Vector2(), 0.5f, damage, timer);
+                    createBullet("oil", new Vector2(-positionX, 0), new Vector2(), 0.5f, damage, timer);
                     break;
                 case 17:
                     // Gear Box
-                    createBullet("gear", new Vector2(positionX - 1, -2), new Vector2(0, 1), 0.75f, damage, timer);
+                    createBullet("gear", new Vector2(positionX - 1, -2), new Vector2(0, 5), 0.75f, damage, timer);
                     break;
                 case 18:
                     //Overcharge
@@ -314,9 +318,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.SetComponentData(oil, new DeleteComp(300));
                 break;
             case "gear":
-                Entity gear = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x05);
-                World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
-                World.Active.EntityManager.SetComponentData(gear, new DeleteComp(500));
+                Entity gear = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09);
+                //World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
+                //World.Active.EntityManager.SetComponentData(gear, new DeleteComp(500));
                 break;
         }
     }

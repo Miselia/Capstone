@@ -62,7 +62,10 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = true;
         World.Active.GetExistingSystem<BuffSystem>().Enabled = true;
         World.Active.GetExistingSystem<SpawnDelaySystem>().Enabled = true;
-
+        World.Active.GetExistingSystem<RotationSystem>().Enabled = true;
+        //World.Active.GetExistingSystem<CollisionBoxDrawingSystem>().Enabled = true;
+        //World.Active.GetExistingSystem<QuadTreeDrawingSystem>().Enabled = true;
+        
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
 
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, (int)maxMana, 1));
