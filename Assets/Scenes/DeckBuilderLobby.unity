@@ -1277,7 +1277,7 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: (Select Genre)
+    - m_Text: (Select Subgenre)
       m_Image: {fileID: 0}
     - m_Text: Fantasy
       m_Image: {fileID: 0}
@@ -3282,7 +3282,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: (Select Genre)
+  m_Text: (Select Subgenre)
 --- !u!222 &1589578622
 CanvasRenderer:
   m_ObjectHideFlags: 0
