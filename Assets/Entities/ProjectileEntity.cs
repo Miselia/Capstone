@@ -9,7 +9,7 @@ using Assets.Resources;
 
 public static class ProjectileEntity
 {
-    public static Entity Create(EntityManager em, int damage, Vector2 position, Vector2 movementVector, float radius, int timer, Mesh mesh, Material mat, byte mask = 0x03/*, float extraScale = 1*/)
+    public static Entity Create(EntityManager em, int damage, Vector2 position, Vector2 movementVector, float radius, int timer, Mesh mesh, Material mat, byte mask = 0x03, bool rotateDirection = true/*, float extraScale = 1*/)
     {
         Entity entity = em.CreateEntity();
 
@@ -23,6 +23,7 @@ public static class ProjectileEntity
         em.AddComponent(entity, typeof(Rotation));
         em.AddComponent(entity, typeof(Scale));
         em.AddComponent(entity, typeof(QuadTreeReferenceComponent));
+        em.AddComponent(entity, typeof(RotationComponent));
 
         em.SetComponentData(entity, new Scale { Value = radius/**extraScale*//2});
         em.SetComponentData(entity, new ProjectileComponent(0,damage));
@@ -32,6 +33,7 @@ public static class ProjectileEntity
         //em.SetComponentData(entity, new CollisionComponent(radius, radius, 0x03));
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
         em.SetComponentData(entity, new QuadTreeReferenceComponent(-1));
+        em.SetComponentData(entity, new RotationComponent(rotateDirection));
 
         return entity;
     }

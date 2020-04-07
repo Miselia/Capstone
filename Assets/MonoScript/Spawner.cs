@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
     public bool HandleEvent(IGenericEvent evt)
     {
-        Debug.Log("Handling Spawn Event");
+        //Debug.Log("Handling Spawn Event");
         if (evt is SpawnEvent)
         {
             SpawnEvent se = (SpawnEvent) evt;
@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             Entity card = se.card;
             
             spawn(card, player, 0, 60);
-            Debug.Log("Something is Spawned");
+            //Debug.Log("Something is Spawned");
             return true;
         }
         return false;
@@ -318,7 +318,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.SetComponentData(oil, new DeleteComp(300));
                 break;
             case "gear":
-                Entity gear = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09);
+                Entity gear = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
                 //World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
                 //World.Active.EntityManager.SetComponentData(gear, new DeleteComp(500));
                 break;

@@ -29,12 +29,12 @@ public class UIManager : MonoBehaviour, IGenericEventListener
         if (evt is UIUpdateEvent)
         {
             UIUpdateEvent ue = (UIUpdateEvent) evt;
-            Debug.Log("UI Update Event is handled");
+            //Debug.Log("UI Update Event is handled");
             if (ue.pID == 1)
             {
                 player1Health.text = (ue.pHealth.ToString());
                 player1Mana.text = (ue.pMana.ToString());
-                Debug.Log("UI Updated Player 1");
+                //Debug.Log("UI Updated Player 1");
                 player1HealthBar.SetSize(((float) ue.pHealth)/ Constants.PlayerMaximumHealth);
                 player1ManaBar.SetSize((ue.pMana) / Constants.PlayerMaximumMana);
 
@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour, IGenericEventListener
             {
                 player2Health.text = (ue.pHealth.ToString());
                 player2Mana.text = (ue.pMana.ToString());
-                Debug.Log("UI Updated Player 2");
+                //Debug.Log("UI Updated Player 2");
 
                 player2HealthBar.SetSize(((float) ue.pHealth) / Constants.PlayerMaximumHealth);
                 player2ManaBar.SetSize((ue.pMana) / Constants.PlayerMaximumMana);

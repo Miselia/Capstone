@@ -22,7 +22,6 @@ public class CollisionDetectionSystem : ComponentSystem
     {
         Initialize();
         int collisionCounter = 0;
-        int skipCounter = 0;
         Dictionary<Entity, List<Entity>> checkedPairs = new Dictionary<Entity, List<Entity>>();
         bool skipFlag = false;
 
@@ -91,7 +90,10 @@ public class CollisionDetectionSystem : ComponentSystem
                             if(EntityManager.HasComponent<PlayerComponent>(firstEntity))
                                 HandlePlayerCollisionWithProjectile(game, firstEntity, secondEntity, compare);
                             else
-                                HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity, compare);
+                            {
+                                if(EntityManager.HasComponent<PlayerComponent>(secondEntity))
+                                    HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity, compare);
+                            }
                             break;
                         case 2:
                             // Projectile x Projectile Boundary Collision
@@ -115,32 +117,6 @@ public class CollisionDetectionSystem : ComponentSystem
                                 HandleGearCollisionWithBoundary(game, secondEntity, firstEntity, compare);
                             break;
                     }
-                    /*
-                    // These internal method calls should instead be exported to a Event/Listener system to handle collision calculations
-                    if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
-                    {
-                        HandlePlayerCollisionWithBoundary(game, firstEntity, secondEntity);
-                    }
-                    else if (EntityManager.HasComponent<PlayerBoundaryComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
-                    {
-                        HandlePlayerCollisionWithBoundary(game, secondEntity, firstEntity);
-                    }
-                    else if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<ProjectileBoundaryComponent>(secondEntity))
-                    {
-                            HandleProjectileCollisionWithBoundary(game, firstEntity, secondEntity);
-                    }
-                    else if (EntityManager.HasComponent<ProjectileBoundaryComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
-                    {
-                        HandleProjectileCollisionWithBoundary(game, secondEntity, firstEntity);
-                    }
-                    else if (EntityManager.HasComponent<PlayerComponent>(firstEntity) && EntityManager.HasComponent<ProjectileComponent>(secondEntity))
-                    {
-                        HandlePlayerCollisionWithProjectile(game, firstEntity, secondEntity);
-                    }
-                    else if (EntityManager.HasComponent<ProjectileComponent>(firstEntity) && EntityManager.HasComponent<PlayerComponent>(secondEntity))
-                    {
-                        HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity);
-                    }*/
                 }
                 skipFlag = false;
             }

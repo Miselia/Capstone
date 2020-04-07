@@ -59,7 +59,7 @@ public class EventManager : MonoBehaviour
             }
         }
         eventDictionary[type].Insert(0, new WeakReference<IGenericEventListener>(listener));
-        Debug.Log("Number of Keys" + eventDictionary.Keys.Count);
+        //Debug.Log("Number of Keys" + eventDictionary.Keys.Count);
     }
 
     public void UnregisterListener(IGenericEventListener listener)
@@ -114,10 +114,10 @@ public class EventManager : MonoBehaviour
 
         for (int i = eventDictionary[evt.GetType()].Count - 1; i >= 0; i--)
         {
-            Debug.Log("Event Dictionary Type Count" + eventDictionary[evt.GetType()].Count);
+            //Debug.Log("Event Dictionary Type Count" + eventDictionary[evt.GetType()].Count);
             if (i >= eventDictionary[evt.GetType()].Count)
             {
-                Debug.Log("Calling Continue");
+                //Debug.Log("Calling Continue");
                 continue;
             }
 
@@ -126,14 +126,14 @@ public class EventManager : MonoBehaviour
             listen.TryGetTarget(out check);
             if (check == null)
             {
-                Debug.Log("Check was null");
+                //Debug.Log("Check was null");
                 Type type = evt.GetType();
                 UnregisterListener(check);
                 continue;
             }
             if (check.HandleEvent(evt))
             {
-                Debug.Log("Calling HandleEvent");
+                //Debug.Log("Calling HandleEvent");
                 return true;
             }
         }
@@ -144,7 +144,7 @@ public class EventManager : MonoBehaviour
     {
         if(!eventDictionary.ContainsKey(type))
         {
-            Debug.Log("Type: " + type.ToString() + " registered as listener");
+            //Debug.Log("Type: " + type.ToString() + " registered as listener");
             eventDictionary.Add(type, new List<WeakReference<IGenericEventListener>>());
         }
     }
