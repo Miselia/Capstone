@@ -81,7 +81,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
 
     private bool ProjectileBoundaryCollisionHelper(Entity projectileEntity, Entity boundaryEntity)
     {
-        Debug.Log("Projectile collision with projectile boundary");
+        //Debug.Log("Projectile collision with projectile boundary");
         bool exists = World.Active.EntityManager.Exists(projectileEntity);
 
         if (exists)
@@ -111,7 +111,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.SetComponentData(projectileEntity, new DeleteComp(0));
             }
         }
-        Debug.Log("Does projectile entity exist: " + exists);
+        //Debug.Log("Does projectile entity exist: " + exists);
         return true;
     }
 

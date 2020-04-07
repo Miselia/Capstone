@@ -23,8 +23,10 @@ namespace Assets.Systems
                 }
                 else
                 {
-                    float z = deltaTime * 20;
-                    rotation.Value.value.z += z;// = quaternion.Euler(0,0, rotation.Value.value.z + z);
+                    Debug.Log("Gear rotated");
+                    float step = -10 * deltaTime;
+
+                    rotation.Value = quaternion.AxisAngle(new float3(0, 0, 1), rotation.Value.value.z + step);
                 }
             }
         }

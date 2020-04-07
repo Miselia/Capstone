@@ -9,18 +9,6 @@ using Unity.Burst;
 
 public class MovementSystem : JobComponentSystem
 {
-    /*
-    protected override void OnUpdate()
-    {
-       
-            Entities.ForEach((ref MovementComponent moveComp, ref Translation translation) =>
-            {
-                translation.Value.y += moveComp.movementVector.y * Time.deltaTime;
-                translation.Value.x += moveComp.movementVector.x * Time.deltaTime;
-            });
-        
-    }
-    */
     [BurstCompile]
     private struct Job: IJobForEachWithEntity<MovementComponent, Translation>
     {

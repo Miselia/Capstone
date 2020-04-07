@@ -129,7 +129,7 @@ public class CollisionDetectionSystem : ComponentSystem
 
     private void HandleGearCollisionWithBoundary(IGame game, Entity gearEntity, Entity playerBoundEntity, int mask)
     {
-        Debug.Log("Gear collided with Player Boundary");
+        //Debug.Log("Gear collided with Player Boundary");
         Vector3 circleVector = EntityManager.GetComponentData<Translation>(gearEntity).Value;
         Vector3 boundaryVector = EntityManager.GetComponentData<Translation>(playerBoundEntity).Value;
         float circleRadius = EntityManager.GetComponentData<CollisionComponent>(gearEntity).collisionRadius;
@@ -140,7 +140,7 @@ public class CollisionDetectionSystem : ComponentSystem
             if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
             {
                 game.GetCollidingPairs()[gearEntity].Add(playerBoundEntity);
-                //Debug.Log("Player entity collide with boundary");
+                Debug.Log("Gear collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(gearEntity, playerBoundEntity, mask));
                 //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
@@ -152,7 +152,7 @@ public class CollisionDetectionSystem : ComponentSystem
             if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
             {
                 game.GetCollidingPairs()[gearEntity].Add(playerBoundEntity);
-                //Debug.Log("Player entity collide with boundary");
+                Debug.Log("Gear collide with boundary");
                 // HOO BOY
                 EventManager.instance.QueueEvent(new CollisionEvent(gearEntity, playerBoundEntity, mask));
                 //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
