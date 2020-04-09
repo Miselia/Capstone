@@ -234,7 +234,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 17:
                     // Gear Box
-                    createBullet("gear", new Vector2(positionX - 1, -2), new Vector2(0, 5), 0.75f, damage, timer);
+                    createBullet("gear", new Vector2(positionX - 5, 5), new Vector2(0, 5), 0.75f, damage, timer);
                     break;
                 case 18:
                     //Overcharge
@@ -319,8 +319,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 break;
             case "gear":
                 Entity gear = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
-                //World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
-                //World.Active.EntityManager.SetComponentData(gear, new DeleteComp(500));
+                World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
+                World.Active.EntityManager.SetComponentData(gear, new DeleteComp(1000));
                 break;
         }
     }
