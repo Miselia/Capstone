@@ -24,9 +24,14 @@ namespace Assets.Systems
                 else
                 {
                     Debug.Log("Gear rotated");
-                    float step = -10 * deltaTime;
+                    float degPerSec = 2;
 
-                    rotation.Value = quaternion.AxisAngle(new float3(0, 0, 1), rotation.Value.value.z + step);
+                    //rotation.Value = quaternion.Euler(math.radians(new float3(0, 0, 0.5f)));
+                    //rotation.Value = new Quaternion(rotation.Value.value.x, rotation.Value.value.y, rotation.Value.value.z + 0.5f, rotation.Value.value.w);
+                    //Quaternion qt = rotation.Value;
+                    //qt = Quaternion.AngleAxis(degPerSec * deltaTime, new Vector3(0, 0, 1));
+                    //rotation.Value = qt;
+                    rotation.Value = math.mul(math.normalize(rotation.Value), quaternion.AxisAngle(new float3(0,0,1), degPerSec * deltaTime));
                 }
             }
         }

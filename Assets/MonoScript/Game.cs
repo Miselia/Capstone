@@ -55,6 +55,7 @@ public class Game : MonoBehaviour, IGame
         World.Active.GetExistingSystem<BuffSystem>().Enabled = true;
         World.Active.GetExistingSystem<SpawnDelaySystem>().Enabled = true;
         World.Active.GetExistingSystem<RotationSystem>().Enabled = true;
+        //World.Active.GetExistingSystem<GravitySystem>().Enabled = true;
 
         //World.Active.GetExistingSystem<QuadTreeDrawingSystem>().Enabled = true;
         //World.Active.GetExistingSystem<CollisionBoxDrawingSystem>().Enabled = true;
