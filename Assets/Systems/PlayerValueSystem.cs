@@ -20,7 +20,7 @@ public class PlayerValueSystem : ComponentSystem
             });
             Entities.ForEach((Entity e, ref PlayerComponent p, ref HealthDeltaComp delta) =>
             {
-
+                if(delta.delta < 0) EventManager.instance.QueueEvent(new SoundEvent(1));
                 p.healthRemaining = p.healthRemaining + delta.delta;
                 World.Active.EntityManager.RemoveComponent<HealthDeltaComp>(e);
                 
@@ -35,15 +35,17 @@ public class PlayerValueSystem : ComponentSystem
                     p.mana = p.maxMana;
                 }
                 if (p.healthRemaining <= 0) {
-                    
+                    EventManager.instance.QueueEvent(new SoundEvent(4));
                     EventManager.instance.QueueEvent(new GameOverEvent(p.playerID));
                     Debug.Log("Game Over Event Sent");
                     p.healthRemaining = Constants.PlayerMaximumHealth;
+                    
                 }
                 if (p.healthRemaining > Constants.PlayerMaximumHealth)
                 {
                     p.healthRemaining = Constants.PlayerMaximumHealth;
                 }
+                
                 EventManager.instance.QueueEvent(new UIUpdateEvent(p.healthRemaining, (int)Mathf.Floor(p.mana), p.playerID));
 
             });

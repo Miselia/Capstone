@@ -286,7 +286,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             case "etherBuff":
                 Entity ether = ProjectileEntity.Create(World.Active.EntityManager, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[4]);
                 World.Active.EntityManager.AddComponent(ether, typeof(ManaRegenBuffComp));
-                World.Active.EntityManager.SetComponentData(ether, new ManaRegenBuffComp(0.5f,120));
+                World.Active.EntityManager.SetComponentData(ether, new ManaRegenBuffComp(0.5f,120,120));
                 World.Active.EntityManager.AddComponent(ether, typeof(DeleteComp));
                 World.Active.EntityManager.SetComponentData(ether, new DeleteComp(300));
                 break;

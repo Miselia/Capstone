@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Unity.Entities;
 using System;
 using Assets.Resources;
@@ -29,6 +30,8 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     [SerializeField] private Material vertProjectileBoundMat;
     [SerializeField] private Material horiProjectileBoundMat;
     [SerializeField] private CardLibrary cl;
+    [SerializeField] private Image CardMenu;
+    [SerializeField] private Image DeckMenu;
 
     int[] playerHand;
 
@@ -165,6 +168,28 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     public void GetDeck()
     {
         builderDeck = DeckLobbyScript.chosenDeck;
+        CardMenu.color = GetFactionColor(builderDeck.getFactions()[0]);
+        DeckMenu.color = GetFactionColor(builderDeck.getFactions()[1]);
+    }
+    public Color GetFactionColor(string faction)
+    {
+        switch (faction)
+        {
+            case "Fantasy":
+                return new Color(0.95f, 0.72f, 0.94f, 100);
+                break;
+            case "Steampunk":
+                return new Color(0.68f, 0.39f, 0.16f, 100);
+                break;
+            case "Sci-Fi":
+                return new Color(0.56f, 0.92f, 0.90f, 100);
+                break;
+            case "Horror":
+                return new Color(0.68f, 0.01f, 0, 100);
+                break;
+                
+        }
+        return new Color(0, 0, 0);
     }
 
     public Dictionary<Entity, List<Entity>> GetCollidingPairs()
