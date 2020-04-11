@@ -216,13 +216,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     int direction = -positionX / Mathf.Abs(positionX);
                     Vector2 bottomCorner = new Vector2(positionX - direction * 5, -5);
                     createBullet("bullet", bottomCorner, new Vector2(direction * 0.1f * speed, 0.9f * speed), 0.5f, damage, timer);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.2f * speed, 0.8f * speed), 0.5f, damage, timer + 20);
+                    //createBullet("bullet", bottomCorner, new Vector2(direction * 0.2f * speed, 0.8f * speed), 0.5f, damage, timer + 20);
                     createBullet("bullet", bottomCorner, new Vector2(direction * 0.3f * speed, 0.7f * speed), 0.5f, damage, timer + 40);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.4f * speed, 0.6f * speed), 0.5f, damage, timer + 60);
+                    //createBullet("bullet", bottomCorner, new Vector2(direction * 0.4f * speed, 0.6f * speed), 0.5f, damage, timer + 60);
                     createBullet("bullet", bottomCorner, new Vector2(direction * 0.5f * speed, 0.5f * speed), 0.5f, damage, timer + 80);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.6f * speed, 0.4f * speed), 0.5f, damage, timer + 100);
+                    //createBullet("bullet", bottomCorner, new Vector2(direction * 0.6f * speed, 0.4f * speed), 0.5f, damage, timer + 100);
                     createBullet("bullet", bottomCorner, new Vector2(direction * 0.7f * speed, 0.3f * speed), 0.5f, damage, timer + 120);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.8f * speed, 0.2f * speed), 0.5f, damage, timer + 140);
+                    //createBullet("bullet", bottomCorner, new Vector2(direction * 0.8f * speed, 0.2f * speed), 0.5f, damage, timer + 140);
                     createBullet("bullet", bottomCorner, new Vector2(direction * 0.9f * speed, 0.1f * speed), 0.5f, damage, timer + 180);
                     break;
                 case 16:
@@ -247,6 +247,27 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         }
                     }
                     break;
+                case 19:
+                    // Spawn one wall spike onto each player boundary on opponent's side of field
+                    break;
+                case 20:
+                    // Attach a new "ViperDebuffComponent" to the opponent and have it managed by the "BuffSystem"
+                    break;
+                case 21:
+                    // Create a projectile without a collision component (like Gravity), adding only a delete component of a rather short time
+                    // Also add sound effect on spawn
+                    damage = 0;
+                    createBullet("JumpScare", new Vector2(positionX, 0), new Vector2(), 24, damage, timer);
+                    break;
+                case 22:
+                    // Start spawn animation of flame pillar at bottom of opponent's field based on user position
+                    break;
+                case 23:
+                    // Spawn projectiles from top of screen based on user position
+                    break;
+                case 24:
+                    // After delay, smash cigar, starting at top of opponent's side, based on user poition
+                    break;
             }
             if (fixedValue == 0)
             {
@@ -257,12 +278,6 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             
         }
     }
-    
-
-    /*public bool playCard(int cardID, int playerID, float currentMana, float manaCost, float positionX)
-    {
-
-    }*/
 
     private void createBullet(string type, Vector2 position, Vector2 movementvector, float radius, int damage, int timer)
     {
@@ -301,6 +316,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             case "gravityWell":
                 Entity gravity = ProjectileEntity.Create(World.Active.EntityManager, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[8], 0x00);
                 World.Active.EntityManager.RemoveComponent(gravity, typeof(ProjectileComponent));
+                //World.Active.EntityManager.RemoveComponent(gravity, typeof(CollisionComponent));
                 World.Active.EntityManager.AddComponent(gravity, typeof(GravityComponent));
                 World.Active.EntityManager.SetComponentData(gravity, new GravityComponent(7,0.2f));
                 World.Active.EntityManager.AddComponent(gravity, typeof(DeleteComp));
@@ -322,6 +338,14 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
                 World.Active.EntityManager.SetComponentData(gear, new DeleteComp(1000));
                 break;
+            case "JumpScare":
+                Entity scare = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);
+                World.Active.EntityManager.RemoveComponent(scare, typeof(SpawnDelayComp));
+                //World.Active.EntityManager.RemoveComponent(scare, typeof(ProjectileComponent));
+                //World.Active.EntityManager.RemoveComponent(scare, typeof(CollisionComponent));
+                World.Active.EntityManager.AddComponent(scare, typeof(DeleteComp));
+                World.Active.EntityManager.SetComponentData(scare, new DeleteComp(200));
+                break;
         }
     }
     private bool checkMana(float manaCost, float mana)
@@ -334,7 +358,6 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     }
     private void adjustPlayerValues(Entity player, float manaDelta, int healthDelta)
     {
-
         //int[] values = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).adjustMana(manaDelta);
         /*
         int[] values = { 0, 0, 0 };

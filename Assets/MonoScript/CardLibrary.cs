@@ -38,6 +38,13 @@ public class CardLibrary: MonoBehaviour
         library["Steampunk"].Add(new CardData(16, "Well Oiled Machine", 2, 2, "Speed+", "WD-40 always does the trick", cardMaterialLibrary[16]));
         library["Steampunk"].Add(new CardData(17, "Gear Box", 6, 2, "", "Spawn projectiles that circle your opponent's borders", cardMaterialLibrary[17]));
         library["Sci-Fi"].Add(new CardData(18, "Chronosis", 6, 4, "Stops all projectiles currently on screen, then returns to the vector they were previously on.", "Stop, (In the name of love/Hammer time)", cardMaterialLibrary[18]));
+        library["Horror"].Add(new CardData(19, "Wall Spikes", 6 /*should reduce cost*/, 3, "Add spikes to all walls on your opponent's side", "Suddenly they were surrounded by the jaws of Death himself", cardMaterialLibrary[19]));
+        library["Horror"].Add(new CardData(20, "Viper's Curse", 6, 3, "Poison bottles will spawn at your opponent's location for a short period of time", "Your opponent must overcome this ancient curse", cardMaterialLibrary[20]));
+        library["Horror"].Add(new CardData(21, "Jump Scare", 7, 3, "Cover your opponent's side with the face of terror itself", "Your opponent will have no idea what to doot", cardMaterialLibrary[21]));
+        library["Horror"].Add(new CardData(22, "Light Cigar", 4, 3, "Light your cigar by summoning a pillar of hellfire", "You're not addicted...", cardMaterialLibrary[22]));
+        library["Horror"].Add(new CardData(23, "Flick Cigar", 4, 3, "Flick your cigar, spreading embers on your opponent", "You could quit at any time...", cardMaterialLibrary[23]));
+        library["Horror"].Add(new CardData(24, "Put Out Cigar", 4, 3, "Smash your cigar, and hopefully your opponent", "See? You put it out. Congratulations!", cardMaterialLibrary[24]));
+        library["Steampunk"].Add(new CardData(25, "Artemis Rocket", 6, 2, "Launch a rocket at your opponent", "High tech for a Steampunk universe, but Sci-Fi has it beat", cardMaterialLibrary[25]));
 
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }
