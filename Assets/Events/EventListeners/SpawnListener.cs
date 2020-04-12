@@ -13,11 +13,6 @@ public class SpawnListener : MonoBehaviour, IGenericEventListener
         return true;
     }
 
-    void onSpawn(int cardID, int player)
-    {
-
-    }
-
     private void Start()
     {
         EventManager.instance.RegisterListener<SpawnEvent>(this);
