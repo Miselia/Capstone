@@ -136,6 +136,7 @@
      <Compile Include="Assets\Systems\SpawnDelaySystem.cs" />
      <Compile Include="Assets\Systems\TestingSystem.cs" />
      <None Include="Assets\Resources\Science Fantasy.txt" />
+     <None Include="Assets\Resources\Keith_Demo.txt" />
      <None Include="Assets\Resources\GlimpseTest.txt" />
      <None Include="Assets\Resources\Bullet Hell.txt" />
      <None Include="Assets\Resources\Dead Space.txt" />
