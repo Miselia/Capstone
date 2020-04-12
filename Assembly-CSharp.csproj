@@ -225,6 +225,9 @@
     <Reference Include="Unity.Properties">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Properties.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Entities">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
     </Reference>
@@ -245,9 +248,6 @@
     </Reference>
     <Reference Include="Unity.Transforms.Hybrid">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Transforms.Hybrid.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
