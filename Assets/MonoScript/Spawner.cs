@@ -51,7 +51,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         {
             int damage = -1;
             int timer = time;
-            EventManager.instance.QueueEvent(new SoundEvent(0));
+            //EventManager.instance.QueueEvent(new SoundEvent(0));
             if (World.Active.EntityManager.HasComponent<ValueIncreaseComp>(player))
             {
                 World.Active.EntityManager.RemoveComponent<ValueIncreaseComp>(player);
@@ -68,55 +68,56 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             {
                 case 1:
                     //Blood Boil
-                        createBullet("normal", new Vector2(positionX - 5, -5), new Vector2(0, 3), 1.0f, damage, timer);
-                        createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.5f, damage, timer);
-                        createBullet("normal", new Vector2(positionX + 5, -5), new Vector2(0, 3), 0.25f, damage, timer);
-
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
+                    createBullet("normal", new Vector2(positionX - 5, -5), new Vector2(0, 3), 1.0f, damage, timer);
+                    createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.5f, damage, timer);
+                    createBullet("normal", new Vector2(positionX + 5, -5), new Vector2(0, 3), 0.25f, damage, timer);
                     break;
 
                 case 2:
                     //Fire Bolt
-                        createBullet("fire", new Vector2(positionX, 0), new Vector2(3, 0), 0.2f, damage, timer);
-                        createBullet("fire", new Vector2(positionX, 0), new Vector2(-3, 0), 0.2f, damage, timer);
-                        createBullet("fire", new Vector2(positionX, -5), new Vector2(0, 0.5f), 1.5f, damage, timer);
-
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
+                    createBullet("fire", new Vector2(positionX, 0), new Vector2(3, 0), 0.2f, damage, timer);
+                    createBullet("fire", new Vector2(positionX, 0), new Vector2(-3, 0), 0.2f, damage, timer);
+                    createBullet("fire", new Vector2(positionX, -5), new Vector2(0, 0.5f), 1.5f, damage, timer);
                     break;
 
                 case 3:
                     //Plasma Bolt
-                        createBullet("purple", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f, damage, timer);
-
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
+                    createBullet("purple", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f, damage, timer);
                     break;
 
                 case 4:
                     //Red Coins
-                        createBullet("red", new Vector2(positionX, 5), new Vector2(-2, -2), 1.0f, damage, timer);
-                        createBullet("red", new Vector2(positionX, 5), new Vector2(2, -2), 1.0f, damage, timer);
-                        createBullet("red", new Vector2(positionX, -5), new Vector2(-2, 2), 1.0f, damage, timer);
-                        createBullet("red", new Vector2(positionX, -5), new Vector2(2, 2), 1.0f, damage, timer);
-
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
+                    createBullet("red", new Vector2(positionX, 5), new Vector2(-2, -2), 1.0f, damage, timer);
+                    createBullet("red", new Vector2(positionX, 5), new Vector2(2, -2), 1.0f, damage, timer);
+                    createBullet("red", new Vector2(positionX, -5), new Vector2(-2, 2), 1.0f, damage, timer);
+                    createBullet("red", new Vector2(positionX, -5), new Vector2(2, 2), 1.0f, damage, timer);
                     break;
 
                 case 5:
-                        //Glipse into the Ether
-                        damage = 0;
-                        if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
+                    //Glipse into the Ether
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
+                    damage = 0;
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
-                        createBullet("etherBuff", new Vector2(-positionX + 5, +5), new Vector2(0, 0), 0.5f, damage, timer);
-                        createBullet("etherBuff", new Vector2(-positionX - 5, -5), new Vector2(0, 0), 0.5f, damage, timer);
-
+                    createBullet("etherBuff", new Vector2(-positionX + 5, +5), new Vector2(0, 0), 0.5f, damage, timer);
+                    createBullet("etherBuff", new Vector2(-positionX - 5, -5), new Vector2(0, 0), 0.5f, damage, timer);
                     break;
 
                 case 6:
-                        //Wandering Woodsprite
-                        damage = -damage;
-                        if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
+                    //Wandering Woodsprite
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
+                    damage = -damage;
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
-                        createBullet("woodsprite", new Vector2(-positionX * 1.8f, 0), new Vector2(positionX / 2, 0), 0.5f, damage, timer);
-
+                    createBullet("woodsprite", new Vector2(-positionX * 1.8f, 0), new Vector2(positionX / 2, 0), 0.5f, damage, timer);
                     break;
                 case 7:
                     //Akashic Records
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -positionX;
 
                     int num1 = 7;
@@ -136,6 +137,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 8:
                     //Well of Knowledge
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("water", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer);
                     createBullet("water", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer);
                     createBullet("water", new Vector2(positionX, -5), new Vector2(0, 1), 0.5f, damage, timer);
@@ -146,24 +148,27 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 9:
                     //Magic Records
-
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     World.Active.EntityManager.AddComponent(player, typeof(DoubleCastComp));
                     World.Active.EntityManager.SetComponentData(player, new DoubleCastComp(true));
 
                     break;
                 case 10:
                     //Nano Barrier
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("barrier", new Vector2(positionX - 0.1f, 0), new Vector2(-1, 0), 1f, damage, timer);
                     createBullet("barrier", new Vector2(positionX + 0.1f, 0), new Vector2(1, 0), 1f, damage, timer);
 
                     break;
                 case 11:
                     //Gravity Well
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("gravityWell",new Vector2(positionX, 0), new Vector2(0, 0), 1f, damage, 0);
 
                     break;
                 case 12:
                     //Electromagnetic Projectiles
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer);
@@ -180,8 +185,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 160);
                     break;
                 case 13:
-
                     //Overcharge
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     foreach (Entity e in World.Active.EntityManager.GetAllEntities())
                     {
                         if(World.Active.EntityManager.HasComponent<ProjectileComponent>(e) && World.Active.EntityManager.HasComponent<MovementComponent>(e))
@@ -193,6 +198,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 14:
                     // Lead Rain
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     Vector2 down = new Vector2(0, -2f);
                     createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.5f, damage, timer);
                     createBullet("bullet", new Vector2(positionX, 5), down, 0.5f, damage, timer);
@@ -212,6 +218,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 15:
                     // Spray and Pray
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     int speed = 3;
                     int direction = -positionX / Mathf.Abs(positionX);
                     Vector2 bottomCorner = new Vector2(positionX - direction * 5, -5);
@@ -227,6 +234,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 16:
                     // Well Oiled Machine
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     damage = 0;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
@@ -234,10 +242,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 17:
                     // Gear Box
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("gear", new Vector2(positionX - 5, 5), new Vector2(0, 5), 0.75f, damage, timer);
                     break;
                 case 18:
                     //Overcharge
+                    EventManager.instance.QueueEvent(new SoundEvent(0));
                     foreach (Entity e in World.Active.EntityManager.GetAllEntities())
                     {
                         if (World.Active.EntityManager.HasComponent<ProjectileComponent>(e) && World.Active.EntityManager.HasComponent<MovementComponent>(e))
@@ -258,6 +268,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     // Also add sound effect on spawn
                     damage = 0;
                     createBullet("JumpScare", new Vector2(positionX, 0), new Vector2(), 24, damage, timer);
+                    EventManager.instance.QueueEvent(new SoundEvent(5));
                     break;
                 case 22:
                     // Start spawn animation of flame pillar at bottom of opponent's field based on user position
@@ -335,8 +346,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 break;
             case "gear":
                 Entity gear = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
-                World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
-                World.Active.EntityManager.SetComponentData(gear, new DeleteComp(1000));
+                //World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
+                //World.Active.EntityManager.SetComponentData(gear, new DeleteComp(1000));
                 break;
             case "JumpScare":
                 Entity scare = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);
@@ -344,7 +355,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 //World.Active.EntityManager.RemoveComponent(scare, typeof(ProjectileComponent));
                 //World.Active.EntityManager.RemoveComponent(scare, typeof(CollisionComponent));
                 World.Active.EntityManager.AddComponent(scare, typeof(DeleteComp));
-                World.Active.EntityManager.SetComponentData(scare, new DeleteComp(200));
+                World.Active.EntityManager.SetComponentData(scare, new DeleteComp(100));
                 break;
         }
     }
