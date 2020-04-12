@@ -91,14 +91,14 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 4:
                     //Red Coins
                     EventManager.instance.QueueEvent(new SoundEvent(0));
-                    createBullet("red", new Vector2(positionX, 5), new Vector2(-2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX, 5), new Vector2(2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX, -5), new Vector2(-2, 2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX, -5), new Vector2(2, 2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX-5, 5), new Vector2(-2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX, 5), new Vector2(2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX-5, -5), new Vector2(-2, 2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX, -5), new Vector2(2, 2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX, 5), new Vector2(0, -2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX+5, 0), new Vector2(-2, 0), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX, -5), new Vector2(0, 2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX-5, 0), new Vector2(2, 0), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX-5, 5), new Vector2(2, -2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX+5, 5), new Vector2(-2, -2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX-5, -5), new Vector2(2, 2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX+5, -5), new Vector2(-2, 2), 0.75f, damage, timer);
                     break;
 
                 case 5:
