@@ -123,11 +123,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     int num2 = 7;
                     while (num1 == 7)
                     {
-                        num1 = Random.Range(1, 7);
+                        num1 = Random.Range(1, 18);
                     }
                     while (num2 == 7)
                     {
-                        num2 = Random.Range(1, 7);
+                        num2 = Random.Range(1, 18);
                     }
 
                     spawn(card, player, num1, timer);

@@ -11,11 +11,11 @@
         public static readonly int PlayerBoundarySize = 13;
         public static readonly int DeckBuilderBoundaryOffset = 11;
 
-        public static readonly int PlayerMovementSpeed = 5;
-        public static readonly int PlayerMaximumHealth = 3;
-        public static readonly float PlayerMaximumMana = 20f;
-        public static readonly float PlayerManaRegen = 0.05f;
-        public static readonly float PlayerRadius = 0.5f;
+        public static readonly int PlayerMovementSpeed = 7;
+        public static readonly int PlayerMaximumHealth = 10;
+        public static readonly float PlayerMaximumMana = 10f;
+        public static readonly float PlayerManaRegen = 0.025f;
+        public static readonly float PlayerRadius = 0.25f;
         public static readonly int MaxDeckSize = 15;
         public static readonly int DefaultProjectileDamage = 1;
 
