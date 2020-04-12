@@ -18,6 +18,25 @@ public class MovementSystem : JobComponentSystem
         {
             translation.Value.y += moveComp.movementVector.y * deltaTime;
             translation.Value.x += moveComp.movementVector.x * deltaTime;
+
+            // This works, but needs to only apply to player entities
+            /*if(translation.Value.y > 5.7f)
+            {
+                translation.Value.y = 5.7f;
+            }
+            else if (translation.Value.y < -5.7f)
+            {
+                translation.Value.y = -5.7f;
+            }*/
+            // This needs to be adjusted based on scene and player number
+            /*else if (translation.Value.x > 5.7f)
+            {
+                translation.Value.x = 5.7f;
+            }
+            else if (translation.Value.x < -5.7f)
+            {
+                translation.Value.x = -5.7f;
+            }*/
         }
     }
     protected override JobHandle OnUpdate(JobHandle inputDeps)
