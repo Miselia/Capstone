@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class Spawner : MonoBehaviour, IGenericEventListener
 {
     public int boundaryOffset = Constants.GameBoundaryOffset;
+    private EntityManager em;
     [SerializeField] private List<Material> projectileMaterialLibrary;
     [SerializeField] private Mesh mesh;
 
@@ -15,7 +16,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     void Start()
     {
         EventManager.instance.RegisterListener<SpawnEvent>(this);
-        
+        em = World.Active.EntityManager;
     }
 
     public bool HandleEvent(IGenericEvent evt)
@@ -36,11 +37,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
     public void spawn( Entity card, Entity player, int fixedValue, int time)
     {
-        int cardID = World.Active.EntityManager.GetComponentData<CardComp>(card).cardID;
+        int cardID = em.GetComponentData<CardComp>(card).cardID;
         if (fixedValue != 0) cardID = fixedValue;
-        int playerID = World.Active.EntityManager.GetComponentData<CardComp>(card).player;
-        float currentMana = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana;
-        float manaCost  = World.Active.EntityManager.GetComponentData<CardComp>(card).manaCost;
+        int playerID = em.GetComponentData<CardComp>(card).player;
+        float currentMana = em.GetComponentData<PlayerComponent>(player).mana;
+        float manaCost  = em.GetComponentData<CardComp>(card).manaCost;
 
         // If playerID = 1 then use Positive offset, else use negative offset
         // If in GameScene use GameBoundaryOffset, else use DeckBuilderBoundaryOffset
@@ -52,15 +53,17 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             int damage = -1;
             int timer = time;
             //EventManager.instance.QueueEvent(new SoundEvent(0));
-            if (World.Active.EntityManager.HasComponent<ValueIncreaseComp>(player))
+            /*
+             * Changed logic to only apply double damage when a spell is cast that actually deals damage using "CheckValueIncreaseComp" in respective 'case' blocks
+             * if (em.HasComponent<ValueIncreaseComp>(player))
             {
-                World.Active.EntityManager.RemoveComponent<ValueIncreaseComp>(player);
+                em.RemoveComponent<ValueIncreaseComp>(player);
                 damage = damage * 2;
-            }
-            if (World.Active.EntityManager.HasComponent<DoubleCastComp>(player))
+            }*/
+            if (em.HasComponent<DoubleCastComp>(player))
             {
-                World.Active.EntityManager.RemoveComponent<DoubleCastComp>(player);
-                spawn(card, player, cardID, timer+40);
+                em.RemoveComponent<DoubleCastComp>(player);
+                spawn(card, player, cardID, timer+100);
             }
 
             switch (cardID)
@@ -68,6 +71,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             {
                 case 1:
                     //Blood Boil
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2; 
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("normal", new Vector2(positionX - 5, -5), new Vector2(0, 3), 1.0f, damage, timer);
                     createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.5f, damage, timer);
@@ -76,6 +84,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
                 case 2:
                     //Fire Bolt
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("fire", new Vector2(positionX, 0), new Vector2(3, 0), 0.2f, damage, timer);
                     createBullet("fire", new Vector2(positionX, 0), new Vector2(-3, 0), 0.2f, damage, timer);
@@ -84,12 +97,22 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
                 case 3:
                     //Plasma Bolt
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("purple", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f, damage, timer);
                     break;
 
                 case 4:
                     //Red Coins
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("red", new Vector2(positionX, 5), new Vector2(0, -2), 0.75f, damage, timer);
                     createBullet("red", new Vector2(positionX+5, 0), new Vector2(-2, 0), 0.75f, damage, timer);
@@ -113,6 +136,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
                 case 6:
                     //Wandering Woodsprite
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     damage = -damage;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
@@ -141,20 +169,32 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 8:
                     //Well of Knowledge
+                    /*if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }*/
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("water", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer);
                     createBullet("water", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer);
                     createBullet("water", new Vector2(positionX, -5), new Vector2(0, 1), 0.5f, damage, timer);
 
-                    World.Active.EntityManager.AddComponent(player, typeof(ValueIncreaseComp));
-                    World.Active.EntityManager.SetComponentData(player, new ValueIncreaseComp(true));
+                    if (!em.HasComponent<ValueIncreaseComp>(player))
+                    {
+                        em.AddComponent(player, typeof(ValueIncreaseComp));
+                        em.SetComponentData<ValueIncreaseComp>(player, new ValueIncreaseComp(1));
+                    }
+
+                    ValueIncreaseComp val = em.GetComponentData<ValueIncreaseComp>(player);
+                    val.multiplier *= 2;
+                    em.SetComponentData<ValueIncreaseComp>(player, val);
 
                     break;
                 case 9:
                     //Magic Records
                     EventManager.instance.QueueEvent(new SoundEvent(0));
-                    World.Active.EntityManager.AddComponent(player, typeof(DoubleCastComp));
-                    World.Active.EntityManager.SetComponentData(player, new DoubleCastComp(true));
+                    em.AddComponent(player, typeof(DoubleCastComp));
+                    em.SetComponentData(player, new DoubleCastComp(true));
 
                     break;
                 case 10:
@@ -172,6 +212,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 12:
                     //Electromagnetic Projectiles
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer);
@@ -191,17 +236,22 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 13:
                     //Overcharge
                     EventManager.instance.QueueEvent(new SoundEvent(0));
-                    foreach (Entity e in World.Active.EntityManager.GetAllEntities())
+                    foreach (Entity e in em.GetAllEntities())
                     {
-                        if(World.Active.EntityManager.HasComponent<ProjectileComponent>(e) && World.Active.EntityManager.HasComponent<MovementComponent>(e))
+                        if(em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
                         {
-                            World.Active.EntityManager.AddComponent(e, typeof(ProjectileSpeedBuffComp));
-                            World.Active.EntityManager.SetComponentData(e, new ProjectileSpeedBuffComp(3,180,new Vector2(0,0)));
+                            em.AddComponent(e, typeof(ProjectileSpeedBuffComp));
+                            em.SetComponentData(e, new ProjectileSpeedBuffComp(3,180,new Vector2(0,0)));
                         }
                     }
                     break;
                 case 14:
                     // Lead Rain
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     Vector2 down = new Vector2(0, -2f);
                     createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.5f, damage, timer);
@@ -222,6 +272,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 15:
                     // Spray and Pray
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     int speed = 3;
                     int direction = -positionX / Mathf.Abs(positionX);
@@ -246,18 +301,23 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 17:
                     // Gear Box
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("gear", new Vector2(positionX - 5, 5), new Vector2(0, 5), 0.75f, damage, timer);
                     break;
                 case 18:
                     //Overcharge
                     EventManager.instance.QueueEvent(new SoundEvent(0));
-                    foreach (Entity e in World.Active.EntityManager.GetAllEntities())
+                    foreach (Entity e in em.GetAllEntities())
                     {
-                        if (World.Active.EntityManager.HasComponent<ProjectileComponent>(e) && World.Active.EntityManager.HasComponent<MovementComponent>(e))
+                        if (em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
                         {
-                            World.Active.EntityManager.AddComponent(e, typeof(ProjectileSpeedBuffComp));
-                            World.Active.EntityManager.SetComponentData(e, new ProjectileSpeedBuffComp(0, 240, new Vector2(0, 0)));
+                            em.AddComponent(e, typeof(ProjectileSpeedBuffComp));
+                            em.SetComponentData(e, new ProjectileSpeedBuffComp(0, 240, new Vector2(0, 0)));
                         }
                     }
                     break;
@@ -287,11 +347,18 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             if (fixedValue == 0)
             {
                 adjustPlayerValues(player, -manaCost, 0);
-                World.Active.EntityManager.AddComponent(card, typeof(DeleteComp));
+                em.AddComponent(card, typeof(DeleteComp));
 
             }
-            
         }
+    }
+
+    private bool CheckValueIncreaseComp(Entity e)
+    {
+        if (em.HasComponent<ValueIncreaseComp>(e))
+            return true;
+        else
+            return false;
     }
 
     private void createBullet(string type, Vector2 position, Vector2 movementvector, float radius, int damage, int timer)
@@ -299,67 +366,67 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         switch (type)
         {
             case "normal":
-                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[0]);
+                ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[0]);
                 break;
             case "fire":
-                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[1]);
+                ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[1]);
                 break;
             case "purple":
-                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[2]);
+                ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[2]);
                 break;
             case "red":
-                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[3]);
+                ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[3]);
                 break;
             case "woodsprite":
-                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[5]);
+                ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[5]);
                 break;
             case "etherBuff":
-                Entity ether = ProjectileEntity.Create(World.Active.EntityManager, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[4]);
-                World.Active.EntityManager.AddComponent(ether, typeof(ManaRegenBuffComp));
-                World.Active.EntityManager.SetComponentData(ether, new ManaRegenBuffComp(0.5f,120,120));
-                World.Active.EntityManager.AddComponent(ether, typeof(DeleteComp));
-                World.Active.EntityManager.SetComponentData(ether, new DeleteComp(300));
+                Entity ether = ProjectileEntity.Create(em, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[4]);
+                em.AddComponent(ether, typeof(ManaRegenBuffComp));
+                em.SetComponentData(ether, new ManaRegenBuffComp(0.5f,120,120));
+                em.AddComponent(ether, typeof(DeleteComp));
+                em.SetComponentData(ether, new DeleteComp(300));
                 break;
             case "water":
-                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[6]);
+                ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[6]);
                 break;
             case "barrier":
-                Entity barrier = PlayerBoundaryEntity.Create(World.Active.EntityManager, position, movementvector, mesh, projectileMaterialLibrary[7]);
-                World.Active.EntityManager.AddComponent(barrier, typeof(DeleteComp));
-                World.Active.EntityManager.SetComponentData(barrier, new DeleteComp(420));
+                Entity barrier = PlayerBoundaryEntity.Create(em, position, movementvector, mesh, projectileMaterialLibrary[7]);
+                em.AddComponent(barrier, typeof(DeleteComp));
+                em.SetComponentData(barrier, new DeleteComp(420));
                 break;
             case "gravityWell":
-                Entity gravity = ProjectileEntity.Create(World.Active.EntityManager, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[8], 0x00);
-                World.Active.EntityManager.RemoveComponent(gravity, typeof(ProjectileComponent));
-                //World.Active.EntityManager.RemoveComponent(gravity, typeof(CollisionComponent));
-                World.Active.EntityManager.AddComponent(gravity, typeof(GravityComponent));
-                World.Active.EntityManager.SetComponentData(gravity, new GravityComponent(7,0.2f));
-                World.Active.EntityManager.AddComponent(gravity, typeof(DeleteComp));
-                World.Active.EntityManager.SetComponentData(gravity, new DeleteComp(300));
+                Entity gravity = ProjectileEntity.Create(em, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[8], 0x00);
+                em.RemoveComponent(gravity, typeof(ProjectileComponent));
+                //em.RemoveComponent(gravity, typeof(CollisionComponent));
+                em.AddComponent(gravity, typeof(GravityComponent));
+                em.SetComponentData(gravity, new GravityComponent(7,0.2f));
+                em.AddComponent(gravity, typeof(DeleteComp));
+                em.SetComponentData(gravity, new DeleteComp(300));
                 break;
             case "eProjectile":
-                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[9]);
+                ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[9]);
                 break;
             case "bullet":
-                ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[10]);
+                ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[10]);
                 break;
             case "oil":
-                Entity oil = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[11]);
-                World.Active.EntityManager.AddComponent(oil, typeof(DeleteComp));
-                World.Active.EntityManager.SetComponentData(oil, new DeleteComp(300));
+                Entity oil = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[11]);
+                em.AddComponent(oil, typeof(DeleteComp));
+                em.SetComponentData(oil, new DeleteComp(300));
                 break;
             case "gear":
-                Entity gear = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
-                //World.Active.EntityManager.AddComponent(gear, typeof(DeleteComp));
-                //World.Active.EntityManager.SetComponentData(gear, new DeleteComp(1000));
+                Entity gear = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
+                //em.AddComponent(gear, typeof(DeleteComp));
+                //em.SetComponentData(gear, new DeleteComp(1000));
                 break;
             case "JumpScare":
-                Entity scare = ProjectileEntity.Create(World.Active.EntityManager, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);
-                World.Active.EntityManager.RemoveComponent(scare, typeof(SpawnDelayComp));
-                //World.Active.EntityManager.RemoveComponent(scare, typeof(ProjectileComponent));
-                //World.Active.EntityManager.RemoveComponent(scare, typeof(CollisionComponent));
-                World.Active.EntityManager.AddComponent(scare, typeof(DeleteComp));
-                World.Active.EntityManager.SetComponentData(scare, new DeleteComp(100));
+                Entity scare = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);
+                em.RemoveComponent(scare, typeof(SpawnDelayComp));
+                //em.RemoveComponent(scare, typeof(ProjectileComponent));
+                //em.RemoveComponent(scare, typeof(CollisionComponent));
+                em.AddComponent(scare, typeof(DeleteComp));
+                em.SetComponentData(scare, new DeleteComp(100));
                 break;
         }
     }
@@ -373,17 +440,17 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     }
     private void adjustPlayerValues(Entity player, float manaDelta, int healthDelta)
     {
-        //int[] values = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).adjustMana(manaDelta);
+        //int[] values = em.GetComponentData<PlayerComponent>(player).adjustMana(manaDelta);
         /*
         int[] values = { 0, 0, 0 };
-        values[1] = (int) Mathf.Floor(World.Active.EntityManager.GetComponentData<PlayerComponent>(player).mana);
-        values[0] = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).healthRemaining;
-        values[2] = World.Active.EntityManager.GetComponentData<PlayerComponent>(player).playerID;
+        values[1] = (int) Mathf.Floor(em.GetComponentData<PlayerComponent>(player).mana);
+        values[0] = em.GetComponentData<PlayerComponent>(player).healthRemaining;
+        values[2] = em.GetComponentData<PlayerComponent>(player).playerID;
 
         EventManager.instance.QueueEvent(new UIUpdateEvent(values[0], values[1], values[2]));
         */
-        World.Active.EntityManager.AddComponent(player, typeof(ManaDeltaComp));
-        World.Active.EntityManager.SetComponentData(player, new ManaDeltaComp(manaDelta));
+        em.AddComponent(player, typeof(ManaDeltaComp));
+        em.SetComponentData(player, new ManaDeltaComp(manaDelta));
     }
 
 }

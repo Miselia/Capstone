@@ -6,9 +6,12 @@ using Unity.Entities;
 public struct ValueIncreaseComp : IComponentData
 {
 
-    public bool flag;
-    public ValueIncreaseComp(bool flag)
+    //public bool flag;
+    public int multiplier;
+
+    public ValueIncreaseComp(/*bool flag, */int multi)
     {
-        this.flag = flag;
+        //this.flag = flag;
+        multiplier = multi;
     }
 }

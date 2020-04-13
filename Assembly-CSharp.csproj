@@ -93,7 +93,6 @@
     <Compile Include="Assets\Events\EventListeners\CollisionListener.cs" />
     <Compile Include="Assets\Events\EventListeners\GameOverListener.cs" />
     <Compile Include="Assets\Events\EventListeners\SoundListener.cs" />
-    <Compile Include="Assets\Events\EventListeners\SpawnListener.cs" />
     <Compile Include="Assets\Events\EventManager.cs" />
     <Compile Include="Assets\Events\GenericEvents\AddCardtoDeckEvent.cs" />
     <Compile Include="Assets\Events\GenericEvents\AddCardtoDeckScrollListEvent.cs" />
