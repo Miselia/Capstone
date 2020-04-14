@@ -20,7 +20,7 @@ namespace Assets.Systems
         {
             int counter = 0;
             quadTreeDict.Clear();
-            rootNode = new QuadTreeNode(new CenteredRectangle(6 * Constants.GameBoundaryOffset, 3 * Constants.GameBoundaryOffset, new Unity.Mathematics.float3()));
+            rootNode = new QuadTreeNode(new CenteredRectangle(4 * Constants.GameBoundaryOffset, 2 * Constants.GameBoundaryOffset, new Unity.Mathematics.float3()));
             Entities.ForEach((Entity e, ref CollisionComponent coll, ref Translation translation) =>
             {
                 counter++;
