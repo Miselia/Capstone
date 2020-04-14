@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             Entity player = se.player;
             Entity card = se.card;
             
-            spawn(card, player, 0, 60);
+            spawn(card, player, 0, 100);
             //Debug.Log("Something is Spawned");
             return true;
         }
