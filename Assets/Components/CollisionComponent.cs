@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Entities;
-using Assets.MonoScript;
+﻿using Unity.Entities;
 
 public struct CollisionComponent : IComponentData
 {

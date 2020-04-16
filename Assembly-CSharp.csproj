@@ -67,6 +67,7 @@
     <Compile Include="Assets\Components\CollisionComponent.cs" />
     <Compile Include="Assets\Components\DeleteComp.cs" />
     <Compile Include="Assets\Components\DoubleCastComp.cs" />
+    <Compile Include="Assets\Components\GenericBuffComponent.cs" />
     <Compile Include="Assets\Components\GravityComponent.cs" />
     <Compile Include="Assets\Components\HealthDeltaComp.cs" />
     <Compile Include="Assets\Components\IsBoundaryComponent.cs" />

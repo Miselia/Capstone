@@ -10,6 +10,21 @@ public class BuffSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
+        Entities.ForEach((Entity e, ref GenericBuffComponent buff) =>
+        {
+            if(buff.timer == buff.maxTimer)
+            {
+                EventManager.instance.QueueEvent(new SoundEvent(buff.buffType));
+            }
+
+            switch(buff.buffType)
+            {
+                // ManaRegenBuff
+                case 2:
+                    PlayerComponent pc = World.Active.EntityManager.GetComponentData<PlayerComponent>(e);
+                    World.Active.EntityManager.SetComponentData<>
+            }
+        });
         
         //ManaRegenBuff
         Entities.ForEach((Entity e, ref PlayerComponent p, ref ManaRegenBuffComp mb) =>
@@ -38,8 +53,6 @@ public class BuffSystem : ComponentSystem
                 psb.original = m.movementVector;
                 m.movementVector = m.movementVector * psb.value;
             }
-            
-            
 
             if (psb.timer <= 0)
             {
@@ -47,11 +60,12 @@ public class BuffSystem : ComponentSystem
                 World.Active.EntityManager.RemoveComponent<ProjectileSpeedBuffComp>(e);
             }
             psb.timer--;
-
-            
-            
         });
 
+        // Curse of the Viper
+        Entities.ForEach((Entity e, ref PlayerComponent, ref ViperCurseComponent) =>
+        {
 
+        });
     }
 }

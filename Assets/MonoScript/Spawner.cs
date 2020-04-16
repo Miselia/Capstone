@@ -169,11 +169,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 8:
                     //Well of Knowledge
-                    /*if (CheckValueIncreaseComp(player))
+                    if (CheckValueIncreaseComp(player))
                     {
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
-                    }*/
+                    }
                     EventManager.instance.QueueEvent(new SoundEvent(0));
                     createBullet("water", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer);
                     createBullet("water", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer);
