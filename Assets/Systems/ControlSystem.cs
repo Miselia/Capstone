@@ -336,10 +336,12 @@ public class ControlSystem : ComponentSystem
         
         int id = 0;
         Entity p = new Entity();
+        Entity o = new Entity();
 
         Entities.ForEach((Entity e, ref PlayerComponent pID) =>
         {
             if (pID.playerID == player) p = e;
+            else o = e;
         });
 
         Entities.ForEach((Entity e, ref CardComp card) =>
@@ -348,7 +350,7 @@ public class ControlSystem : ComponentSystem
             {
                 Debug.Log("Card Slot: " + card.cardSlot + " Player: " + card.player);
                 id = card.cardID;
-                EventManager.instance.QueueEvent(new SpawnEvent(e, p));
+                EventManager.instance.QueueEvent(new SpawnEvent(e, p, o));
                 EventManager.instance.QueueEvent(new DeckBuilderHandAdjustEvent(e));
             }
         });

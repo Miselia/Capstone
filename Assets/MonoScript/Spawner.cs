@@ -16,6 +16,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     void Start()
     {
         EventManager.instance.RegisterListener<SpawnEvent>(this);
+        EventManager.instance.RegisterListener<CreateProjectileEvent>(this);
         em = World.Active.EntityManager;
     }
 
@@ -25,17 +26,22 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         if (evt is SpawnEvent)
         {
             SpawnEvent se = (SpawnEvent) evt;
-            Entity player = se.player;
-            Entity card = se.card;
             
-            spawn(card, player, 0, 100);
+            spawn(se.card, se.player, 0, 100, se.opponent);
             //Debug.Log("Something is Spawned");
+            return true;
+        }
+        if (evt is CreateProjectileEvent)
+        {
+            CreateProjectileEvent cpe = (CreateProjectileEvent) evt;
+
+            createBullet(cpe.type, cpe.position, cpe.movementVector, cpe.radius, cpe.damage, cpe.timer);
             return true;
         }
         return false;
     }
 
-    public void spawn( Entity card, Entity player, int fixedValue, int time)
+    public void spawn( Entity card, Entity player, int fixedValue, int time, Entity opponent)
     {
         int cardID = em.GetComponentData<CardComp>(card).cardID;
         if (fixedValue != 0) cardID = fixedValue;
@@ -63,7 +69,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             if (em.HasComponent<DoubleCastComp>(player))
             {
                 em.RemoveComponent<DoubleCastComp>(player);
-                spawn(card, player, cardID, timer+100);
+                spawn(card, player, cardID, timer+100, opponent);
             }
 
             switch (cardID)
@@ -163,8 +169,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         num2 = Random.Range(1, 18);
                     }
 
-                    spawn(card, player, num1, timer);
-                    spawn(card, player, num2, timer+20);
+                    spawn(card, player, num1, timer, opponent);
+                    spawn(card, player, num2, timer+20, opponent);
 
                     break;
                 case 8:
@@ -326,6 +332,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 20:
                     // Attach a new "ViperDebuffComponent" to the opponent and have it managed by the "BuffSystem"
+                    em.AddComponent<ViperCurseComponent>(opponent);
+                    em.SetComponentData<ViperCurseComponent>(/*just needs timer really*/);
                     break;
                 case 21:
                     // Create a projectile without a collision component (like Gravity), adding only a delete component of a rather short time
@@ -419,6 +427,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 Entity gear = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
                 //em.AddComponent(gear, typeof(DeleteComp));
                 //em.SetComponentData(gear, new DeleteComp(1000));
+                break;
+            case "Viper":
+                Entity venom = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[14]);
                 break;
             case "JumpScare":
                 Entity scare = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);

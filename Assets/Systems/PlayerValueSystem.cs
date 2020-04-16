@@ -11,7 +11,7 @@ public class PlayerValueSystem : ComponentSystem
     protected override void OnUpdate()
     {
         
-            Entities.ForEach((Entity e, ref PlayerComponent p, ref ManaDeltaComp delta) =>
+            /*Entities.ForEach((Entity e, ref PlayerComponent p, ref ManaDeltaComp delta) =>
             {
 
                 p.mana = p.mana + delta.delta;
@@ -25,9 +25,23 @@ public class PlayerValueSystem : ComponentSystem
                 World.Active.EntityManager.RemoveComponent<HealthDeltaComp>(e);
                 
 
-            });
-            Entities.ForEach((ref PlayerComponent p) =>
+            });*/
+            Entities.ForEach((Entity e, ref PlayerComponent p) =>
             {
+                if(EntityManager.HasComponent(e, typeof(ManaDeltaComp)))
+                {
+                    p.mana = p.mana + EntityManager.GetComponentData<ManaDeltaComp>(e).delta;
+                    EntityManager.RemoveComponent<ManaDeltaComp>(e);
+                }
+                if(EntityManager.HasComponent(e, typeof(HealthDeltaComp)))
+                {
+                    int delta = EntityManager.GetComponentData<HealthDeltaComp>(e).delta;
+                    if (delta < 0)
+                        EventManager.instance.QueueEvent(new SoundEvent(1));
+                    p.healthRemaining = p.healthRemaining + delta;
+                    EntityManager.RemoveComponent<HealthDeltaComp>(e);
+                }
+
                 p.mana = p.mana + p.manaRegen;
 
                 if (p.mana > p.maxMana)

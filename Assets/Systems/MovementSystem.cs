@@ -14,7 +14,7 @@ public class MovementSystem : JobComponentSystem
     {
         public float deltaTime;
 
-        public void Execute(Entity entity, int index,ref MovementComponent moveComp, ref Translation translation)
+        public void Execute(Entity entity, int index, ref MovementComponent moveComp, ref Translation translation)
         {
             translation.Value.y += moveComp.movementVector.y * deltaTime;
             translation.Value.x += moveComp.movementVector.x * deltaTime;
