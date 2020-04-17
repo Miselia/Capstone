@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class SoundEvent : IGenericEvent
 {
-    public int sound;
+    public string genre;
+    public string type;
 
-    public SoundEvent(int sound)
+    public SoundEvent(string genre, string type)
     {
 
-        this.sound = sound;
+        this.genre = genre;
+        this.type = type;
     }
 }

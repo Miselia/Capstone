@@ -811,10 +811,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fed801010cc2740b9d5f8bc38333e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  library:
-  - {fileID: 7768723795061391234}
-  - {fileID: 7768723794910919727}
-  - {fileID: 7768723796159370956}
-  - {fileID: 7768723795204211805}
-  - {fileID: 7768723795872407060}
-  - {fileID: 3116028478116588140}
+  sounds:
+  - genre: Fantasy
+    type: SmallCard
+    clip: {fileID: 8300000, guid: 38421bb08b81be3448fcdd5e480b897e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - genre: Fantasy
+    type: Hurt
+    clip: {fileID: 8300000, guid: d213aa6b94439044880fd88d18c6dd2f, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - genre: Fantasy
+    type: BuffSelf
+    clip: {fileID: 8300000, guid: 62c524edf5bbe7948bbec756e241af4f, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - genre: Fantasy
+    type: BuffProjectile
+    clip: {fileID: 8300000, guid: 4c6bd5a9b3ab0bc45b713b023d3cc4f0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - genre: Other
+    type: Doot
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - genre: Other
+    type: Destroy
+    clip: {fileID: 8300000, guid: bdecc07ca78aa0c48bc33f699132ddcf, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - genre: Fantasy
+    type: LargeCard
+    clip: {fileID: 8300000, guid: 765f4c719a5e62044b4a8281cbc4fd6f, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - genre: Other
+    type: BuffSelf
+    clip: {fileID: 8300000, guid: b81dc16bc11b9bb40bf38b44234d1bf7, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - genre: Fantasy
+    type: SmallCard
+    clip: {fileID: 8300000, guid: c17b6e9e5f113e54589f0296fdd87fff, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

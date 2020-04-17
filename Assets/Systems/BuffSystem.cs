@@ -18,6 +18,7 @@ public class BuffSystem : ComponentSystem
             // Mana Regen Buff
             if(EntityManager.HasComponent<ManaRegenBuffComp>(e) && EntityManager.HasComponent<PlayerComponent>(e))
             {
+                EventManager.instance.QueueEvent(new SoundEvent("Other","BuffSelf"));
                 ManaRegenBuffComp mbc = EntityManager.GetComponentData<ManaRegenBuffComp>(e);
                 if (mbc.timer == mbc.maxTimer)
                 {
