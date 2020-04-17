@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             CreateProjectileEvent cpe = (CreateProjectileEvent) evt;
 
             Debug.Log("Create projectile listened to");
-            createBullet(cpe.type, cpe.position, cpe.movementVector, cpe.radius, cpe.damage, cpe.timer);
+            createBullet(cpe.type, cpe.position, cpe.movementVector, cpe.radius, -cpe.damage, cpe.timer);
             return true;
         }
         return false;
