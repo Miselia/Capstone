@@ -37,7 +37,7 @@ public class PlayerValueSystem : ComponentSystem
                 {
                     int delta = EntityManager.GetComponentData<HealthDeltaComp>(e).delta;
                     if (delta < 0)
-                        //EventManager.instance.QueueEvent(new SoundEvent());
+                        EventManager.instance.QueueEvent(new SoundEvent("Fantasy","Hurt"));
                     p.healthRemaining = p.healthRemaining + delta;
                     EntityManager.RemoveComponent<HealthDeltaComp>(e);
                 }
