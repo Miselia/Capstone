@@ -116,6 +116,7 @@
      <Compile Include="Assets\MonoScript\LobbyScript.cs" />
      <Compile Include="Assets\MonoScript\MenuScript.cs" />
      <Compile Include="Assets\MonoScript\QuadTreeNode.cs" />
+     <Compile Include="Assets\MonoScript\Sound.cs" />
      <Compile Include="Assets\MonoScript\Spawner.cs" />
      <Compile Include="Assets\MonoScript\UIManager.cs" />
      <Compile Include="Assets\Resources\Constants.cs" />
@@ -139,6 +140,7 @@
      <None Include="Assets\Resources\GlimpseTest.txt" />
      <None Include="Assets\Resources\Bullet Hell.txt" />
      <None Include="Assets\Resources\Dead Space.txt" />
+     <None Include="Assets\Resources\Capstone Pres.txt" />
      <None Include="Assets\Resources\Techpunk.txt" />
      <None Include="Assets\Resources\SteamyHorror.txt" />
      <None Include="Assets\Resources\MagiTech.txt" />

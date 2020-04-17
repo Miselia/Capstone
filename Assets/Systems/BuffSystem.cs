@@ -16,7 +16,7 @@ public class BuffSystem : ComponentSystem
         {
             if (mb.timer == mb.maxTimer)
             {
-                EventManager.instance.QueueEvent(new SoundEvent(2));
+                EventManager.instance.QueueEvent(new SoundEvent("Other","BuffSelf"));
             }
             p.manaRegen = p.manaRegen+ mb.value;
             mb.value = 0;
@@ -34,7 +34,7 @@ public class BuffSystem : ComponentSystem
         {
             if(psb.timer == psb.maxTimer)
             {
-                EventManager.instance.QueueEvent(new SoundEvent(3));
+                //EventManager.instance.QueueEvent(new SoundEvent(3));
                 psb.original = m.movementVector;
                 m.movementVector = m.movementVector * psb.value;
             }
