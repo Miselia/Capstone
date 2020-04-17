@@ -35,6 +35,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         {
             CreateProjectileEvent cpe = (CreateProjectileEvent) evt;
 
+            Debug.Log("Create projectile listened to");
             createBullet(cpe.type, cpe.position, cpe.movementVector, cpe.radius, cpe.damage, cpe.timer);
             return true;
         }
@@ -322,6 +323,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     {
                         if (em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
                         {
+                            em.AddComponent(e, typeof(IsBuffedComponent));
                             em.AddComponent(e, typeof(ProjectileSpeedBuffComp));
                             em.SetComponentData(e, new ProjectileSpeedBuffComp(0, 240, new Vector2(0, 0)));
                         }
@@ -331,9 +333,19 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     // Spawn one wall spike onto each player boundary on opponent's side of field
                     break;
                 case 20:
-                    // Attach a new "ViperDebuffComponent" to the opponent and have it managed by the "BuffSystem"
-                    em.AddComponent<ViperCurseComponent>(opponent);
-                    em.SetComponentData<ViperCurseComponent>(/*just needs timer really*/);
+                    // Attach a new "ViperDebuffComponent" to the opponent (self if DeckBuilder) and have it managed by the "BuffSystem"
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                    {
+                        em.AddComponent<IsBuffedComponent>(player);
+                        em.AddComponent<ViperCurseComponent>(player);
+                        em.SetComponentData<ViperCurseComponent>(player, new ViperCurseComponent(600));
+                    }
+                    else
+                    {
+                        em.AddComponent<IsBuffedComponent>(opponent);
+                        em.AddComponent<ViperCurseComponent>(opponent);
+                        em.SetComponentData<ViperCurseComponent>(opponent, new ViperCurseComponent(600));
+                    }
                     break;
                 case 21:
                     // Create a projectile without a collision component (like Gravity), adding only a delete component of a rather short time

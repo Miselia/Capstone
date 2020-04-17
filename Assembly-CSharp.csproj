@@ -84,6 +84,7 @@
     <Compile Include="Assets\Components\SpawnDelayComp.cs" />
     <Compile Include="Assets\Components\TestingComponent.cs" />
     <Compile Include="Assets\Components\ValueIncreaseComp.cs" />
+    <Compile Include="Assets\Components\ViperCurseComponent.cs" />
     <Compile Include="Assets\Components\XformComp.cs" />
     <Compile Include="Assets\Entities\CardEnitity.cs" />
     <Compile Include="Assets\Entities\PlayerBoundaryEntity.cs" />

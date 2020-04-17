@@ -17,19 +17,4 @@ public struct ProjectileSpeedBuffComp : IComponentData
         this.maxTimer = timer;
         this.original = original;
     }
-
-    public float getBuffTimer()
-    {
-        return timer;
-    }
-
-    public float getBuffValue()
-    {
-        return value;
-    }
-
-    public float getMaxTimer()
-    {
-        return maxTimer;
-    }
 }

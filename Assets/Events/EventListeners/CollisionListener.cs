@@ -170,6 +170,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
         {
             if (World.Active.EntityManager.HasComponent<ManaRegenBuffComp>(projectileEntity))
             {
+                World.Active.EntityManager.AddComponent(playerEntity, typeof(IsBuffedComponent));
                 World.Active.EntityManager.AddComponent(playerEntity, typeof(ManaRegenBuffComp));
                 World.Active.EntityManager.SetComponentData(playerEntity, World.Active.EntityManager.GetComponentData<ManaRegenBuffComp>(projectileEntity));
             }
