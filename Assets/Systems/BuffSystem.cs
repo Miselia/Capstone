@@ -18,12 +18,11 @@ public class BuffSystem : ComponentSystem
             // Mana Regen Buff
             if(EntityManager.HasComponent<ManaRegenBuffComp>(e) && EntityManager.HasComponent<PlayerComponent>(e))
             {
-                EventManager.instance.QueueEvent(new SoundEvent("Other","BuffSelf"));
                 ManaRegenBuffComp mbc = EntityManager.GetComponentData<ManaRegenBuffComp>(e);
                 if (mbc.timer == mbc.maxTimer)
                 {
+                    EventManager.instance.QueueEvent(new SoundEvent("Other", "BuffSelf"));
                     PlayerComponent playComp = World.Active.EntityManager.GetComponentData<PlayerComponent>(e);
-                    EventManager.instance.QueueEvent(new SoundEvent(2));
 
                     playComp.manaRegen += mbc.value;
                     World.Active.EntityManager.SetComponentData<PlayerComponent>(e, playComp);
@@ -59,7 +58,7 @@ public class BuffSystem : ComponentSystem
                 if (sbc.timer == sbc.maxTimer)
                 {
                     MovementComponent moveComp = EntityManager.GetComponentData<MovementComponent>(e);
-                    EventManager.instance.QueueEvent(new SoundEvent(3));
+                    EventManager.instance.QueueEvent(new SoundEvent("Other", "Buff"));
 
                     sbc.original = moveComp.movementVector;
                     moveComp.movementVector *= sbc.value;
