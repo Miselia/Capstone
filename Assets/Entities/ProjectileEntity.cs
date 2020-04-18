@@ -9,7 +9,7 @@ using Assets.Resources;
 
 public static class ProjectileEntity
 {
-    public static Entity Create(EntityManager em, int damage, Vector2 position, Vector2 movementVector, float radius, int timer, Mesh mesh, Material mat, byte mask = 0x03, bool rotateDirection = true/*, float extraScale = 1*/)
+    public static Entity Create(EntityManager em, int damage, Vector2 position, Vector2 movementVector, float radius, int timer, Mesh mesh, Material mat, byte mask = 0x03, bool rotateWithDirection = true, Vector2 initialRotation = new Vector2()/*, float extraScale = 1*/)
     {
         Entity entity = em.CreateEntity();
 
@@ -29,11 +29,20 @@ public static class ProjectileEntity
         em.SetComponentData(entity, new ProjectileComponent(0,damage));
         em.SetComponentData(entity, new SpawnDelayComp(movementVector, timer, radius, mask));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
-        em.SetComponentData(entity, new Rotation { Value = quaternion.Euler(0,0, Mathf.Atan2(movementVector.x, movementVector.y))});
+        //em.SetComponentData(entity, new Rotation { Value = quaternion.Euler(0,0, Mathf.Atan2(movementVector.x, movementVector.y))});
         //em.SetComponentData(entity, new CollisionComponent(radius, radius, 0x03));
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
         em.SetComponentData(entity, new QuadTreeReferenceComponent(-1));
-        em.SetComponentData(entity, new RotationComponent(rotateDirection));
+        if (initialRotation == new Vector2())
+        {
+            em.SetComponentData(entity, new RotationComponent(rotateWithDirection));
+            em.SetComponentData(entity, new Rotation { Value = quaternion.Euler(0, 0, Mathf.Atan2(movementVector.x, movementVector.y)) });
+        }
+        else
+        {
+            em.RemoveComponent(entity, typeof(RotationComponent));
+            em.SetComponentData(entity, new Rotation { Value = quaternion.RotateZ(Mathf.Atan2(initialRotation.x, initialRotation.y)) });
+        }
 
         return entity;
     }

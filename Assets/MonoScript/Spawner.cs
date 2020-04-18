@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Entities;
 using Assets.Resources;
 using UnityEngine.SceneManagement;
+using Unity.Transforms;
 
 public class Spawner : MonoBehaviour, IGenericEventListener
 {
@@ -207,9 +208,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 10:
                     //Nano Barrier
                     EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
-                    createBullet("barrier", new Vector2(positionX - 0.1f, 0), new Vector2(-1, 0), 1f, damage, timer);
-                    createBullet("barrier", new Vector2(positionX + 0.1f, 0), new Vector2(1, 0), 1f, damage, timer);
-
+                    createBullet("barrier", new Vector2(positionX - 0.1f, 0), new Vector2(-1, 0), 1f, damage, timer, em.GetComponentData<PlayerComponent>(opponent).playerID);
+                    createBullet("barrier", new Vector2(positionX + 0.1f, 0), new Vector2(1, 0), 1f, damage, timer, em.GetComponentData<PlayerComponent>(opponent).playerID);
                     break;
                 case 11:
                     //Gravity Well
@@ -330,9 +330,43 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     break;
                 case 19:
+                    // Wall Spikes
                     // Spawn one wall spike onto each player boundary on opponent's side of field
+                    int oppSide;
+                    if(SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                    {
+                        oppSide = 1;
+                    }
+                    else
+                    {
+                        oppSide = em.GetComponentData<PlayerComponent>(opponent).playerID;
+                    }
+                    foreach (Entity e in em.GetAllEntities())
+                    {
+                        if(CheckValueIncreaseComp(player))
+                        {
+                            em.RemoveComponent<ValueIncreaseComp>(player);
+                            damage *= 2;
+                        }
+                        // short circuit
+                        if (em.HasComponent<PlayerBoundaryComponent>(e))
+                        {
+                            PlayerBoundaryComponent pbc = em.GetComponentData<PlayerBoundaryComponent>(e);
+                            if(pbc.side == oppSide)
+                            {
+                                Vector2 location = new Vector2(em.GetComponentData<Translation>(e).Value.x, em.GetComponentData<Translation>(e).Value.y);
+                                location += new Vector2(pbc.Normal.x, pbc.Normal.y);
+                                
+                                Vector2 mod = new Vector2(pbc.Normal.y, pbc.Normal.x);
+                                mod *= 3;
+                                location += mod;
+                                createBullet("spike", location, new Vector2(), 1, damage, timer, -1, new Vector2(pbc.Normal.x, -pbc.Normal.y));
+                            }
+                        }
+                    }
                     break;
                 case 20:
+                    // Viper's Curse
                     // Attach a new "ViperDebuffComponent" to the opponent (self if DeckBuilder) and have it managed by the "BuffSystem"
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
@@ -368,7 +402,6 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             {
                 adjustPlayerValues(player, -manaCost, 0);
                 em.AddComponent(card, typeof(DeleteComp));
-
             }
         }
     }
@@ -381,7 +414,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             return false;
     }
 
-    private void createBullet(string type, Vector2 position, Vector2 movementvector, float radius, int damage, int timer)
+    private void createBullet(string type, Vector2 position, Vector2 movementvector, float radius, int damage, int timer, int side = -1, Vector2 initialRotation = new Vector2())
     {
         switch (type)
         {
@@ -411,7 +444,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[6]);
                 break;
             case "barrier":
-                Entity barrier = PlayerBoundaryEntity.Create(em, position, movementvector, mesh, projectileMaterialLibrary[7]);
+                Entity barrier = PlayerBoundaryEntity.Create(em, position, movementvector, mesh, projectileMaterialLibrary[7], side);
                 em.AddComponent(barrier, typeof(DeleteComp));
                 em.SetComponentData(barrier, new DeleteComp(420));
                 break;
@@ -440,8 +473,15 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 //em.AddComponent(gear, typeof(DeleteComp));
                 //em.SetComponentData(gear, new DeleteComp(1000));
                 break;
+            case "spike":
+                Entity spike = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[13], 0x03, false, initialRotation);
+                em.AddComponent(spike, typeof(DeleteComp));
+                em.SetComponentData(spike, new DeleteComp(360));
+                break;
             case "Viper":
-                Entity venom = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[14]);
+                Entity poison = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[14]);
+                em.AddComponent<DeleteComp>(poison);
+                em.SetComponentData(poison, new DeleteComp(300));
                 break;
             case "JumpScare":
                 Entity scare = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);

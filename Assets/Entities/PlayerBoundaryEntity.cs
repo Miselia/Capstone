@@ -9,7 +9,7 @@ using Assets.Resources;
 
 public static class PlayerBoundaryEntity
 {
-    public static Entity Create(EntityManager em, Vector2 position, Vector2 normal, Mesh mesh, Material mat)
+    public static Entity Create(EntityManager em, Vector2 position, Vector2 normal, Mesh mesh, Material mat, int side)
     {
         Entity entity = em.CreateEntity();
 
@@ -25,7 +25,7 @@ public static class PlayerBoundaryEntity
 
         em.SetComponentData(entity, new XformComponent(position));
         em.SetComponentData(entity, new CollisionComponent(0f, 1000, 0x0c));
-        em.SetComponentData(entity, new PlayerBoundaryComponent(normal));
+        em.SetComponentData(entity, new PlayerBoundaryComponent(normal, side));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
         em.SetComponentData(entity, new QuadTreeReferenceComponent(-1));
