@@ -9,7 +9,7 @@ using Assets.Resources;
 
 public static class ProjectileEntity
 {
-    public static Entity Create(EntityManager em, int damage, Vector2 position, Vector2 movementVector, float radius, int timer, Mesh mesh, Material mat, byte mask = 0x03, bool rotateWithDirection = true, Vector2 initialRotation = new Vector2()/*, float extraScale = 1*/)
+    public static Entity Create(EntityManager em, int damage, Vector2 position, Vector2 movementVector, float radius, int timer, Mesh mesh, Material mat, byte mask = 0x03, bool rotateWithDirection = true, Vector2 initialRotation = new Vector2(), float extraScale = 1)
     {
         Entity entity = em.CreateEntity();
 
@@ -25,9 +25,9 @@ public static class ProjectileEntity
         em.AddComponent(entity, typeof(QuadTreeReferenceComponent));
         em.AddComponent(entity, typeof(RotationComponent));
 
-        em.SetComponentData(entity, new Scale { Value = radius/**extraScale*//2});
+        //em.SetComponentData(entity, new Scale { Value = radius*extraScale/2});
         em.SetComponentData(entity, new ProjectileComponent(0,damage));
-        em.SetComponentData(entity, new SpawnDelayComp(movementVector, timer, radius, mask));
+        em.SetComponentData(entity, new SpawnDelayComp(movementVector, timer, radius, mask, extraScale));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         //em.SetComponentData(entity, new Rotation { Value = quaternion.Euler(0,0, Mathf.Atan2(movementVector.x, movementVector.y))});
         //em.SetComponentData(entity, new CollisionComponent(radius, radius, 0x03));

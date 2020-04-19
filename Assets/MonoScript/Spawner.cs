@@ -385,17 +385,42 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     // Create a projectile without a collision component (like Gravity), adding only a delete component of a rather short time
                     // Also add sound effect on spawn
                     damage = 0;
-                    createBullet("JumpScare", new Vector2(positionX, 0), new Vector2(), 24, damage, timer);
+                    createBullet("jumpScare", new Vector2(positionX, 0), new Vector2(), 24, damage, timer);
                     EventManager.instance.QueueEvent(new SoundEvent("Other", "Doot"));
                     break;
                 case 22:
                     // Start spawn animation of flame pillar at bottom of opponent's field based on user position
+                    Vector2 pillarPos;
+                    if(SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                    {
+                        pillarPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, 0);
+                    }
+                    else
+                    {
+                        pillarPos = new Vector2(em.GetComponentData<Translation>(opponent).Value.x, 0);
+                    }
+                    createBullet("lightCigar", pillarPos, new Vector2(), 1.5f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, pillarPos.y + 1.5f), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, pillarPos.y + 3), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, pillarPos.y + 4.5f), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, pillarPos.y - 1.5f), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, pillarPos.y - 3), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, pillarPos.y - 4.5f), new Vector2(), 1.4f, damage, timer);
                     break;
                 case 23:
-                    // Spawn projectiles from top of screen based on user position
+                    // Spawn projectiles from top of screen (based on user position in the future?)
+                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(-.75f, -1), 0.5f, damage, timer);
+                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(-.5f, -1), 0.5f, damage, timer);
+                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(.75f, -1), 0.5f, damage, timer);
+                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(.5f, -1), 0.5f, damage, timer);
+                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(0, -1), 0.5f, damage, timer);
                     break;
                 case 24:
                     // After delay, smash cigar, starting at top of opponent's side, based on user poition
+                    break;
+                case 25:
+                    // First cast beings targeting system, second cast fires the missile in the direction from 1st to 2nd cast
+                    // Explodes on wall creating fragmented projectiles
                     break;
             }
             if (fixedValue == 0)
@@ -483,13 +508,30 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.AddComponent<DeleteComp>(poison);
                 em.SetComponentData(poison, new DeleteComp(300));
                 break;
-            case "JumpScare":
+            case "jumpScare":
                 Entity scare = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);
                 em.RemoveComponent(scare, typeof(SpawnDelayComp));
                 //em.RemoveComponent(scare, typeof(ProjectileComponent));
                 //em.RemoveComponent(scare, typeof(CollisionComponent));
                 em.AddComponent(scare, typeof(DeleteComp));
                 em.SetComponentData(scare, new DeleteComp(100));
+                break;
+            case "lightCigar":
+                Entity flame = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[16], 0x03, true, new Vector2(), 4);
+                em.AddComponent<DeleteComp>(flame);
+                em.SetComponentData<DeleteComp>(flame, new DeleteComp(timer + 5));
+                // consider increasing time, would require colliding with linked projectiles to also delete the others, ehhhh
+                break;
+            case "flickCigar":
+                ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[17]);
+                break;
+            default:
+                // Draws invisible projectile that gets deleted immediately
+                Material mat = projectileMaterialLibrary[0];
+                mat.color = Color.clear;
+                Entity invis = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, mat);
+                em.AddComponent<DeleteComp>(invis);
+                em.SetComponentData<DeleteComp>(invis, new DeleteComp(timer + 5));
                 break;
         }
     }

@@ -9,12 +9,14 @@ public struct SpawnDelayComp : IComponentData
     public int timer; //Amount of time delayed
     public float radius;
     public byte mask;
+    public float extraScale;
 
-    public SpawnDelayComp(Vector2 movementVector, int timer, float radius, byte mask)
+    public SpawnDelayComp(Vector2 movementVector, int timer, float radius, byte mask, float extraScale)
     {
         this.movementVector = movementVector;
         this.timer = timer;
         this.radius = radius;
         this.mask = mask;
+        this.extraScale = extraScale;
     }
 }
