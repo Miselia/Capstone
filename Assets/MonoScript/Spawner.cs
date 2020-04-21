@@ -400,8 +400,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     else
                     {
                         float offset = (playerID == 1) ?
-                            em.GetComponentData<Translation>(player).Value.x + 7:
-                            em.GetComponentData<Translation>(player).Value.x - 7;
+                            em.GetComponentData<Translation>(player).Value.x + 7 :
+                            em.GetComponentData<Translation>(player).Value.x - 7 ;
 
                         pillarPos = (playerID == 1) ?
                             new Vector2(Constants.GameBoundaryOffset + offset, 0) :
@@ -418,6 +418,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     var s1 = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
                     foreach(IGame game in s1)
                     {
+                        //Debug.Log("Next cigar card added to hand Player: " + playerID + ", Card Slot: " + em.GetComponentData<CardComp>(card).cardSlot);
                         game.AddCardToHandFromCardLibrary(playerID, em.GetComponentData<CardComp>(card).cardSlot, 23);
                     }
                     break;
@@ -431,11 +432,27 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     var s2 = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
                     foreach(IGame game in s2)
                     {
+                        //Debug.Log("Next cigar card added to hand Player: " + playerID + ", Card Slot: " + em.GetComponentData<CardComp>(card).cardSlot);
                         game.AddCardToHandFromCardLibrary(playerID, em.GetComponentData<CardComp>(card).cardSlot, 24);
                     }
                     break;
                 case 24:
                     // After delay, smash cigar, starting at top of opponent's side, based on user poition
+                    Vector2 cigarPos;
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                    {
+                        cigarPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, 0);
+                    }
+                    else
+                    {
+                        float offset = (playerID == 1) ?
+                            em.GetComponentData<Translation>(player).Value.x + 7 :
+                            em.GetComponentData<Translation>(player).Value.x - 7;
+
+                        cigarPos = (playerID == 1) ?
+                            new Vector2(Constants.GameBoundaryOffset + offset, 0) :
+                            new Vector2(Constants.GameBoundaryOffset - offset, 0);
+                    }
                     break;
                 case 25:
                     // First cast beings targeting system, second cast fires the missile in the direction from 1st to 2nd cast
@@ -546,7 +563,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 break;
             default:
                 // Draws invisible projectile that gets deleted immediately
-                Material mat = projectileMaterialLibrary[0];
+                Material mat = projectileMaterialLibrary[21];
                 mat.color = Color.clear;
                 Entity invis = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, mat);
                 em.AddComponent<DeleteComp>(invis);

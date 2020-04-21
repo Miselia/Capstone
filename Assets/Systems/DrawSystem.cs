@@ -14,7 +14,9 @@ public class DrawSystem : ComponentSystem
         game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
     }
     private void Initialize()
-    { 
+    {
+        // if emptySlots[i] = true, there is a card there, fun fact
+        // if emptySlots[i] = false, there is not a card there, fun fact
         emptySlots1 = new bool[] { false, false, false, false };
         emptySlots2 = new bool[] { false, false, false, false };
     }
@@ -22,43 +24,42 @@ public class DrawSystem : ComponentSystem
     protected override void OnUpdate()
     {
         
-            Initialize();
-            Entities.ForEach((ref CardComp card) =>
-            {
-                if (card.player == 1 && card.cardSlot == 1) emptySlots1[0] = true;
-                if (card.player == 1 && card.cardSlot == 2) emptySlots1[1] = true;
-                if (card.player == 1 && card.cardSlot == 3) emptySlots1[2] = true;
-                if (card.player == 1 && card.cardSlot == 4) emptySlots1[3] = true;
-                if (card.player == 2 && card.cardSlot == 1) emptySlots2[0] = true;
-                if (card.player == 2 && card.cardSlot == 2) emptySlots2[1] = true;
-                if (card.player == 2 && card.cardSlot == 3) emptySlots2[2] = true;
-                if (card.player == 2 && card.cardSlot == 4) emptySlots2[3] = true;
+        Initialize();
+        Entities.ForEach((ref CardComp card) =>
+        {
+            if (card.player == 1 && card.cardSlot == 1) emptySlots1[0] = true;
+            if (card.player == 1 && card.cardSlot == 2) emptySlots1[1] = true;
+            if (card.player == 1 && card.cardSlot == 3) emptySlots1[2] = true;
+            if (card.player == 1 && card.cardSlot == 4) emptySlots1[3] = true;
+            if (card.player == 2 && card.cardSlot == 1) emptySlots2[0] = true;
+            if (card.player == 2 && card.cardSlot == 2) emptySlots2[1] = true;
+            if (card.player == 2 && card.cardSlot == 3) emptySlots2[2] = true;
+            if (card.player == 2 && card.cardSlot == 4) emptySlots2[3] = true;
                 
-            });
-            for (int p = 1; p <= 2; p++)
+        });
+        for (int p = 1; p <= 2; p++)
+        {
+            bool[] hand;
+            if (p == 1) hand = emptySlots1;
+            else hand = emptySlots2;
+            for (int c = 1; c <= 4; c++)
             {
-                bool[] hand;
-                if (p == 1) hand = emptySlots1;
-                else hand = emptySlots2;
-                for (int c = 1; c <= 4; c++)
+                if (hand[c-1] == false)
                 {
-                    if (hand[c-1] == false)
+                    int newCard = game.DrawCardFromDeck(p, c);
+                    if (newCard == 0)
                     {
-                        int newCard = game.DrawCardFromDeck(p, c);
-                        if (newCard == 0)
+                        if (CheckAllEmpty(p) == true)
                         {
-                            if (CheckAllEmpty(p) == true)
-                            {
-                                Debug.Log("Checked if empty");
-                                game.Reshuffle(p);
-                            }
+                            Debug.Log("Checked if empty");
+                            game.Reshuffle(p);
                         }
                     }
                 }
             }
-            
-        
+        }
     }
+
     protected override void OnDestroy()
     {
         Debug.Log("DrawClass destroyed");

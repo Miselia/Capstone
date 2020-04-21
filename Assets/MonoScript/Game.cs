@@ -150,17 +150,12 @@ public class Game : MonoBehaviour, IGame
     {
         if (player == 1)
         {
-            int nextCard = playDeck1.DrawCard();
-            Debug.Log("NextCard: " + nextCard);
-            if (nextCard > 0) CardEntity.Create(entityManager, new Vector2(-boundaryOffset - 7, -7.5f), cardID, cardSlot, player, cardLibrary[cardID].manaCost, mesh2D, cardLibrary[cardID].getMaterial());
-            //else playDeck1.Shuffle();
+            CardEntity.Create(entityManager, new Vector2(-boundaryOffset - 7, -7.5f), cardID, cardSlot, player, cardLibrary[cardID].manaCost, mesh2D, cardLibrary[cardID].getMaterial());
             return cardID;
         }
         else
         {
-            int nextCard = playDeck2.DrawCard();
-            if (nextCard != 0) CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), cardID, cardSlot, player, cardLibrary[cardID].manaCost, mesh2D, cardLibrary[cardID].getMaterial());
-            //else playDeck2.Shuffle();
+            CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), cardID, cardSlot, player, cardLibrary[cardID].manaCost, mesh2D, cardLibrary[cardID].getMaterial());
             return cardID;
         }
     }
