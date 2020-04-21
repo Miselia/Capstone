@@ -47,7 +47,6 @@ public class DrawSystem : ComponentSystem
                         int newCard = game.DrawCardFromDeck(p, c);
                         if (newCard == 0)
                         {
-                            
                             if (CheckAllEmpty(p) == true)
                             {
                                 Debug.Log("Checked if empty");
@@ -55,7 +54,6 @@ public class DrawSystem : ComponentSystem
                             }
                         }
                     }
-                    
                 }
             }
             

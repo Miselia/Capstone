@@ -10,5 +10,7 @@ namespace Assets.MonoScript
     {
         bool HandleEvent(IGenericEvent evt);
         Dictionary<Entity, List<Entity>> GetCollidingPairs();
+
+        int AddCardToHandFromCardLibrary(int player, int cardSlot, int cardID);
     }
 }

@@ -5,6 +5,8 @@ using Unity.Entities;
 using Assets.Resources;
 using UnityEngine.SceneManagement;
 using Unity.Transforms;
+using Assets.MonoScript;
+using System.Linq;
 
 public class Spawner : MonoBehaviour, IGenericEventListener
 {
@@ -397,15 +399,27 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     else
                     {
-                        pillarPos = new Vector2(em.GetComponentData<Translation>(opponent).Value.x, 0);
+                        float offset = (playerID == 1) ?
+                            em.GetComponentData<Translation>(player).Value.x + 7:
+                            em.GetComponentData<Translation>(player).Value.x - 7;
+
+                        pillarPos = (playerID == 1) ?
+                            new Vector2(Constants.GameBoundaryOffset + offset, 0) :
+                            new Vector2(Constants.GameBoundaryOffset - offset, 0) ;
                     }
-                    createBullet("lightCigar", pillarPos, new Vector2(), 1.5f, damage, timer);
-                    createBullet("", new Vector2(pillarPos.x, pillarPos.y + 1.5f), new Vector2(), 1.4f, damage, timer);
-                    createBullet("", new Vector2(pillarPos.x, pillarPos.y + 3), new Vector2(), 1.4f, damage, timer);
-                    createBullet("", new Vector2(pillarPos.x, pillarPos.y + 4.5f), new Vector2(), 1.4f, damage, timer);
-                    createBullet("", new Vector2(pillarPos.x, pillarPos.y - 1.5f), new Vector2(), 1.4f, damage, timer);
-                    createBullet("", new Vector2(pillarPos.x, pillarPos.y - 3), new Vector2(), 1.4f, damage, timer);
-                    createBullet("", new Vector2(pillarPos.x, pillarPos.y - 4.5f), new Vector2(), 1.4f, damage, timer);
+                    createBullet("lightCigar", pillarPos, new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, 1.5f), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, 3), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, 4.5f), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, - 1.5f), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, - 3), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, - 4.5f), new Vector2(), 1.4f, damage, timer);
+                    //gameObject.GetComponent("IGame").AddCard
+                    var s1 = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
+                    foreach(IGame game in s1)
+                    {
+                        game.AddCardToHandFromCardLibrary(playerID, em.GetComponentData<CardComp>(card).cardSlot, 23);
+                    }
                     break;
                 case 23:
                     // Spawn projectiles from top of screen (based on user position in the future?)
@@ -414,6 +428,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(.75f, -1), 0.5f, damage, timer);
                     createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(.5f, -1), 0.5f, damage, timer);
                     createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(0, -1), 0.5f, damage, timer);
+                    var s2 = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
+                    foreach(IGame game in s2)
+                    {
+                        game.AddCardToHandFromCardLibrary(playerID, em.GetComponentData<CardComp>(card).cardSlot, 24);
+                    }
                     break;
                 case 24:
                     // After delay, smash cigar, starting at top of opponent's side, based on user poition
