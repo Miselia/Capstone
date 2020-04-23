@@ -531,7 +531,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.SetComponentData(oil, new DeleteComp(300));
                 break;
             case "gear":
-                Entity gear = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x13, false);
+                Entity gear = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
                 em.AddComponent(gear, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
                 em.SetComponentData(gear, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.GearID));
                 //em.AddComponent(gear, typeof(DeleteComp));
@@ -565,7 +565,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[17]);
                 break;
             case "smashCigar":
-                Entity cigar = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[18], 0x12, true, new Vector2(), 6);
+                Entity cigar = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[18], 0x08, true, new Vector2(), 6);
                 em.AddComponent(cigar, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
                 em.SetComponentData(cigar, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.CigarID));
                 break;

@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Components\AddCardToHandComponent.cs" />
+    <Compile Include="Assets\Components\AffectedByGravityComponent.cs" />
     <Compile Include="Assets\Components\CardComp.cs" />
     <Compile Include="Assets\Components\CollisionComponent.cs" />
     <Compile Include="Assets\Components\DeleteComp.cs" />

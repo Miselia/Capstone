@@ -24,7 +24,7 @@ public static class PlayerBoundaryEntity
         em.AddComponent(entity, typeof(IsBoundaryComponent));
 
         em.SetComponentData(entity, new XformComponent(position));
-        em.SetComponentData(entity, new CollisionComponent(0f, 1000, 0x0c));
+        em.SetComponentData(entity, new CollisionComponent(0f, 1000, 0x0C));
         em.SetComponentData(entity, new PlayerBoundaryComponent(normal, side));
         em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });

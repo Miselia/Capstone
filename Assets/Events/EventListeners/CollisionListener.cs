@@ -31,30 +31,30 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 return true;
             }
             // Projectile x Boundary Collision
-            if (ce.collisionMask == 2)
+            else if (ce.collisionMask == 2)
             {
                 ProjectileBoundaryCollisionHelper(ce.entityA, ce.entityB);
                 return true;
             }
             // Player x Boundary Collision
-            if (ce.collisionMask == 4)
+            else if (ce.collisionMask == 4)
             {
                 PlayerBoundaryCollisionHelper(ce.entityA, ce.entityB);
                 return true;
             }
             // Gear x Boundary Collision
-            if (ce.collisionMask == Constants.GearID)
+            else if (ce.collisionMask == Constants.GearID)
             {
                 GearBoundaryCollisionHelper(ce.entityA, ce.entityB);
                 return true;
             }
             // Cigar x Boundary Colliison
-            if (ce.collisionMask == Constants.CigarID)
+            else if (ce.collisionMask == Constants.CigarID)
             {
                 Debug.Log("Handle Cigar collision with Player Boundary");
                 return true;
             }
-            // Rocket x Boundary Collision
+            // Rocket x Boundary Collision, might not actually collide with player boundaries for now (balance before implementation)
             /*if (ce.collisionMask == Constants.RocketID)
             {
                 Debug.Log("Handle Rocket collision with Player Boundary");

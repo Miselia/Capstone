@@ -26,11 +26,11 @@ public class CollisionDetectionSystem : ComponentSystem
         Dictionary<Entity, List<Entity>> checkedPairs = new Dictionary<Entity, List<Entity>>();
         bool skipFlag = false;
 
-        Entities.ForEach((Entity firstEntity, ref Translation xform, ref CollisionComponent collComp) =>
+        Entities.ForEach((EntityQueryBuilder.F_EDD<Translation, CollisionComponent>)((Entity firstEntity, ref Translation xform, ref CollisionComponent collComp) =>
         {
         if (!game.GetCollidingPairs().ContainsKey(firstEntity))
         {
-            game.GetCollidingPairs().Add(firstEntity, new List<Entity>());
+                game.GetCollidingPairs().Add(firstEntity, new List<Entity>());
         }
         if (!checkedPairs.ContainsKey(firstEntity))
         {
@@ -38,20 +38,20 @@ public class CollisionDetectionSystem : ComponentSystem
         }
 
         int parentInt = World.Active.EntityManager.GetComponentData<QuadTreeReferenceComponent>(firstEntity).parentID;
-        QuadTreeNode parent = QuadTreeSystem.quadTreeDict[parentInt];
+            QuadTreeNode parent = QuadTreeSystem.quadTreeDict[parentInt];
         byte firstMask = EntityManager.GetComponentData<CollisionComponent>(firstEntity).mask;
 
         while (parent != null)
         {
             byte secondMask;
-            List<Entity> leaves = parent.leaves;
+                List<Entity> leaves = parent.leaves;
 
             foreach (Entity secondEntity in leaves)
             {                
                 secondMask = EntityManager.GetComponentData<CollisionComponent>(secondEntity).mask;
                 if (!game.GetCollidingPairs().ContainsKey(secondEntity))
                 {
-                    game.GetCollidingPairs().Add(secondEntity, new List<Entity>());
+                        game.GetCollidingPairs().Add(secondEntity, new List<Entity>());
                 }
                 if (firstEntity == secondEntity)
                 {
@@ -84,36 +84,38 @@ public class CollisionDetectionSystem : ComponentSystem
                 {
                     collisionCounter++;
                     int compare = firstMask & secondMask;
-                    switch(compare)
+
+                    switch (compare)
                     {
                         case 1:
                             // Player x Projectile Collision
                             if(EntityManager.HasComponent<PlayerComponent>(firstEntity))
-                                HandlePlayerCollisionWithProjectile(game, firstEntity, secondEntity, compare);
+                                    HandlePlayerCollisionWithProjectile(game, firstEntity, secondEntity, compare);
                             else
                             {
                                 if(EntityManager.HasComponent<PlayerComponent>(secondEntity))
-                                    HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity, compare);
+                                        HandlePlayerCollisionWithProjectile(game, secondEntity, firstEntity, compare);
                             }
                             break;
                         case 2:
                             // Projectile x Projectile Boundary Collision
                             if(EntityManager.HasComponent<ProjectileComponent>(firstEntity))
-                                HandleProjectileCollisionWithBoundary(game, firstEntity, secondEntity, compare);
+                                this.HandleProjectileCollisionWithProjectileBoundary((IGame)game, (Entity)firstEntity, (Entity)secondEntity, (int)compare);
                             else
-                                HandleProjectileCollisionWithBoundary(game, secondEntity, firstEntity, compare);
+                                this.HandleProjectileCollisionWithProjectileBoundary((IGame)game, (Entity)secondEntity, (Entity)firstEntity, (int)compare);
                             break;
                         case 4:
                             // Player x Player Boundary Collision
                             if(EntityManager.HasComponent<PlayerComponent>(firstEntity))
-                                HandlePlayerCollisionWithBoundary(game, firstEntity, secondEntity, compare);
+                                    HandlePlayerCollisionWithBoundary(game, firstEntity, secondEntity, compare);
                             else
-                                HandlePlayerCollisionWithBoundary(game, secondEntity, firstEntity, compare);
+                                    HandlePlayerCollisionWithBoundary(game, secondEntity, firstEntity, compare);
                             break;
                         case 8:
                             // Projectile x Player Boundary Collision
                             Entity projectile;
                             Entity bound;
+                            Debug.Log("Projectile x Player Bound Collision");
                             if (EntityManager.HasComponent<ProjectileComponent>(firstEntity))
                             {
                                 projectile = firstEntity;
@@ -127,14 +129,15 @@ public class CollisionDetectionSystem : ComponentSystem
                             // ****** IF YOU EVER HAVE ISSUES WITH COLLISIONS WITH PROJECTILES AND PLAYER BOUNDARIES CHECK HERE ******** \\
                             // Switch "cases" cannot be evaluated and must be declared, meaning that we cannot reference Constants
                             // Make sure these matches match or else the code will break
-                            switch(EntityManager.GetComponentData<ProjectileCollisionWithPlayerBoundaryComponent>(projectile).caseInt)
+                            /*switch(EntityManager.GetComponentData<ProjectileCollisionWithPlayerBoundaryComponent>(projectile).caseInt)
                             {
                                 case 8:
-                                    HandleGearCollisionWithBoundary(game, projectile, bound, Constants.GearID);
+                                    HandleProjectileCollisionWithPlayerBoundary(game, projectile, bound, Constants.GearID);
                                     break;
                                 // case 9 is cigar
                                 // case 10 is rocket
-                            }
+                            }*/
+                            HandleProjectileCollisionWithPlayerBoundary(game, projectile, bound, EntityManager.GetComponentData<ProjectileCollisionWithPlayerBoundaryComponent>(projectile).caseInt);
                             break;
                     }
                 }
@@ -142,21 +145,24 @@ public class CollisionDetectionSystem : ComponentSystem
             }
             parent = parent.parent;
         }
-        });
+        }));
         
     }
 
-    private void HandleGearCollisionWithBoundary(IGame game, Entity gearEntity, Entity playerBoundEntity, int mask)
+    private void HandleProjectileCollisionWithPlayerBoundary(IGame game, Entity gearEntity, Entity playerBoundEntity, int mask)
     {
-        //Debug.Log("Gear collided with Player Boundary");
-        Vector3 circleVector = EntityManager.GetComponentData<Translation>(gearEntity).Value;
-        Vector3 boundaryVector = EntityManager.GetComponentData<Translation>(playerBoundEntity).Value;
+        Debug.Log("Projectile collided with Player Boundary");
+        Vector3 circlePosition = EntityManager.GetComponentData<Translation>(gearEntity).Value;
+        Vector3 boundaryPosition = EntityManager.GetComponentData<Translation>(playerBoundEntity).Value;
         float circleRadius = EntityManager.GetComponentData<CollisionComponent>(gearEntity).collisionRadius;
 
         if (EntityManager.GetComponentData<PlayerBoundaryComponent>(playerBoundEntity).Normal.x == 0)
         {
-            Vector2 nearestWallPosition = new Vector2(circleVector.x, boundaryVector.y);
-            if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
+            // Currently boundary collision is infinite. Simple fix is to make it so that the generated "nearest point" 
+            // is actually within range of the height/width (opposite of normal) for collision checks
+            // if((nearestWallPosition.y > min Wall Value.y and nearestWallPosition.y < max Wall Value.y
+            Vector2 nearestWallPosition = new Vector2(circlePosition.x, boundaryPosition.y);
+            if ((nearestWallPosition - new Vector2(circlePosition.x, circlePosition.y)).magnitude < circleRadius)
             {
                 game.GetCollidingPairs()[gearEntity].Add(playerBoundEntity);
                 Debug.Log("Gear collide with boundary");
@@ -167,8 +173,8 @@ public class CollisionDetectionSystem : ComponentSystem
         }
         if (EntityManager.GetComponentData<PlayerBoundaryComponent>(playerBoundEntity).Normal.y == 0)
         {
-            Vector2 nearestWallPosition = new Vector2(boundaryVector.x, circleVector.y);
-            if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
+            Vector2 nearestWallPosition = new Vector2(boundaryPosition.x, circlePosition.y);
+            if ((nearestWallPosition - new Vector2(circlePosition.x, circlePosition.y)).magnitude < circleRadius)
             {
                 game.GetCollidingPairs()[gearEntity].Add(playerBoundEntity);
                 Debug.Log("Gear collide with boundary");
@@ -179,7 +185,7 @@ public class CollisionDetectionSystem : ComponentSystem
         }
     }
 
-    private void HandleProjectileCollisionWithBoundary(IGame game, Entity projectileEntity, Entity boundaryEntity, int mask)
+    private void HandleProjectileCollisionWithProjectileBoundary(IGame game, Entity projectileEntity, Entity boundaryEntity, int mask)
     {
         Vector3 circleVector = EntityManager.GetComponentData<Translation>(projectileEntity).Value;
         Vector3 boundaryVector = EntityManager.GetComponentData<Translation>(boundaryEntity).Value;
