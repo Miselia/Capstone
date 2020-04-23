@@ -450,12 +450,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                             em.GetComponentData<Translation>(player).Value.x - 7;
 
                         cigarPos = (playerID == 1) ?
-                            new Vector2(Constants.GameBoundaryOffset + offset, 0) :
-                            new Vector2(Constants.GameBoundaryOffset - offset, 0);
+                            new Vector2(Constants.GameBoundaryOffset + offset, 6) :
+                            new Vector2(Constants.GameBoundaryOffset - offset, 6);
                     }
+                    createBullet("smashCigar", cigarPos, new Vector2(0, -1), 1, damage, timer);
                     break;
                 case 25:
-                    // First cast beings targeting system, second cast fires the missile in the direction from 1st to 2nd cast
+                    // First cast begins targeting system, second cast fires the missile in the direction from 1st to 2nd cast
                     // Explodes on wall creating fragmented projectiles
                     break;
             }
@@ -530,7 +531,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.SetComponentData(oil, new DeleteComp(300));
                 break;
             case "gear":
-                Entity gear = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
+                Entity gear = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x13, false);
+                em.AddComponent(gear, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
+                em.SetComponentData(gear, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.GearID));
                 //em.AddComponent(gear, typeof(DeleteComp));
                 //em.SetComponentData(gear, new DeleteComp(1000));
                 break;
@@ -560,6 +563,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 break;
             case "flickCigar":
                 ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[17]);
+                break;
+            case "smashCigar":
+                Entity cigar = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[18], 0x12, true, new Vector2(), 6);
+                em.AddComponent(cigar, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
+                em.SetComponentData(cigar, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.CigarID));
                 break;
             default:
                 // Draws invisible projectile that gets deleted immediately

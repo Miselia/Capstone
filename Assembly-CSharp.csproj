@@ -78,6 +78,7 @@
     <Compile Include="Assets\Components\PlayerBoundaryComponent.cs" />
     <Compile Include="Assets\Components\PlayerComponent.cs" />
     <Compile Include="Assets\Components\ProjectileBoundaryComponent.cs" />
+    <Compile Include="Assets\Components\ProjectileCollisionWithPlayerBoundaryComponent.cs" />
     <Compile Include="Assets\Components\ProjectileComponent.cs" />
     <Compile Include="Assets\Components\ProjectileSpeedBuffComp.cs" />
     <Compile Include="Assets\Components\QuadTreeReferenceComponent.cs" />

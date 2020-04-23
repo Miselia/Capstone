@@ -10,6 +10,12 @@ using UnityEngine.EventSystems;
 
 public class CollisionListener : MonoBehaviour, IGenericEventListener
 {
+    /* Due to having no other idea how to do this, Projectile Collisions with Player Boundaries will have to have their own
+     * values passed in, meaning there will be yet another Integer key here. Yay! ... ...
+     * Gear = 8
+     * Cigar = 9
+     * Rocket = 10
+     * */
     public bool HandleEvent(IGenericEvent evt)
     {
         if(evt is CollisionEvent)
@@ -36,11 +42,24 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 PlayerBoundaryCollisionHelper(ce.entityA, ce.entityB);
                 return true;
             }
-            if (ce.collisionMask == 8)
+            // Gear x Boundary Collision
+            if (ce.collisionMask == Constants.GearID)
             {
                 GearBoundaryCollisionHelper(ce.entityA, ce.entityB);
                 return true;
             }
+            // Cigar x Boundary Colliison
+            if (ce.collisionMask == Constants.CigarID)
+            {
+                Debug.Log("Handle Cigar collision with Player Boundary");
+                return true;
+            }
+            // Rocket x Boundary Collision
+            /*if (ce.collisionMask == Constants.RocketID)
+            {
+                Debug.Log("Handle Rocket collision with Player Boundary");
+                return true;
+            }*/
         }
         return false;
     }

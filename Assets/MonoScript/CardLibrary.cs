@@ -49,13 +49,6 @@ public class CardLibrary: MonoBehaviour
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }
 
-    // Update is called once per frame
-    /*
-    void Update()
-    {
-        
-    }
-    */
     public List<CardData> GetListByID(string faction)
     {
         return library[faction].OrderBy(c => c.cardID).ToList();

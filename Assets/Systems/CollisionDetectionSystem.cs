@@ -1,4 +1,5 @@
 ﻿using Assets.MonoScript;
+using Assets.Resources;
 using Assets.Systems;
 using System;
 using System.Collections.Generic;
@@ -110,11 +111,30 @@ public class CollisionDetectionSystem : ComponentSystem
                                 HandlePlayerCollisionWithBoundary(game, secondEntity, firstEntity, compare);
                             break;
                         case 8:
-                            // Gear x Player Boundary Collision
-                            if(EntityManager.HasComponent<ProjectileComponent>(firstEntity))
-                                HandleGearCollisionWithBoundary(game, firstEntity, secondEntity, compare);
+                            // Projectile x Player Boundary Collision
+                            Entity projectile;
+                            Entity bound;
+                            if (EntityManager.HasComponent<ProjectileComponent>(firstEntity))
+                            {
+                                projectile = firstEntity;
+                                bound = secondEntity;
+                            }
                             else
-                                HandleGearCollisionWithBoundary(game, secondEntity, firstEntity, compare);
+                            {
+                                projectile = secondEntity;
+                                bound = firstEntity;
+                            }
+                            // ****** IF YOU EVER HAVE ISSUES WITH COLLISIONS WITH PROJECTILES AND PLAYER BOUNDARIES CHECK HERE ******** \\
+                            // Switch "cases" cannot be evaluated and must be declared, meaning that we cannot reference Constants
+                            // Make sure these matches match or else the code will break
+                            switch(EntityManager.GetComponentData<ProjectileCollisionWithPlayerBoundaryComponent>(projectile).caseInt)
+                            {
+                                case 8:
+                                    HandleGearCollisionWithBoundary(game, projectile, bound, Constants.GearID);
+                                    break;
+                                // case 9 is cigar
+                                // case 10 is rocket
+                            }
                             break;
                     }
                 }
@@ -122,7 +142,6 @@ public class CollisionDetectionSystem : ComponentSystem
             }
             parent = parent.parent;
         }
-            
         });
         
     }
