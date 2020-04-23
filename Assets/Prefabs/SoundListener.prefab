@@ -1,767 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3226034219338989273
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5324562320177161892}
-  - component: {fileID: 3116028478116588140}
-  m_Layer: 0
-  m_Name: Doot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5324562320177161892
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3226034219338989273}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7768723796657795689}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &3116028478116588140
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3226034219338989273}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!1 &7768723794910919726
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7768723794910919720}
-  - component: {fileID: 7768723794910919727}
-  m_Layer: 0
-  m_Name: TakeDamage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7768723794910919720
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723794910919726}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7768723796657795689}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7768723794910919727
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723794910919726}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1e9529c12c25da3409276b694a75da07, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!1 &7768723795061391233
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7768723795061391235}
-  - component: {fileID: 7768723795061391234}
-  m_Layer: 0
-  m_Name: PlayCard
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7768723795061391235
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723795061391233}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7768723796657795689}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7768723795061391234
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723795061391233}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 31270fb0a5b9ddd4ea4e3c83f8b479ff, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.4
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!1 &7768723795204211804
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7768723795204211806}
-  - component: {fileID: 7768723795204211805}
-  m_Layer: 0
-  m_Name: Projectile Buff
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7768723795204211806
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723795204211804}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7768723796657795689}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7768723795204211805
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723795204211804}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a263ba51e51414b4292f745f553ee89e, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!1 &7768723795872407067
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7768723795872407061}
-  - component: {fileID: 7768723795872407060}
-  m_Layer: 0
-  m_Name: Destroy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7768723795872407061
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723795872407067}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7768723796657795689}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7768723795872407060
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723795872407067}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bdecc07ca78aa0c48bc33f699132ddcf, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!1 &7768723796159370930
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7768723796159370931}
-  - component: {fileID: 7768723796159370956}
-  m_Layer: 0
-  m_Name: Buff
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7768723796159370931
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723796159370930}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7768723796657795689}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7768723796159370956
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7768723796159370930}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b81dc16bc11b9bb40bf38b44234d1bf7, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &7768723796657795695
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,13 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.47693, y: 3.027919, z: -9.992271}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7768723795061391235}
-  - {fileID: 7768723794910919720}
-  - {fileID: 7768723796159370931}
-  - {fileID: 7768723795204211806}
-  - {fileID: 7768723795872407061}
-  - {fileID: 5324562320177161892}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -812,57 +44,829 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - genre: Fantasy
-    type: SmallCard
+  - name: Fantasy SmallCard 4
     clip: {fileID: 8300000, guid: 38421bb08b81be3448fcdd5e480b897e, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - genre: Fantasy
-    type: Hurt
-    clip: {fileID: 8300000, guid: d213aa6b94439044880fd88d18c6dd2f, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - genre: Fantasy
-    type: BuffSelf
-    clip: {fileID: 8300000, guid: 62c524edf5bbe7948bbec756e241af4f, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - genre: Fantasy
-    type: BuffProjectile
-    clip: {fileID: 8300000, guid: 4c6bd5a9b3ab0bc45b713b023d3cc4f0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - genre: Other
-    type: Doot
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - genre: Other
-    type: Destroy
-    clip: {fileID: 8300000, guid: bdecc07ca78aa0c48bc33f699132ddcf, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - genre: Fantasy
-    type: LargeCard
-    clip: {fileID: 8300000, guid: 765f4c719a5e62044b4a8281cbc4fd6f, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - genre: Other
-    type: BuffSelf
-    clip: {fileID: 8300000, guid: b81dc16bc11b9bb40bf38b44234d1bf7, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - genre: Fantasy
+    genre: Fantasy
     type: SmallCard
-    clip: {fileID: 8300000, guid: c17b6e9e5f113e54589f0296fdd87fff, type: 3}
     volume: 1
     pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Hurt 5
+    clip: {fileID: 8300000, guid: d213aa6b94439044880fd88d18c6dd2f, type: 3}
+    genre: Fantasy
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy BuffSelf 1
+    clip: {fileID: 8300000, guid: 62c524edf5bbe7948bbec756e241af4f, type: 3}
+    genre: Fantasy
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy BuffProjectile 2
+    clip: {fileID: 8300000, guid: 4c6bd5a9b3ab0bc45b713b023d3cc4f0, type: 3}
+    genre: Fantasy
+    type: BuffProjectile
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Doot Horn
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Other
+    type: Doot
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Destroy
+    clip: {fileID: 8300000, guid: bdecc07ca78aa0c48bc33f699132ddcf, type: 3}
+    genre: Other
+    type: Destroy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy LargeCard 2
+    clip: {fileID: 8300000, guid: 765f4c719a5e62044b4a8281cbc4fd6f, type: 3}
+    genre: Fantasy
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Generic Buff
+    clip: {fileID: 8300000, guid: b81dc16bc11b9bb40bf38b44234d1bf7, type: 3}
+    genre: Other
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy SmallCard 2
+    clip: {fileID: 8300000, guid: c17b6e9e5f113e54589f0296fdd87fff, type: 3}
+    genre: Fantasy
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror SmallCard 1
+    clip: {fileID: 8300000, guid: 644e7c602a431064e9ae2b187ee66334, type: 3}
+    genre: Horror
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror BuffSelf 1
+    clip: {fileID: 8300000, guid: e57c6e8f8f4136e4f97890eaf570ac49, type: 3}
+    genre: Horror
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror BuffProjectile 1
+    clip: {fileID: 8300000, guid: 75f16b8a6fdb77447a09aea2fcb8e0e9, type: 3}
+    genre: Horror
+    type: BuffProjectile
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Hurt 1
+    clip: {fileID: 8300000, guid: ca9502cc5e361894a8ee9203188b5faa, type: 3}
+    genre: Horror
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror LargeCard 1
+    clip: {fileID: 8300000, guid: 6c9914a784ee490468afe9721c47997a, type: 3}
+    genre: Horror
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Sci-Fi SmallCard 4
+    clip: {fileID: 8300000, guid: d7fccdd0f97841f458b713649e698ab5, type: 3}
+    genre: Sci-Fi
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Sci-Fi LargeCard 1
+    clip: {fileID: 8300000, guid: e57b0555ea92f5846b1acfc62d486785, type: 3}
+    genre: Sci-Fi
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Sci-Fi BuffSelf 1
+    clip: {fileID: 8300000, guid: e413b13ccc4c01a40870b1f84c4a9e57, type: 3}
+    genre: Sci-Fi
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Sci-Fi  Buff Projectile 1
+    clip: {fileID: 8300000, guid: cf321705bc5e1e34f98aa22bc6516bef, type: 3}
+    genre: Sci-Fi
+    type: BuffProjectile
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Sci-Fi Hurt 1
+    clip: {fileID: 8300000, guid: 22c603a789679fc4bb1c24daf86dc147, type: 3}
+    genre: Sci-Fi
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Hurt 1
+    clip: {fileID: 8300000, guid: 1e9529c12c25da3409276b694a75da07, type: 3}
+    genre: Steampunk
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk SmallCard 1
+    clip: {fileID: 8300000, guid: 31270fb0a5b9ddd4ea4e3c83f8b479ff, type: 3}
+    genre: Steampunk
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk LargeCard 1
+    clip: {fileID: 8300000, guid: 31270fb0a5b9ddd4ea4e3c83f8b479ff, type: 3}
+    genre: Steampunk
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk BuffSelf 1
+    clip: {fileID: 8300000, guid: b81dc16bc11b9bb40bf38b44234d1bf7, type: 3}
+    genre: Steampunk
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk BuffProjectile 1
+    clip: {fileID: 8300000, guid: a263ba51e51414b4292f745f553ee89e, type: 3}
+    genre: Steampunk
+    type: BuffProjectile
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Intro 1
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Steampunk
+    type: Intro
+    volume: 1
+    pitch: 1.5
+    source: {fileID: 0}
+  - name: Fantasy Intro 1
+    clip: {fileID: 8300000, guid: 1361f14a928c4cc4da3eea1500142928, type: 3}
+    genre: Fantasy
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Sci-Fi Intro 1
+    clip: {fileID: 8300000, guid: 5ecaafb0d6a3a7947a0028b8eadf61a4, type: 3}
+    genre: Sci-Fi
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Intro 1
+    clip: {fileID: 8300000, guid: 79b3e7cedccbb7f43a43e4d86219a836, type: 3}
+    genre: Horror
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Buff Projectile 1
+    clip: {fileID: 8300000, guid: db27e03f21bbb35448f3ecbfe9e93e12, type: 3}
+    genre: Fantasy
+    type: BuffProjectile
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy BuffSelf 2
+    clip: {fileID: 8300000, guid: b7dc1eea547b5b84d9b53469d6f92cb5, type: 3}
+    genre: Fantasy
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Hurt 1
+    clip: {fileID: 8300000, guid: 91391d46e24fea042a619d330c2fe950, type: 3}
+    genre: Fantasy
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Hurt 2
+    clip: {fileID: 8300000, guid: 5d3a9f9079b72b3409c9c0fd30ae0db9, type: 3}
+    genre: Fantasy
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Hurt 3
+    clip: {fileID: 8300000, guid: d0b6fbca314cd1141b009bdd9657d85e, type: 3}
+    genre: Fantasy
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Hurt 4
+    clip: {fileID: 8300000, guid: d65409ff70a35f64d91b69b9839b881f, type: 3}
+    genre: Fantasy
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy HurtHeavy 1
+    clip: {fileID: 8300000, guid: f9296ef22de2b84428c028bc6b0e64d1, type: 3}
+    genre: Fantasy
+    type: HurtHeavy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy HurtHeavy 2
+    clip: {fileID: 8300000, guid: b1c0b2403f452d748b041b425499ff60, type: 3}
+    genre: Fantasy
+    type: HurtHeavy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy HurtHeavy 3
+    clip: {fileID: 8300000, guid: 35539c93e3808824e8b1319d54f12659, type: 3}
+    genre: Fantasy
+    type: HurtHeavy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Intro 2
+    clip: {fileID: 8300000, guid: d1c82c8aa84104c47bbe48564b8a4240, type: 3}
+    genre: Fantasy
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy LargeCard 1
+    clip: {fileID: 8300000, guid: f5277bf961ce2a344b34b0d63b96ffe1, type: 3}
+    genre: Fantasy
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy LargeCard 3
+    clip: {fileID: 8300000, guid: 430b2d58a3dd3404aa6f3ff630979ae9, type: 3}
+    genre: Fantasy
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Loss 1
+    clip: {fileID: 8300000, guid: 0b25df309133d924194f78a7e7c7673a, type: 3}
+    genre: Fantasy
+    type: Loss
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Loss 2
+    clip: {fileID: 8300000, guid: dcd02cb8bca33db42abe17a78d1f1996, type: 3}
+    genre: Fantasy
+    type: Loss
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy SmallCard 1
+    clip: {fileID: 8300000, guid: f8fde7d35895a164d9c9e79d08378bed, type: 3}
+    genre: Fantasy
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy SmallCard 3
+    clip: {fileID: 8300000, guid: 4e5fef68da38e584b8dda4fb818e2445, type: 3}
+    genre: Fantasy
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Fantasy 1
+    clip: {fileID: 8300000, guid: 40e344041b08f4c4a874c8a6383582ba, type: 3}
+    genre: Fantasy
+    type: Fantasy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Fantasy 2
+    clip: {fileID: 8300000, guid: 6850a3545b7597146b800c9a5ed79055, type: 3}
+    genre: Fantasy
+    type: Fantasy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Horror 1
+    clip: {fileID: 8300000, guid: f29a8d2d1e2287e41bccf57241d0cd29, type: 3}
+    genre: Fantasy
+    type: Horror
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Horror 2
+    clip: {fileID: 8300000, guid: e00a5f5ee11c1b04983da636fa8a8c6a, type: 3}
+    genre: Fantasy
+    type: Horror
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Sci-Fi 1
+    clip: {fileID: 8300000, guid: 741696a8f22dc6e48b17aedea2858874, type: 3}
+    genre: Fantasy
+    type: Sci-Fi
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Sci-Fi 2
+    clip: {fileID: 8300000, guid: e96f58fc7787aa84091ac4a943c1ad3d, type: 3}
+    genre: Fantasy
+    type: Sci-Fi
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Steampunk 1
+    clip: {fileID: 8300000, guid: c7db8b116ac676d48a269d32572ef7b5, type: 3}
+    genre: Fantasy
+    type: Steampunk
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Steampunk 2
+    clip: {fileID: 8300000, guid: cd999b8cd205d7d4c8694385789d2a16, type: 3}
+    genre: Fantasy
+    type: Steampunk
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Victory 1
+    clip: {fileID: 8300000, guid: 912a4a5ac42183a4ea7e5f2483596aec, type: 3}
+    genre: Fantasy
+    type: Victory
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Victory 2
+    clip: {fileID: 8300000, guid: 1ac3e9480469bbf4f82e9df69891e426, type: 3}
+    genre: Fantasy
+    type: Victory
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi BuffProjectile 2
+    clip: {fileID: 8300000, guid: d3def7a7d78ced14fabfe7e1457c071c, type: 3}
+    genre: Sci-Fi
+    type: BuffProjectile
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi BuffSelf 2
+    clip: {fileID: 8300000, guid: c7b78311b14a5a0478789ff226fbe7ee, type: 3}
+    genre: Sci-Fi
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi BuffSelf 3
+    clip: {fileID: 8300000, guid: 7048584908577b349b94e6b8c373db5b, type: 3}
+    genre: Sci-Fi
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Hurt 3
+    clip: {fileID: 8300000, guid: 0339499e797d62244a792229bf79258d, type: 3}
+    genre: Sci-Fi
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Hurt 2
+    clip: {fileID: 8300000, guid: f47ac2c58202693489b78806bb703642, type: 3}
+    genre: Sci-Fi
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi HurtHeavy 1
+    clip: {fileID: 8300000, guid: ddb62dbc40aaba140aea7c062161867e, type: 3}
+    genre: Sci-Fi
+    type: HurtHeavy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi HurtHeavy 2
+    clip: {fileID: 8300000, guid: bc4c765e2ef6139499fadc6bfc204642, type: 3}
+    genre: Sci-Fi
+    type: HurtHeavy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Intro 2
+    clip: {fileID: 8300000, guid: dc090bab0304162438f28a6dfc2f48b2, type: 3}
+    genre: Sci-Fi
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Intro 3
+    clip: {fileID: 8300000, guid: 9b9d013c1b1ed9f40a0be7c25adf566d, type: 3}
+    genre: Sci-Fi
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi LargeCard 2
+    clip: {fileID: 8300000, guid: 4c3feb2e6161939478ee943df63f3428, type: 3}
+    genre: Sci-Fi
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi LargeCard 3
+    clip: {fileID: 8300000, guid: 886d767f35ad3d94fb79485befa15f1a, type: 3}
+    genre: Sci-Fi
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Loss 1
+    clip: {fileID: 8300000, guid: 871b4b3ef03d8424c90e0121d02a63b7, type: 3}
+    genre: Sci-Fi
+    type: Loss
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Loss 2
+    clip: {fileID: 8300000, guid: 14e1aff498da57d4b888a6e786f43abc, type: 3}
+    genre: Sci-Fi
+    type: Loss
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Loss 3
+    clip: {fileID: 8300000, guid: c2becd1161608e3439e8816d19b6520b, type: 3}
+    genre: Sci-Fi
+    type: Loss
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi SmallCard 1
+    clip: {fileID: 8300000, guid: e9e8a90df5936de49839e4866b1b7eba, type: 3}
+    genre: Sci-Fi
+    type: smallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi SmallCard 2
+    clip: {fileID: 8300000, guid: be2549e0666235c4fa05dd54ffdd4b88, type: 3}
+    genre: Sci-Fi
+    type: smallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi SmallCard 3
+    clip: {fileID: 8300000, guid: b335d2352116c4f43ad93a426cc84185, type: 3}
+    genre: Sci-Fi
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Fantasy 1
+    clip: {fileID: 8300000, guid: 1cbd7a1e3f4865c4b99b9097ce4bcc06, type: 3}
+    genre: Sci-Fi
+    type: Fantasy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Fantasy 2
+    clip: {fileID: 8300000, guid: e34b84d5676ac544d8fd7cbee49d3cc2, type: 3}
+    genre: Sci-Fi
+    type: Fantasy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Horror 1
+    clip: {fileID: 8300000, guid: b7c1b8858d4ea164b88b9b4c467d186c, type: 3}
+    genre: Sci-Fi
+    type: Horror
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Horror 2
+    clip: {fileID: 8300000, guid: 005e3d63e7cd445418e9dda54cc33c4a, type: 3}
+    genre: Sci-Fi
+    type: Horror
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi SciFi 1
+    clip: {fileID: 8300000, guid: 29928aae1b98fe04d8270419d28b3d72, type: 3}
+    genre: Sci-Fi
+    type: Sci-Fi
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi SciFi 2
+    clip: {fileID: 8300000, guid: 6ae9bc4cf8204ba45ac4ec8c67a5035e, type: 3}
+    genre: Sci-Fi
+    type: Sci-Fi
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Steampunk 1
+    clip: {fileID: 8300000, guid: 551910499b5ac664a9b0abd060d4d320, type: 3}
+    genre: Sci-Fi
+    type: Steampunk
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Steampunk 2
+    clip: {fileID: 8300000, guid: d57dbe1d6ab52ef4fa43e8a704a31ae5, type: 3}
+    genre: Sci-Fi
+    type: Steampunk
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Super 1
+    clip: {fileID: 8300000, guid: fdb994b34fb26914cb0ce567f3337f92, type: 3}
+    genre: Sci-Fi
+    type: Super
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Super 2
+    clip: {fileID: 8300000, guid: 5a161140f578c6f4a9be3f0fd50f36ac, type: 3}
+    genre: Sci-Fi
+    type: Super
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Victory 1
+    clip: {fileID: 8300000, guid: 61fd5d6b12aaa174b8c4c1fd0661a0a7, type: 3}
+    genre: Sci-Fi
+    type: Victory
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Victory 2
+    clip: {fileID: 8300000, guid: 363f85c3f0e8a0f439187d11bd9b6d23, type: 3}
+    genre: Sci-Fi
+    type: Victory
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SciFi Victory 3
+    clip: {fileID: 8300000, guid: bd49f0e1c7a8f5a4ca895b3481736a3e, type: 3}
+    genre: Sci-Fi
+    type: Victory
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror BuffProjectile 2
+    clip: {fileID: 8300000, guid: 7f03b582f7aec694082c3d76650ba2e5, type: 3}
+    genre: Horror
+    type: BuffProjectile
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror BuffSelf 2
+    clip: {fileID: 8300000, guid: 71d3fcd024201c440a540cdef3388ebf, type: 3}
+    genre: Horror
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Hurt 2
+    clip: {fileID: 8300000, guid: 91f44c19428cb404da7e570f89017bf9, type: 3}
+    genre: Horror
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Hurt 3
+    clip: {fileID: 8300000, guid: 9775df18e7612bd41b8a917f3e816657, type: 3}
+    genre: Horror
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Hurt 4
+    clip: {fileID: 8300000, guid: 3d2f52f88e4510043a8fa0be11aa68ec, type: 3}
+    genre: Horror
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror HurtHeavy 1
+    clip: {fileID: 8300000, guid: 0577084613ef01c47acba392033f327b, type: 3}
+    genre: Horror
+    type: HurtHeavy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror HurtHeavy 2
+    clip: {fileID: 8300000, guid: b9d407b153b590441aa1741be263d2b9, type: 3}
+    genre: Horror
+    type: HurtHeavy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Intro 2
+    clip: {fileID: 8300000, guid: 58daae95debc9d04e8148eff59f90fb9, type: 3}
+    genre: Horror
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror LargeCard 2
+    clip: {fileID: 8300000, guid: 07c3061c26f521843acac6500c1f3c85, type: 3}
+    genre: Horror
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Intro 3
+    clip: {fileID: 8300000, guid: 6e53264880e606d4d8b51cbd0d4a6227, type: 3}
+    genre: Horror
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Loss 1
+    clip: {fileID: 8300000, guid: eaf88c1558be3584d84f478aac9df89e, type: 3}
+    genre: Horror
+    type: Loss
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Loss 2
+    clip: {fileID: 8300000, guid: e041f8135cccdce47b63805a935ef3bc, type: 3}
+    genre: Horror
+    type: Loss
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Loss 3
+    clip: {fileID: 8300000, guid: d5d01e75413ea9f49a0edf8bd395981e, type: 3}
+    genre: Horror
+    type: Loss
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Smallcard 2
+    clip: {fileID: 8300000, guid: 8f7c391bd62375a44be26c956eb19c85, type: 3}
+    genre: Horror
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Smallcard 3
+    clip: {fileID: 8300000, guid: eabcbc506d8b2c34a99dcbd6d5c9152b, type: 3}
+    genre: Horror
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Fantasy 1
+    clip: {fileID: 8300000, guid: 796c8fc1c74693f45b40c99a7c9927d0, type: 3}
+    genre: Horror
+    type: Fantasy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Fantasy 2
+    clip: {fileID: 8300000, guid: 2d9bd51740b92ab4fb7a43f87af22fb5, type: 3}
+    genre: Horror
+    type: Fantasy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Horror 1
+    clip: {fileID: 8300000, guid: 689cd751bcceecf43b639ba72191ed1b, type: 3}
+    genre: Horror
+    type: Horror
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Horror 2
+    clip: {fileID: 8300000, guid: 99767939c5bf9d8479d80e9c5d95b0dc, type: 3}
+    genre: Horror
+    type: Horror
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror SciFi 1
+    clip: {fileID: 8300000, guid: 3e082ce366ca1c14d90a042e22d2c3bf, type: 3}
+    genre: Horror
+    type: Sci-Fi
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror SciFi 2
+    clip: {fileID: 8300000, guid: 352b40be91d6dce4da531e7c2d289638, type: 3}
+    genre: Horror
+    type: Sci-Fi
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Steampunk 1
+    clip: {fileID: 8300000, guid: 77bc8fdb0f1aa1b4d99394be8790fb7c, type: 3}
+    genre: Horror
+    type: Steampunk
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Super 1
+    clip: {fileID: 8300000, guid: b6bdbd6984b5f5b4c9bc1d23c9c643fe, type: 3}
+    genre: Horror
+    type: Steampunk
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Steampunk 2
+    clip: {fileID: 8300000, guid: ccd4309baad317d4789481a50db1686f, type: 3}
+    genre: Horror
+    type: Steampunk
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Victory 1
+    clip: {fileID: 8300000, guid: bd68f22f4dc7b3643a902df6fa8420da, type: 3}
+    genre: Horror
+    type: Victory
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Horror Victory 2
+    clip: {fileID: 8300000, guid: 6a103875d4a92034881b270b7d0cb8a3, type: 3}
+    genre: Horror
+    type: Victory
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk HurtHeavy 1
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Steampunk
+    type: HurtHeavy
+    volume: 1
+    pitch: 1.18
+    source: {fileID: 0}
+  - name: Steampunk Victory 1
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Steampunk
+    type: Victory
+    volume: 1
+    pitch: 1.18
+    source: {fileID: 0}
+  - name: Steampunk Loss 1
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Steampunk
+    type: HurtHeavy
+    volume: 1
+    pitch: 1.18
+    source: {fileID: 0}
+  - name: Steampunk Super 1
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Steampunk
+    type: Super
+    volume: 1
+    pitch: 1.18
+    source: {fileID: 0}
+  - name: Steampunk Fantasy 1
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Steampunk
+    type: Fantasy
+    volume: 1
+    pitch: 1.18
+    source: {fileID: 0}
+  - name: Steampunk Horror 1
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Steampunk
+    type: Horror
+    volume: 1
+    pitch: 1.18
+    source: {fileID: 0}
+  - name: Steampunk SciFi 1
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Steampunk
+    type: Sci-Fi
+    volume: 1
+    pitch: 1.18
+    source: {fileID: 0}
+  - name: Steampunk Steampunk 1
+    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    genre: Steampunk
+    type: Sci-Fi
+    volume: 1
+    pitch: 1.18
     source: {fileID: 0}

@@ -6,9 +6,11 @@ using UnityEngine;
 [System.Serializable]
 public class Sound
 {
+    public string name;
+    public AudioClip clip;
     public string genre;
     public string type;
-    public AudioClip clip;
+    
 
     [Range(0f,1f)]
     public float volume;

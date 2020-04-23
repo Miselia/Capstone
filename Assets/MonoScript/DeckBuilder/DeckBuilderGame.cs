@@ -71,7 +71,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         //World.Active.GetExistingSystem<CollisionBoxDrawingSystem>().Enabled = true;
         //World.Active.GetExistingSystem<QuadTreeDrawingSystem>().Enabled = true;
         
-        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
+        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, builderDeck.GetPrimary(), playerMat);
 
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, (int)maxMana, 1));
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, (int)maxMana, 2));
@@ -88,6 +88,8 @@ public class DeckBuilderGame : MonoBehaviour, IGame
 
         EventManager.instance.QueueEvent(new InitializeDeckBuilderListUIEvent());
         EventManager.instance.QueueEvent(new InitializeDeckBuilerDeckUIEvent());
+
+        EventManager.instance.QueueEvent(new SoundEvent(builderDeck.GetPrimaryString(), builderDeck.GetSecondary()));
     }
 
     public bool HandleEvent(IGenericEvent evt)

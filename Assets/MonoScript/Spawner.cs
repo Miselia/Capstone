@@ -42,6 +42,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         int playerID = em.GetComponentData<CardComp>(card).player;
         float currentMana = em.GetComponentData<PlayerComponent>(player).mana;
         float manaCost  = em.GetComponentData<CardComp>(card).manaCost;
+        string genre = em.GetComponentData<PlayerComponent>(player).GetGenre();
 
         // If playerID = 1 then use Positive offset, else use negative offset
         // If in GameScene use GameBoundaryOffset, else use DeckBuilderBoundaryOffset
@@ -76,7 +77,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2; 
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy","BuffSelf"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre,"BuffSelf"));
                     createBullet("normal", new Vector2(positionX - 5, -5), new Vector2(0, 3), 1.0f, damage, timer);
                     createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.5f, damage, timer);
                     createBullet("normal", new Vector2(positionX + 5, -5), new Vector2(0, 3), 0.25f, damage, timer);
@@ -89,7 +90,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy","SmallCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     createBullet("fire", new Vector2(positionX+6, 0), new Vector2(-3, 0), 0.3f, damage, timer);
                     createBullet("fire", new Vector2(positionX-6, 0), new Vector2(3, 0), 0.3f, damage, timer);
                     createBullet("fire", new Vector2(positionX, -6), new Vector2(0, 0.5f), 1.5f, damage, timer);
@@ -102,7 +103,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     createBullet("purple", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f, damage, timer);
                     break;
 
@@ -113,7 +114,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     createBullet("red", new Vector2(positionX, 5), new Vector2(0, -2), 0.75f, damage, timer);
                     createBullet("red", new Vector2(positionX+5, 0), new Vector2(-2, 0), 0.75f, damage, timer);
                     createBullet("red", new Vector2(positionX, -5), new Vector2(0, 2), 0.75f, damage, timer);
@@ -126,7 +127,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
                 case 5:
                     //Glipse into the Ether
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "BuffSelf"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "BuffSelf"));
                     damage = 0;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
@@ -141,7 +142,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     damage = -damage;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
@@ -149,7 +150,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 7:
                     //Akashic Records
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "LargeCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -positionX;
 
                     int num1 = 7;
@@ -174,7 +175,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     createBullet("water", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer);
                     createBullet("water", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer);
                     createBullet("water", new Vector2(positionX, -5), new Vector2(0, 1), 0.5f, damage, timer);
@@ -192,21 +193,21 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 9:
                     //Magic Records
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "BuffProjectile"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "BuffProjectile"));
                     em.AddComponent(player, typeof(DoubleCastComp));
                     em.SetComponentData(player, new DoubleCastComp(true));
 
                     break;
                 case 10:
                     //Nano Barrier
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     createBullet("barrier", new Vector2(positionX - 0.1f, 0), new Vector2(-1, 0), 1f, damage, timer);
                     createBullet("barrier", new Vector2(positionX + 0.1f, 0), new Vector2(1, 0), 1f, damage, timer);
 
                     break;
                 case 11:
                     //Gravity Well
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "LargeCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
                     createBullet("gravityWell",new Vector2(positionX, 0), new Vector2(0, 0), 1f, damage, 0);
 
                     break;
@@ -217,7 +218,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "LargeCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer);
@@ -235,7 +236,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 13:
                     //Overcharge
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "BuffProjectile"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "BuffProjectile"));
                     foreach (Entity e in em.GetAllEntities())
                     {
                         if(em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
@@ -252,7 +253,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     Vector2 down = new Vector2(0, -2f);
                     createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.5f, damage, timer);
                     createBullet("bullet", new Vector2(positionX, 5), down, 0.5f, damage, timer);
@@ -277,7 +278,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     int speed = 3;
                     int direction = -positionX / Mathf.Abs(positionX);
                     Vector2 bottomCorner = new Vector2(positionX - direction * 5, -5);
@@ -293,7 +294,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 16:
                     // Well Oiled Machine
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "BuffSelf"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "BuffSelf"));
                     damage = 0;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
@@ -306,12 +307,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "LargeCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
                     createBullet("gear", new Vector2(positionX - 5, 5), new Vector2(0, 5), 0.75f, damage, timer);
                     break;
                 case 18:
                     //Chronosis
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "BuffProjectile"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "BuffProjectile"));
                     foreach (Entity e in em.GetAllEntities())
                     {
                         if (em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
