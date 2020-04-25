@@ -38,6 +38,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         {
             CreateProjectileEvent cpe = (CreateProjectileEvent) evt;
 
+
             Debug.Log("Create projectile listened to");
             createBullet(cpe.type, cpe.position, cpe.movementVector, cpe.radius, -cpe.damage, cpe.timer);
             return true;
@@ -424,11 +425,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 23:
                     // Spawn projectiles from top of screen (based on user position in the future?)
-                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(-.75f, -1), 0.5f, damage, timer);
-                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(-.5f, -1), 0.5f, damage, timer);
-                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(.75f, -1), 0.5f, damage, timer);
-                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(.5f, -1), 0.5f, damage, timer);
-                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(0, -1), 0.5f, damage, timer);
+                    //createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(-.75f, -1), 0.5f, damage, timer);
+                    createBullet("flickCigar", new Vector2(positionX - .5f, 6), new Vector2(-.5f, -2), 0.5f, damage, timer);
+                    //createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(.75f, -1), 0.5f, damage, timer);
+                    createBullet("flickCigar", new Vector2(positionX + .5f, 6), new Vector2(.5f, -2), 0.5f, damage, timer);
+                    createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(0, -2), 0.5f, damage, timer);
                     var s2 = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
                     foreach(IGame game in s2)
                     {
@@ -441,7 +442,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     Vector2 cigarPos;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
-                        cigarPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, 0);
+                        cigarPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, 6);
                     }
                     else
                     {
@@ -453,7 +454,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                             new Vector2(Constants.GameBoundaryOffset + offset, 6) :
                             new Vector2(Constants.GameBoundaryOffset - offset, 6);
                     }
-                    createBullet("fullCigar", cigarPos, new Vector2(0, -1), 1, damage, timer);
+                    // Take note of the cigarPos offset for the Y value, this must be inverted in the "fullCigar" section below
+                    createBullet("fullCigar", cigarPos, new Vector2(0, -4), 1, damage, timer);
                     break;
                 case 25:
                     // First cast begins targeting system, second cast fires the missile in the direction from 1st to 2nd cast
@@ -570,18 +572,61 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[17]);
                 break;
             case "fullCigar":
-                Entity cigar = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[18], 0x08, false, new Vector2(), 6);
-                em.AddComponent(cigar, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
-                em.SetComponentData(cigar, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.CigarID));
-                em.RemoveComponent(cigar, typeof(RotationComponent));
-                em.RemoveComponent(cigar, typeof(AffectedByGravityComponent));
+                Entity fullCigar = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[18], 0x00, false, new Vector2(), 6);
+                em.AddComponent(fullCigar, typeof(FullCigarComponent));
+                
+                em.RemoveComponent(fullCigar, typeof(RotationComponent));
+                em.RemoveComponent(fullCigar, typeof(AffectedByGravityComponent));
+                // Note: The offset for the following 2 projectiles (the hitbox and the dummy projectile) both need to have a vertical offset equal to the
+                // inverse of the vertical offset applied to the fullCigar
+                //      For Example: If cigarPos.y = 0 + 10, then dummyPos.y = cigarPos.y - 10
+
+                // This will serve as the cigar's hitbox
+                ProjectileEntity.Create(em, damage, new Vector2(position.x, position.y - 6), movementvector, radius, timer, mesh, projectileMaterialLibrary[21]);
+                // This dummy projectile will serve as the collision detection to spawn the Full cigar, meaning that "fullCigar" will need to be deleted remotely
+                Entity dummy = ProjectileEntity.Create(em, damage, new Vector2(position.x, position.y - 6), movementvector, radius, timer, mesh, projectileMaterialLibrary[21], 0x08);
+                em.AddComponent(dummy, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
+                em.SetComponentData(dummy, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.CigarID));
                 break;
             case "smashCigar":
                 // This isn't easy to follow, so hopefully this comment helps
                 // I wasn't able to find a better way to do this becaues I didn't want the CreateBulletEvent to be too complicated
                 // What we do know is that this code will only ever get called from the CreateBulletEvent meaning that when using a "smashCigar" case
                 // we can instead replace the typical "damage" value as the "side" value that we need for all PlayerBoundaries
-                Entity cigar = PlayerBoundaryEntity.Create(em, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[19], damage);
+                
+                // This code looks through each entity with a FullCigarComponent, and destroys it if the x value is exactly the same as the smashCigar
+                // position passed in (This could mean that 2 cigars that are both in play and have the exact same x value would be deleted even if only one
+                // had triggered the event.
+                // This can be further spaghettied to count how many are in the query, and perform further calculations whenever there are 2+ FullCigar entities
+                var query = em.CreateEntityQuery(typeof(FullCigarComponent), typeof(Translation));
+                Unity.Collections.NativeArray<Entity> na = query.ToEntityArray(Unity.Collections.Allocator.TempJob);
+                foreach (Entity e in na)
+                {
+                    if(em.GetComponentData<Translation>(e).Value.x == position.x)
+                    {
+                        em.DestroyEntity(e);
+                    }
+                }
+                query.Dispose();
+                na.Dispose();
+                Entity fakeCigar = ProjectileEntity.Create(em, 0, new Vector2(position.x, 0), new Vector2(), 1, timer, mesh, projectileMaterialLibrary[19], 0x00, false, new Vector2(), 6);
+                em.AddComponent(fakeCigar, typeof(DeleteComp));
+                em.SetComponentData(fakeCigar, new DeleteComp(420));
+                em.RemoveComponent(fakeCigar, typeof(AffectedByGravityComponent));
+                em.RemoveComponent(fakeCigar, typeof(RotationComponent));
+
+                // If Deck Builder, flip "damage"/Side value to opposite
+                if (SceneManager.GetActiveScene().Equals("DeckBuilder"))
+                    damage = 1;
+
+                Entity invisCigarLeft = PlayerBoundaryEntity.Create(em, new Vector2(position.x - 1, 0), movementvector, mesh, projectileMaterialLibrary[21], damage);
+                Entity invisCigarRight = PlayerBoundaryEntity.Create(em, new Vector2(position.x + 1, 0), -movementvector, mesh, projectileMaterialLibrary[21], damage);
+                em.AddComponent(invisCigarLeft, typeof(DeleteComp));
+                em.SetComponentData(invisCigarLeft, new DeleteComp(420));
+                em.AddComponent(invisCigarRight, typeof(DeleteComp));
+                em.SetComponentData(invisCigarRight, new DeleteComp(420));
+                createBullet("", new Vector2(position.x, -6), new Vector2(), 1, 1, timer);
+                break;
             default:
                 // Draws invisible projectile that gets deleted immediately
                 Material mat = projectileMaterialLibrary[21];

@@ -52,6 +52,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             else if (ce.collisionMask == Constants.CigarID)
             {
                 Debug.Log("Handle Cigar collision with Player Boundary");
+                CigarBoundaryCollisionHelpler(ce.entityA, ce.entityB);
                 return true;
             }
             // Rocket x Boundary Collision, might not actually collide with player boundaries for now (balance before implementation)
@@ -112,8 +113,8 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                                            World.Active.EntityManager.GetComponentData<Translation>(cigar).Value.y);
 
             World.Active.EntityManager.DestroyEntity(cigar);
-            // Because this is a Boundary and not a Projectile, we will use the "damage/d" as our side salue
-            int side = (cigarPos.x < 0) ? 1 : 2;
+            // Because this is a Boundary and not a Projectile, we will use the "damage/d" varialbe as our "side" salue
+            int side = (cigarPos.x < 0) ? 2 : 1;
             EventManager.instance.QueueEvent(new CreateProjectileEvent("smashCigar", side, cigarPos, new Vector2(-1, 0), 1f, 0));
             //PlayerBoundaryEntity.Create(World.Active.EntityManager, cigarPos, )
             return true;
