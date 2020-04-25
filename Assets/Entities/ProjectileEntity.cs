@@ -24,6 +24,7 @@ public static class ProjectileEntity
         em.AddComponent(entity, typeof(Scale));
         em.AddComponent(entity, typeof(QuadTreeReferenceComponent));
         em.AddComponent(entity, typeof(RotationComponent));
+        em.AddComponent(entity, typeof(AffectedByGravityComponent));
 
         //em.SetComponentData(entity, new Scale { Value = radius*extraScale/2});
         em.SetComponentData(entity, new ProjectileComponent(0,damage));
@@ -33,14 +34,21 @@ public static class ProjectileEntity
         //em.SetComponentData(entity, new CollisionComponent(radius, radius, 0x03));
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
         em.SetComponentData(entity, new QuadTreeReferenceComponent(-1));
-        if (initialRotation == new Vector2())
+        em.SetComponentData(entity, new RotationComponent(rotateWithDirection));
+
+        if (rotateWithDirection == true)
         {
-            em.SetComponentData(entity, new RotationComponent(rotateWithDirection));
+            // If you want a projectile to move with the direction (If it changes direction, it faces the way it moves) then this needs to be true
+            // Funnily enough, projectiles that are set to rotate with direction and have a direction of (0,0) will stay in place and never rotate
             em.SetComponentData(entity, new Rotation { Value = quaternion.Euler(0, 0, Mathf.Atan2(movementVector.x, movementVector.y)) });
         }
         else
         {
-            em.RemoveComponent(entity, typeof(RotationComponent));
+            // If a projectile moves AND rotates over time, then set this to false 
+            // If a projectile needs an initial rotation of something OTHER than (0,0) AND doesn't rotate, then set to false and in Spawner
+            // remove the RotationComponent
+            // If a projectile spawns and doesn't move, nor is affected by gravity, then initial rotation should be (0,0) and rotateWithDireciton = false
+            //      then, the RotationComponent and AffectedByGravityComponent should be removed in the spawner
             em.SetComponentData(entity, new Rotation { Value = quaternion.RotateZ(Mathf.Atan2(initialRotation.x, initialRotation.y)) });
         }
 

@@ -69,17 +69,17 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
         bool exists = World.Active.EntityManager.Exists(gearEntity) && World.Active.EntityManager.Exists(playBoundEntity);
         if (exists)
         {
-            Vector3 playerVector = World.Active.EntityManager.GetComponentData<Translation>(gearEntity).Value;
+            Vector3 gearVector = World.Active.EntityManager.GetComponentData<Translation>(gearEntity).Value;
             Vector3 boundaryVector = World.Active.EntityManager.GetComponentData<Translation>(playBoundEntity).Value;
             float circleRadius = World.Active.EntityManager.GetComponentData<CollisionComponent>(gearEntity).collisionRadius;
             Vector2 boundNormal = World.Active.EntityManager.GetComponentData<PlayerBoundaryComponent>(playBoundEntity).Normal;
 
             if (boundNormal.x == 0)
             {
-                Vector2 nearestWallPosition = new Vector2(playerVector.x, boundaryVector.y);
-                playerVector.y = nearestWallPosition.y + boundNormal.y * circleRadius;
+                Vector2 nearestWallPosition = new Vector2(gearVector.x, boundaryVector.y);
+                gearVector.y = nearestWallPosition.y + boundNormal.y * circleRadius;
                 World.Active.EntityManager.SetComponentData<Translation>(gearEntity,
-                    new Translation { Value = new Unity.Mathematics.float3(playerVector.x, playerVector.y, playerVector.z) });
+                    new Translation { Value = new Unity.Mathematics.float3(gearVector.x, gearVector.y, gearVector.z) });
 
                 //Debug.Log("Gear position and movement readjusted");
                 World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
@@ -88,16 +88,34 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             }
             if (boundNormal.y == 0)
             {
-                Vector2 nearestWallPosition = new Vector2(boundaryVector.x, playerVector.y);
-                playerVector.x = nearestWallPosition.x + boundNormal.x * circleRadius;
+                Vector2 nearestWallPosition = new Vector2(boundaryVector.x, gearVector.y);
+                gearVector.x = nearestWallPosition.x + boundNormal.x * circleRadius;
                 World.Active.EntityManager.SetComponentData<Translation>(gearEntity,
-                    new Translation { Value = new Unity.Mathematics.float3(playerVector.x, playerVector.y, playerVector.z) });
+                    new Translation { Value = new Unity.Mathematics.float3(gearVector.x, gearVector.y, gearVector.z) });
 
                 //Debug.Log("Gear position and movement readjusted");
                 World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
                     new MovementComponent { movementVector = new Vector2(0, boundNormal.x * 5) });
                 EventManager.instance.QueueEvent(new EndCollisionEvent(gearEntity, playBoundEntity));
             }
+            return true;
+        }
+        return false;
+    }
+
+    private bool CigarBoundaryCollisionHelpler(Entity cigar, Entity playBoundEntity)
+    {
+        bool exists = World.Active.EntityManager.Exists(cigar) && World.Active.EntityManager.Exists(playBoundEntity);
+        if (exists)
+        {
+            Vector2 cigarPos = new Vector2(World.Active.EntityManager.GetComponentData<Translation>(cigar).Value.x,
+                                           World.Active.EntityManager.GetComponentData<Translation>(cigar).Value.y);
+
+            World.Active.EntityManager.DestroyEntity(cigar);
+            // Because this is a Boundary and not a Projectile, we will use the "damage/d" as our side salue
+            int side = (cigarPos.x < 0) ? 1 : 2;
+            EventManager.instance.QueueEvent(new CreateProjectileEvent("smashCigar", side, cigarPos, new Vector2(-1, 0), 1f, 0));
+            //PlayerBoundaryEntity.Create(World.Active.EntityManager, cigarPos, )
             return true;
         }
         return false;

@@ -17,7 +17,7 @@ public class GravitySystem : ComponentSystem
                 float str = gravity.strength;
                 float rad = gravity.radius;
                 Vector2 pos = new Vector2(wellPosition.Value.x,wellPosition.Value.y);
-                Entities.ForEach((Entity f, ref ProjectileComponent p, ref Translation projectilePosition, ref MovementComponent moveComp) =>
+                Entities.ForEach((Entity f, ref ProjectileComponent p, ref Translation projectilePosition, ref MovementComponent moveComp, ref AffectedByGravityComponent abg) =>
                 {
                     Vector2 pos2 = new Vector2(projectilePosition.Value.x, projectilePosition.Value.y);
                     if (moveComp.movementVector != new Vector2() && Vector2.Distance(pos, pos2) <= rad) {
