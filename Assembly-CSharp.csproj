@@ -87,6 +87,7 @@
     <Compile Include="Assets\Components\RotationComponent.cs" />
     <Compile Include="Assets\Components\SpawnDelayComp.cs" />
     <Compile Include="Assets\Components\TestingComponent.cs" />
+    <Compile Include="Assets\Components\UniquePlayerCardSlotComponent.cs" />
     <Compile Include="Assets\Components\ValueIncreaseComp.cs" />
     <Compile Include="Assets\Components\ViperCurseComponent.cs" />
     <Compile Include="Assets\Components\XformComp.cs" />

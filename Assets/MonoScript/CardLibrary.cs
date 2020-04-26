@@ -44,7 +44,8 @@ public class CardLibrary: MonoBehaviour
         library["Horror"].Add(new CardData(22, "Light Cigar", 4, 3, "Light your cigar by summoning a pillar of hellfire", "You're not addicted...", cardMaterialLibrary[22]));
         library["Horror"].Add(new CardData(23, "Flick Cigar", 4, 3, "Flick your cigar, spreading embers on your opponent", "You could quit at any time...", cardMaterialLibrary[23]));
         library["Horror"].Add(new CardData(24, "Put Out Cigar", 4, 3, "Smash your cigar, and hopefully your opponent", "See? You put it out. Congratulations!", cardMaterialLibrary[24]));
-        library["Steampunk"].Add(new CardData(25, "Artemis Rocket", 6, 2, "Launch a rocket at your opponent", "High tech for a Steampunk universe, but Sci-Fi has it beat", cardMaterialLibrary[25]));
+        library["Steampunk"].Add(new CardData(25, "Artemis Rocket", 0, 2, "Fire the Artemis Rocket once you've taken aim", "High tech for a Stea, ancient technology for Finn", cardMaterialLibrary[25]));
+        library["Steampunk"].Add(new CardData(26, "Ready, Aim", 6, 2, "Take aim, calling out the starting location of your Artemis Rocket", "Hold still, wanker!", cardMaterialLibrary[26]));
 
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }

@@ -21,6 +21,8 @@
 
         public static readonly int QuadTreeMaxReferences = 4;
 
+        public static readonly int CardLibraryCount = 26;
+
         // Unique Projectile x Player Boundary Collision IDs
         public static readonly int GearID = 8;
         public static readonly int CigarID = 9;

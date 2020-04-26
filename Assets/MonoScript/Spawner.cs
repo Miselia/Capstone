@@ -15,12 +15,24 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     [SerializeField] private List<Material> projectileMaterialLibrary;
     [SerializeField] private Mesh mesh;
 
+    private int cardID;
+    private int playerID;
+    private float currentMana;
+    private float manaCost;
+    private int cardSlot;
+
     // Start is called before the first frame update
     void Start()
     {
         EventManager.instance.RegisterListener<SpawnEvent>(this);
         EventManager.instance.RegisterListener<CreateProjectileEvent>(this);
         em = World.Active.EntityManager;
+
+        cardID = 0;
+        playerID = 0;
+        currentMana = 0;
+        manaCost = 0;
+        cardSlot = 0;
     }
 
     public bool HandleEvent(IGenericEvent evt)
@@ -48,11 +60,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
     public void spawn( Entity card, Entity player, int fixedValue, int time, Entity opponent)
     {
-        int cardID = em.GetComponentData<CardComp>(card).cardID;
+        cardID = em.GetComponentData<CardComp>(card).cardID;
         if (fixedValue != 0) cardID = fixedValue;
-        int playerID = em.GetComponentData<CardComp>(card).player;
-        float currentMana = em.GetComponentData<PlayerComponent>(player).mana;
-        float manaCost  = em.GetComponentData<CardComp>(card).manaCost;
+        playerID = em.GetComponentData<CardComp>(card).player;
+        currentMana = em.GetComponentData<PlayerComponent>(player).mana;
+        manaCost = em.GetComponentData<CardComp>(card).manaCost;
+        cardSlot = em.GetComponentData<CardComp>(card).cardSlot;
 
         // If playerID = 1 then use Positive offset, else use negative offset
         // If in GameScene use GameBoundaryOffset, else use DeckBuilderBoundaryOffset
@@ -85,9 +98,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     if (CheckValueIncreaseComp(player))
                     {
                         em.RemoveComponent<ValueIncreaseComp>(player);
-                        damage *= 2; 
+                        damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy","BuffSelf"));
+                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "BuffSelf"));
                     createBullet("normal", new Vector2(positionX - 5, -5), new Vector2(0, 3), 1.0f, damage, timer);
                     createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.5f, damage, timer);
                     createBullet("normal", new Vector2(positionX + 5, -5), new Vector2(0, 3), 0.25f, damage, timer);
@@ -100,9 +113,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
-                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy","SmallCard"));
-                    createBullet("fire", new Vector2(positionX+6, 0), new Vector2(-3, 0), 0.3f, damage, timer);
-                    createBullet("fire", new Vector2(positionX-6, 0), new Vector2(3, 0), 0.3f, damage, timer);
+                    EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
+                    createBullet("fire", new Vector2(positionX + 6, 0), new Vector2(-3, 0), 0.3f, damage, timer);
+                    createBullet("fire", new Vector2(positionX - 6, 0), new Vector2(3, 0), 0.3f, damage, timer);
                     createBullet("fire", new Vector2(positionX, -6), new Vector2(0, 0.5f), 1.5f, damage, timer);
                     break;
 
@@ -126,13 +139,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
                     createBullet("red", new Vector2(positionX, 5), new Vector2(0, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX+5, 0), new Vector2(-2, 0), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX + 5, 0), new Vector2(-2, 0), 0.75f, damage, timer);
                     createBullet("red", new Vector2(positionX, -5), new Vector2(0, 2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX-5, 0), new Vector2(2, 0), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX-5, 5), new Vector2(2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX+5, 5), new Vector2(-2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX-5, -5), new Vector2(2, 2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX+5, -5), new Vector2(-2, 2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX - 5, 0), new Vector2(2, 0), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX - 5, 5), new Vector2(2, -2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX + 5, 5), new Vector2(-2, -2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX - 5, -5), new Vector2(2, 2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX + 5, -5), new Vector2(-2, 2), 0.75f, damage, timer);
                     break;
 
                 case 5:
@@ -165,17 +178,17 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
                     int num1 = 7;
                     int num2 = 7;
-                    while (num1 == 7)
+                    while (num1 == 7 || num1 == 11 || num1 == 23 || num1 == 24 || num1 == 25)
                     {
-                        num1 = Random.Range(1, 18);
+                        num1 = Random.Range(1, Constants.CardLibraryCount);
                     }
-                    while (num2 == 7)
+                    while (num2 == 7 || num2 == 11 || num2 == 23 || num2 == 24 || num2 == 25)
                     {
-                        num2 = Random.Range(1, 18);
+                        num2 = Random.Range(1, Constants.CardLibraryCount);
                     }
 
                     spawn(card, player, num1, timer, opponent);
-                    spawn(card, player, num2, timer+20, opponent);
+                    spawn(card, player, num2, timer + 20, opponent);
 
                     break;
                 case 8:
@@ -220,7 +233,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 11:
                     //Gravity Well
                     EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "LargeCard"));
-                    createBullet("gravityWell",new Vector2(positionX, 0), new Vector2(0, 0), 1f, damage, 0);
+                    createBullet("gravityWell", new Vector2(positionX, 0), new Vector2(0, 0), 1f, damage, 0);
 
                     break;
                 case 12:
@@ -236,7 +249,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer);
 
-                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer+ 80);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer + 80);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer + 80);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 80);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 80);
@@ -251,10 +264,10 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "BuffProjectile"));
                     foreach (Entity e in em.GetAllEntities())
                     {
-                        if(em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
+                        if (em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
                         {
                             em.AddComponent(e, typeof(ProjectileSpeedBuffComp));
-                            em.SetComponentData(e, new ProjectileSpeedBuffComp(3,180,new Vector2(0,0)));
+                            em.SetComponentData(e, new ProjectileSpeedBuffComp(3, 180, new Vector2(0, 0)));
                         }
                     }
                     break;
@@ -274,11 +287,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("bullet", new Vector2(positionX - 4.5f, 5), down, 0.5f, damage, timer + 100);
                     createBullet("bullet", new Vector2(positionX - 1.5f, 5), down, 0.5f, damage, timer + 100);
                     createBullet("bullet", new Vector2(positionX + 1.5f, 5), down, 0.5f, damage, timer + 100);
-                                                                                          
+
                     createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.5f, damage, timer + 200);
                     createBullet("bullet", new Vector2(positionX, 5), down, 0.5f, damage, timer + 200);
                     createBullet("bullet", new Vector2(positionX + 3, 5), down, 0.5f, damage, timer + 200);
-                                                                                          
+
                     createBullet("bullet", new Vector2(positionX - 1.5f, 5), down, 0.5f, damage, timer + 300);
                     createBullet("bullet", new Vector2(positionX + 1.5f, 5), down, 0.5f, damage, timer + 300);
                     createBullet("bullet", new Vector2(positionX + 4.5f, 5), down, 0.5f, damage, timer + 300);
@@ -339,7 +352,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     // Wall Spikes
                     // Spawn one wall spike onto each player boundary on opponent's side of field
                     int oppSide;
-                    if(SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
                         oppSide = 1;
                     }
@@ -349,7 +362,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     foreach (Entity e in em.GetAllEntities())
                     {
-                        if(CheckValueIncreaseComp(player))
+                        if (CheckValueIncreaseComp(player))
                         {
                             em.RemoveComponent<ValueIncreaseComp>(player);
                             damage *= 2;
@@ -358,11 +371,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         if (em.HasComponent<PlayerBoundaryComponent>(e))
                         {
                             PlayerBoundaryComponent pbc = em.GetComponentData<PlayerBoundaryComponent>(e);
-                            if(pbc.side == oppSide)
+                            if (pbc.side == oppSide)
                             {
                                 Vector2 location = new Vector2(em.GetComponentData<Translation>(e).Value.x, em.GetComponentData<Translation>(e).Value.y);
                                 location += new Vector2(pbc.Normal.x, pbc.Normal.y);
-                                
+
                                 Vector2 mod = new Vector2(pbc.Normal.y, pbc.Normal.x);
                                 mod *= 3;
                                 location += mod;
@@ -397,7 +410,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 22:
                     // Start spawn animation of flame pillar at bottom of opponent's field based on user position
                     Vector2 pillarPos;
-                    if(SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
                         pillarPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, 0);
                     }
@@ -405,25 +418,26 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     {
                         float offset = (playerID == 1) ?
                             em.GetComponentData<Translation>(player).Value.x + 7 :
-                            em.GetComponentData<Translation>(player).Value.x - 7 ;
+                            em.GetComponentData<Translation>(player).Value.x - 7;
 
                         pillarPos = (playerID == 1) ?
                             new Vector2(Constants.GameBoundaryOffset + offset, 0) :
-                            new Vector2(Constants.GameBoundaryOffset - offset, 0) ;
+                            new Vector2(Constants.GameBoundaryOffset - offset, 0);
                     }
                     createBullet("lightCigar", pillarPos, new Vector2(), 1.4f, damage, timer);
                     createBullet("", new Vector2(pillarPos.x, 1.5f), new Vector2(), 1.4f, damage, timer);
                     createBullet("", new Vector2(pillarPos.x, 3), new Vector2(), 1.4f, damage, timer);
                     createBullet("", new Vector2(pillarPos.x, 4.5f), new Vector2(), 1.4f, damage, timer);
-                    createBullet("", new Vector2(pillarPos.x, - 1.5f), new Vector2(), 1.4f, damage, timer);
-                    createBullet("", new Vector2(pillarPos.x, - 3), new Vector2(), 1.4f, damage, timer);
-                    createBullet("", new Vector2(pillarPos.x, - 4.5f), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, -1.5f), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, -3), new Vector2(), 1.4f, damage, timer);
+                    createBullet("", new Vector2(pillarPos.x, -4.5f), new Vector2(), 1.4f, damage, timer);
                     //gameObject.GetComponent("IGame").AddCard
                     var s1 = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
-                    foreach(IGame game in s1)
+                    foreach (IGame game in s1)
                     {
                         //Debug.Log("Next cigar card added to hand Player: " + playerID + ", Card Slot: " + em.GetComponentData<CardComp>(card).cardSlot);
-                        game.AddCardToHandFromCardLibrary(playerID, em.GetComponentData<CardComp>(card).cardSlot, 23);
+                        //game.AddCardToHandFromCardLibrary(playerID, em.GetComponentData<CardComp>(card).cardSlot, 23);
+                        game.AddCardToHandFromCardLibrary(playerID, cardSlot, 23);
                     }
                     break;
                 case 23:
@@ -434,10 +448,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("flickCigar", new Vector2(positionX + .5f, 6), new Vector2(.5f, -2), 0.5f, damage, timer);
                     createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(0, -2), 0.5f, damage, timer);
                     var s2 = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
-                    foreach(IGame game in s2)
+                    foreach (IGame game in s2)
                     {
                         //Debug.Log("Next cigar card added to hand Player: " + playerID + ", Card Slot: " + em.GetComponentData<CardComp>(card).cardSlot);
-                        game.AddCardToHandFromCardLibrary(playerID, em.GetComponentData<CardComp>(card).cardSlot, 24);
+                        //game.AddCardToHandFromCardLibrary(playerID, em.GetComponentData<CardComp>(card).cardSlot, 24);
+                        game.AddCardToHandFromCardLibrary(playerID, cardSlot, 24);
                     }
                     break;
                 case 24:
@@ -461,8 +476,57 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("fullCigar", cigarPos, new Vector2(0, -4), 1, damage, timer);
                     break;
                 case 25:
-                    // First cast begins targeting system, second cast fires the missile in the direction from 1st to 2nd cast
-                    // Explodes on wall creating fragmented projectiles
+                    // Artemis Rocket
+                    // Find all potential Lock On projectiles and operate on the correct one (if there)
+                    Entity local = new Entity();
+                    var query = em.CreateEntityQuery(typeof(UniquePlayerCardSlotComponent), typeof(Translation));
+                    Unity.Collections.NativeArray<Entity> na = query.ToEntityArray(Unity.Collections.Allocator.TempJob);
+                    foreach (Entity e in na)
+                    {
+                        if (em.GetComponentData<UniquePlayerCardSlotComponent>(e).cardSlot == cardSlot &&
+                            em.GetComponentData<UniquePlayerCardSlotComponent>(e).playerID == playerID)
+                        {
+                            local = e;
+                        }
+                        break;
+                    }
+                    query.Dispose();
+                    na.Dispose();
+                    if (local != null)
+                    {
+                        // Rest of code
+                        Vector2 playerPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, em.GetComponentData<Translation>(player).Value.y);
+                        Vector2 localPos = new Vector2(em.GetComponentData<Translation>(local).Value.x, em.GetComponentData<Translation>(local).Value.y);
+                        createBullet("rocket", localPos, playerPos - localPos, 1, damage, timer);
+                        em.AddComponent(local, typeof(DeleteComp));
+                    }
+                    else
+                        Debug.Log("Artemis Rocket was cast but the targetting system failed!");
+                    break;
+                case 26:
+                    // Ready, Aim
+                    Vector2 scopePos;
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                    {
+                        scopePos = new Vector2(em.GetComponentData<Translation>(player).Value.x, em.GetComponentData<Translation>(player).Value.y);
+                    }
+                    else
+                    {
+                        float offset = (playerID == 1) ?
+                            em.GetComponentData<Translation>(player).Value.x + 7 :
+                            em.GetComponentData<Translation>(player).Value.x - 7;
+
+                        scopePos = (playerID == 1) ?
+                            new Vector2(Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) :
+                            new Vector2(Constants.GameBoundaryOffset - offset, em.GetComponentData<Translation>(player).Value.y);
+                    }
+                    createBullet("scope", scopePos, new Vector2(), 1, 0, timer);
+                    var list = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
+                    foreach (IGame game in list)
+                    {
+                        //game.AddCardToHandFromCardLibrary(playerID, em.GetComponentData<CardComp>(card).cardSlot, 25);
+                        game.AddCardToHandFromCardLibrary(playerID, cardSlot, 25);
+                    }
                     break;
             }
             if (fixedValue == 0)
@@ -632,6 +696,19 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.AddComponent(invisCigarRight, typeof(DeleteComp));
                 em.SetComponentData(invisCigarRight, new DeleteComp(420));
                 createBullet("", new Vector2(position.x, -6), new Vector2(), 1, -1, timer);
+                break;
+            case "rocket":
+                // Artemis Rocket
+                // Needs offset to be 1.5 in the direction of the direction of the movement vector passed into this method
+
+                break;
+            case "scope":
+                // Ready, Aim
+                Entity scope = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[22], 0x00, false);
+                em.RemoveComponent(scope, typeof(RotationComponent));
+                em.RemoveComponent(scope, typeof(AffectedByGravityComponent));
+                em.AddComponent(scope, typeof(UniquePlayerCardSlotComponent));
+                em.SetComponentData(scope, new UniquePlayerCardSlotComponent(playerID, cardSlot));
                 break;
             default:
                 // Draws invisible projectile that gets deleted immediately
