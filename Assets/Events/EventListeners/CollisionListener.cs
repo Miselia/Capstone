@@ -114,7 +114,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
 
             World.Active.EntityManager.DestroyEntity(cigar);
             // Because this is a Boundary and not a Projectile, we will use the "damage/d" varialbe as our "side" salue
-            int side = (cigarPos.x < 0) ? 2 : 1;
+            int side = (cigarPos.x < 0) ? -1 : -2;
             EventManager.instance.QueueEvent(new CreateProjectileEvent("smashCigar", side, cigarPos, new Vector2(-1, 0), 1f, 0));
             //PlayerBoundaryEntity.Create(World.Active.EntityManager, cigarPos, )
             return true;

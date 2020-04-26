@@ -211,6 +211,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 10:
                     //Nano Barrier
                     EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "SmallCard"));
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                        opponent = player;
+
                     createBullet("barrier", new Vector2(positionX - 0.1f, 0), new Vector2(-1, 0), 1f, damage, timer, em.GetComponentData<PlayerComponent>(opponent).playerID);
                     createBullet("barrier", new Vector2(positionX + 0.1f, 0), new Vector2(1, 0), 1f, damage, timer, em.GetComponentData<PlayerComponent>(opponent).playerID);
                     break;
@@ -590,7 +593,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 break;
             case "smashCigar":
                 // This isn't easy to follow, so hopefully this comment helps
-                // I wasn't able to find a better way to do this becaues I didn't want the CreateBulletEvent to be too complicated
+                // I wasn't able to find a better way to do this because I didn't want the CreateBulletEvent to be too complicated
                 // What we do know is that this code will only ever get called from the CreateBulletEvent meaning that when using a "smashCigar" case
                 // we can instead replace the typical "damage" value as the "side" value that we need for all PlayerBoundaries
                 
@@ -616,16 +619,19 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.RemoveComponent(fakeCigar, typeof(RotationComponent));
 
                 // If Deck Builder, flip "damage"/Side value to opposite
-                if (SceneManager.GetActiveScene().Equals("DeckBuilder"))
+                if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                {
                     damage = 1;
+                }
 
+                Debug.Log("Side Value in Smash Cigar: " + damage);
                 Entity invisCigarLeft = PlayerBoundaryEntity.Create(em, new Vector2(position.x - 1, 0), movementvector, mesh, projectileMaterialLibrary[21], damage);
                 Entity invisCigarRight = PlayerBoundaryEntity.Create(em, new Vector2(position.x + 1, 0), -movementvector, mesh, projectileMaterialLibrary[21], damage);
                 em.AddComponent(invisCigarLeft, typeof(DeleteComp));
                 em.SetComponentData(invisCigarLeft, new DeleteComp(420));
                 em.AddComponent(invisCigarRight, typeof(DeleteComp));
                 em.SetComponentData(invisCigarRight, new DeleteComp(420));
-                createBullet("", new Vector2(position.x, -6), new Vector2(), 1, 1, timer);
+                createBullet("", new Vector2(position.x, -6), new Vector2(), 1, -1, timer);
                 break;
             default:
                 // Draws invisible projectile that gets deleted immediately

@@ -126,18 +126,8 @@ public class CollisionDetectionSystem : ComponentSystem
                                 projectile = secondEntity;
                                 bound = firstEntity;
                             }
-                            // ****** IF YOU EVER HAVE ISSUES WITH COLLISIONS WITH PROJECTILES AND PLAYER BOUNDARIES CHECK HERE ******** \\
-                            // Switch "cases" cannot be evaluated and must be declared, meaning that we cannot reference Constants
-                            // Make sure these matches match or else the code will break
-                            /*switch(EntityManager.GetComponentData<ProjectileCollisionWithPlayerBoundaryComponent>(projectile).caseInt)
-                            {
-                                case 8:
-                                    HandleProjectileCollisionWithPlayerBoundary(game, projectile, bound, Constants.GearID);
-                                    break;
-                                // case 9 is cigar
-                                // case 10 is rocket
-                            }*/
-                            HandleProjectileCollisionWithPlayerBoundary(game, projectile, bound, EntityManager.GetComponentData<ProjectileCollisionWithPlayerBoundaryComponent>(projectile).caseInt);
+                            if(EntityManager.HasComponent<PlayerBoundaryComponent>(secondEntity))
+                                HandleProjectileCollisionWithPlayerBoundary(game, projectile, bound, EntityManager.GetComponentData<ProjectileCollisionWithPlayerBoundaryComponent>(projectile).caseInt);
                             break;
                     }
                 }
