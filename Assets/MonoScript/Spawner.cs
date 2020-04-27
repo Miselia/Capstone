@@ -345,6 +345,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     // After delay, smash cigar, starting at top of opponent's side, based on user poition
                     break;
             }
+            EventManager.instance.QueueEvent(new AnimatorEvent(playerID, "Attack"));
             if (fixedValue == 0)
             {
                 adjustPlayerValues(player, -manaCost, 0);

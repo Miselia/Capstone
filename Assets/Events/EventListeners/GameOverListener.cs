@@ -54,13 +54,18 @@ public class GameOverListener : MonoBehaviour, IGenericEventListener
             {
                 winnerText.text = "Player 2 win!";
                 EventManager.instance.QueueEvent(new SoundEvent(p1, "Loss"));
+                EventManager.instance.QueueEvent(new AnimatorEvent(2, "Loss"));
                 EventManager.instance.QueueEvent(new SoundEvent(p2, "Victory"));
+                EventManager.instance.QueueEvent(new AnimatorEvent(1, "Victory"));
+
             }
             if (ge.pID == 2)
             {
                 winnerText.text = "Player 1 win!";
                 EventManager.instance.QueueEvent(new SoundEvent(p1, "Victory"));
+                EventManager.instance.QueueEvent(new AnimatorEvent(1, "Victory"));
                 EventManager.instance.QueueEvent(new SoundEvent(p2, "Loss"));
+                EventManager.instance.QueueEvent(new AnimatorEvent(2, "Loss"));
             }
 
 

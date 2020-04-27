@@ -82,12 +82,14 @@
      <Compile Include="Assets\Entities\ProjectileBoundaryEntity.cs" />
      <Compile Include="Assets\Entities\ProjectileEntity.cs" />
      <Compile Include="Assets\Entities\TestingEntity.cs" />
+     <Compile Include="Assets\Events\EventListeners\AnimatorListener.cs" />
      <Compile Include="Assets\Events\EventListeners\CollisionListener.cs" />
      <Compile Include="Assets\Events\EventListeners\GameOverListener.cs" />
      <Compile Include="Assets\Events\EventListeners\SoundListener.cs" />
      <Compile Include="Assets\Events\EventManager.cs" />
      <Compile Include="Assets\Events\GenericEvents\AddCardtoDeckEvent.cs" />
      <Compile Include="Assets\Events\GenericEvents\AddCardtoDeckScrollListEvent.cs" />
+     <Compile Include="Assets\Events\GenericEvents\AnimatorEvent.cs" />
      <Compile Include="Assets\Events\GenericEvents\CollisionEvent.cs" />
      <Compile Include="Assets\Events\GenericEvents\EndCollisionEvent.cs" />
      <Compile Include="Assets\Events\GenericEvents\GameOverEvent.cs" />
@@ -149,6 +151,9 @@
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Animation.Runtime">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Burst">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
  </Reference>
@@ -200,6 +205,9 @@
  <Reference Include="Unity.Rendering.Hybrid">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Rendering.Hybrid.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Animation.Triangle.Runtime">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
@@ -215,17 +223,26 @@
  <Reference Include="Unity.Mathematics">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.InternalAPIEngineBridge.001">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Properties">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Properties.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Common.Runtime">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Entities">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Transforms">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Transforms.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Animation.Editor">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Transforms.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Transforms.Editor.dll</HintPath>
@@ -235,6 +252,12 @@
  </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Common.Editor">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.InternalAPIEditorBridge.001">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

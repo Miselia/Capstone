@@ -68,6 +68,9 @@
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Animation.Runtime">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Burst">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
  </Reference>
@@ -119,6 +122,9 @@
  <Reference Include="Unity.Rendering.Hybrid">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Rendering.Hybrid.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Animation.Triangle.Runtime">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
@@ -134,17 +140,26 @@
  <Reference Include="Unity.Mathematics">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.InternalAPIEngineBridge.001">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Properties">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Properties.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Common.Runtime">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Entities">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Transforms">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Transforms.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Animation.Editor">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Transforms.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Transforms.Editor.dll</HintPath>
@@ -154,6 +169,12 @@
  </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Common.Editor">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.InternalAPIEditorBridge.001">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
@@ -361,6 +382,9 @@
  </Reference>
  <Reference Include="sfw.net">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Assets/Plugins/GitHub/Editor/sfw.net.dll</HintPath>
+ </Reference>
+ <Reference Include="NSubstitute">
+ <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/PackageCache/com.unity.2d.common@1.2.0-preview.1/Tests/Editor/Lib/NSubstitute/NSubstitute.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Burst.Unsafe">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/PackageCache/com.unity.burst@1.1.2/Unity.Burst.Unsafe.dll</HintPath>

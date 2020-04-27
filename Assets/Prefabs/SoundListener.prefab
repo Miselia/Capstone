@@ -831,7 +831,7 @@ MonoBehaviour:
   - name: Steampunk Loss 1
     clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
     genre: Steampunk
-    type: HurtHeavy
+    type: Loss
     volume: 1
     pitch: 1.18
     source: {fileID: 0}
@@ -866,7 +866,7 @@ MonoBehaviour:
   - name: Steampunk Steampunk 1
     clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
     genre: Steampunk
-    type: Sci-Fi
+    type: Steampunk
     volume: 1
     pitch: 1.18
     source: {fileID: 0}

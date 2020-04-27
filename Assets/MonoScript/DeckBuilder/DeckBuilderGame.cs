@@ -6,6 +6,7 @@ using System;
 using Assets.Resources;
 using Assets.MonoScript;
 using Assets.Events.GenericEvents;
+//using Assets.Events.EventListeners;
 using UnityEngine.SceneManagement;
 using Assets.Systems;
 
@@ -32,18 +33,24 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     [SerializeField] private CardLibrary cl;
     [SerializeField] private Image CardMenu;
     [SerializeField] private Image DeckMenu;
+    [SerializeField] private AnimatorListener animator;
 
     int[] playerHand;
 
     private List<CardData> cardLibrary;
     public Deck builderDeck;
 
-
+    void Awake()
+    {
+        GetDeck();
+    }
     void Start()
     {
+        
         Debug.Log(typeof(ButtonListController).ToString());
         playerHand = new int[] { -1, -1, -1, -1 };
-        GetDeck();
+        
+
         //Debug.Log("Builder deck is null: " + (builderDeck == null));
 
         eventManager = gameObject.AddComponent<EventManager>();
@@ -90,6 +97,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         EventManager.instance.QueueEvent(new InitializeDeckBuilerDeckUIEvent());
 
         EventManager.instance.QueueEvent(new SoundEvent(builderDeck.GetPrimaryString(), builderDeck.GetSecondary()));
+        EventManager.instance.QueueEvent(new AnimatorEvent(1, "Intro"));
     }
 
     public bool HandleEvent(IGenericEvent evt)
@@ -172,6 +180,9 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         builderDeck = DeckLobbyScript.chosenDeck;
         CardMenu.color = GetFactionColor(builderDeck.getFactions()[0]);
         DeckMenu.color = GetFactionColor(builderDeck.getFactions()[1]);
+        animator.p1 = DeckGenres()[0];
+        animator.p2 = DeckGenres()[1];
+
     }
     public Color GetFactionColor(string faction)
     {
@@ -237,5 +248,9 @@ public class DeckBuilderGame : MonoBehaviour, IGame
             }
         }
         return -1;
+    }
+    public string[] DeckGenres()
+    {
+        return new string[] { builderDeck.GetPrimaryString(), builderDeck.GetSecondary() };
     }
 }
