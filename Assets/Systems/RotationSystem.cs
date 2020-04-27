@@ -19,7 +19,7 @@ namespace Assets.Systems
             {
                 if(rot.rotateWithMovementDirection == true)
                 {
-                    rotation.Value = quaternion.Euler(0, 0, Mathf.Atan2(mv.movementVector.x, mv.movementVector.y));
+                    rotation.Value = quaternion.Euler(0, 0, Mathf.Atan2(-mv.movementVector.x, mv.movementVector.y));
                 }
                 else
                 {

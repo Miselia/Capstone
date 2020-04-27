@@ -40,7 +40,7 @@ public static class ProjectileEntity
         {
             // If you want a projectile to move with the direction (If it changes direction, it faces the way it moves) then this needs to be true
             // Funnily enough, projectiles that are set to rotate with direction and have a direction of (0,0) will stay in place and never rotate
-            em.SetComponentData(entity, new Rotation { Value = quaternion.Euler(0, 0, Mathf.Atan2(movementVector.x, movementVector.y)) });
+            em.SetComponentData(entity, new Rotation { Value = quaternion.Euler(0, 0, Mathf.Atan2(-movementVector.x, movementVector.y)) });
         }
         else
         {

@@ -488,11 +488,10 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         {
                             local = e;
                         }
-                        break;
                     }
                     query.Dispose();
                     na.Dispose();
-                    if (local != null)
+                    if (em.Exists(local))
                     {
                         // Rest of code
                         Vector2 playerPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, em.GetComponentData<Translation>(player).Value.y);
@@ -700,7 +699,20 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             case "rocket":
                 // Artemis Rocket
                 // Needs offset to be 1.5 in the direction of the direction of the movement vector passed into this method
-
+                /*var qwer = em.CreateEntityQuery(typeof(FullCigarComponent), typeof(Translation));
+                Unity.Collections.NativeArray<Entity> array = qwer.ToEntityArray(Unity.Collections.Allocator.TempJob);
+                foreach (Entity e in array)
+                {
+                    if (em.GetComponentData<UniquePlayerCardSlotComponent>(e).playerID == playerID &&
+                        em.GetComponentData<UniquePlayerCardSlotComponent>(e).cardSlot == cardSlot)
+                    {
+                        em.DestroyEntity(e);
+                        ProjectileEntity.Create(em, damage, position, movementvector, 1, timer, mesh, projectileMaterialLibrary[20]);
+                    }
+                }
+                qwer.Dispose();
+                array.Dispose();*/
+                ProjectileEntity.Create(em, damage, position, movementvector, 1, timer, mesh, projectileMaterialLibrary[20]);
                 break;
             case "scope":
                 // Ready, Aim
