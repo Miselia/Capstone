@@ -154,9 +154,9 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         {
             World.Active.EntityManager.DestroyEntity(e);
         }
-        SceneManager.LoadScene("DeckBuilderLobby"); ;
-        
+        SceneManager.LoadScene("DeckBuilderLobby");
     }
+
     private void HandleEndCollisionEvent(Entity entityA, Entity entityB)
     {
         if (collidingPairs[entityA].Contains(entityB))
@@ -240,6 +240,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     public int AddCardToHandFromCardLibrary(int player, int cardSlot, int cardID)
     {
         CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), cardID, cardSlot, 1, cl.GetAllByID()[cardID].manaCost, mesh2D, cl.GetAllByID()[cardID].getMaterial());
+        playerHand[cardSlot-1] = cardID;
         return cardID;
     }
 }
