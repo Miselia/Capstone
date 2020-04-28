@@ -60,6 +60,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
     public void spawn( Entity card, Entity player, int fixedValue, int time, Entity opponent)
     {
+        string genre = em.GetComponentData<PlayerComponent>(player).GetGenre();
         cardID = em.GetComponentData<CardComp>(card).cardID;
         if (fixedValue != 0) cardID = fixedValue;
         playerID = em.GetComponentData<CardComp>(card).player;
