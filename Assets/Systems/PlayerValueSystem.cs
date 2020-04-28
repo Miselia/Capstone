@@ -39,8 +39,12 @@ public class PlayerValueSystem : ComponentSystem
                 if(EntityManager.HasComponent(e, typeof(HealthDeltaComp)))
                 {
                     int delta = EntityManager.GetComponentData<HealthDeltaComp>(e).delta;
-                    if (delta < 0)
-                        EventManager.instance.QueueEvent(new SoundEvent("Fantasy","Hurt"));
+                    if (delta  == -1)
+                        EventManager.instance.QueueEvent(new SoundEvent(p.GetGenre(),"Hurt"));
+                    if (delta < -1)
+                        EventManager.instance.QueueEvent(new SoundEvent(p.GetGenre(), "HurtHeavy"));
+                    if (delta > 0)
+                        EventManager.instance.QueueEvent(new SoundEvent(p.GetGenre(), "BuffSelf"));
                     p.healthRemaining = p.healthRemaining + delta;
                     EntityManager.RemoveComponent<HealthDeltaComp>(e);
                 }
