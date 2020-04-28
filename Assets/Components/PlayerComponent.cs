@@ -12,18 +12,37 @@ public struct PlayerComponent : IComponentData
     public float maxMana;
     public float manaRegen;
     public float mana;
+    public int genre;
 
-    public PlayerComponent(int playerID, int maximumHealth, float maxMana, float manaRegen)
+    public PlayerComponent(int playerID, int maximumHealth, float maxMana, float manaRegen, int genre)
     {
         this.playerID = playerID;
         this.healthRemaining = maximumHealth;
         this.maxMana = maxMana;
         this.manaRegen = manaRegen;
         this.mana = maxMana;
+        this.genre = genre;
         EventManager.instance.QueueEvent(new UIUpdateEvent(healthRemaining, (int)Mathf.Floor(mana), playerID));
 
         //Debug.Log("Constructor being called for player");
     }
+
+    public string GetGenre()
+    {
+        switch (genre)
+        {
+            case 1:
+                return "Fantasy";
+            case 2:
+                return "Steampunk";
+            case 3:
+                return "Sci-Fi";
+            case 4:
+                return "Horror";
+        }
+        return "Default";
+    }
+
 
     public int[] LoseHealth(int damage)
     {

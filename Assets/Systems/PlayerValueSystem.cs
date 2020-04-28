@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerValueSystem : ComponentSystem
 {
-
+    
     protected override void OnUpdate()
     {
         
@@ -20,7 +20,10 @@ public class PlayerValueSystem : ComponentSystem
             });
             Entities.ForEach((Entity e, ref PlayerComponent p, ref HealthDeltaComp delta) =>
             {
-                if(delta.delta < 0) EventManager.instance.QueueEvent(new SoundEvent("Fantasy", "Hurt")); ;
+                if(delta.delta == -1) EventManager.instance.QueueEvent(new SoundEvent(p.GetGenre(), "Hurt")); ;
+                if (delta.delta < -1) EventManager.instance.QueueEvent(new SoundEvent(p.GetGenre(), "HurtHeavy")); ;
+                if(delta.delta < 0) EventManager.instance.QueueEvent(new AnimatorEvent(p.playerID, "Hurt"));
+                if(delta.delta >0) EventManager.instance.QueueEvent(new SoundEvent(p.GetGenre(), "BuffSelf")); ;
                 p.healthRemaining = p.healthRemaining + delta.delta;
                 World.Active.EntityManager.RemoveComponent<HealthDeltaComp>(e);
                 
@@ -49,7 +52,7 @@ public class PlayerValueSystem : ComponentSystem
                     p.mana = p.maxMana;
                 }
                 if (p.healthRemaining <= 0) {
-                    EventManager.instance.QueueEvent(new SoundEvent("Other", "Destroy"));
+                    //EventManager.instance.QueueEvent(new SoundEvent("Other", "Destroy"));
                     EventManager.instance.QueueEvent(new GameOverEvent(p.playerID));
                     Debug.Log("Game Over Event Sent");
                     p.healthRemaining = Constants.PlayerMaximumHealth;

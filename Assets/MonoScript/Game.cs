@@ -23,6 +23,7 @@ public class Game : MonoBehaviour, IGame
     [SerializeField] private Material vertProjectileBoundMat;
     [SerializeField] private Material horiProjectileBoundMat;
     [SerializeField] private CardLibrary cl;
+    [SerializeField] private AnimatorListener animator;
 
     private List<CardData> cardLibrary;
 
@@ -34,6 +35,14 @@ public class Game : MonoBehaviour, IGame
     private Deck playDeck1;
     private Deck playDeck2;
     [SerializeField] public EventManager eventManager;
+
+    void Awake()
+    {
+        playDeck1 = LobbyScript.p1Deck;
+        playDeck2 = LobbyScript.p2Deck;
+        animator.p1 = DeckGenres()[0];
+        animator.p2 = DeckGenres()[1];
+    }
     void Start()
     {
         eventManager = gameObject.AddComponent<EventManager>();
@@ -65,8 +74,10 @@ public class Game : MonoBehaviour, IGame
 
         cardLibrary = cl.GetAllByID();
 
-        PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
-        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
+        
+
+        PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playDeck1.GetPrimary(), playerMat);
+        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, manaRegen, mesh2D, playDeck2.GetPrimary(), playerMat);
         
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, (int)maxMana, 1));
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, (int)maxMana, 2));
@@ -81,14 +92,16 @@ public class Game : MonoBehaviour, IGame
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, -boundarySize/2), new Vector2(0, 1), mesh2D, horiPlayerBoundMat, 1);
         PlayerBoundaryEntity.Create(entityManager, new Vector2(-boundaryOffset, boundarySize/2), new Vector2(0, -1), mesh2D, horiPlayerBoundMat, 1);
 
-        playDeck1 = LobbyScript.p1Deck;
-        playDeck2 = LobbyScript.p2Deck;
-
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(-2.5f * boundaryOffset, 0), new Vector2(1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.clear);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(2.5f * boundaryOffset, 0), new Vector2(-1, 0), mesh2D, vertProjectileBoundMat, 20.0f, Color.clear);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, 1.5f * boundaryOffset), new Vector2(0, -1), mesh2D, horiProjectileBoundMat, 40.3f, Color.clear);
         ProjectileBoundaryEntity.Create(entityManager, new Vector2(0, 1.5f * -boundaryOffset), new Vector2(0, 1), mesh2D, horiProjectileBoundMat, 40.3f, Color.clear);
         CardEntity.Create(entityManager, new Vector2(0,-15f), 0, 0, 0, cardLibrary[0].manaCost, mesh2D, cardLibrary[0].getMaterial());
+
+        EventManager.instance.QueueEvent(new SoundEvent(playDeck1.GetPrimaryString(), "Intro"));
+        EventManager.instance.QueueEvent(new SoundEvent(playDeck2.GetPrimaryString(), "Intro"));
+        EventManager.instance.QueueEvent(new AnimatorEvent(2, "Intro"));
+        EventManager.instance.QueueEvent(new AnimatorEvent(2, "Intro"));
     }
 
     public bool HandleEvent(IGenericEvent evt)
@@ -131,7 +144,10 @@ public class Game : MonoBehaviour, IGame
             playDeck2.Shuffle();
         }
     }
-
+    public string[] DeckGenres()
+    {
+        return new string[] {playDeck1.GetPrimaryString(), playDeck2.GetPrimaryString()};
+    }
 
     private void HandleEndCollisionEvent(Entity entityA, Entity entityB)
     {

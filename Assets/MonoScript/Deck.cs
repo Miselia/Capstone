@@ -151,4 +151,29 @@ public class Deck
     {
         return deck;
     }
+    public int GetPrimary()
+    {
+        switch (primaryFaction)
+        {
+            case "Fantasy":
+                return 1;
+            case "Steampunk":
+                return 2;
+            case "Sci-Fi":
+                return 3;
+            case "Horror":
+                return 4;
+
+
+        }
+        return 0;
+    }
+    public string GetPrimaryString()
+    {
+        return primaryFaction;
+    }
+    public string GetSecondary()
+    {
+        return secondaryFaction;
+    }
 }

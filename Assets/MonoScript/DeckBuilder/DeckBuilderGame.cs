@@ -6,6 +6,7 @@ using System;
 using Assets.Resources;
 using Assets.MonoScript;
 using Assets.Events.GenericEvents;
+//using Assets.Events.EventListeners;
 using UnityEngine.SceneManagement;
 using Assets.Systems;
 
@@ -32,18 +33,24 @@ public class DeckBuilderGame : MonoBehaviour, IGame
     [SerializeField] private CardLibrary cl;
     [SerializeField] private Image CardMenu;
     [SerializeField] private Image DeckMenu;
+    [SerializeField] private AnimatorListener animator;
 
     int[] playerHand;
 
     private List<CardData> cardLibrary;
     public Deck builderDeck;
 
-
+    void Awake()
+    {
+        GetDeck();
+    }
     void Start()
     {
+        
         Debug.Log(typeof(ButtonListController).ToString());
         playerHand = new int[] { -1, -1, -1, -1 };
-        GetDeck();
+        
+
         //Debug.Log("Builder deck is null: " + (builderDeck == null));
 
         eventManager = gameObject.AddComponent<EventManager>();
@@ -71,7 +78,7 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         //World.Active.GetExistingSystem<CollisionBoxDrawingSystem>().Enabled = true;
         //World.Active.GetExistingSystem<QuadTreeDrawingSystem>().Enabled = true;
         
-        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playerMat);
+        PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, builderDeck.GetPrimary(), playerMat);
 
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, (int)maxMana, 1));
         EventManager.instance.QueueEvent(new UIUpdateEvent(maxHealth, (int)maxMana, 2));
@@ -88,6 +95,9 @@ public class DeckBuilderGame : MonoBehaviour, IGame
 
         EventManager.instance.QueueEvent(new InitializeDeckBuilderListUIEvent());
         EventManager.instance.QueueEvent(new InitializeDeckBuilerDeckUIEvent());
+
+        EventManager.instance.QueueEvent(new SoundEvent(builderDeck.GetPrimaryString(), builderDeck.GetSecondary()));
+        EventManager.instance.QueueEvent(new AnimatorEvent(1, "Intro"));
     }
 
     public bool HandleEvent(IGenericEvent evt)
@@ -170,6 +180,9 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         builderDeck = DeckLobbyScript.chosenDeck;
         CardMenu.color = GetFactionColor(builderDeck.getFactions()[0]);
         DeckMenu.color = GetFactionColor(builderDeck.getFactions()[1]);
+        animator.p1 = DeckGenres()[0];
+        animator.p2 = DeckGenres()[1];
+
     }
     public Color GetFactionColor(string faction)
     {
@@ -242,5 +255,9 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         CardEntity.Create(entityManager, new Vector2(boundaryOffset - 7, -7.5f), cardID, cardSlot, 1, cl.GetAllByID()[cardID].manaCost, mesh2D, cl.GetAllByID()[cardID].getMaterial());
         playerHand[cardSlot-1] = cardID;
         return cardID;
+    }
+    public string[] DeckGenres()
+    {
+        return new string[] { builderDeck.GetPrimaryString(), builderDeck.GetSecondary() };
     }
 }
