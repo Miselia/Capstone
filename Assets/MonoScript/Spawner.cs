@@ -427,7 +427,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
                         pillarPos = (playerID == 1) ?
                             new Vector2(Constants.GameBoundaryOffset + offset, 0) :
-                            new Vector2(Constants.GameBoundaryOffset - offset, 0);
+                            new Vector2(-Constants.GameBoundaryOffset + offset, 0);
                     }
                     createBullet("lightCigar", pillarPos, new Vector2(), 1.4f, damage, timer);
                     createBullet("", new Vector2(pillarPos.x, 1.5f), new Vector2(), 1.4f, damage, timer);
@@ -477,7 +477,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
                         cigarPos = (playerID == 1) ?
                             new Vector2(Constants.GameBoundaryOffset + offset, 6) :
-                            new Vector2(Constants.GameBoundaryOffset - offset, 6);
+                            new Vector2(-Constants.GameBoundaryOffset + offset, 6);
                     }
                     // Take note of the cigarPos offset for the Y value, this must be inverted in the "fullCigar" section below
                     createBullet("fullCigar", cigarPos, new Vector2(0, -4), 1, damage, timer);
@@ -503,9 +503,24 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     if (em.Exists(local))
                     {
                         // Rest of code
-                        Vector2 playerPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, em.GetComponentData<Translation>(player).Value.y);
+                        Vector2 destinationPos;
+                        if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                        {
+                            destinationPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, em.GetComponentData<Translation>(player).Value.y);
+                        }
+                        else
+                        {
+                            float offset = (playerID == 1) ?
+                                em.GetComponentData<Translation>(player).Value.x + 7 :
+                                em.GetComponentData<Translation>(player).Value.x - 7 ;
+
+                            destinationPos = (playerID == 1) ?
+                                new Vector2(Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) :
+                                new Vector2(-Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) ;
+                        }
+
                         Vector2 localPos = new Vector2(em.GetComponentData<Translation>(local).Value.x, em.GetComponentData<Translation>(local).Value.y);
-                        createBullet("rocket", localPos, playerPos - localPos, 1, damage, timer);
+                        createBullet("rocket", localPos, destinationPos - localPos, 1, damage, timer);
                         em.AddComponent(local, typeof(DeleteComp));
                     }
                     else
@@ -524,11 +539,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     {
                         float offset = (playerID == 1) ?
                             em.GetComponentData<Translation>(player).Value.x + 7 :
-                            em.GetComponentData<Translation>(player).Value.x - 7;
+                            em.GetComponentData<Translation>(player).Value.x - 7 ;
 
                         scopePos = (playerID == 1) ?
                             new Vector2(Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) :
-                            new Vector2(Constants.GameBoundaryOffset - offset, em.GetComponentData<Translation>(player).Value.y);
+                            new Vector2(-Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) ;
                     }
                     createBullet("scope", scopePos, new Vector2(), 1, 0, timer);
                     var list = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
