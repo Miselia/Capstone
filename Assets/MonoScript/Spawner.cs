@@ -352,6 +352,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 19:
                     // Wall Spikes
                     // Spawn one wall spike onto each player boundary on opponent's side of field
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
                     int oppSide;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
@@ -388,6 +389,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 20:
                     // Viper's Curse
                     // Attach a new "ViperDebuffComponent" to the opponent (self if DeckBuilder) and have it managed by the "BuffSystem"
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
                         em.AddComponent<IsBuffedComponent>(player);
@@ -404,12 +406,14 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 21:
                     // Create a projectile without a collision component (like Gravity), adding only a delete component of a rather short time
                     // Also add sound effect on spawn
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
                     damage = 0;
                     createBullet("jumpScare", new Vector2(positionX, 0), new Vector2(), 24, damage, timer);
                     EventManager.instance.QueueEvent(new SoundEvent("Other", "Doot"));
                     break;
                 case 22:
                     // Start spawn animation of flame pillar at bottom of opponent's field based on user position
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     Vector2 pillarPos;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
@@ -442,6 +446,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     break;
                 case 23:
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     // Spawn projectiles from top of screen (based on user position in the future?)
                     //createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(-.75f, -1), 0.5f, damage, timer);
                     createBullet("flickCigar", new Vector2(positionX - .5f, 6), new Vector2(-.5f, -2), 0.5f, damage, timer);
@@ -457,6 +462,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     break;
                 case 24:
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     // After delay, smash cigar, starting at top of opponent's side, based on user poition
                     Vector2 cigarPos;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
@@ -478,6 +484,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 25:
                     // Artemis Rocket
+                    // I know this costs 0 mana, but this is the big spell
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
                     // Find all potential Lock On projectiles and operate on the correct one (if there)
                     Entity local = new Entity();
                     var query = em.CreateEntityQuery(typeof(UniquePlayerCardSlotComponent), typeof(Translation));
@@ -505,6 +513,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 26:
                     // Ready, Aim
+                    // I get that this has high mana cost, but this ain't the big spell
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     Vector2 scopePos;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
