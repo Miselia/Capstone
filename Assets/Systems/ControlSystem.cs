@@ -14,19 +14,19 @@ public class ControlSystem : ComponentSystem
     {
        
             //Player 1
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.U))
             {
                 spawn(1, 1);
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.I))
             {
                 spawn(1, 2);
             }
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.O))
             {
                 spawn(1, 3);
             }
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 spawn(1, 4);
             }
@@ -172,26 +172,26 @@ public class ControlSystem : ComponentSystem
             }
 
             //PLAYER 2
-            if (Input.GetKeyDown(KeyCode.Y))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 spawn(2, 1);
             }
-            if (Input.GetKeyDown(KeyCode.U))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 spawn(2, 2);
             }
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.N))
             {
                 spawn(2, 3);
             }
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.M))
             {
                 spawn(2, 4);
             }
 
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                if (Input.GetKey(KeyCode.K))
+                if (Input.GetKey(KeyCode.DownArrow))
                 {
                     Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
                     {
@@ -206,9 +206,9 @@ public class ControlSystem : ComponentSystem
                     });
                 }
             }
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (Input.GetKey(KeyCode.I))
+                if (Input.GetKey(KeyCode.UpArrow))
                 {
                     Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
                     {
@@ -224,9 +224,9 @@ public class ControlSystem : ComponentSystem
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                if (Input.GetKey(KeyCode.L))
+                if (Input.GetKey(KeyCode.RightArrow))
                 {
                     Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
                     {
@@ -241,9 +241,9 @@ public class ControlSystem : ComponentSystem
                     });
                 }
             }
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                if (Input.GetKey(KeyCode.J))
+                if (Input.GetKey(KeyCode.LeftArrow))
                 {
                     Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
                     {
@@ -259,9 +259,9 @@ public class ControlSystem : ComponentSystem
                 }
             }
 
-            if (Input.GetKeyUp(KeyCode.I))
+            if (Input.GetKeyUp(KeyCode.UpArrow))
             {
-                if (Input.GetKey(KeyCode.K))
+                if (Input.GetKey(KeyCode.DownArrow))
                 {
                     Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
                     {
@@ -276,9 +276,9 @@ public class ControlSystem : ComponentSystem
                     });
                 }
             }
-            if (Input.GetKeyUp(KeyCode.K))
+            if (Input.GetKeyUp(KeyCode.DownArrow))
             {
-                if (Input.GetKey(KeyCode.I))
+                if (Input.GetKey(KeyCode.UpArrow))
                 {
                     Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
                     {
@@ -294,9 +294,9 @@ public class ControlSystem : ComponentSystem
                 }
             }
 
-            if (Input.GetKeyUp(KeyCode.J))
+            if (Input.GetKeyUp(KeyCode.LeftArrow))
             {
-                if (Input.GetKey(KeyCode.L))
+                if (Input.GetKey(KeyCode.RightArrow))
                 {
                     Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
                     {
@@ -311,9 +311,9 @@ public class ControlSystem : ComponentSystem
                     });
                 }
             }
-            if (Input.GetKeyUp(KeyCode.L))
+            if (Input.GetKeyUp(KeyCode.RightArrow))
             {
-                if (Input.GetKey(KeyCode.J))
+                if (Input.GetKey(KeyCode.LeftArrow))
                 {
                     Entities.ForEach((ref PlayerComponent player, ref MovementComponent move) =>
                     {
