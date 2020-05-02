@@ -87,7 +87,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
 
                 //Debug.Log("Gear position and movement readjusted, Normal.X = 0");
                 World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
-                    new MovementComponent { movementVector = new Vector2(-boundNormal.y * 5, 0) });
+                    new MovementComponent { movementVector = new Vector2(-boundNormal.y * 5, 0), multiplier = 1 }) ;
                 //Debug.Log("Gear movement: X = " + World.Active.EntityManager.GetComponentData<MovementComponent>(gearEntity).movementVector.x +
                             //", Y = " + World.Active.EntityManager.GetComponentData<MovementComponent>(gearEntity).movementVector.y);
 
@@ -102,7 +102,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
 
                 //Debug.Log("Gear position and movement readjusted, Normal.y = 0");
                 World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
-                    new MovementComponent { movementVector = new Vector2(0, boundNormal.x * 5) });
+                    new MovementComponent { movementVector = new Vector2(0, boundNormal.x * 5), multiplier = 1 });
                 //Debug.Log("Gear movement: X = " + World.Active.EntityManager.GetComponentData<MovementComponent>(gearEntity) +
                             //", Y = " + World.Active.EntityManager.GetComponentData<MovementComponent>(gearEntity));
 
