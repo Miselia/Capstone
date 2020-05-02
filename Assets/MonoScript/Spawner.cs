@@ -679,8 +679,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             case "jumpScare":
                 Entity scare = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);
                 em.RemoveComponent(scare, typeof(SpawnDelayComp));
-                //em.RemoveComponent(scare, typeof(ProjectileComponent));
-                //em.RemoveComponent(scare, typeof(CollisionComponent));
+                em.SetComponentData<Translation>(scare, new Translation { Value = new float3(position.x, position.y, 10) });
+                em.RemoveComponent(scare, typeof(ProjectileComponent));
+                em.RemoveComponent(scare, typeof(CollisionComponent));
                 em.AddComponent<Scale>(scare);
                 em.SetComponentData<Scale>(scare, new Scale { Value = radius });
                 em.RemoveComponent(scare, typeof(AffectedByGravityComponent));

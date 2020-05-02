@@ -29,7 +29,7 @@ public static class ProjectileEntity
         //em.SetComponentData(entity, new Scale { Value = radius*extraScale/2});
         em.SetComponentData(entity, new ProjectileComponent(0,damage));
         em.SetComponentData(entity, new SpawnDelayComp(movementVector, timer, radius, mask, extraScale));
-        em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 1) });
+        em.SetComponentData(entity, new Translation { Value = new float3(position.x, position.y, 0) });
         //em.SetComponentData(entity, new Rotation { Value = quaternion.Euler(0,0, Mathf.Atan2(movementVector.x, movementVector.y))});
         //em.SetComponentData(entity, new CollisionComponent(radius, radius, 0x03));
         em.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = mat });
