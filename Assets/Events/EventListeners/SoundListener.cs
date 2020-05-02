@@ -23,7 +23,7 @@ public class SoundListener : MonoBehaviour, IGenericEventListener
 
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
-            Debug.Log("Genre: " + s.genre + " Type: " + s.type);
+            //Debug.Log("Genre: " + s.genre + " Type: " + s.type);
             if (library.ContainsKey(s.genre))
             {
                 if (library[s.genre].ContainsKey(s.type))
@@ -43,7 +43,7 @@ public class SoundListener : MonoBehaviour, IGenericEventListener
                 library.Add(s.genre, new Dictionary<string, List<Sound>>());
                 library[s.genre].Add(s.type, new List<Sound>());
                 library[s.genre][s.type].Add(s);
-                Debug.Log("Adding Genre");
+                Debug.Log("Adding Genre " + s.genre);
             }
         }
     }
@@ -58,14 +58,23 @@ public class SoundListener : MonoBehaviour, IGenericEventListener
         {
 
             SoundEvent se = evt as SoundEvent;
-            int max = library[se.genre][se.type].Count;
-            int rand = Random.Range(0, max);
+            if (library.ContainsKey(se.genre) && library[se.genre].ContainsKey(se.type))
+            {
+                int max = library[se.genre][se.type].Count;
+                int rand = Random.Range(0, max);
 
-            // if (se.sound == 1) library[se.sound].pitch = Random.Range(1.0f - 0f, 1.0f + 0.5f);
-            //if (se.sound == 0) library[se.sound].pitch = Random.Range(1.0f - 0f, 1.0f + 0.5f);
-            //Debug.Log(library[se.genre][se.type][0].source.ToString());
-           library[se.genre][se.type][rand].source.Play();
-            return true;
+                // if (se.sound == 1) library[se.sound].pitch = Random.Range(1.0f - 0f, 1.0f + 0.5f);
+                //if (se.sound == 0) library[se.sound].pitch = Random.Range(1.0f - 0f, 1.0f + 0.5f);
+                //Debug.Log(library[se.genre][se.type][0].source.ToString());
+                library[se.genre][se.type][rand].source.Play();
+                return true;
+            }
+            else
+            {
+                Debug.Log("Either genre or type wasn't found");
+                Debug.Log("Genre " + se.genre);
+                Debug.Log("Type " + se.type);
+            }
         }
         return false;
     }

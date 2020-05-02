@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using Unity.Transforms;
 using Assets.MonoScript;
 using System.Linq;
+using System;
+using Unity.Mathematics;
 
 public class Spawner : MonoBehaviour, IGenericEventListener
 {
@@ -20,10 +22,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     private float currentMana;
     private float manaCost;
     private int cardSlot;
+    private Unity.Mathematics.Random rand;
 
     // Start is called before the first frame update
     void Start()
     {
+        rand = new Unity.Mathematics.Random(17);
         EventManager.instance.RegisterListener<SpawnEvent>(this);
         EventManager.instance.RegisterListener<CreateProjectileEvent>(this);
         em = World.Active.EntityManager;
@@ -51,7 +55,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             CreateProjectileEvent cpe = (CreateProjectileEvent) evt;
 
 
-            Debug.Log("Create projectile listened to");
+            Debug.Log("Create projectile listened to in Spawner");
             createBullet(cpe.type, cpe.position, cpe.movementVector, cpe.radius, -cpe.damage, cpe.timer);
             return true;
         }
@@ -101,6 +105,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
+                    em.AddComponent<MovementSpeedBuffComp>(player);
+                    em.SetComponentData<MovementSpeedBuffComp>(player, new MovementSpeedBuffComp(1.2f, 540));
+
                     EventManager.instance.QueueEvent(new SoundEvent(genre,"BuffSelf"));
                     createBullet("normal", new Vector2(positionX - 5, -5), new Vector2(0, 3), 1.0f, damage, timer);
                     createBullet("normal", new Vector2(positionX, -5), new Vector2(0, 3), 0.5f, damage, timer);
@@ -127,8 +134,23 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
+                    // Generate random value between 
+                    int v = rand.NextInt(0, 6);
+                    int off = v;
+                    Vector2 move;
+                    if (off % 2 == 0)
+                    {
+                        move = new Vector2(-1, -1);
+                        off = 4;
+                    }
+                    else
+                    {
+                        move = new Vector2(1, -1);
+                        off = -4;
+                    }
+
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
-                    createBullet("purple", new Vector2(positionX, 4), new Vector2(0, -1), 2.0f, damage, timer);
+                    createBullet("purple", new Vector2(positionX + off, 4), move, 2.0f, damage, timer);
                     break;
 
                 case 4:
@@ -138,15 +160,16 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
+                    // Reduced size from .75 -> 0.5
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
-                    createBullet("red", new Vector2(positionX, 5), new Vector2(0, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX + 5, 0), new Vector2(-2, 0), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX, -5), new Vector2(0, 2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX - 5, 0), new Vector2(2, 0), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX - 5, 5), new Vector2(2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX + 5, 5), new Vector2(-2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX - 5, -5), new Vector2(2, 2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX + 5, -5), new Vector2(-2, 2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX, 5), new Vector2(0, -2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX + 5, 0), new Vector2(-2, 0), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX, -5), new Vector2(0, 2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX - 5, 0), new Vector2(2, 0), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX - 5, 5), new Vector2(2, -2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX + 5, 5), new Vector2(-2, -2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX - 5, -5), new Vector2(2, 2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX + 5, -5), new Vector2(-2, 2), 0.5f, damage, timer);
                     break;
 
                 case 5:
@@ -181,11 +204,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     int num2 = 7;
                     while (num1 == 7 || num1 == 11 || num1 == 23 || num1 == 24 || num1 == 25)
                     {
-                        num1 = Random.Range(1, Constants.CardLibraryCount);
+                        num1 = UnityEngine.Random.Range(1, Constants.CardLibraryCount);
                     }
                     while (num2 == 7 || num2 == 11 || num2 == 23 || num2 == 24 || num2 == 25)
                     {
-                        num2 = Random.Range(1, Constants.CardLibraryCount);
+                        num2 = UnityEngine.Random.Range(1, Constants.CardLibraryCount);
                     }
 
                     spawn(card, player, num1, timer, opponent);
@@ -267,8 +290,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     {
                         if (em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
                         {
-                            em.AddComponent(e, typeof(ProjectileSpeedBuffComp));
-                            em.SetComponentData(e, new ProjectileSpeedBuffComp(3, 180, new Vector2(0, 0)));
+                            em.AddComponent(e, typeof(MovementSpeedBuffComp));
+                            em.SetComponentData(e, new MovementSpeedBuffComp(3, 180));
                         }
                     }
                     break;
@@ -279,23 +302,24 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
+                    // Reduced size from 0.5f -> 0.35f
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     Vector2 down = new Vector2(0, -2f);
-                    createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.5f, damage, timer);
-                    createBullet("bullet", new Vector2(positionX, 5), down, 0.5f, damage, timer);
-                    createBullet("bullet", new Vector2(positionX + 3, 5), down, 0.5f, damage, timer);
+                    createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.35f, damage, timer);
+                    createBullet("bullet", new Vector2(positionX, 5), down, 0.35f, damage, timer);
+                    createBullet("bullet", new Vector2(positionX + 3, 5), down, 0.35f, damage, timer);
 
-                    createBullet("bullet", new Vector2(positionX - 4.5f, 5), down, 0.5f, damage, timer + 100);
-                    createBullet("bullet", new Vector2(positionX - 1.5f, 5), down, 0.5f, damage, timer + 100);
-                    createBullet("bullet", new Vector2(positionX + 1.5f, 5), down, 0.5f, damage, timer + 100);
+                    createBullet("bullet", new Vector2(positionX - 4.5f, 5), down, 0.35f, damage, timer + 100);
+                    createBullet("bullet", new Vector2(positionX - 1.5f, 5), down, 0.35f, damage, timer + 100);
+                    createBullet("bullet", new Vector2(positionX + 1.5f, 5), down, 0.35f, damage, timer + 100);
 
-                    createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.5f, damage, timer + 200);
-                    createBullet("bullet", new Vector2(positionX, 5), down, 0.5f, damage, timer + 200);
-                    createBullet("bullet", new Vector2(positionX + 3, 5), down, 0.5f, damage, timer + 200);
+                    createBullet("bullet", new Vector2(positionX - 3, 5), down, 0.35f, damage, timer + 200);
+                    createBullet("bullet", new Vector2(positionX, 5), down, 0.35f, damage, timer + 200);
+                    createBullet("bullet", new Vector2(positionX + 3, 5), down, 0.35f, damage, timer + 200);
 
-                    createBullet("bullet", new Vector2(positionX - 1.5f, 5), down, 0.5f, damage, timer + 300);
-                    createBullet("bullet", new Vector2(positionX + 1.5f, 5), down, 0.5f, damage, timer + 300);
-                    createBullet("bullet", new Vector2(positionX + 4.5f, 5), down, 0.5f, damage, timer + 300);
+                    createBullet("bullet", new Vector2(positionX - 1.5f, 5), down, 0.35f, damage, timer + 300);
+                    createBullet("bullet", new Vector2(positionX + 1.5f, 5), down, 0.35f, damage, timer + 300);
+                    createBullet("bullet", new Vector2(positionX + 4.5f, 5), down, 0.35f, damage, timer + 300);
                     break;
                 case 15:
                     // Spray and Pray
@@ -304,19 +328,20 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
+                    // Reduced size from 0.5f -> .35f
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     int speed = 3;
                     int direction = -positionX / Mathf.Abs(positionX);
                     Vector2 bottomCorner = new Vector2(positionX - direction * 5, -5);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.1f * speed, 0.9f * speed), 0.5f, damage, timer);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.1f * speed, 0.9f * speed), 0.35f, damage, timer);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.2f * speed, 0.8f * speed), 0.5f, damage, timer + 20);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.3f * speed, 0.7f * speed), 0.5f, damage, timer + 40);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.3f * speed, 0.7f * speed), 0.35f, damage, timer + 40);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.4f * speed, 0.6f * speed), 0.5f, damage, timer + 60);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.5f * speed, 0.5f * speed), 0.5f, damage, timer + 80);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.5f * speed, 0.5f * speed), 0.35f, damage, timer + 80);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.6f * speed, 0.4f * speed), 0.5f, damage, timer + 100);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.7f * speed, 0.3f * speed), 0.5f, damage, timer + 120);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.7f * speed, 0.3f * speed), 0.35f, damage, timer + 120);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.8f * speed, 0.2f * speed), 0.5f, damage, timer + 140);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.9f * speed, 0.1f * speed), 0.5f, damage, timer + 180);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.9f * speed, 0.1f * speed), 0.35f, damage, timer + 180);
                     break;
                 case 16:
                     // Well Oiled Machine
@@ -344,8 +369,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         if (em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
                         {
                             em.AddComponent(e, typeof(IsBuffedComponent));
-                            em.AddComponent(e, typeof(ProjectileSpeedBuffComp));
-                            em.SetComponentData(e, new ProjectileSpeedBuffComp(0, 240, new Vector2(0, 0)));
+                            em.AddComponent(e, typeof(MovementSpeedBuffComp));
+                            em.SetComponentData(e, new MovementSpeedBuffComp(0, 240));
                         }
                     }
                     break;
@@ -380,6 +405,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
                                 Vector2 mod = new Vector2(pbc.Normal.y, pbc.Normal.x);
                                 mod *= 3;
+
                                 location += mod;
                                 createBullet("spike", location, new Vector2(), 1, damage, timer, -1, new Vector2(pbc.Normal.x, -pbc.Normal.y));
                             }
@@ -404,14 +430,16 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     break;
                 case 21:
+                    // Jump Scare
                     // Create a projectile without a collision component (like Gravity), adding only a delete component of a rather short time
                     // Also add sound effect on spawn
-                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     damage = 0;
-                    createBullet("jumpScare", new Vector2(positionX, 0), new Vector2(), 24, damage, timer);
+                    createBullet("jumpScare", new Vector2(positionX, 0), new Vector2(), 12, damage, timer);
                     EventManager.instance.QueueEvent(new SoundEvent("Other", "Doot"));
                     break;
                 case 22:
+                    // Light Cigar
                     // Start spawn animation of flame pillar at bottom of opponent's field based on user position
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     Vector2 pillarPos;
@@ -423,11 +451,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     {
                         float offset = (playerID == 1) ?
                             em.GetComponentData<Translation>(player).Value.x + 7 :
-                            em.GetComponentData<Translation>(player).Value.x - 7;
+                            em.GetComponentData<Translation>(player).Value.x - 7 ;
 
                         pillarPos = (playerID == 1) ?
-                            new Vector2(Constants.GameBoundaryOffset + offset, 0) :
-                            new Vector2(-Constants.GameBoundaryOffset + offset, 0);
+                            new Vector2(Constants.GameBoundaryOffset + offset, 0)  :
+                            new Vector2(-Constants.GameBoundaryOffset + offset, 0) ;
                     }
                     createBullet("lightCigar", pillarPos, new Vector2(), 1.4f, damage, timer);
                     createBullet("", new Vector2(pillarPos.x, 1.5f), new Vector2(), 1.4f, damage, timer);
@@ -446,6 +474,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     break;
                 case 23:
+                    // Flick Cigar
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     // Spawn projectiles from top of screen (based on user position in the future?)
                     //createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(-.75f, -1), 0.5f, damage, timer);
@@ -462,6 +491,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     break;
                 case 24:
+                    // Smash Cigar
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     // After delay, smash cigar, starting at top of opponent's side, based on user poition
                     Vector2 cigarPos;
@@ -651,9 +681,12 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.RemoveComponent(scare, typeof(SpawnDelayComp));
                 //em.RemoveComponent(scare, typeof(ProjectileComponent));
                 //em.RemoveComponent(scare, typeof(CollisionComponent));
+                em.AddComponent<Scale>(scare);
+                em.SetComponentData<Scale>(scare, new Scale { Value = radius });
                 em.RemoveComponent(scare, typeof(AffectedByGravityComponent));
                 em.AddComponent(scare, typeof(DeleteComp));
                 em.SetComponentData(scare, new DeleteComp(100));
+                Debug.Log("Spooky spawned at location (" + position.x + "," + position.y + ")");
                 break;
             case "lightCigar":
                 Entity flame = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[16], 0x03, true, new Vector2(), 4);

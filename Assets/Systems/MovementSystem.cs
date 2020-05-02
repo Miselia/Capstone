@@ -16,8 +16,8 @@ public class MovementSystem : JobComponentSystem
 
         public void Execute(Entity entity, int index, ref MovementComponent moveComp, ref Translation translation)
         {
-            translation.Value.y += moveComp.movementVector.y * deltaTime;
-            translation.Value.x += moveComp.movementVector.x * deltaTime;
+            translation.Value.y += moveComp.movementVector.y * moveComp.multiplier * deltaTime;
+            translation.Value.x += moveComp.movementVector.x * moveComp.multiplier * deltaTime;
 
             // This works, but needs to only apply to player entities
             /*if(translation.Value.y > 5.7f)

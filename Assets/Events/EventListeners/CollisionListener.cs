@@ -213,6 +213,13 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.SetComponentData(playerEntity, World.Active.EntityManager.GetComponentData<ManaRegenBuffComp>(projectileEntity));
             }
 
+            if (World.Active.EntityManager.HasComponent<MovementSpeedBuffComp>(projectileEntity))
+            {
+                World.Active.EntityManager.AddComponent(playerEntity, typeof(IsBuffedComponent));
+                World.Active.EntityManager.AddComponent(playerEntity, typeof(MovementSpeedBuffComp));
+                World.Active.EntityManager.SetComponentData(playerEntity, World.Active.EntityManager.GetComponentData<MovementSpeedBuffComp>(projectileEntity));
+            }
+
             int projectileDamage = World.Active.EntityManager.GetComponentData<ProjectileComponent>(projectileEntity).damage;
             World.Active.EntityManager.AddComponent(playerEntity, typeof(HealthDeltaComp));
             World.Active.EntityManager.SetComponentData(playerEntity, new HealthDeltaComp(projectileDamage));

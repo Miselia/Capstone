@@ -35,7 +35,6 @@ public class DeckListController : MonoBehaviour, IGenericEventListener
 
     public void ButtonClicked(int id)
     {
-
         //EventManager.eventManager.QueueEvent(new SpawnEvent(
         //    new CardEntity.Create(World.Active.EntityManager, new Vector2(), id, 0, 1, ))
         foreach(CardData cd in dbGame.GetCardLibrary())

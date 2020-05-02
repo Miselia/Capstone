@@ -17,6 +17,7 @@
         public static readonly float PlayerManaRegen = 0.025f;
         public static readonly float PlayerRadius = 0.25f;
         public static readonly int MaxDeckSize = 15;
+        public static readonly int MaxCopiesPerDeck = 3;
         public static readonly int DefaultProjectileDamage = 1;
 
         public static readonly int QuadTreeMaxReferences = 4;

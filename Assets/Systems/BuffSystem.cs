@@ -41,7 +41,7 @@ public class BuffSystem : ComponentSystem
                     EntityManager.RemoveComponent<ManaRegenBuffComp>(e);
 
                     if(!EntityManager.HasComponent<ManaRegenBuffComp>(e) &&
-                       !EntityManager.HasComponent<ProjectileSpeedBuffComp>(e) &&
+                       !EntityManager.HasComponent<MovementSpeedBuffComp>(e) &&
                        !EntityManager.HasComponent<ViperCurseComponent>(e))
                     {
                         EntityManager.RemoveComponent<IsBuffedComponent>(e);
@@ -51,32 +51,31 @@ public class BuffSystem : ComponentSystem
             }
 
             // Projectile Speed Buff
-            if(EntityManager.HasComponent<ProjectileSpeedBuffComp>(e))
+            if(EntityManager.HasComponent<MovementSpeedBuffComp>(e))
             {
-                ProjectileSpeedBuffComp sbc = EntityManager.GetComponentData<ProjectileSpeedBuffComp>(e);
+                MovementSpeedBuffComp sbc = EntityManager.GetComponentData<MovementSpeedBuffComp>(e);
 
                 if (sbc.timer == sbc.maxTimer)
                 {
                     MovementComponent moveComp = EntityManager.GetComponentData<MovementComponent>(e);
                     EventManager.instance.QueueEvent(new SoundEvent("Other", "Buff"));
 
-                    sbc.original = moveComp.movementVector;
-                    moveComp.movementVector *= sbc.value;
+                    moveComp.multiplier *= sbc.value;
                     EntityManager.SetComponentData<MovementComponent>(e, moveComp);
                 }
 
                 sbc.timer--;
-                World.Active.EntityManager.SetComponentData<ProjectileSpeedBuffComp>(e, sbc);
+                World.Active.EntityManager.SetComponentData<MovementSpeedBuffComp>(e, sbc);
 
                 if (sbc.timer <= 0)
                 {
                     MovementComponent moveComp = EntityManager.GetComponentData<MovementComponent>(e);
 
-                    moveComp.movementVector = sbc.original;
+                    moveComp.multiplier /= sbc.value;
                     EntityManager.SetComponentData<MovementComponent>(e, moveComp);
 
                     if (!EntityManager.HasComponent<ManaRegenBuffComp>(e) &&
-                       !EntityManager.HasComponent<ProjectileSpeedBuffComp>(e) &&
+                       !EntityManager.HasComponent<MovementSpeedBuffComp>(e) &&
                        !EntityManager.HasComponent<ViperCurseComponent>(e))
                     {
                         EntityManager.RemoveComponent<IsBuffedComponent>(e);
@@ -111,7 +110,7 @@ public class BuffSystem : ComponentSystem
                     EntityManager.RemoveComponent<ViperCurseComponent>(e);
 
                     if (!EntityManager.HasComponent<ManaRegenBuffComp>(e) &&
-                       !EntityManager.HasComponent<ProjectileSpeedBuffComp>(e) &&
+                       !EntityManager.HasComponent<MovementSpeedBuffComp>(e) &&
                        !EntityManager.HasComponent<ViperCurseComponent>(e))
                     {
                         EntityManager.RemoveComponent<IsBuffedComponent>(e);

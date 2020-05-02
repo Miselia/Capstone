@@ -116,12 +116,12 @@ public class DeckBuilderGame : MonoBehaviour, IGame
             if (result)
             {
                 //Debug.Log("Calling Add to Deck List UI");
-                EventManager.instance.QueueEvent(new AddCardtoDeckScrollListEvent(acd.cardID, acd.cardName, acd.traits, acd. flavor));
+                EventManager.instance.QueueEvent(new AddCardtoDeckScrollListEvent(acd.cardID, acd.cardName, acd.traits, acd.flavor));
                 return true;
             }
             else
             {
-                //Debug.Log("Add to Deck List failed, abort add to UI");
+                Debug.Log("Add to Deck List failed, too many copies of the same card! The max number is: " + Constants.MaxCopiesPerDeck);
                 return false;
             }
         }

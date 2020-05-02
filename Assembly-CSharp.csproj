@@ -77,12 +77,12 @@
     <Compile Include="Assets\Components\ManaDeltaComp.cs" />
     <Compile Include="Assets\Components\ManaRegenBuffComp.cs" />
     <Compile Include="Assets\Components\MovementComponent.cs" />
+    <Compile Include="Assets\Components\MovementSpeedBuffComp.cs" />
     <Compile Include="Assets\Components\PlayerBoundaryComponent.cs" />
     <Compile Include="Assets\Components\PlayerComponent.cs" />
     <Compile Include="Assets\Components\ProjectileBoundaryComponent.cs" />
     <Compile Include="Assets\Components\ProjectileCollisionWithPlayerBoundaryComponent.cs" />
     <Compile Include="Assets\Components\ProjectileComponent.cs" />
-    <Compile Include="Assets\Components\ProjectileSpeedBuffComp.cs" />
     <Compile Include="Assets\Components\QuadTreeReferenceComponent.cs" />
     <Compile Include="Assets\Components\RotationComponent.cs" />
     <Compile Include="Assets\Components\SpawnDelayComp.cs" />
@@ -153,19 +153,13 @@
     <Compile Include="Assets\Systems\RotationSystem.cs" />
     <Compile Include="Assets\Systems\SpawnDelaySystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
-    <None Include="Assets\Resources\Science Fantasy.txt" />
-    <None Include="Assets\Resources\Keith_Demo.txt" />
-    <None Include="Assets\Resources\Space Dead.txt" />
-    <None Include="Assets\Resources\GlimpseTest.txt" />
-    <None Include="Assets\Resources\Bullet Hell.txt" />
-    <None Include="Assets\Resources\Dead Space.txt" />
-    <None Include="Assets\Resources\Spookpunk.txt" />
-    <None Include="Assets\Resources\Capstone Pres.txt" />
-    <None Include="Assets\Resources\Techpunk.txt" />
-    <None Include="Assets\Resources\SteamyHorror.txt" />
-    <None Include="Assets\Resources\MagiTech.txt" />
+    <None Include="Assets\Resources\ValidDecks\New Start.txt" />
+    <None Include="Assets\Resources\New Start.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Animation.Runtime">
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
@@ -218,6 +212,9 @@
     <Reference Include="Unity.Rendering.Hybrid">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Rendering.Hybrid.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Animation.Triangle.Runtime">
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
@@ -233,17 +230,26 @@
     <Reference Include="Unity.Mathematics">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.InternalAPIEngineBridge.001">
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Properties">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Properties.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Common.Runtime">
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Entities">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Transforms">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Transforms.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Animation.Editor">
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Transforms.Editor">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Transforms.Editor.dll</HintPath>
@@ -254,32 +260,17 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Transforms.Hybrid">
-      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Transforms.Hybrid.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Animation.Runtime">
-      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Animation.Triangle.Runtime">
-      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.001">
-      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Common.Runtime">
-      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Animation.Editor">
-      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Common.Editor">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.001">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Transforms.Hybrid">
+      <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Transforms.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

@@ -2,12 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class Deck 
 {
+    // ValidDecks is a folder that serves to hold all valid decks
+    // This makes deck loading from the Lobby very easy as it will only display decks that are valid
+    // This means that each deck, valid or invalid, will be stored in the Assets/Resources directory,
+    // while ValidDecks will also be stored in the ValidDecks folder (meaning we store the same file twice)
+
     // Start is called before the first frame update
     private int maxDeckSize = Constants.MaxDeckSize;
+    private int maxCopiesPerDeck = Constants.MaxCopiesPerDeck;
     private string filepath;
     private List<int> deck;
     int topOfDeck = 0;
@@ -88,12 +95,6 @@ public class Deck
     }
     public void SaveDeck()
     {
-        /*
-        if (!File.Exists(filepath))
-        {
-            File.CreateText(filepath);
-        }
-        */
         StreamWriter writer = new StreamWriter((filepath), false);
         writer.WriteLine(primaryFaction);
         writer.WriteLine(secondaryFaction);
@@ -101,6 +102,36 @@ public class Deck
             writer.WriteLine(deck[i]);
         }
         writer.Close();
+
+        // If deck is valid, write to "ValidDecks" folder
+        if (CheckDeckIsValid())
+        {
+            filepath = "Assets/Resources/ValidDecks/" + deckName + ".txt";
+            StreamWriter validWriter = new StreamWriter((filepath), false);
+            validWriter.WriteLine(primaryFaction);
+            validWriter.WriteLine(secondaryFaction);
+            for (int i = 0; i < deck.Count; i++)
+            {
+                validWriter.WriteLine(deck[i]);
+            }
+            validWriter.Close();
+        }
+    }
+
+    public bool CheckDeckIsValid()
+    {
+        // This is an O(n^2) operation, it could be better, but it is what is it
+        bool ret = false;
+        if (deck.Count == maxDeckSize)
+        {
+            ret = true;
+            foreach (int card in deck)
+            {
+                if (CountCopiesInDeck(card) > maxCopiesPerDeck)
+                    ret = false;
+            }
+        }
+        return ret;
     }
 
     // Cite this source: https://stackoverflow.com/questions/273313/randomize-a-listt by user "Shital Shah"
@@ -133,13 +164,24 @@ public class Deck
 
     public bool AddCard(int cardID)
     {
-        if (deck.Count < maxDeckSize)
+        if (deck.Count < maxDeckSize && CountCopiesInDeck(cardID) < maxCopiesPerDeck )
         {
             deck.Add(cardID);
             return true;
         }
         else
             return false;
+    }
+
+    private int CountCopiesInDeck(int compare)
+    {
+        int ret = 0;
+        foreach(int i in deck)
+        {
+            if (i == compare)
+                ret += 1;
+        }
+        return ret;
     }
 
     public bool RemoveCard(int cardID)
