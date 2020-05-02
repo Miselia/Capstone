@@ -67,6 +67,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
 
     private bool GearBoundaryCollisionHelper(Entity gearEntity, Entity playBoundEntity)
     {
+        //Debug.Log("Gear Collision with Player Boundary");
         bool exists = World.Active.EntityManager.Exists(gearEntity) && World.Active.EntityManager.Exists(playBoundEntity);
         if (exists)
         {
@@ -75,6 +76,8 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             float circleRadius = World.Active.EntityManager.GetComponentData<CollisionComponent>(gearEntity).collisionRadius;
             Vector2 boundNormal = World.Active.EntityManager.GetComponentData<PlayerBoundaryComponent>(playBoundEntity).Normal;
 
+            //Debug.Log("Boundary Vector: X = " + boundNormal.x + ", Y = " + boundNormal.y);
+
             if (boundNormal.x == 0)
             {
                 Vector2 nearestWallPosition = new Vector2(gearVector.x, boundaryVector.y);
@@ -82,9 +85,12 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.SetComponentData<Translation>(gearEntity,
                     new Translation { Value = new Unity.Mathematics.float3(gearVector.x, gearVector.y, gearVector.z) });
 
-                //Debug.Log("Gear position and movement readjusted");
+                //Debug.Log("Gear position and movement readjusted, Normal.X = 0");
                 World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
                     new MovementComponent { movementVector = new Vector2(-boundNormal.y * 5, 0) });
+                //Debug.Log("Gear movement: X = " + World.Active.EntityManager.GetComponentData<MovementComponent>(gearEntity).movementVector.x +
+                            //", Y = " + World.Active.EntityManager.GetComponentData<MovementComponent>(gearEntity).movementVector.y);
+
                 EventManager.instance.QueueEvent(new EndCollisionEvent(gearEntity, playBoundEntity));
             }
             if (boundNormal.y == 0)
@@ -94,9 +100,12 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 World.Active.EntityManager.SetComponentData<Translation>(gearEntity,
                     new Translation { Value = new Unity.Mathematics.float3(gearVector.x, gearVector.y, gearVector.z) });
 
-                //Debug.Log("Gear position and movement readjusted");
+                //Debug.Log("Gear position and movement readjusted, Normal.y = 0");
                 World.Active.EntityManager.SetComponentData<MovementComponent>(gearEntity,
                     new MovementComponent { movementVector = new Vector2(0, boundNormal.x * 5) });
+                //Debug.Log("Gear movement: X = " + World.Active.EntityManager.GetComponentData<MovementComponent>(gearEntity) +
+                            //", Y = " + World.Active.EntityManager.GetComponentData<MovementComponent>(gearEntity));
+
                 EventManager.instance.QueueEvent(new EndCollisionEvent(gearEntity, playBoundEntity));
             }
             return true;

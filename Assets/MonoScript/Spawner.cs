@@ -540,13 +540,16 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         }
                         else
                         {
-                            float offset = (playerID == 1) ?
+                            // Old code attempted to fire at the mirrored position of the opponent (but was firing at the player who casted
+                            /*float offset = (playerID == 1) ?
                                 em.GetComponentData<Translation>(player).Value.x + 7 :
                                 em.GetComponentData<Translation>(player).Value.x - 7 ;
 
                             destinationPos = (playerID == 1) ?
                                 new Vector2(Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) :
-                                new Vector2(-Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) ;
+                                new Vector2(-Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) ;*/
+                            // New code will instead fire directly at the opponent
+                            destinationPos = new Vector2(em.GetComponentData<Translation>(opponent).Value.x, em.GetComponentData<Translation>(opponent).Value.y);
                         }
 
                         Vector2 localPos = new Vector2(em.GetComponentData<Translation>(local).Value.x, em.GetComponentData<Translation>(local).Value.y);
@@ -679,7 +682,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             case "jumpScare":
                 Entity scare = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);
                 em.RemoveComponent(scare, typeof(SpawnDelayComp));
-                em.SetComponentData<Translation>(scare, new Translation { Value = new float3(position.x, position.y, 10) });
+                //em.SetComponentData<Translation>(scare, new Translation { Value = new float3(position.x, position.y, 1) });
                 em.RemoveComponent(scare, typeof(ProjectileComponent));
                 em.RemoveComponent(scare, typeof(CollisionComponent));
                 em.AddComponent<Scale>(scare);
