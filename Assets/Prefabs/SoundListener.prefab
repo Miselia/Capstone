@@ -523,14 +523,14 @@ MonoBehaviour:
   - name: SciFi SmallCard 1
     clip: {fileID: 8300000, guid: e9e8a90df5936de49839e4866b1b7eba, type: 3}
     genre: Sci-Fi
-    type: smallCard
+    type: SmallCard
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: SciFi SmallCard 2
     clip: {fileID: 8300000, guid: be2549e0666235c4fa05dd54ffdd4b88, type: 3}
     genre: Sci-Fi
-    type: smallCard
+    type: SmallCard
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -1000,6 +1000,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e11b7272bf9903c4d9b8dd557eb61682, type: 3}
     genre: Steampunk
     type: Victory
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Super 1
+    clip: {fileID: 8300000, guid: 765f4c719a5e62044b4a8281cbc4fd6f, type: 3}
+    genre: Fantasy
+    type: Super
     volume: 1
     pitch: 1
     source: {fileID: 0}

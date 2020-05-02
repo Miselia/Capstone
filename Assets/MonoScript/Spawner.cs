@@ -233,7 +233,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 11:
                     //Gravity Well
-                    EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "Super"));
                     createBullet("gravityWell",new Vector2(positionX, 0), new Vector2(0, 0), 1f, damage, 0);
 
                     break;
