@@ -153,6 +153,7 @@
     <Compile Include="Assets\Systems\RotationSystem.cs" />
     <Compile Include="Assets\Systems\SpawnDelaySystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
+    <None Include="Assets\Resources\Tech.txt" />
     <None Include="Assets\Resources\ValidDecks\New Start.txt" />
     <None Include="Assets\Resources\New Start.txt" />
     <Reference Include="Unity.Timeline.Editor">

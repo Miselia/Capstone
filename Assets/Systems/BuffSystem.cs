@@ -60,7 +60,9 @@ public class BuffSystem : ComponentSystem
                     MovementComponent moveComp = EntityManager.GetComponentData<MovementComponent>(e);
                     EventManager.instance.QueueEvent(new SoundEvent("Other", "Buff"));
 
-                    moveComp.multiplier *= sbc.value;
+                    // Ideally, multiplying the value by the current multiplier would happen, but because
+                    // we can only have 1 MoveSpeedBuffComp at a time we are just going to have to hard set the value.
+                    moveComp.multiplier = sbc.value;
                     EntityManager.SetComponentData<MovementComponent>(e, moveComp);
                 }
 
@@ -71,7 +73,8 @@ public class BuffSystem : ComponentSystem
                 {
                     MovementComponent moveComp = EntityManager.GetComponentData<MovementComponent>(e);
 
-                    moveComp.multiplier /= sbc.value;
+                    // Because we can't stack move speed buffs we have to hard set the speed once the buff ends
+                    moveComp.multiplier = 1;
                     EntityManager.SetComponentData<MovementComponent>(e, moveComp);
 
                     if (!EntityManager.HasComponent<ManaRegenBuffComp>(e) &&
