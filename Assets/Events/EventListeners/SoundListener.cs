@@ -63,18 +63,12 @@ public class SoundListener : MonoBehaviour, IGenericEventListener
                 int max = library[se.genre][se.type].Count;
                 int rand = Random.Range(0, max);
 
-                // if (se.sound == 1) library[se.sound].pitch = Random.Range(1.0f - 0f, 1.0f + 0.5f);
-                //if (se.sound == 0) library[se.sound].pitch = Random.Range(1.0f - 0f, 1.0f + 0.5f);
-                //Debug.Log(library[se.genre][se.type][0].source.ToString());
-                library[se.genre][se.type][rand].source.Play();
-                return true;
-            }
-            else
-            {
-                Debug.Log("Either genre or type wasn't found");
-                Debug.Log("Genre " + se.genre);
-                Debug.Log("Type " + se.type);
-            }
+            // if (se.sound == 1) library[se.sound].pitch = Random.Range(1.0f - 0f, 1.0f + 0.5f);
+            //if (se.sound == 0) library[se.sound].pitch = Random.Range(1.0f - 0f, 1.0f + 0.5f);
+            //Debug.Log(library[se.genre][se.type][0].source.ToString());
+            if(se.delay!=0) library[se.genre][se.type][rand].source.PlayDelayed(se.delay);
+            else library[se.genre][se.type][rand].source.Play();
+            return true;
         }
         return false;
     }

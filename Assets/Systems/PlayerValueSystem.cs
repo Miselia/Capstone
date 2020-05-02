@@ -41,6 +41,7 @@ public class PlayerValueSystem : ComponentSystem
                     int delta = EntityManager.GetComponentData<HealthDeltaComp>(e).delta;
                     if (delta  == -1)
                         EventManager.instance.QueueEvent(new SoundEvent(p.GetGenre(),"Hurt"));
+                    EventManager.instance.QueueEvent(new AnimatorEvent(p.playerID, "Hurt"));
                     if (delta < -1)
                         EventManager.instance.QueueEvent(new SoundEvent(p.GetGenre(), "HurtHeavy"));
                     if (delta > 0)

@@ -99,7 +99,7 @@ public class Game : MonoBehaviour, IGame
         CardEntity.Create(entityManager, new Vector2(0,-15f), 0, 0, 0, cardLibrary[0].manaCost, mesh2D, cardLibrary[0].getMaterial());
 
         EventManager.instance.QueueEvent(new SoundEvent(playDeck1.GetPrimaryString(), "Intro"));
-        EventManager.instance.QueueEvent(new SoundEvent(playDeck2.GetPrimaryString(), "Intro"));
+        EventManager.instance.QueueEvent(new SoundEvent(playDeck2.GetPrimaryString(), "Intro",1f));
         EventManager.instance.QueueEvent(new AnimatorEvent(2, "Intro"));
         EventManager.instance.QueueEvent(new AnimatorEvent(2, "Intro"));
     }

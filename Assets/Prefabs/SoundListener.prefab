@@ -72,14 +72,14 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: Doot Horn
+  - name: Other Doot
     clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
     genre: Other
     type: Doot
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: Destroy
+  - name: Other Destroy
     clip: {fileID: 8300000, guid: bdecc07ca78aa0c48bc33f699132ddcf, type: 3}
     genre: Other
     type: Destroy
@@ -178,46 +178,46 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: Steampunk Hurt 1
-    clip: {fileID: 8300000, guid: 1e9529c12c25da3409276b694a75da07, type: 3}
+    clip: {fileID: 8300000, guid: 518e66940ac64f248b0a346a26d896ec, type: 3}
     genre: Steampunk
     type: Hurt
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: Steampunk SmallCard 1
-    clip: {fileID: 8300000, guid: 31270fb0a5b9ddd4ea4e3c83f8b479ff, type: 3}
+    clip: {fileID: 8300000, guid: aeecb4f25a1cf804494d7bfb09bcd7c8, type: 3}
     genre: Steampunk
     type: SmallCard
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: Steampunk LargeCard 1
-    clip: {fileID: 8300000, guid: 31270fb0a5b9ddd4ea4e3c83f8b479ff, type: 3}
+    clip: {fileID: 8300000, guid: b7f0a81543eb0d648938fd9120afee7d, type: 3}
     genre: Steampunk
     type: LargeCard
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: Steampunk BuffSelf 1
-    clip: {fileID: 8300000, guid: b81dc16bc11b9bb40bf38b44234d1bf7, type: 3}
+    clip: {fileID: 8300000, guid: 4459efa2350e03f4696a933debc2f0c8, type: 3}
     genre: Steampunk
     type: BuffSelf
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: Steampunk BuffProjectile 1
-    clip: {fileID: 8300000, guid: a263ba51e51414b4292f745f553ee89e, type: 3}
+    clip: {fileID: 8300000, guid: 6a78795c11c4dc440962969bd2035268, type: 3}
     genre: Steampunk
     type: BuffProjectile
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: Steampunk Intro 1
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    clip: {fileID: 8300000, guid: 874f31d5ae0c0804394b5401e2d2b3ed, type: 3}
     genre: Steampunk
     type: Intro
     volume: 1
-    pitch: 1.5
+    pitch: 1
     source: {fileID: 0}
   - name: Fantasy Intro 1
     clip: {fileID: 8300000, guid: 1361f14a928c4cc4da3eea1500142928, type: 3}
@@ -523,14 +523,14 @@ MonoBehaviour:
   - name: SciFi SmallCard 1
     clip: {fileID: 8300000, guid: e9e8a90df5936de49839e4866b1b7eba, type: 3}
     genre: Sci-Fi
-    type: smallCard
+    type: SmallCard
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: SciFi SmallCard 2
     clip: {fileID: 8300000, guid: be2549e0666235c4fa05dd54ffdd4b88, type: 3}
     genre: Sci-Fi
-    type: smallCard
+    type: SmallCard
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -815,58 +815,198 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: Steampunk HurtHeavy 1
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    clip: {fileID: 8300000, guid: ea8e8450b2123a74b8d6e18cc554c2f6, type: 3}
     genre: Steampunk
     type: HurtHeavy
     volume: 1
-    pitch: 1.18
+    pitch: 1
     source: {fileID: 0}
   - name: Steampunk Victory 1
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    clip: {fileID: 8300000, guid: 3375a472846d07a42acfdeb25aa366a3, type: 3}
     genre: Steampunk
     type: Victory
     volume: 1
-    pitch: 1.18
+    pitch: 1
     source: {fileID: 0}
   - name: Steampunk Loss 1
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    clip: {fileID: 8300000, guid: ca880648760f521458ec2caf2c8d796e, type: 3}
     genre: Steampunk
     type: Loss
     volume: 1
-    pitch: 1.18
+    pitch: 1
     source: {fileID: 0}
   - name: Steampunk Super 1
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    clip: {fileID: 8300000, guid: b0eccbee8337cda4081b898069b33f57, type: 3}
     genre: Steampunk
     type: Super
     volume: 1
-    pitch: 1.18
+    pitch: 1
     source: {fileID: 0}
   - name: Steampunk Fantasy 1
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    clip: {fileID: 8300000, guid: 73c9ba8b075e73a4ba70f3eb011ac8f9, type: 3}
     genre: Steampunk
     type: Fantasy
     volume: 1
-    pitch: 1.18
+    pitch: 1
     source: {fileID: 0}
   - name: Steampunk Horror 1
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    clip: {fileID: 8300000, guid: 06b622c090a0dd240818b49af950b5d7, type: 3}
     genre: Steampunk
     type: Horror
     volume: 1
-    pitch: 1.18
+    pitch: 1
     source: {fileID: 0}
   - name: Steampunk SciFi 1
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    clip: {fileID: 8300000, guid: f56cde05575e8a84a94047dc3022836b, type: 3}
     genre: Steampunk
     type: Sci-Fi
     volume: 1
-    pitch: 1.18
+    pitch: 1
     source: {fileID: 0}
   - name: Steampunk Steampunk 1
-    clip: {fileID: 8300000, guid: 8560e77124ec4044fa520506930accb4, type: 3}
+    clip: {fileID: 8300000, guid: 38575f3f9ac528749a6ced3b81259174, type: 3}
     genre: Steampunk
     type: Steampunk
     volume: 1
-    pitch: 1.18
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Steampunk 2
+    clip: {fileID: 8300000, guid: d0c87dca6cf987b4fa0516a53f5de467, type: 3}
+    genre: Steampunk
+    type: Steampunk
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk SciFi 2
+    clip: {fileID: 8300000, guid: 5e4679d3c88f0e8438f87619c118aa0e, type: 3}
+    genre: Steampunk
+    type: Sci-Fi
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Fantasy 2
+    clip: {fileID: 8300000, guid: c0d15aadd3c84fc42846c3ce6e24734b, type: 3}
+    genre: Steampunk
+    type: Fantasy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Horror 2
+    clip: {fileID: 8300000, guid: 873ce2a0953d94c4a9a7c6203316b77f, type: 3}
+    genre: Steampunk
+    type: Horror
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk BuffProjectile 2
+    clip: {fileID: 8300000, guid: f1940a0ce3a46ec4cbd7cdb7ae7da7f5, type: 3}
+    genre: Steampunk
+    type: BuffProjectile
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk BuffSelf 2
+    clip: {fileID: 8300000, guid: 4b7ab4369437ca2419db6a271e2bd558, type: 3}
+    genre: Steampunk
+    type: BuffSelf
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Hurt 2
+    clip: {fileID: 8300000, guid: e63540bf65b77dd4fa31bdc52ee4009e, type: 3}
+    genre: Steampunk
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Hurt 3
+    clip: {fileID: 8300000, guid: 01c88b1f016a9034b97d075988d58a59, type: 3}
+    genre: Steampunk
+    type: Hurt
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk HurtHeavy 2
+    clip: {fileID: 8300000, guid: c464f1c0b8968124eb767a2ccc446c22, type: 3}
+    genre: Steampunk
+    type: HurtHeavy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk HurtHeavy 3
+    clip: {fileID: 8300000, guid: 16132a6d6d99fac468173dd2572bfc39, type: 3}
+    genre: Steampunk
+    type: HurtHeavy
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Intro 2
+    clip: {fileID: 8300000, guid: 8afda6ca22531cd49b3bd05b15dd0654, type: 3}
+    genre: Steampunk
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Intro 3
+    clip: {fileID: 8300000, guid: f0c45f5f70218cc4b8f86b608251e695, type: 3}
+    genre: Steampunk
+    type: Intro
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk LargeCard 2
+    clip: {fileID: 8300000, guid: c90fca2951fa812459a947b92e7541ad, type: 3}
+    genre: Steampunk
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Loss 2
+    clip: {fileID: 8300000, guid: 9229efa6e56582a4191d879cdd00645d, type: 3}
+    genre: Steampunk
+    type: Loss
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk LargeCard 3
+    clip: {fileID: 8300000, guid: 1b25cb76ff89ecc4b99273981acd2166, type: 3}
+    genre: Steampunk
+    type: LargeCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk SmallCard 2
+    clip: {fileID: 8300000, guid: 941b1d375dd391e49bd021cf3b6838ba, type: 3}
+    genre: Steampunk
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk SmallCard 3
+    clip: {fileID: 8300000, guid: 1e19ea477cba53d469e5766403a57627, type: 3}
+    genre: Steampunk
+    type: SmallCard
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Super 2
+    clip: {fileID: 8300000, guid: f39a35c96d5da4a43b66be83c04a7945, type: 3}
+    genre: Steampunk
+    type: Super
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Steampunk Victory 2
+    clip: {fileID: 8300000, guid: e11b7272bf9903c4d9b8dd557eb61682, type: 3}
+    genre: Steampunk
+    type: Victory
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Super 1
+    clip: {fileID: 8300000, guid: 765f4c719a5e62044b4a8281cbc4fd6f, type: 3}
+    genre: Fantasy
+    type: Super
+    volume: 1
+    pitch: 1
     source: {fileID: 0}
