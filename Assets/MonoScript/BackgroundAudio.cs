@@ -11,6 +11,7 @@ public class BackgroundAudio : MonoBehaviour
     [SerializeField] private AudioSource battle;
     void Awake()
     {
+        if (GameObject.Find("BackgroundAudio") != transform.gameObject) Object.Destroy(transform.gameObject);
         DontDestroyOnLoad(transform.gameObject);
     }
     void Update()

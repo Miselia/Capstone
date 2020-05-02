@@ -139,14 +139,14 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         damage *= 2;
                     }
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
-                    createBullet("red", new Vector2(positionX, 5), new Vector2(0, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX + 5, 0), new Vector2(-2, 0), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX, -5), new Vector2(0, 2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX - 5, 0), new Vector2(2, 0), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX - 5, 5), new Vector2(2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX + 5, 5), new Vector2(-2, -2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX - 5, -5), new Vector2(2, 2), 0.75f, damage, timer);
-                    createBullet("red", new Vector2(positionX + 5, -5), new Vector2(-2, 2), 0.75f, damage, timer);
+                    createBullet("red", new Vector2(positionX, 5), new Vector2(0, -2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX + 5, 0), new Vector2(-2, 0), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX, -5), new Vector2(0, 2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX - 5, 0), new Vector2(2, 0), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX - 5, 5), new Vector2(2, -2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX + 5, 5), new Vector2(-2, -2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX - 5, -5), new Vector2(2, 2), 0.5f, damage, timer);
+                    createBullet("red", new Vector2(positionX + 5, -5), new Vector2(-2, 2), 0.5f, damage, timer);
                     break;
 
                 case 5:
