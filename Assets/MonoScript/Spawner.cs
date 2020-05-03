@@ -688,6 +688,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 Entity gear = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
                 em.AddComponent(gear, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
                 em.SetComponentData(gear, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.GearID));
+                em.RemoveComponent(gear, typeof(RotationComponent));
                 //em.AddComponent(gear, typeof(DeleteComp));
                 //em.SetComponentData(gear, new DeleteComp(1000));
                 break;

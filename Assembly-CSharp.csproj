@@ -157,6 +157,7 @@
     <None Include="Assets\Resources\Tech.txt" />
     <None Include="Assets\Resources\Dead Space.txt" />
     <None Include="Assets\Resources\Twillight forest.txt" />
+    <None Include="Assets\Resources\ValidDecks\MagicPunk.txt" />
     <None Include="Assets\Resources\ValidDecks\New Start.txt" />
     <None Include="Assets\Resources\MagicPunk.txt" />
     <None Include="Assets\Resources\New Start.txt" />
