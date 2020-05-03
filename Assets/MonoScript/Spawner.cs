@@ -586,6 +586,30 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         game.AddCardToHandFromCardLibrary(playerID, cardSlot, 25);
                     }
                     break;
+                case 27:
+                    // Bouncing Betty
+                    if (CheckValueIncreaseComp(player))
+                    {
+                        em.RemoveComponent<ValueIncreaseComp>(player);
+                        damage *= 2;
+                    }
+                    Vector2 bettyPos;
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                    {
+                        bettyPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, em.GetComponentData<Translation>(player).Value.y);
+                    }
+                    else
+                    {
+                        float offset = (playerID == 1) ?
+                            em.GetComponentData<Translation>(player).Value.x + 7 :
+                            em.GetComponentData<Translation>(player).Value.x - 7;
+
+                        bettyPos = (playerID == 1) ?
+                            new Vector2(Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) :
+                            new Vector2(-Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y);
+                    }
+                    createBullet("betty", bettyPos, new Vector2(3, 3), 0.25f, damage, timer);
+                    break;
             }
             EventManager.instance.QueueEvent(new AnimatorEvent(playerID, "Attack"));
             if (fixedValue == 0)
@@ -761,21 +785,6 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 createBullet("", new Vector2(position.x, -6), new Vector2(), 1, -1, timer);
                 break;
             case "rocket":
-                // Artemis Rocket
-                // Needs offset to be 1.5 in the direction of the direction of the movement vector passed into this method
-                /*var qwer = em.CreateEntityQuery(typeof(FullCigarComponent), typeof(Translation));
-                Unity.Collections.NativeArray<Entity> array = qwer.ToEntityArray(Unity.Collections.Allocator.TempJob);
-                foreach (Entity e in array)
-                {
-                    if (em.GetComponentData<UniquePlayerCardSlotComponent>(e).playerID == playerID &&
-                        em.GetComponentData<UniquePlayerCardSlotComponent>(e).cardSlot == cardSlot)
-                    {
-                        em.DestroyEntity(e);
-                        ProjectileEntity.Create(em, damage, position, movementvector, 1, timer, mesh, projectileMaterialLibrary[20]);
-                    }
-                }
-                qwer.Dispose();
-                array.Dispose();*/
                 ProjectileEntity.Create(em, damage, position, movementvector, 1, timer, mesh, projectileMaterialLibrary[20]);
                 break;
             case "scope":
@@ -785,6 +794,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.RemoveComponent(scope, typeof(AffectedByGravityComponent));
                 em.AddComponent(scope, typeof(UniquePlayerCardSlotComponent));
                 em.SetComponentData(scope, new UniquePlayerCardSlotComponent(playerID, cardSlot));
+                break;
+            case "betty":
+                Entity betty = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[23], 0x09, false);
+                em.AddComponent(betty, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
+                em.SetComponentData(betty, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.BettyID));
                 break;
             default:
                 // Draws invisible projectile that gets deleted immediately

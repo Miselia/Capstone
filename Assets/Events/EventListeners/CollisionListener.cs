@@ -55,6 +55,13 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 CigarBoundaryCollisionHelpler(ce.entityA, ce.entityB);
                 return true;
             }
+            else if (ce.collisionMask == Constants.BettyID)
+            {
+                Debug.Log("Handle Betty collision with Player Boundary");
+                // Possible that just adding a "BouncingHelper" method is preferable since this is all the Bouncing Betty will do anyways
+                BettyBoundaryCollisionHelper(ce.entityA, ce.entityB);
+                return true;
+            }
             // Rocket x Boundary Collision, might not actually collide with player boundaries for now (balance before implementation)
             /*if (ce.collisionMask == Constants.RocketID)
             {
@@ -63,6 +70,57 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             }*/
         }
         return false;
+    }
+
+    private bool RepositionCollisionWithNearestBoundary(Entity circle, Entity boundary)
+    {
+        Vector3 circlePos = World.Active.EntityManager.GetComponentData<Translation>(circle).Value;
+        Vector3 boundPos = World.Active.EntityManager.GetComponentData<Translation>(boundary).Value;
+
+        return false;
+    }
+
+    private void BettyBoundaryCollisionHelper(Entity bettyEntity, Entity playBoundEntity)
+    {
+        bool exists = World.Active.EntityManager.Exists(bettyEntity) && World.Active.EntityManager.Exists(playBoundEntity);
+        if (exists)
+        {
+            Vector3 bettyPos = World.Active.EntityManager.GetComponentData<Translation>(bettyEntity).Value;
+            Vector3 boundPos = World.Active.EntityManager.GetComponentData<Translation>(playBoundEntity).Value;
+            float circleRadius = World.Active.EntityManager.GetComponentData<CollisionComponent>(bettyEntity).collisionRadius;
+
+            Vector2 boundNormal = World.Active.EntityManager.GetComponentData<PlayerBoundaryComponent>(playBoundEntity).Normal;
+            Vector2 bettyMove = World.Active.EntityManager.GetComponentData<MovementComponent>(bettyEntity).movementVector;
+
+            if (boundNormal.x == 0)
+            {
+                Debug.Log("Normal.x == 0 Collided with");
+                Vector2 nearestWallPosition = new Vector2(bettyPos.x, boundPos.y);
+                bettyPos.y = nearestWallPosition.y + boundNormal.y * (circleRadius + 1f);
+                World.Active.EntityManager.SetComponentData<Translation>(bettyEntity,
+                    new Translation { Value = new Unity.Mathematics.float3(bettyPos.x, bettyPos.y, bettyPos.z) });
+
+                // If normal.X = 0, then this is a horizontal bound, with y = -1 or y = 1
+                // Perfect reflection means just flipping the value that corresponds to the normal of the boundary collided with
+                World.Active.EntityManager.SetComponentData<MovementComponent>(bettyEntity,
+                    new MovementComponent { movementVector = new Vector2(bettyMove.x, bettyMove.y * -1), multiplier = 1 });
+
+                EventManager.instance.QueueEvent(new EndCollisionEvent(bettyEntity, playBoundEntity));
+            }
+            if (boundNormal.y == 0)
+            {
+                Vector2 nearestWallPosition = new Vector2(boundPos.x, bettyPos.y);
+                bettyPos.x = nearestWallPosition.x + boundNormal.x * (circleRadius + 1f);
+                World.Active.EntityManager.SetComponentData<Translation>(bettyEntity,
+                    new Translation { Value = new Unity.Mathematics.float3(bettyPos.x, bettyPos.y, bettyPos.z) });
+
+                // If normal.Y = 0, then this is vertical bound, with x = 1 or x = -1
+                World.Active.EntityManager.SetComponentData<MovementComponent>(bettyEntity,
+                    new MovementComponent { movementVector = new Vector2(bettyMove.x * -1, bettyMove.y), multiplier = 1 });
+
+                EventManager.instance.QueueEvent(new EndCollisionEvent(bettyEntity, playBoundEntity));
+            }
+        }
     }
 
     private bool GearBoundaryCollisionHelper(Entity gearEntity, Entity playBoundEntity)

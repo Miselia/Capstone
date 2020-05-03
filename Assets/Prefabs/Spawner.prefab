@@ -68,4 +68,5 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 09f6568eebe558241a5fcbaa571ef4a5, type: 2}
   - {fileID: 2100000, guid: 23982ce7a78c52e4e9e9f5aba67710a7, type: 2}
   - {fileID: 2100000, guid: 3208321681bd74f44849bf53c0ec3772, type: 2}
+  - {fileID: 2100000, guid: 93bfb7527ef62ac49bad3a1a6f96ba84, type: 2}
   mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
