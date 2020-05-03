@@ -22,10 +22,10 @@ public class BuffSystem : ComponentSystem
                 if (mbc.timer == mbc.maxTimer)
                 {
                     EventManager.instance.QueueEvent(new SoundEvent("Other", "BuffSelf"));
-                    PlayerComponent playComp = World.Active.EntityManager.GetComponentData<PlayerComponent>(e);
+                    //PlayerComponent playComp = World.Active.EntityManager.GetComponentData<PlayerComponent>(e);
 
-                    playComp.manaRegen += mbc.value;
-                    World.Active.EntityManager.SetComponentData<PlayerComponent>(e, playComp);
+                    //playComp.manaRegen += mbc.value;
+                   // World.Active.EntityManager.SetComponentData<PlayerComponent>(e, playComp);
                     Debug.Log("Playing ManaRegenSound");
                 }
 
@@ -35,15 +35,16 @@ public class BuffSystem : ComponentSystem
                 if (mbc.timer <= 0)
                 {
                     Debug.Log("Mana Regen Expired");
-                    PlayerComponent playComp = World.Active.EntityManager.GetComponentData<PlayerComponent>(e);
+                    //PlayerComponent playComp = World.Active.EntityManager.GetComponentData<PlayerComponent>(e);
 
-                    playComp.manaRegen = Constants.PlayerManaRegen;
+                    //playComp.manaRegen = Constants.PlayerManaRegen;
                     EntityManager.RemoveComponent<ManaRegenBuffComp>(e);
 
                     if(!EntityManager.HasComponent<ManaRegenBuffComp>(e) &&
                        !EntityManager.HasComponent<MovementSpeedBuffComp>(e) &&
                        !EntityManager.HasComponent<ViperCurseComponent>(e))
                     {
+
                         EntityManager.RemoveComponent<IsBuffedComponent>(e);
                         Debug.Log("Entity is no longer Buffed");
                     }

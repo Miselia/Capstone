@@ -49,8 +49,16 @@ public class PlayerValueSystem : ComponentSystem
                     p.healthRemaining = p.healthRemaining + delta;
                     EntityManager.RemoveComponent<HealthDeltaComp>(e);
                 }
-
-                p.mana = p.mana + p.manaRegen;
+                if (EntityManager.HasComponent(e, typeof(ManaRegenBuffComp)))
+                {
+                    float mb = EntityManager.GetComponentData<ManaRegenBuffComp>(e).value;
+                    p.mana = p.mana + p.manaRegen + mb;
+                }
+                else
+                {
+                    p.mana = p.mana + p.manaRegen;
+                }
+               
 
                 if (p.mana > p.maxMana)
                 {

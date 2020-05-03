@@ -20,11 +20,9 @@ public class GravitySystem : ComponentSystem
                 Entities.ForEach((Entity f, ref ProjectileComponent p, ref Translation projectilePosition, ref MovementComponent moveComp, ref AffectedByGravityComponent abg) =>
                 {
                     Vector2 pos2 = new Vector2(projectilePosition.Value.x, projectilePosition.Value.y);
-                    if (moveComp.movementVector != new Vector2() && Vector2.Distance(pos, pos2) <= rad) {
                         Vector2 gravityForceDirection = pos - pos2;
                         gravityForceDirection.Normalize();
                         moveComp.movementVector += gravityForceDirection/2;
-                     }
                 });
             });
     }

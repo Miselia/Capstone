@@ -166,6 +166,21 @@ public class DeckBuilderGame : MonoBehaviour, IGame
         }
         SceneManager.LoadScene("DeckBuilderLobby");
     }
+    public void Exit()
+    {
+
+        World.Active.GetExistingSystem<DrawSystem>().Enabled = false;
+        World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = false;
+        World.Active.GetExistingSystem<ControlSystem>().Enabled = false;
+        World.Active.GetExistingSystem<DeletionSystem>().Enabled = false;
+        World.Active.GetExistingSystem<MovementSystem>().Enabled = false;
+        World.Active.GetExistingSystem<PlayerValueSystem>().Enabled = false;
+        foreach (Entity e in World.Active.EntityManager.GetAllEntities())
+        {
+            World.Active.EntityManager.DestroyEntity(e);
+        }
+        SceneManager.LoadScene("DeckBuilderLobby");
+    }
 
     private void HandleEndCollisionEvent(Entity entityA, Entity entityB)
     {
