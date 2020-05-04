@@ -155,7 +155,9 @@
     <Compile Include="Assets\Systems\SpawnDelaySystem.cs" />
     <Compile Include="Assets\Systems\TestingSystem.cs" />
     <None Include="Assets\Resources\Tech.txt" />
+    <None Include="Assets\Resources\Phil.txt" />
     <None Include="Assets\Resources\Dead Space.txt" />
+    <None Include="Assets\Resources\Demo.txt" />
     <None Include="Assets\Resources\Twillight forest.txt" />
     <None Include="Assets\Resources\ValidDecks\MagicPunk.txt" />
     <None Include="Assets\Resources\ValidDecks\New Start.txt" />
@@ -163,6 +165,7 @@
     <None Include="Assets\Resources\New Start.txt" />
     <None Include="Assets\Resources\Spooky Stea.txt" />
     <None Include="Assets\Resources\ValidDecks\Dead Space.txt" />
+    <None Include="Assets\Resources\ValidDecks\Phil.txt" />
     <None Include="Assets\Resources\Magitech.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/GitKrakenRepositories/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

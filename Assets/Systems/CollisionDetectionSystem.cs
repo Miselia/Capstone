@@ -116,7 +116,7 @@ public class CollisionDetectionSystem : ComponentSystem
                             // Projectile x Player Boundary Collision
                             Entity projectile;
                             Entity bound;
-                            Debug.Log("Projectile x Player Bound Collision");
+                            //Debug.Log("Projectile x Player Bound Collision");
                             if (EntityManager.HasComponent<ProjectileComponent>(firstEntity))
                             {
                                 projectile = firstEntity;
@@ -140,7 +140,7 @@ public class CollisionDetectionSystem : ComponentSystem
         
     }
 
-    private bool CheckCircleBoundaryCollision(Entity circle, Vector2 boundNormal, float3 boundPos)
+    private bool CheckCircleBoundaryCollision(Entity circle, Vector2 boundNormal, float3 boundPos, int boundarySize)
     {
         Vector2 boundPosVec2 = new Vector2(boundPos.x, boundPos.y);
         Vector2 nearestWallPoint = GetNearestWallValue(circle, boundNormal, boundPosVec2);
@@ -150,7 +150,7 @@ public class CollisionDetectionSystem : ComponentSystem
 
         // First checks to see if the nearest point generated, which will always along the boundary from its center is close enough to be collided with
         // This should mean that while every entity begins the initial check because each bound is part of the root, we have a way to ignore collisions with boundaries from across the field a little faster
-        if((nearestWallPoint - boundPosVec2).magnitude <= Constants.PlayerBoundarySize - 5 && (nearestWallPoint - new Vector2(circlePos.x, circlePos.y)).magnitude <= circleRadius)
+        if(Vector2.Distance(nearestWallPoint, boundPosVec2) <= boundarySize - 5 && Vector2.Distance(nearestWallPoint, new Vector2(circlePos.x, circlePos.y)) <= circleRadius)
         {
             return true;
         }
@@ -160,7 +160,6 @@ public class CollisionDetectionSystem : ComponentSystem
     private Vector2 GetNearestWallValue(Entity circleEntity, Vector2 boundNormal, Vector2 boundPos)
     {
         Vector2 nearestWallPoint;
-
         Vector3 circlePosition = EntityManager.GetComponentData<Translation>(circleEntity).Value;
 
         if(boundNormal.x == 0)
@@ -179,8 +178,7 @@ public class CollisionDetectionSystem : ComponentSystem
     private void HandleProjectileCollisionWithPlayerBoundary(IGame game, Entity projectile, Entity playerBoundEntity, int mask)
     {
         Vector2 boundNorm = EntityManager.GetComponentData<PlayerBoundaryComponent>(playerBoundEntity).Normal;
-
-        bool collisionCheck = CheckCircleBoundaryCollision(projectile, boundNorm, EntityManager.GetComponentData<Translation>(playerBoundEntity).Value);
+        bool collisionCheck = CheckCircleBoundaryCollision(projectile, boundNorm, EntityManager.GetComponentData<Translation>(playerBoundEntity).Value, Constants.PlayerBoundarySize);
 
         if(collisionCheck)
         {
@@ -192,66 +190,25 @@ public class CollisionDetectionSystem : ComponentSystem
 
     private void HandleProjectileCollisionWithProjectileBoundary(IGame game, Entity projectileEntity, Entity boundaryEntity, int mask)
     {
-        Vector3 circleVector = EntityManager.GetComponentData<Translation>(projectileEntity).Value;
-        Vector3 boundaryVector = EntityManager.GetComponentData<Translation>(boundaryEntity).Value;
-        float circleRadius = EntityManager.GetComponentData<CollisionComponent>(projectileEntity).collisionRadius;
+        Vector2 boundNorm = EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal;
+        bool collisionCheck = CheckCircleBoundaryCollision(projectileEntity, boundNorm, EntityManager.GetComponentData<Translation>(boundaryEntity).Value, Constants.PlayerBoundarySize * 2);
 
-        if (EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.x == 0)
+        if(collisionCheck)
         {
-            Vector2 nearestWallPosition = new Vector2(circleVector.x, boundaryVector.y);
-            if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
-            {
-                game.GetCollidingPairs()[projectileEntity].Add(boundaryEntity);
-                //Debug.Log("Projectile entity collide with boundary");
-                // HOO BOY
-                EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity, mask));
-                Debug.Log("Collision with Normal.x = 0");
-            }
-        }
-
-        if (EntityManager.GetComponentData<ProjectileBoundaryComponent>(boundaryEntity).Normal.y == 0)
-        {
-            Vector2 nearestWallPosition = new Vector2(boundaryVector.x, circleVector.y);
-            if ((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius)
-            {
-                game.GetCollidingPairs()[projectileEntity].Add(boundaryEntity);
-                //Debug.Log("Projectile entity collide with boundary");
-                // HOO BOY
-                EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity, mask));
-                Debug.Log("Collision with Normal.y = 0");
-            }
+            game.GetCollidingPairs()[projectileEntity].Add(boundaryEntity);
+            EventManager.instance.QueueEvent(new CollisionEvent(projectileEntity, boundaryEntity, mask));
         }
     }
 
     private void HandlePlayerCollisionWithBoundary(IGame game, Entity playerEntity, Entity boundaryEntity, int mask)
     {
-        Vector3 circleVector = EntityManager.GetComponentData<Translation>(playerEntity).Value;
-        Vector3 boundaryVector = EntityManager.GetComponentData<Translation>(boundaryEntity).Value;
-        float circleRadius = EntityManager.GetComponentData<CollisionComponent>(playerEntity).collisionRadius;
+        Vector2 boundNorm = EntityManager.GetComponentData<PlayerBoundaryComponent>(boundaryEntity).Normal;
+        bool collisionCheck = CheckCircleBoundaryCollision(playerEntity, boundNorm, EntityManager.GetComponentData<Translation>(boundaryEntity).Value, Constants.PlayerBoundarySize);
 
-        if(EntityManager.GetComponentData<PlayerBoundaryComponent>(boundaryEntity).Normal.x == 0)
+        if (collisionCheck)
         {
-            Vector2 nearestWallPosition = new Vector2(circleVector.x, boundaryVector.y);
-            if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius )
-            {
-                game.GetCollidingPairs()[playerEntity].Add(boundaryEntity);
-                //Debug.Log("Player entity collide with boundary");
-                // HOO BOY
-                EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity, mask));
-                //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
-            }
-        }
-        if(EntityManager.GetComponentData<PlayerBoundaryComponent>(boundaryEntity).Normal.y == 0)
-        {
-            Vector2 nearestWallPosition = new Vector2(boundaryVector.x, circleVector.y);
-            if((nearestWallPosition - new Vector2(circleVector.x, circleVector.y)).magnitude < circleRadius )
-            {
-                game.GetCollidingPairs()[playerEntity].Add(boundaryEntity);
-                //Debug.Log("Player entity collide with boundary");
-                // HOO BOY
-                EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity, mask));
-                //EventManager.instance.TriggerEvent(new CollisionEvent(circleEntity, boundaryEntity));
-            }
+            game.GetCollidingPairs()[playerEntity].Add(boundaryEntity);
+            EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, boundaryEntity, mask));
         }
     }
 
@@ -262,11 +219,9 @@ public class CollisionDetectionSystem : ComponentSystem
         float firstRadius = EntityManager.GetComponentData<CollisionComponent>(playerEntity).collisionRadius;
         float secondRadius = EntityManager.GetComponentData<CollisionComponent>(projectileEntity).collisionRadius;
 
-        if( (new Vector2(playerVector.x,playerVector.y) - new Vector2(projectileVector.x,projectileVector.y)).magnitude < (firstRadius + secondRadius) )
+        if( Vector2.Distance(new Vector2(playerVector.x,playerVector.y), new Vector2(projectileVector.x,projectileVector.y)) < (firstRadius + secondRadius) )
         {
             game.GetCollidingPairs()[playerEntity].Add(projectileEntity);
-            //Debug.Log("player entity collide with projectile");
-            // HOO BOY
             EventManager.instance.QueueEvent(new CollisionEvent(playerEntity, projectileEntity, mask));
         }
     }
