@@ -16,7 +16,7 @@ public class BackgroundAudio : MonoBehaviour
     }
     void Update()
     {
-        if (SceneManager.GetActiveScene().name.Equals("MainMenu") || SceneManager.GetActiveScene().name.Equals("DeckBuilderLobby") ||  SceneManager.GetActiveScene().name.Equals("LobbyScene"))
+        if (SceneManager.GetActiveScene().name.Equals("MainMenu") || SceneManager.GetActiveScene().name.Equals("DeckBuilderLobby") ||  SceneManager.GetActiveScene().name.Equals("LobbyScene") || SceneManager.GetActiveScene().name.Equals("Credits"))
         {
             if (!menu.isPlaying) menu.Play();
             if (deckBuilder.isPlaying) deckBuilder.Stop();

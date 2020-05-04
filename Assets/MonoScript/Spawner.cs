@@ -193,7 +193,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     damage = -damage;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
-                    createBullet("woodsprite", new Vector2(-positionX * 1.8f, 0), new Vector2(positionX / 2, 0), 0.5f, damage, timer);
+                    createBullet("woodsprite", new Vector2(-positionX, 0), new Vector2(positionX / 1.5f, 0), 0.25f, damage, timer);
                     break;
                 case 7:
                     //Akashic Records
