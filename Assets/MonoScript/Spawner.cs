@@ -588,6 +588,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 27:
                     // Bouncing Betty
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "Super"));
                     if (CheckValueIncreaseComp(player))
                     {
                         em.RemoveComponent<ValueIncreaseComp>(player);
@@ -613,6 +614,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 case 28:
                     // Make a Deal
                     var theGame = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "Super"));
 
                     // If deck builder add Misfire to player's hand, else function as normal
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
@@ -646,9 +648,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         dealQuery.Dispose();
                         deal.Dispose();
                     }
+                    
                     break;
                 case 29:
                     // Misfire
+                    EventManager.instance.QueueEvent(new SoundEvent("Other", "Doot"));
                     int modifier = (SceneManager.GetActiveScene().name.Equals("DeckBuilder") == true) ? 1 : -1;
 
                     // -positionnX should give you your opponents offset
