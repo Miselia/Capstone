@@ -46,9 +46,9 @@ public class CardLibrary: MonoBehaviour
         library["Horror"].Add(new CardData(24, "Put Out Cigar", 4, 3, "Smash your cigar, and hopefully your opponent", "See? You put it out. Congratulations!", cardMaterialLibrary[24]));
         library["Steampunk"].Add(new CardData(25, "Artemis Rocket", 0, 2, "Fire the Artemis Rocket once you've taken aim", "High tech for a Stea, ancient technology for Finn", cardMaterialLibrary[25]));
         library["Steampunk"].Add(new CardData(26, "Ready, Aim", 6, 2, "Take aim, calling out the starting location of your Artemis Rocket", "Hold still, wanker!", cardMaterialLibrary[26]));
-        // Replace the Flavor Text and the Card Material
-        library["Steampunk"].Add(new CardData(27, "Bouncing Betty", 10, 2, "Throw a bouncing projectile that never stops, ever", "", cardMaterialLibrary[0]));
-
+        library["Steampunk"].Add(new CardData(27, "Bouncing Betty", 10, 2, "Throw a bouncing projectile that never stops, ever", "", cardMaterialLibrary[27]));
+        library["Horror"].Add(new CardData(28, "Make a Deal", 10, 3, "Steal the card from the opponent's hand corresponding to this card's slot. Leave them a gift pistol to shoot you back with", "Gets 'em every time", cardMaterialLibrary[28]));
+        library["Horror"].Add(new CardData(29, "Misfire", 6, 3, "Rory left behind a gun. Fire back at him!", "'You actually fell for it!? HAHAHAHA' - <3 Rory ", cardMaterialLibrary[29]));
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }
 

@@ -610,6 +610,51 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     createBullet("betty", bettyPos, new Vector2(3, 3), 0.25f, damage, timer);
                     break;
+                case 28:
+                    // Make a Deal
+                    var theGame = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
+
+                    // If deck builder add Misfire to player's hand, else function as normal
+                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
+                    {
+                        foreach (IGame game in theGame)
+                        {
+                            game.AddCardToHandFromCardLibrary(playerID, cardSlot, 29);
+                        }
+                    }
+                    else
+                    {
+                        var dealQuery = em.CreateEntityQuery(typeof(CardComp));
+                        Unity.Collections.NativeArray<Entity> deal = dealQuery.ToEntityArray(Unity.Collections.Allocator.TempJob);
+                        int oppID = (playerID == 1) ? 2 : 1;
+                        // Search every card in play
+                        foreach (Entity c in deal)
+                        {
+                            // If the card matches the card slot and the ID is in the opponent's hand
+                            CardComp crd = em.GetComponentData<CardComp>(c);
+                            if (crd.cardSlot == cardSlot && crd.player == oppID)
+                            {
+                                // Get the current IGame and add the opponents card to your hand in the respective slot, delete the opponent's card, add Misfire to your opponent's hand
+                                foreach (IGame game in theGame)
+                                {
+                                    game.AddCardToHandFromCardLibrary(playerID, cardSlot, crd.cardID);
+                                    em.AddComponent(c, typeof(DeleteComp));
+                                    game.AddCardToHandFromCardLibrary(oppID, cardSlot, 29);
+                                }
+                            }
+                        }
+                        dealQuery.Dispose();
+                        deal.Dispose();
+                    }
+                    break;
+                case 29:
+                    // Misfire
+                    // -positionnX should give you your opponents offset
+                    createBullet("bullet", new Vector2(-positionX - 7, 2), new Vector2(3, 0), 0.5f, damage, timer);
+                    createBullet("bullet", new Vector2(-positionX + 7, -2), new Vector2(-3, 0), 0.5f, damage, timer);
+                    createBullet("bullet", new Vector2(-positionX - 2, -7), new Vector2(0, 3), 0.5f, damage, timer);
+                    createBullet("bullet", new Vector2(-positionX + 2, 7), new Vector2(0, -3), 0.5f, damage, timer);
+                    break;
             }
             EventManager.instance.QueueEvent(new AnimatorEvent(playerID, "Attack"));
             if (fixedValue == 0)
@@ -688,7 +733,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 Entity gear = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[12], 0x09, false);
                 em.AddComponent(gear, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
                 em.SetComponentData(gear, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.GearID));
-                em.RemoveComponent(gear, typeof(RotationComponent));
+                //em.RemoveComponent(gear, typeof(RotationComponent));
                 //em.AddComponent(gear, typeof(DeleteComp));
                 //em.SetComponentData(gear, new DeleteComp(1000));
                 break;
