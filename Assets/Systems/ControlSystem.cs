@@ -354,7 +354,5 @@ public class ControlSystem : ComponentSystem
                 EventManager.instance.QueueEvent(new DeckBuilderHandAdjustEvent(e));
             }
         });
-        
-            
     }
 }
