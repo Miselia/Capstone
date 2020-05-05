@@ -8,12 +8,18 @@ using Assets.Systems;
 
 public class MenuScript : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> characters;
+    [SerializeField] private List<GameObject> titles;
+
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
     void Awake()
     {
+        int rand = Random.Range(0, 4);
+        characters[rand].SetActive(true);
+        titles[rand].SetActive(true);
         World.Active.GetExistingSystem<DrawSystem>().Enabled = false;
         World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = false;
         World.Active.GetExistingSystem<ControlSystem>().Enabled = false;

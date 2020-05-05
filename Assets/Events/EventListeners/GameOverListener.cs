@@ -35,6 +35,25 @@ public class GameOverListener : MonoBehaviour, IGenericEventListener
         {
             
             GameOverEvent ge = evt as GameOverEvent;
+            string p1 = game.DeckGenres()[0];
+            string p2 = game.DeckGenres()[1];
+            if (ge.pID == 1)
+            {
+                winnerText.text = "Player 2 win!";
+                EventManager.instance.QueueEvent(new SoundEvent(p1, "Loss", 1f));
+                EventManager.instance.QueueEvent(new AnimatorEvent(1, "Loss"));
+                EventManager.instance.QueueEvent(new SoundEvent(p2, "Victory"));
+                EventManager.instance.QueueEvent(new AnimatorEvent(2, "Victory"));
+
+            }
+            if (ge.pID == 2)
+            {
+                winnerText.text = "Player 1 win!";
+                EventManager.instance.QueueEvent(new SoundEvent(p1, "Victory"));
+                EventManager.instance.QueueEvent(new AnimatorEvent(1, "Victory"));
+                EventManager.instance.QueueEvent(new SoundEvent(p2, "Loss", 1f));
+                EventManager.instance.QueueEvent(new AnimatorEvent(2, "Loss"));
+            }
             World.Active.GetExistingSystem<DrawSystem>().Enabled = false;
             World.Active.GetExistingSystem<CollisionDetectionSystem>().Enabled = false;
             World.Active.GetExistingSystem<ControlSystem>().Enabled = false;
@@ -48,25 +67,7 @@ public class GameOverListener : MonoBehaviour, IGenericEventListener
             deckSelect.gameObject.SetActive(true);
             mainMenu.gameObject.SetActive(true);
             //winnerText.gameObject.SetActive(true);
-            string p1 = game.DeckGenres()[0];
-            string p2 = game.DeckGenres()[1];
-            if (ge.pID == 1)
-            {
-                winnerText.text = "Player 2 win!";
-                EventManager.instance.QueueEvent(new SoundEvent(p1, "Loss", 1f));
-                EventManager.instance.QueueEvent(new AnimatorEvent(2, "Loss"));
-                EventManager.instance.QueueEvent(new SoundEvent(p2, "Victory"));
-                EventManager.instance.QueueEvent(new AnimatorEvent(1, "Victory"));
-
-            }
-            if (ge.pID == 2)
-            {
-                winnerText.text = "Player 1 win!";
-                EventManager.instance.QueueEvent(new SoundEvent(p1, "Victory"));
-                EventManager.instance.QueueEvent(new AnimatorEvent(1, "Victory"));
-                EventManager.instance.QueueEvent(new SoundEvent(p2, "Loss", 1f));
-                EventManager.instance.QueueEvent(new AnimatorEvent(2, "Loss"));
-            }
+            
 
 
             return true;
