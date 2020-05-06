@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 using Unity.Transforms;
+using Unity.Mathematics;
 
 public class SpawnDelaySystem : ComponentSystem
 {
@@ -21,7 +22,7 @@ public class SpawnDelaySystem : ComponentSystem
                 World.Active.EntityManager.SetComponentData(e, new Scale { Value = d.radius * 2 * d.extraScale});
                 World.Active.EntityManager.RemoveComponent<SpawnDelayComp>(e);
             }
-            else World.Active.EntityManager.SetComponentData(e, new Scale { Value = (d.radius * 2) / (d.timer * (1 / Time.deltaTime)) });
+            else World.Active.EntityManager.SetComponentData(e, new Scale { Value = (d.radius * 2) / (d.timer  +1.2f) });
             d.timer -= Time.deltaTime;
         });
 
