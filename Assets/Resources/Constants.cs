@@ -29,6 +29,7 @@
         public static readonly int CigarID = 9;
         //public static readonly int RocketID = 10;
         public static readonly int BettyID = 11;
+        public static readonly int HailID = 12;
 
         //Entities Don't really need constants since their constants are only used internally \\
         //However, if we decide we need them we can un-comment and then add them to Entity classes \\

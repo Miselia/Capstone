@@ -76,6 +76,11 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 BettyBoundaryCollisionHelper(ce.entityA, ce.entityB);
                 return true;
             }
+            else if (ce.collisionMask == Constants.HailID)
+            {
+                Debug.Log("Handle Hail collisoin with Player Boundary");
+                HailCollisionBoundaryHelpler(ce.entityA, ce.entityB);
+            }
             // Rocket x Boundary Collision, might not actually collide with player boundaries for now (balance before implementation)
             /*if (ce.collisionMask == Constants.RocketID)
             {
@@ -84,6 +89,20 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             }*/
         }
         return false;
+    }
+
+    private void HailCollisionBoundaryHelpler(Entity hailEntity, Entity playBoundEntity)
+    {
+        bool exists = em.Exists(hailEntity) && em.Exists(playBoundEntity);
+        if (exists)
+        {
+            // Once hail reaches the wall, adjust position, stop movement, and refresh the movementSpeed debuff
+            RepositionCollisionWithNearestBoundary(hailEntity, playBoundEntity);
+            em.AddComponent(hailEntity, typeof(DeleteComp));
+            em.SetComponentData<DeleteComp>(hailEntity, new DeleteComp(500));
+            em.SetComponentData<MovementSpeedBuffComp>(hailEntity, new MovementSpeedBuffComp(0.5f, 501));
+            em.SetComponentData<MovementComponent>(hailEntity, new MovementComponent(new Vector2()));
+        }
     }
 
     private Vector2 RepositionCollisionWithNearestBoundary(Entity circle, Entity boundary)
@@ -256,7 +275,14 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             int projectileDamage = em.GetComponentData<ProjectileComponent>(projectileEntity).damage;
             em.AddComponent(playerEntity, typeof(HealthDeltaComp));
             em.SetComponentData(playerEntity, new HealthDeltaComp(projectileDamage));
-            em.AddComponent(projectileEntity, typeof(DeleteComp));
+            if(em.HasComponent<DeleteComp>(projectileEntity))
+            {
+                em.SetComponentData<DeleteComp>(projectileEntity, new DeleteComp());
+            }
+            else
+            {
+                em.AddComponent(projectileEntity, typeof(DeleteComp));
+            }
             return true;
         }
         return false;

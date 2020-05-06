@@ -5,12 +5,10 @@ using Unity.Entities;
 
 public struct DeleteComp : IComponentData
 {
-    public int buffer;
+    public float buffer;
 
-    public DeleteComp(int buffer)
+    public DeleteComp(float buffer)
     {
         this.buffer = buffer;
-
-
     }
 }

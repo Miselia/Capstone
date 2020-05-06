@@ -51,7 +51,7 @@ public class BuffSystem : ComponentSystem
                 }
             }
 
-            // Projectile Speed Buff
+            // Speed Buff
             if(EntityManager.HasComponent<MovementSpeedBuffComp>(e))
             {
                 MovementSpeedBuffComp sbc = EntityManager.GetComponentData<MovementSpeedBuffComp>(e);
@@ -77,12 +77,18 @@ public class BuffSystem : ComponentSystem
                     // Because we can't stack move speed buffs we have to hard set the speed once the buff ends
                     moveComp.multiplier = 1;
                     EntityManager.SetComponentData<MovementComponent>(e, moveComp);
+                    EntityManager.RemoveComponent<MovementSpeedBuffComp>(e);
 
                     if (!EntityManager.HasComponent<ManaRegenBuffComp>(e) &&
                        !EntityManager.HasComponent<MovementSpeedBuffComp>(e) &&
                        !EntityManager.HasComponent<ViperCurseComponent>(e))
                     {
                         EntityManager.RemoveComponent<IsBuffedComponent>(e);
+                        Debug.Log("Speed Buff removed, the entity is no longer buffed at all");
+                    }
+                    else
+                    {
+                        Debug.Log("Speed Buff removed, yet the entity is still buffed");
                     }
                 }
             }

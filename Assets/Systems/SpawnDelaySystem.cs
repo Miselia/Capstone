@@ -22,7 +22,7 @@ public class SpawnDelaySystem : ComponentSystem
                 World.Active.EntityManager.RemoveComponent<SpawnDelayComp>(e);
             }
             else World.Active.EntityManager.SetComponentData(e, new Scale { Value = (d.radius * 2)/d.timer });
-            d.timer--;
+            d.timer -= Time.deltaTime;
         });
 
 

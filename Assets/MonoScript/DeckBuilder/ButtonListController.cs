@@ -7,11 +7,13 @@ public class ButtonListController : MonoBehaviour, IGenericEventListener
 {
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private DeckBuilderGame dbGame;
+    private List<int> excludedCardsList;
 
     void Start()
     {
         EventManager.instance.RegisterListener<AddCardtoDeckScrollListEvent>(this);
         EventManager.instance.RegisterListener<InitializeDeckBuilderListUIEvent>(this);
+        excludedCardsList = new List<int>( new int[] {0, 23, 24, 25, 29 } );
     }
     private void InitializationFunction()
     {
@@ -21,11 +23,14 @@ public class ButtonListController : MonoBehaviour, IGenericEventListener
         foreach(CardData data in cl)
         {
             //Debug.Log("Initiating button with " + data.cardName + ", " + data.cardID);
-            GameObject button = Instantiate(buttonPrefab) as GameObject;
-            button.SetActive(true);
+            if (!excludedCardsList.Contains(data.cardID))
+            {
+                GameObject button = Instantiate(buttonPrefab) as GameObject;
+                button.SetActive(true);
 
-            button.GetComponent<CardButtonPrefab>().Initialize(data.getName(), data.getID(), data.getMaterial(), data.getTraits(), data.getFlavor()) ;
-            button.transform.SetParent(buttonPrefab.transform.parent, false);
+                button.GetComponent<CardButtonPrefab>().Initialize(data.getName(), data.getID(), data.getMaterial(), data.getTraits(), data.getFlavor());
+                button.transform.SetParent(buttonPrefab.transform.parent, false);
+            }
         }
     }
 

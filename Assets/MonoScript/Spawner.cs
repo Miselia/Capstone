@@ -46,7 +46,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         {
             SpawnEvent se = (SpawnEvent) evt;
             
-            spawn(se.card, se.player, 0, 100, se.opponent);
+            spawn(se.card, se.player, 0, 0.25f, se.opponent);
             //Debug.Log("Something is Spawned");
             return true;
         }
@@ -62,7 +62,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         return false;
     }
 
-    public void spawn( Entity card, Entity player, int fixedValue, int time, Entity opponent)
+    public void spawn( Entity card, Entity player, int fixedValue, float time, Entity opponent)
     {
         string genre = em.GetComponentData<PlayerComponent>(player).GetGenre();
         cardID = em.GetComponentData<CardComp>(card).cardID;
@@ -74,13 +74,36 @@ public class Spawner : MonoBehaviour, IGenericEventListener
 
         // If playerID = 1 then use Positive offset, else use negative offset
         // If in GameScene use GameBoundaryOffset, else use DeckBuilderBoundaryOffset
-        int positionX = (playerID == 1) ? 
-            (SceneManager.GetActiveScene().name.Equals("GameScene")) ? Constants.GameBoundaryOffset : Constants.DeckBuilderBoundaryOffset :
-            (SceneManager.GetActiveScene().name.Equals("GameScene")) ? -Constants.GameBoundaryOffset : -Constants.DeckBuilderBoundaryOffset;
+        // Since player 2 can only be in the GameScene we don't need to do a check
+        int positionX;
+
+        // buffXInverter will be set to -1 if we are in the GameScene, and will be set to 1 in the DeckBuilder
+        // This is because we don't need to invert x values in the deck builder because the offset will always be correct, regardless if its a buff or not
+        int buffXInverter;
+
+        if (playerID == 1)
+        {
+            if(SceneManager.GetActiveScene().name.Equals("GameScene"))
+            {
+                positionX = Constants.GameBoundaryOffset;
+                buffXInverter = -1;
+            }
+            else
+            {
+                positionX = Constants.DeckBuilderBoundaryOffset;
+                buffXInverter = 1;
+            }
+        }
+        else
+        {
+            positionX = -Constants.GameBoundaryOffset;
+            buffXInverter = -1;
+        }
+
         if (checkMana(manaCost, currentMana) || fixedValue != 0)
         {
             int damage = -1;
-            int timer = time;
+            float timer = time;
             //EventManager.instance.QueueEvent(new SoundEvent(0));
             /*
              * Changed logic to only apply double damage when a spell is cast that actually deals damage using "CheckValueIncreaseComp" in respective 'case' blocks
@@ -105,6 +128,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         em.RemoveComponent<ValueIncreaseComp>(player);
                         damage *= 2;
                     }
+                    em.AddComponent<IsBuffedComponent>(player);
                     em.AddComponent<MovementSpeedBuffComp>(player);
                     em.SetComponentData<MovementSpeedBuffComp>(player, new MovementSpeedBuffComp(1.2f, 540));
 
@@ -176,10 +200,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     //Glipse into the Ether
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "BuffSelf"));
                     damage = 0;
-                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
-                    createBullet("etherBuff", new Vector2(-positionX + 5, +5), new Vector2(0, 0), 0.5f, damage, timer);
-                    createBullet("etherBuff", new Vector2(-positionX - 5, -5), new Vector2(0, 0), 0.5f, damage, timer);
+                    createBullet("etherBuff", new Vector2(buffXInverter * positionX + 5, +5), new Vector2(0, 0), 0.5f, damage, timer);
+                    createBullet("etherBuff", new Vector2(buffXInverter * positionX - 5, -5), new Vector2(0, 0), 0.5f, damage, timer);
                     break;
 
                 case 6:
@@ -191,14 +214,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     damage = -damage;
-                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
-                    createBullet("woodsprite", new Vector2(-positionX, 0), new Vector2(positionX / 1.5f, 0), 0.25f, damage, timer);
+                    createBullet("woodsprite", new Vector2(buffXInverter * positionX, 0), new Vector2(positionX / 1.5f, 0), 0.25f, damage, timer);
                     break;
                 case 7:
                     //Akashic Records
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "LargeCard"));
-                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -positionX;
+                    //if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -positionX;
 
                     int num1 = 7;
                     int num2 = 7;
@@ -335,11 +357,11 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     Vector2 bottomCorner = new Vector2(positionX - direction * 7, -7);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.1f * speed, 0.9f * speed), 0.35f, damage, timer);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.2f * speed, 0.8f * speed), 0.5f, damage, timer + 20);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.3f * speed, 0.7f * speed), 0.35f, damage, timer + 40);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.4f * speed, 0.6f * speed), 0.5f, damage, timer + 60);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.3f * speed, 0.7f * speed), 0.35f, damage, timer);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.4f * speed, 0.6f * speed), 0.35f, damage, timer + 40);
                     createBullet("bullet", bottomCorner, new Vector2(direction * 0.5f * speed, 0.5f * speed), 0.35f, damage, timer + 80);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.6f * speed, 0.4f * speed), 0.5f, damage, timer + 100);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.7f * speed, 0.3f * speed), 0.35f, damage, timer + 120);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.6f * speed, 0.4f * speed), 0.35f, damage, timer + 120);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.7f * speed, 0.3f * speed), 0.35f, damage, timer + 160);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.8f * speed, 0.2f * speed), 0.5f, damage, timer + 140);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.9f * speed, 0.1f * speed), 0.35f, damage, timer + 180);
                     break;
@@ -347,9 +369,8 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     // Well Oiled Machine
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "BuffSelf"));
                     damage = 0;
-                    if (SceneManager.GetActiveScene().name.Equals("DeckBuilder")) positionX = -Constants.DeckBuilderBoundaryOffset;
 
-                    createBullet("oil", new Vector2(-positionX, 0), new Vector2(), 0.5f, damage, timer);
+                    createBullet("oil", new Vector2(buffXInverter * positionX, 0), new Vector2(), 0.5f, damage, timer);
                     break;
                 case 17:
                     // Gear Box
@@ -478,9 +499,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     EventManager.instance.QueueEvent(new SoundEvent(genre, "SmallCard"));
                     // Spawn projectiles from top of screen (based on user position in the future?)
                     //createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(-.75f, -1), 0.5f, damage, timer);
-                    createBullet("flickCigar", new Vector2(positionX - .5f, 6), new Vector2(-.5f, -2), 0.5f, damage, timer);
+                    createBullet("flickCigar", new Vector2(positionX - 1, 6), new Vector2(-.5f, -2), 0.5f, damage, timer);
                     //createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(.75f, -1), 0.5f, damage, timer);
-                    createBullet("flickCigar", new Vector2(positionX + .5f, 6), new Vector2(.5f, -2), 0.5f, damage, timer);
+                    createBullet("flickCigar", new Vector2(positionX + 1, 6), new Vector2(.5f, -2), 0.5f, damage, timer);
                     createBullet("flickCigar", new Vector2(positionX, 6), new Vector2(0, -2), 0.5f, damage, timer);
                     var s2 = FindObjectsOfType<MonoBehaviour>().OfType<IGame>();
                     foreach (IGame game in s2)
@@ -540,15 +561,6 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         }
                         else
                         {
-                            // Old code attempted to fire at the mirrored position of the opponent (but was firing at the player who casted
-                            /*float offset = (playerID == 1) ?
-                                em.GetComponentData<Translation>(player).Value.x + 7 :
-                                em.GetComponentData<Translation>(player).Value.x - 7 ;
-
-                            destinationPos = (playerID == 1) ?
-                                new Vector2(Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) :
-                                new Vector2(-Constants.GameBoundaryOffset + offset, em.GetComponentData<Translation>(player).Value.y) ;*/
-                            // New code will instead fire directly at the opponent
                             destinationPos = new Vector2(em.GetComponentData<Translation>(opponent).Value.x, em.GetComponentData<Translation>(opponent).Value.y);
                         }
 
@@ -657,6 +669,18 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("bullet", new Vector2(modifier * positionX - 2, -7), new Vector2(0, 3), 0.5f, damage, timer);
                     createBullet("bullet", new Vector2(modifier * positionX + 2, 7), new Vector2(0, -3), 0.5f, damage, timer);
                     break;
+                case 30:
+                    // Hailstorm
+                    int spd = 2; // This is to counteract the fact that each hail has a 0.5 speed modifier due to the SpeedBuff that is attached to it
+
+                    createBullet("hail", new Vector2(positionX, 5), new Vector2(2 * spd, -2 * spd), 0.5f, damage, timer);
+                    createBullet("hail", new Vector2(positionX + 4, -2), new Vector2(-2.3f * spd, 0), 0.5f, damage, timer);
+                    createBullet("hail", new Vector2(positionX - 4, -2), new Vector2(spd * 2, spd * 2), 0.5f, damage, timer);
+
+                    createBullet("hail", new Vector2(positionX, -5), new Vector2(-spd * 2, spd * 2), 0.5f, damage, timer);
+                    createBullet("hail", new Vector2(positionX + 4, 2), new Vector2(-spd * 2, -spd * 2), 0.5f, damage, timer);
+                    createBullet("hail", new Vector2(positionX - 4, 2), new Vector2(2.3f * spd, 0), 0.5f, damage, timer);
+                    break;
             }
             EventManager.instance.QueueEvent(new AnimatorEvent(playerID, "Attack"));
             if (fixedValue == 0)
@@ -675,7 +699,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             return false;
     }
 
-    private void createBullet(string type, Vector2 position, Vector2 movementvector, float radius, int damage, int timer, int side = -1, Vector2 initialRotation = new Vector2())
+    private void createBullet(string type, Vector2 position, Vector2 movementvector, float radius, int damage, float timer, int side = -1, Vector2 initialRotation = new Vector2())
     {
         switch (type)
         {
@@ -847,6 +871,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 Entity betty = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[23], 0x09, false);
                 em.AddComponent(betty, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
                 em.SetComponentData(betty, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.BettyID));
+                break;
+            case "hail":
+                Entity hail = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[24], 0x09, false);
+                em.AddComponent(hail, typeof(MovementSpeedBuffComp));
+                em.SetComponentData<MovementSpeedBuffComp>(hail, new MovementSpeedBuffComp(0.5f, 500));
+                em.AddComponent(hail, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
+                em.SetComponentData(hail, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.HailID));
                 break;
             default:
                 // Draws invisible projectile that gets deleted immediately

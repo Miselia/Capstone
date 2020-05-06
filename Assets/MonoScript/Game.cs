@@ -74,8 +74,6 @@ public class Game : MonoBehaviour, IGame
 
         cardLibrary = cl.GetAllByID();
 
-        
-
         PlayerEntity.Create(entityManager, new Vector2(-boundaryOffset,0), new Vector2(0, 0), playerRadius, 1, maxHealth, maxMana, manaRegen, mesh2D, playDeck1.GetPrimary(), playerMat);
         PlayerEntity.Create(entityManager, new Vector2(boundaryOffset, 0), new Vector2(0, 0), playerRadius, 2, maxHealth, maxMana, manaRegen, mesh2D, playDeck2.GetPrimary(), playerMat);
         

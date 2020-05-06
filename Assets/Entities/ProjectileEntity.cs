@@ -9,7 +9,7 @@ using Assets.Resources;
 
 public static class ProjectileEntity
 {
-    public static Entity Create(EntityManager em, int damage, Vector2 position, Vector2 movementVector, float radius, int timer, Mesh mesh, Material mat, byte mask = 0x03, bool rotateWithDirection = true, Vector2 initialRotation = new Vector2(), float extraScale = 1)
+    public static Entity Create(EntityManager em, int damage, Vector2 position, Vector2 movementVector, float radius, float timer, Mesh mesh, Material mat, byte mask = 0x03, bool rotateWithDirection = true, Vector2 initialRotation = new Vector2(), float extraScale = 1)
     {
         Entity entity = em.CreateEntity();
 

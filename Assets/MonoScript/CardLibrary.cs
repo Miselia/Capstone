@@ -41,14 +41,15 @@ public class CardLibrary: MonoBehaviour
         library["Horror"].Add(new CardData(19, "Wall Spikes", 3, 3, "Add spikes to all walls on your opponent's side", "Suddenly they were surrounded by the jaws of Death himself", cardMaterialLibrary[19]));
         library["Horror"].Add(new CardData(20, "Curse of the Viper", 7, 3, "Poison bottles will spawn at your opponent's location for a short period of time", "Your opponent must overcome this ancient curse", cardMaterialLibrary[20]));
         library["Horror"].Add(new CardData(21, "Jump Scare", 6, 3, "Cover your opponent's side with the face of terror itself", "Your opponent will have no idea what to doot", cardMaterialLibrary[21]));
-        library["Horror"].Add(new CardData(22, "Light Cigar", 4, 3, "Light your cigar by summoning a pillar of hellfire", "You're not addicted...", cardMaterialLibrary[22]));
-        library["Horror"].Add(new CardData(23, "Flick Cigar", 1, 3, "Flick your cigar, spreading embers on your opponent", "You could quit at any time...", cardMaterialLibrary[23]));
-        library["Horror"].Add(new CardData(24, "Put Out Cigar", 4, 3, "Smash your cigar, and hopefully your opponent", "See? You put it out. Congratulations!", cardMaterialLibrary[24]));
+        library["Horror"].Add(new CardData(22, "Light Cigar", 4, 3, "Light your cigar by summoning a pillar of hellfire", "I'm not addicted...", cardMaterialLibrary[22]));
+        library["Horror"].Add(new CardData(23, "Flick Cigar", 1, 3, "Flick your cigar, spreading embers on your opponent", "I could quit at any time...", cardMaterialLibrary[23]));
+        library["Horror"].Add(new CardData(24, "Put Out Cigar", 4, 3, "Smash your cigar, and hopefully your opponent", "See? I just put it out!", cardMaterialLibrary[24]));
         library["Steampunk"].Add(new CardData(25, "Artemis Rocket", 0, 2, "Fire the Artemis Rocket once you've taken aim", "High tech for a Stea, ancient technology for Finn", cardMaterialLibrary[25]));
         library["Steampunk"].Add(new CardData(26, "Ready, Aim", 6, 2, "Take aim, calling out the starting location of your Artemis Rocket", "Hold still, wanker!", cardMaterialLibrary[26]));
         library["Steampunk"].Add(new CardData(27, "Bouncing Betty", 10, 2, "Throw a bouncing projectile that never stops, ever", "", cardMaterialLibrary[27]));
         library["Horror"].Add(new CardData(28, "Make a Deal", 10, 3, "Steal the card from the opponent's hand corresponding to this card's slot. Leave them a gift pistol to shoot you back with", "Gets 'em every time", cardMaterialLibrary[28]));
         library["Horror"].Add(new CardData(29, "Misfire", 6, 3, "Rory left behind a gun. Fire back at him!", "'You actually fell for it!? HAHAHAHA' - <3 Rory ", cardMaterialLibrary[29]));
+        library["Fantasy"].Add(new CardData(30, "Hailstorm", 10, 1, "Unless a flurry of frost at your opponent. Slowing them when hit", "Chill out, will you?", cardMaterialLibrary[30]));
         //Debug.Log(cardList[0].getID() + "," + cardList[1].getID() + "," + cardList[2].getID() + "," + cardList[3].getID() + "," + cardList[4].getID());
     }
 

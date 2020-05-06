@@ -14,16 +14,11 @@ public class DeletionSystem : ComponentSystem
     }
     protected override void OnUpdate()
     {
-        
-        //game = (Game)GameObject.Find("Game").GetComponent(typeof(Game));
-        
         Entities.ForEach((Entity e, ref DeleteComp d, ref Translation t) =>
             {
                 if(d.buffer <= 0)
                     World.Active.EntityManager.DestroyEntity(e);
-                d.buffer--;
+                d.buffer -= Time.deltaTime;
             });
-
-        
     }
 }
