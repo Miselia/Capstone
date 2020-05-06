@@ -519,7 +519,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     Vector2 cigarPos;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
-                        cigarPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, 9);
+                        cigarPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, 8);
                     }
                     else
                     {
@@ -527,9 +527,20 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                             em.GetComponentData<Translation>(player).Value.x + 7 :
                             em.GetComponentData<Translation>(player).Value.x - 7;
 
+                        if (offset > 3)
+                        {
+                            offset = 3;
+
+
+                        }
+                        if (offset < -3)
+                        {
+                            offset = -3;
+                        }
+
                         cigarPos = (playerID == 1) ?
-                            new Vector2(Constants.GameBoundaryOffset + offset, 9) :
-                            new Vector2(-Constants.GameBoundaryOffset + offset, 9);
+                            new Vector2(Constants.GameBoundaryOffset + offset, 12) :
+                            new Vector2(-Constants.GameBoundaryOffset + offset, 12);
                     }
                     // Take note of the cigarPos offset for the Y value, this must be inverted in the "fullCigar" section below
                     createBullet("fullCigar", cigarPos, new Vector2(0, -4), 1, damage, timer);
@@ -815,9 +826,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 //      For Example: If cigarPos.y = 0 + 10, then dummyPos.y = cigarPos.y - 10
 
                 // This will serve as the cigar's hitbox
-                ProjectileEntity.Create(em, damage, new Vector2(position.x, position.y - 9), movementvector, radius, timer, mesh, projectileMaterialLibrary[21]);
+                ProjectileEntity.Create(em, damage, new Vector2(position.x, position.y - 6f), movementvector, radius, timer, mesh, projectileMaterialLibrary[21]);
                 // This dummy projectile will serve as the collision detection to spawn the Full cigar, meaning that "fullCigar" will need to be deleted remotely
-                Entity dummy = ProjectileEntity.Create(em, damage, new Vector2(position.x, position.y - 9), movementvector, radius, timer, mesh, projectileMaterialLibrary[21], 0x08);
+                Entity dummy = ProjectileEntity.Create(em, damage, new Vector2(position.x, position.y - 6f), movementvector, radius, timer, mesh, projectileMaterialLibrary[21], 0x08);
                 em.AddComponent(dummy, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
                 em.SetComponentData(dummy, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.CigarID));
                 break;
