@@ -427,7 +427,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                                 location += new Vector2(pbc.Normal.x, pbc.Normal.y);
 
                                 Vector2 mod = new Vector2(pbc.Normal.y, pbc.Normal.x);
-                                mod *= 3;
+                                mod *= rand.NextInt(-4,4);
 
                                 location += mod;
                                 createBullet("spike", location, new Vector2(), 1, damage, timer, -1, new Vector2(pbc.Normal.x, -pbc.Normal.y));
@@ -688,6 +688,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     break;
                 case 30:
                     // Hailstorm
+                    EventManager.instance.QueueEvent(new SoundEvent(genre, "Super"));
                     int spd = 2; // This is to counteract the fact that each hail has a 0.5 speed modifier due to the SpeedBuff that is attached to it
 
                     createBullet("hail", new Vector2(positionX, 5), new Vector2(2 * spd, -2 * spd), 0.5f, damage, timer);

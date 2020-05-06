@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum GenreExclusives : int
+public enum GenreExclusives : int
 {
     Fantasy = 30,
     Steampunk = 27,
@@ -72,6 +72,7 @@ public class ButtonListController : MonoBehaviour, IGenericEventListener
     public void ButtonClicked(int id, string cardName, string traits, string flavor)
     {
         //Debug.Log("Card attempt add to deck");
+        //Debug.Log("Card ID: " + id + "Added to deck");
         EventManager.instance.QueueEvent(new AddCardtoDeckEvent(id, cardName, traits, flavor));
     }
 

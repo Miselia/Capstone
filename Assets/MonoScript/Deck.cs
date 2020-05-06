@@ -164,10 +164,30 @@ public class Deck
 
     public bool AddCard(int cardID)
     {
-        if (deck.Count < maxDeckSize && CountCopiesInDeck(cardID) < maxCopiesPerDeck )
+        Debug.Log("CardID " + cardID + "Found in Deck " + CountCopiesInDeck(cardID) + "times");
+        if (deck.Count < maxDeckSize)
         {
-            deck.Add(cardID);
-            return true;
+            // I didn't want to do this, but I tried to convert this to constants variables and failed miserably
+            if ((cardID == (int)GenreExclusives.Fantasy || cardID == (int)GenreExclusives.Steampunk || cardID == (int)GenreExclusives.SciFi || cardID == (int)GenreExclusives.Horror))
+            {
+                if (CountCopiesInDeck(cardID) < 1)
+                {
+                    Debug.Log("CardID is a max cost card " + cardID);
+                    deck.Add(cardID);
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else if (CountCopiesInDeck(cardID) < 3)
+            {
+                deck.Add(cardID);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
             return false;
