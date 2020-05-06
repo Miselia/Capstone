@@ -519,7 +519,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     Vector2 cigarPos;
                     if (SceneManager.GetActiveScene().name.Equals("DeckBuilder"))
                     {
-                        cigarPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, 6);
+                        cigarPos = new Vector2(em.GetComponentData<Translation>(player).Value.x, 9);
                     }
                     else
                     {
