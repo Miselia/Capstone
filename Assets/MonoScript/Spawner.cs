@@ -313,8 +313,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     {
                         if (em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
                         {
+                            em.AddComponent(e, typeof(IsBuffedComponent));
                             em.AddComponent(e, typeof(MovementSpeedBuffComp));
-                            em.SetComponentData(e, new MovementSpeedBuffComp(3, 2));
+                            em.SetComponentData(e, new MovementSpeedBuffComp(3, 3));
                         }
                     }
                     break;

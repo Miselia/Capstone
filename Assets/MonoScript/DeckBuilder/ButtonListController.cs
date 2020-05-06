@@ -24,17 +24,29 @@ public class ButtonListController : MonoBehaviour, IGenericEventListener
         excludedCardsList = new List<int>( new int[] {0, 23, 24, 25, 29 } );
         switch (dbGame.builderDeck.GetPrimary())
         {
+            // If Fantasy
             case 1:
-                excludedCardsList.Add((int)GenreExclusives.Fantasy);
-                break;
-            case 2:
                 excludedCardsList.Add((int)GenreExclusives.Steampunk);
-                break;
-            case 3:
                 excludedCardsList.Add((int)GenreExclusives.SciFi);
-                break;
-            case 4:
                 excludedCardsList.Add((int)GenreExclusives.Horror);
+                break;
+            // If Steampunk
+            case 2:
+                excludedCardsList.Add((int)GenreExclusives.Fantasy);
+                excludedCardsList.Add((int)GenreExclusives.SciFi);
+                excludedCardsList.Add((int)GenreExclusives.Horror);
+                break;
+            // If SciFi
+            case 3:
+                excludedCardsList.Add((int)GenreExclusives.Fantasy);
+                excludedCardsList.Add((int)GenreExclusives.Steampunk);
+                excludedCardsList.Add((int)GenreExclusives.Horror);
+                break;
+            // If Horror
+            case 4:
+                excludedCardsList.Add((int)GenreExclusives.Fantasy);
+                excludedCardsList.Add((int)GenreExclusives.Steampunk);
+                excludedCardsList.Add((int)GenreExclusives.SciFi);
                 break;
         }
     }
