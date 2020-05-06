@@ -27,6 +27,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Delta time = " + Time.deltaTime);
         rand = new Unity.Mathematics.Random(17);
         EventManager.instance.RegisterListener<SpawnEvent>(this);
         EventManager.instance.RegisterListener<CreateProjectileEvent>(this);
@@ -46,7 +47,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
         {
             SpawnEvent se = (SpawnEvent) evt;
             
-            spawn(se.card, se.player, 0, 0.25f, se.opponent);
+            spawn(se.card, se.player, 0, 1, se.opponent);
             //Debug.Log("Something is Spawned");
             return true;
         }
@@ -130,7 +131,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
                     em.AddComponent<IsBuffedComponent>(player);
                     em.AddComponent<MovementSpeedBuffComp>(player);
-                    em.SetComponentData<MovementSpeedBuffComp>(player, new MovementSpeedBuffComp(1.2f, 540));
+                    em.SetComponentData<MovementSpeedBuffComp>(player, new MovementSpeedBuffComp(1.2f, 7));
 
                     EventManager.instance.QueueEvent(new SoundEvent(genre,"BuffSelf"));
                     createBullet("normal", new Vector2(positionX - 5, -5), new Vector2(0, 3), 1.0f, damage, timer);
@@ -234,7 +235,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     }
 
                     spawn(card, player, num1, timer, opponent);
-                    spawn(card, player, num2, timer + 20, opponent);
+                    spawn(card, player, num2, timer + 1, opponent);
 
                     break;
                 case 8:
@@ -295,15 +296,15 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer);
                     createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer);
 
-                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer + 80);
-                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer + 80);
-                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 80);
-                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 80);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer + 1);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer + 1);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 1);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 1);
 
-                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer + 160);
-                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer + 160);
-                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 160);
-                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 160);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(0.5f, 1), 0.5f, damage, timer + 2);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-0.5f, 1), 0.5f, damage, timer + 2);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(1, 1), 0.5f, damage, timer + 2);
+                    createBullet("eProjectile", new Vector2(positionX, -5), new Vector2(-1, 1), 0.5f, damage, timer + 2);
                     break;
                 case 13:
                     //Overcharge
@@ -313,7 +314,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         if (em.HasComponent<ProjectileComponent>(e) && em.HasComponent<MovementComponent>(e))
                         {
                             em.AddComponent(e, typeof(MovementSpeedBuffComp));
-                            em.SetComponentData(e, new MovementSpeedBuffComp(3, 180));
+                            em.SetComponentData(e, new MovementSpeedBuffComp(3, 2));
                         }
                     }
                     break;
@@ -331,17 +332,17 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     createBullet("bullet", new Vector2(positionX, 7), down, 0.35f, damage, timer);
                     createBullet("bullet", new Vector2(positionX + 3, 7), down, 0.35f, damage, timer);
 
-                    createBullet("bullet", new Vector2(positionX - 4.5f, 7), down, 0.35f, damage, timer + 200);
-                    createBullet("bullet", new Vector2(positionX - 1.5f, 7), down, 0.35f, damage, timer + 200);
-                    createBullet("bullet", new Vector2(positionX + 1.5f, 7), down, 0.35f, damage, timer + 200);
+                    createBullet("bullet", new Vector2(positionX - 4.5f, 7), down, 0.35f, damage, timer + 1);
+                    createBullet("bullet", new Vector2(positionX - 1.5f, 7), down, 0.35f, damage, timer + 1);
+                    createBullet("bullet", new Vector2(positionX + 1.5f, 7), down, 0.35f, damage, timer + 1);
 
-                    createBullet("bullet", new Vector2(positionX - 3, 7), down, 0.35f, damage, timer + 400);
-                    createBullet("bullet", new Vector2(positionX, 7), down, 0.35f, damage, timer + 400);
-                    createBullet("bullet", new Vector2(positionX + 3, 7), down, 0.35f, damage, timer + 400);
+                    createBullet("bullet", new Vector2(positionX - 3, 7), down, 0.35f, damage, timer + 2);
+                    createBullet("bullet", new Vector2(positionX, 7), down, 0.35f, damage, timer + 2);
+                    createBullet("bullet", new Vector2(positionX + 3, 7), down, 0.35f, damage, timer + 2);
 
-                    createBullet("bullet", new Vector2(positionX - 1.5f, 7), down, 0.35f, damage, timer + 600);
-                    createBullet("bullet", new Vector2(positionX + 1.5f, 7), down, 0.35f, damage, timer + 600);
-                    createBullet("bullet", new Vector2(positionX + 4.5f, 7), down, 0.35f, damage, timer + 600);
+                    createBullet("bullet", new Vector2(positionX - 1.5f, 7), down, 0.35f, damage, timer + 3);
+                    createBullet("bullet", new Vector2(positionX + 1.5f, 7), down, 0.35f, damage, timer + 3);
+                    createBullet("bullet", new Vector2(positionX + 4.5f, 7), down, 0.35f, damage, timer + 3);
                     break;
                 case 15:
                     // Spray and Pray
@@ -358,10 +359,10 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.1f * speed, 0.9f * speed), 0.35f, damage, timer);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.2f * speed, 0.8f * speed), 0.5f, damage, timer + 20);
                     createBullet("bullet", bottomCorner, new Vector2(direction * 0.3f * speed, 0.7f * speed), 0.35f, damage, timer);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.4f * speed, 0.6f * speed), 0.35f, damage, timer + 40);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.5f * speed, 0.5f * speed), 0.35f, damage, timer + 80);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.6f * speed, 0.4f * speed), 0.35f, damage, timer + 120);
-                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.7f * speed, 0.3f * speed), 0.35f, damage, timer + 160);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.4f * speed, 0.6f * speed), 0.35f, damage, timer + 0.5f);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.5f * speed, 0.5f * speed), 0.35f, damage, timer + 1);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.6f * speed, 0.4f * speed), 0.35f, damage, timer + 1.5f);
+                    createBullet("bullet", bottomCorner, new Vector2(direction * 0.7f * speed, 0.3f * speed), 0.35f, damage, timer + 2);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.8f * speed, 0.2f * speed), 0.5f, damage, timer + 140);
                     //createBullet("bullet", bottomCorner, new Vector2(direction * 0.9f * speed, 0.1f * speed), 0.35f, damage, timer + 180);
                     break;
@@ -391,7 +392,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                         {
                             em.AddComponent(e, typeof(IsBuffedComponent));
                             em.AddComponent(e, typeof(MovementSpeedBuffComp));
-                            em.SetComponentData(e, new MovementSpeedBuffComp(0, 240));
+                            em.SetComponentData(e, new MovementSpeedBuffComp(0, 1.5f));
                         }
                     }
                     break;
@@ -441,13 +442,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     {
                         em.AddComponent<IsBuffedComponent>(player);
                         em.AddComponent<ViperCurseComponent>(player);
-                        em.SetComponentData<ViperCurseComponent>(player, new ViperCurseComponent(600));
+                        em.SetComponentData<ViperCurseComponent>(player, new ViperCurseComponent(7));
                     }
                     else
                     {
                         em.AddComponent<IsBuffedComponent>(opponent);
                         em.AddComponent<ViperCurseComponent>(opponent);
-                        em.SetComponentData<ViperCurseComponent>(opponent, new ViperCurseComponent(600));
+                        em.SetComponentData<ViperCurseComponent>(opponent, new ViperCurseComponent(7));
                     }
                     break;
                 case 21:
@@ -722,9 +723,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 Entity ether = ProjectileEntity.Create(em, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[4]);
                 em.RemoveComponent(ether, typeof(AffectedByGravityComponent));
                 em.AddComponent(ether, typeof(ManaRegenBuffComp));
-                em.SetComponentData(ether, new ManaRegenBuffComp(0.5f,120,120));
+                em.SetComponentData(ether, new ManaRegenBuffComp(0.5f,1.2f,1.2f));
                 em.AddComponent(ether, typeof(DeleteComp));
-                em.SetComponentData(ether, new DeleteComp(300));
+                em.SetComponentData(ether, new DeleteComp(6));
                 break;
             case "water":
                 ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[6]);
@@ -732,7 +733,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             case "barrier":
                 Entity barrier = PlayerBoundaryEntity.Create(em, position, movementvector, mesh, projectileMaterialLibrary[7], side);
                 em.AddComponent(barrier, typeof(DeleteComp));
-                em.SetComponentData(barrier, new DeleteComp(420));
+                em.SetComponentData(barrier, new DeleteComp(7));
                 break;
             case "gravityWell":
                 Entity gravity = ProjectileEntity.Create(em, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[8], 0x00);
@@ -741,7 +742,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.AddComponent(gravity, typeof(GravityComponent));
                 em.SetComponentData(gravity, new GravityComponent(7,0.2f));
                 em.AddComponent(gravity, typeof(DeleteComp));
-                em.SetComponentData(gravity, new DeleteComp(300));
+                em.SetComponentData(gravity, new DeleteComp(4));
                 break;
             case "eProjectile":
                 ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[9]);
@@ -751,8 +752,10 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 break;
             case "oil":
                 Entity oil = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[11]);
+                em.AddComponent(oil, typeof(MovementSpeedBuffComp));
+                em.SetComponentData<MovementSpeedBuffComp>(oil, new MovementSpeedBuffComp(1.2f, 5));
                 em.AddComponent(oil, typeof(DeleteComp));
-                em.SetComponentData(oil, new DeleteComp(300));
+                em.SetComponentData(oil, new DeleteComp(5));
                 em.RemoveComponent(oil, typeof(AffectedByGravityComponent));
                 break;
             case "gear":
@@ -767,13 +770,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 Entity spike = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[13], 0x03, false, initialRotation);
                 em.RemoveComponent(spike, typeof(RotationComponent));
                 em.AddComponent(spike, typeof(DeleteComp));
-                em.SetComponentData(spike, new DeleteComp(360));
+                em.SetComponentData(spike, new DeleteComp(4));
                 break;
             case "Viper":
                 Entity poison = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[14]);
                 em.RemoveComponent(poison, typeof(AffectedByGravityComponent));
                 em.AddComponent<DeleteComp>(poison);
-                em.SetComponentData(poison, new DeleteComp(300));
+                em.SetComponentData(poison, new DeleteComp(5));
                 break;
             case "jumpScare":
                 Entity scare = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[15], 0x00);
@@ -785,13 +788,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.SetComponentData<Scale>(scare, new Scale { Value = radius });
                 em.RemoveComponent(scare, typeof(AffectedByGravityComponent));
                 em.AddComponent(scare, typeof(DeleteComp));
-                em.SetComponentData(scare, new DeleteComp(100));
+                em.SetComponentData(scare, new DeleteComp(1.67f));
                 Debug.Log("Spooky spawned at location (" + position.x + "," + position.y + ")");
                 break;
             case "lightCigar":
                 Entity flame = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[16], 0x03, true, new Vector2(), 4);
                 em.AddComponent<DeleteComp>(flame);
-                em.SetComponentData<DeleteComp>(flame, new DeleteComp(timer + 5));
+                em.SetComponentData<DeleteComp>(flame, new DeleteComp(timer + 0.1f));
                 // consider increasing time, would require colliding with linked projectiles to also delete the others, ehhhh
                 break;
             case "flickCigar":
@@ -837,7 +840,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 na.Dispose();
                 Entity fakeCigar = ProjectileEntity.Create(em, 0, new Vector2(position.x, 0), new Vector2(), 1, timer, mesh, projectileMaterialLibrary[19], 0x00, false, new Vector2(), 6);
                 em.AddComponent(fakeCigar, typeof(DeleteComp));
-                em.SetComponentData(fakeCigar, new DeleteComp(420));
+                em.SetComponentData(fakeCigar, new DeleteComp(7));
                 em.RemoveComponent(fakeCigar, typeof(AffectedByGravityComponent));
                 em.RemoveComponent(fakeCigar, typeof(RotationComponent));
 
@@ -851,9 +854,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 Entity invisCigarLeft = PlayerBoundaryEntity.Create(em, new Vector2(position.x - 1, 0), movementvector, mesh, projectileMaterialLibrary[21], damage);
                 Entity invisCigarRight = PlayerBoundaryEntity.Create(em, new Vector2(position.x + 1, 0), -movementvector, mesh, projectileMaterialLibrary[21], damage);
                 em.AddComponent(invisCigarLeft, typeof(DeleteComp));
-                em.SetComponentData(invisCigarLeft, new DeleteComp(420));
+                em.SetComponentData(invisCigarLeft, new DeleteComp(4));
                 em.AddComponent(invisCigarRight, typeof(DeleteComp));
-                em.SetComponentData(invisCigarRight, new DeleteComp(420));
+                em.SetComponentData(invisCigarRight, new DeleteComp(4));
                 createBullet("", new Vector2(position.x, -6), new Vector2(), 1, -1, timer);
                 break;
             case "rocket":
@@ -873,9 +876,9 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 em.SetComponentData(betty, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.BettyID));
                 break;
             case "hail":
-                Entity hail = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[24], 0x09, false);
+                Entity hail = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[24], 0x09);
                 em.AddComponent(hail, typeof(MovementSpeedBuffComp));
-                em.SetComponentData<MovementSpeedBuffComp>(hail, new MovementSpeedBuffComp(0.5f, 500));
+                em.SetComponentData<MovementSpeedBuffComp>(hail, new MovementSpeedBuffComp(0.5f, 5));
                 em.AddComponent(hail, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
                 em.SetComponentData(hail, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.HailID));
                 break;
@@ -885,7 +888,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 mat.color = Color.clear;
                 Entity invis = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, mat);
                 em.AddComponent<DeleteComp>(invis);
-                em.SetComponentData<DeleteComp>(invis, new DeleteComp(timer + 5));
+                em.SetComponentData<DeleteComp>(invis, new DeleteComp(timer + 0.1f));
                 break;
         }
     }

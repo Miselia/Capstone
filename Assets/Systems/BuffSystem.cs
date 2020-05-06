@@ -29,10 +29,10 @@ public class BuffSystem : ComponentSystem
                     Debug.Log("Playing ManaRegenSound");
                 }
 
-                mbc.timer--;
+                mbc.timer -= Time.deltaTime;
                 World.Active.EntityManager.SetComponentData<ManaRegenBuffComp>(e, mbc);
 
-                if (mbc.timer <= 0)
+                if (mbc.timer <= Time.deltaTime)
                 {
                     Debug.Log("Mana Regen Expired");
                     //PlayerComponent playComp = World.Active.EntityManager.GetComponentData<PlayerComponent>(e);
@@ -67,10 +67,10 @@ public class BuffSystem : ComponentSystem
                     EntityManager.SetComponentData<MovementComponent>(e, moveComp);
                 }
 
-                sbc.timer--;
+                sbc.timer -= Time.deltaTime;
                 World.Active.EntityManager.SetComponentData<MovementSpeedBuffComp>(e, sbc);
 
-                if (sbc.timer <= 0)
+                if (sbc.timer <= Time.deltaTime)
                 {
                     MovementComponent moveComp = EntityManager.GetComponentData<MovementComponent>(e);
 
@@ -105,17 +105,18 @@ public class BuffSystem : ComponentSystem
                     Debug.Log("Opponent recieved the Curse of the Viper");
                 }
 
-                if(vcc.timer % 100 == 0)
+                if(vcc.timer % 1 == 0)
                 {
                     // Code to spawn a projectile goes here, happens every 20 updates
                     Vector2 mov = new Vector2(EntityManager.GetComponentData<Translation>(e).Value.x, EntityManager.GetComponentData<Translation>(e).Value.y);
-                    EventManager.instance.QueueEvent(new CreateProjectileEvent("Viper", Constants.DefaultProjectileDamage, mov, new Vector2(), 0.35f, 60));
+                    EventManager.instance.QueueEvent(new CreateProjectileEvent("Viper", Constants.DefaultProjectileDamage, mov, new Vector2(), 0.35f, 1));
                 }
 
-                vcc.timer--;
+                vcc.timer -= Time.deltaTime;
+                Debug.Log("Curse Delta time = " + Time.deltaTime);
                 World.Active.EntityManager.SetComponentData<ViperCurseComponent>(e, vcc);
 
-                if (vcc.timer <= 0)
+                if (vcc.timer <= Time.deltaTime)
                 {
                     EntityManager.RemoveComponent<ViperCurseComponent>(e);
 

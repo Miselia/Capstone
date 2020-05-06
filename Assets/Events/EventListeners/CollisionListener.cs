@@ -99,8 +99,8 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
             // Once hail reaches the wall, adjust position, stop movement, and refresh the movementSpeed debuff
             RepositionCollisionWithNearestBoundary(hailEntity, playBoundEntity);
             em.AddComponent(hailEntity, typeof(DeleteComp));
-            em.SetComponentData<DeleteComp>(hailEntity, new DeleteComp(500));
-            em.SetComponentData<MovementSpeedBuffComp>(hailEntity, new MovementSpeedBuffComp(0.5f, 501));
+            em.SetComponentData<DeleteComp>(hailEntity, new DeleteComp(5));
+            em.SetComponentData<MovementSpeedBuffComp>(hailEntity, new MovementSpeedBuffComp(0.5f, 5));
             em.SetComponentData<MovementComponent>(hailEntity, new MovementComponent(new Vector2()));
         }
     }

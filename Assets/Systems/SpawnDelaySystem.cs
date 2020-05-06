@@ -11,7 +11,7 @@ public class SpawnDelaySystem : ComponentSystem
 
         Entities.ForEach((Entity e, ref SpawnDelayComp d) =>
         {
-            if (d.timer <= 0)
+            if (d.timer <= Time.deltaTime)
             {
                 World.Active.EntityManager.AddComponent(e, typeof(MovementComponent));
                 World.Active.EntityManager.SetComponentData(e, new MovementComponent(d.movementVector));
@@ -21,7 +21,7 @@ public class SpawnDelaySystem : ComponentSystem
                 World.Active.EntityManager.SetComponentData(e, new Scale { Value = d.radius * 2 * d.extraScale});
                 World.Active.EntityManager.RemoveComponent<SpawnDelayComp>(e);
             }
-            else World.Active.EntityManager.SetComponentData(e, new Scale { Value = (d.radius * 2)/d.timer });
+            else World.Active.EntityManager.SetComponentData(e, new Scale { Value = (d.radius * 2) / (d.timer * (1 / Time.deltaTime)) });
             d.timer -= Time.deltaTime;
         });
 

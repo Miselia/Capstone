@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum GenreExclusives : int
+{
+    Fantasy = 30,
+    Steampunk = 27,
+    SciFi = 11,
+    Horror = 28
+}
+
 public class ButtonListController : MonoBehaviour, IGenericEventListener
 {
     [SerializeField] private GameObject buttonPrefab;
@@ -14,6 +22,21 @@ public class ButtonListController : MonoBehaviour, IGenericEventListener
         EventManager.instance.RegisterListener<AddCardtoDeckScrollListEvent>(this);
         EventManager.instance.RegisterListener<InitializeDeckBuilderListUIEvent>(this);
         excludedCardsList = new List<int>( new int[] {0, 23, 24, 25, 29 } );
+        switch (dbGame.builderDeck.GetPrimary())
+        {
+            case 1:
+                excludedCardsList.Add((int)GenreExclusives.Fantasy);
+                break;
+            case 2:
+                excludedCardsList.Add((int)GenreExclusives.Steampunk);
+                break;
+            case 3:
+                excludedCardsList.Add((int)GenreExclusives.SciFi);
+                break;
+            case 4:
+                excludedCardsList.Add((int)GenreExclusives.Horror);
+                break;
+        }
     }
     private void InitializationFunction()
     {
