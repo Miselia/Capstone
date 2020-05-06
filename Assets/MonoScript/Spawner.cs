@@ -855,7 +855,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 na.Dispose();
                 Entity fakeCigar = ProjectileEntity.Create(em, 0, new Vector2(position.x, 0), new Vector2(), 1, timer, mesh, projectileMaterialLibrary[19], 0x00, false, new Vector2(), 6);
                 em.AddComponent(fakeCigar, typeof(DeleteComp));
-                em.SetComponentData(fakeCigar, new DeleteComp(7));
+                em.SetComponentData(fakeCigar, new DeleteComp(4));
                 em.RemoveComponent(fakeCigar, typeof(AffectedByGravityComponent));
                 em.RemoveComponent(fakeCigar, typeof(RotationComponent));
 
