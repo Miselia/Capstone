@@ -789,7 +789,7 @@ MonoBehaviour:
   - name: Horror Super 1
     clip: {fileID: 8300000, guid: b6bdbd6984b5f5b4c9bc1d23c9c643fe, type: 3}
     genre: Horror
-    type: Steampunk
+    type: Super
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -1004,7 +1004,14 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: Fantasy Super 1
-    clip: {fileID: 8300000, guid: 765f4c719a5e62044b4a8281cbc4fd6f, type: 3}
+    clip: {fileID: 8300000, guid: 382b41c68f8a4514ab488e74a6a0a7b4, type: 3}
+    genre: Fantasy
+    type: Super
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fantasy Super 2
+    clip: {fileID: 8300000, guid: 32b8f401ed898534593e1b510329d6c1, type: 3}
     genre: Fantasy
     type: Super
     volume: 1

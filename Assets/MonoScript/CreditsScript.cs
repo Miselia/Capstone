@@ -12,6 +12,10 @@ public class CreditsScript : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-    
+    public void OpenURL(string url)
+    {
+        Application.OpenURL(url);
+    }
+
 }
 
