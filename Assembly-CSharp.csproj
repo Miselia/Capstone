@@ -160,7 +160,6 @@
     <None Include="Assets\Resources\Dead Space.txt" />
     <None Include="Assets\Resources\ValidDecks\Techpunk.txt" />
     <None Include="Assets\Resources\ValidDecks\Spooky Stea.txt" />
-    <None Include="Assets\Resources\ValidDecks\#1.txt" />
     <None Include="Assets\Resources\Demo.txt" />
     <None Include="Assets\Resources\Twillight forest.txt" />
     <None Include="Assets\Resources\ValidDecks\New Start.txt" />

@@ -116,7 +116,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             if (em.HasComponent<DoubleCastComp>(player))
             {
                 em.RemoveComponent<DoubleCastComp>(player);
-                spawn(card, player, cardID, timer+100, opponent);
+                spawn(card, player, cardID, timer+2, opponent);
             }
 
             switch (cardID)

@@ -71,11 +71,11 @@ public class CollisionDetectionSystem : ComponentSystem
                     skipFlag = true;
                     //Debug.Log("Skipped due to incompatible byte comparison");
                 }
-                if (firstMask == secondMask)
+                /*if (firstMask == secondMask)
                 {
                     skipFlag = true;
                     // Skipped because two of the same type should never collide
-                }
+                }*/
                 if (game.GetCollidingPairs()[firstEntity].Contains(secondEntity) || game.GetCollidingPairs()[secondEntity].Contains(firstEntity))
                 {
                     skipFlag = true;
