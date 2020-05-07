@@ -264,7 +264,7 @@ public class CollisionListener : MonoBehaviour, IGenericEventListener
                 em.SetComponentData(playerEntity, em.GetComponentData<ManaRegenBuffComp>(projectileEntity));
             }
 
-            if (em.HasComponent<MovementSpeedBuffComp>(projectileEntity))
+            if (em.HasComponent<MovementSpeedBuffComp>(projectileEntity) && em.HasComponent<CanTransferComp>(projectileEntity))
             {
                 em.AddComponent(playerEntity, typeof(IsBuffedComponent));
                 em.AddComponent(playerEntity, typeof(MovementSpeedBuffComp));

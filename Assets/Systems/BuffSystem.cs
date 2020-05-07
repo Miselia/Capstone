@@ -98,25 +98,27 @@ public class BuffSystem : ComponentSystem
             {
                 ViperCurseComponent vcc = EntityManager.GetComponentData<ViperCurseComponent>(e);
 
-                if(vcc.timer == vcc.maxTimer)
+                if(vcc.interval == vcc.maxInterval)
                 {
                     // Optional sound effect, perhaps a voice line is played when the card is played (sound not played here)
                     // and the sound effect for the curse happens when the curse is received (sound is played here)
                     Debug.Log("Opponent recieved the Curse of the Viper");
                 }
 
-                if(vcc.timer % 1 == 0)
+                if(vcc.interval <= Time.deltaTime)
                 {
                     // Code to spawn a projectile goes here, happens every 20 updates
                     Vector2 mov = new Vector2(EntityManager.GetComponentData<Translation>(e).Value.x, EntityManager.GetComponentData<Translation>(e).Value.y);
                     EventManager.instance.QueueEvent(new CreateProjectileEvent("Viper", Constants.DefaultProjectileDamage, mov, new Vector2(), 0.35f, 1));
+                    vcc.bullets--;
+                    vcc.interval = vcc.maxInterval;
                 }
 
-                vcc.timer -= Time.deltaTime;
+                vcc.interval -= Time.deltaTime;
                 Debug.Log("Curse Delta time = " + Time.deltaTime);
                 World.Active.EntityManager.SetComponentData<ViperCurseComponent>(e, vcc);
 
-                if (vcc.timer <= Time.deltaTime)
+                if (vcc.interval <= Time.deltaTime && vcc.bullets == 0)
                 {
                     EntityManager.RemoveComponent<ViperCurseComponent>(e);
 

@@ -14,7 +14,7 @@
         public static readonly int PlayerMovementSpeed = 7;
         public static readonly int PlayerMaximumHealth = 10;
         public static readonly float PlayerMaximumMana = 10f;
-        public static readonly float PlayerManaRegen = 0.025f;
+        public static readonly float PlayerManaRegen = 0.015f;
         public static readonly float PlayerRadius = 0.25f;
         public static readonly int MaxDeckSize = 15;
         public static readonly int MaxCopiesPerDeck = 3;

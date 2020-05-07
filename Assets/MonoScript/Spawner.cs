@@ -443,13 +443,13 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                     {
                         em.AddComponent<IsBuffedComponent>(player);
                         em.AddComponent<ViperCurseComponent>(player);
-                        em.SetComponentData<ViperCurseComponent>(player, new ViperCurseComponent(7));
+                        em.SetComponentData<ViperCurseComponent>(player, new ViperCurseComponent(1));
                     }
                     else
                     {
                         em.AddComponent<IsBuffedComponent>(opponent);
                         em.AddComponent<ViperCurseComponent>(opponent);
-                        em.SetComponentData<ViperCurseComponent>(opponent, new ViperCurseComponent(7));
+                        em.SetComponentData<ViperCurseComponent>(opponent, new ViperCurseComponent(1));
                     }
                     break;
                 case 21:
@@ -770,6 +770,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             case "oil":
                 Entity oil = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[11]);
                 em.AddComponent(oil, typeof(MovementSpeedBuffComp));
+                em.AddComponent(oil, typeof(CanTransferComp));
                 em.SetComponentData<MovementSpeedBuffComp>(oil, new MovementSpeedBuffComp(1.2f, 5));
                 em.AddComponent(oil, typeof(DeleteComp));
                 em.SetComponentData(oil, new DeleteComp(5));
@@ -895,6 +896,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
             case "hail":
                 Entity hail = ProjectileEntity.Create(em, damage, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[24], 0x09);
                 em.AddComponent(hail, typeof(MovementSpeedBuffComp));
+                em.AddComponent(hail, typeof(CanTransferComp));
                 em.SetComponentData<MovementSpeedBuffComp>(hail, new MovementSpeedBuffComp(0.5f, 5));
                 em.AddComponent(hail, typeof(ProjectileCollisionWithPlayerBoundaryComponent));
                 em.SetComponentData(hail, new ProjectileCollisionWithPlayerBoundaryComponent(Constants.HailID));

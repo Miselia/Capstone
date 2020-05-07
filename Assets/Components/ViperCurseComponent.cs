@@ -3,12 +3,14 @@ using UnityEngine;
 
 public struct ViperCurseComponent : IComponentData
 {
-    public float timer;
-    public float maxTimer;
+    public float interval;
+    public int bullets;
+    public float maxInterval;
 
-    public ViperCurseComponent(float timer)
+    public ViperCurseComponent(float interval)
     {
-        this.timer = timer;
-        this.maxTimer = timer;
+        this.interval = interval;
+        this.maxInterval = interval;
+        this.bullets = 4;
     }
 }
