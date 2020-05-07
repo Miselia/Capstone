@@ -15,6 +15,11 @@ public class MenuScript : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+    public void Quit()
+    {
+        Application.Quit();
+        Debug.Log("Quiteroni");
+    }
     void Awake()
     {
         int rand = Random.Range(0, 4);
