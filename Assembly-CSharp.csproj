@@ -84,6 +84,7 @@
      <Compile Include="Assets\Components\ValueIncreaseComp.cs" />
      <Compile Include="Assets\Components\ViperCurseComponent.cs" />
      <Compile Include="Assets\Components\XformComp.cs" />
+     <Compile Include="Assets\Decks_Constants\Constants.cs" />
      <Compile Include="Assets\Entities\CardEnitity.cs" />
      <Compile Include="Assets\Entities\PlayerBoundaryEntity.cs" />
      <Compile Include="Assets\Entities\PlayerEntity.cs" />
@@ -135,7 +136,6 @@
      <Compile Include="Assets\MonoScript\Sound.cs" />
      <Compile Include="Assets\MonoScript\Spawner.cs" />
      <Compile Include="Assets\MonoScript\UIManager.cs" />
-     <Compile Include="Assets\Resources\Constants.cs" />
      <Compile Include="Assets\Systems\BuffSystem.cs" />
      <Compile Include="Assets\Systems\CollisionBoxDrawingSystem.cs" />
      <Compile Include="Assets\Systems\CollisionDetectionSystem.cs" />
@@ -152,9 +152,13 @@
      <Compile Include="Assets\Systems\SpawnDelaySystem.cs" />
      <Compile Include="Assets\Systems\TestingSystem.cs" />
      <None Include="Assets\Resources\ValidDecks\Interesting Name #340.txt" />
+     <None Include="Assets\Decks_Constants\Interesting Name #340.txt" />
+     <None Include="Assets\Decks_Constants\ValidDecks\Interesting Name #340.txt" />
      <None Include="Assets\Resources\Interesting Name #340.txt" />
-     <None Include="Assets\Resources\ValidDecks\Techpunk.txt" />
-     <None Include="Assets\Resources\Techpunk.txt" />
+     <None Include="Assets\Decks_Constants\ValidDecks\Techpunk.txt" />
+     <None Include="Assets\Decks_Constants\ValidDecks\Spok.txt" />
+     <None Include="Assets\Decks_Constants\Spok.txt" />
+     <None Include="Assets\Decks_Constants\Techpunk.txt" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/zion-/CS Capstone/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
