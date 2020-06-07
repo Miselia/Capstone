@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Entities;
 using Assets.Resources;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class PlayerValueSystem : ComponentSystem
 {
@@ -52,11 +53,11 @@ public class PlayerValueSystem : ComponentSystem
                 if (EntityManager.HasComponent(e, typeof(ManaRegenBuffComp)))
                 {
                     float mb = EntityManager.GetComponentData<ManaRegenBuffComp>(e).value;
-                    p.mana = p.mana + p.manaRegen + mb;
+                    p.mana = p.mana + ((p.manaRegen + mb)*Time.deltaTime);
                 }
                 else
                 {
-                    p.mana = p.mana + p.manaRegen;
+                    p.mana = p.mana + (p.manaRegen* Time.deltaTime);
                 }
                
 

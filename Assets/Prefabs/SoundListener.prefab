@@ -1017,3 +1017,5 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  audioMixer: {fileID: 6223855582426284691, guid: 42b0e84c450662845bed391823963dfa,
+    type: 2}

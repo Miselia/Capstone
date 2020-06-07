@@ -12,10 +12,12 @@ using UnityEngine.Audio;
 public class SoundListener : MonoBehaviour, IGenericEventListener
 {
     public Sound[] sounds;
+    public AudioMixerGroup audioMixer;
     private Dictionary<string, Dictionary<string, List<Sound>>> library;
     void Awake()
     {
-        library = new Dictionary<string, Dictionary<string, List<Sound>>>();
+        
+    library = new Dictionary<string, Dictionary<string, List<Sound>>>();
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -23,6 +25,7 @@ public class SoundListener : MonoBehaviour, IGenericEventListener
 
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
+            s.source.outputAudioMixerGroup = audioMixer;
             //Debug.Log("Genre: " + s.genre + " Type: " + s.type);
             if (library.ContainsKey(s.genre))
             {

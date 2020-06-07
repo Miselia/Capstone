@@ -740,7 +740,7 @@ public class Spawner : MonoBehaviour, IGenericEventListener
                 Entity ether = ProjectileEntity.Create(em, 0, position, movementvector, radius, timer, mesh, projectileMaterialLibrary[4]);
                 em.RemoveComponent(ether, typeof(AffectedByGravityComponent));
                 em.AddComponent(ether, typeof(ManaRegenBuffComp));
-                em.SetComponentData(ether, new ManaRegenBuffComp(0.5f,1.2f,1.2f));
+                em.SetComponentData(ether, new ManaRegenBuffComp(3f,1.2f,1.2f));
                 em.AddComponent(ether, typeof(DeleteComp));
                 em.SetComponentData(ether, new DeleteComp(6));
                 break;

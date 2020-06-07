@@ -27,7 +27,7 @@ public class Deck
     {
         deck = new List<int>();
         deckName = f;
-        this.filepath = "Assets/Resources/"+deckName + ".txt";
+        this.filepath = Application.streamingAssetsPath +"/"+ deckName + ".txt";
         if (!buildDeck(filepath))
         {
             Debug.Log("Filepath not found");
@@ -50,7 +50,7 @@ public class Deck
     {
         deck = new List<int>();
         deckName = name;
-        this.filepath = "Assets/Resources/" + deckName + ".txt";
+        this.filepath = Application.streamingAssetsPath + "/"+ deckName + ".txt";
         primaryFaction = primary;
         secondaryFaction = secondary;
     }
@@ -106,7 +106,7 @@ public class Deck
         // If deck is valid, write to "ValidDecks" folder
         if (CheckDeckIsValid())
         {
-            filepath = "Assets/Resources/ValidDecks/" + deckName + ".txt";
+            filepath = Application.streamingAssetsPath +"/ValidDecks/" + deckName + ".txt";
             StreamWriter validWriter = new StreamWriter((filepath), false);
             validWriter.WriteLine(primaryFaction);
             validWriter.WriteLine(secondaryFaction);

@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LobbyScene.unity
     guid: 5e9276926ab8d294897b47d9cbb55207
   - enabled: 0
-    path: Assets/Scenes/GameOver.unity
+    path: 
     guid: 503f6f61061039c4a96360eeb5e5aa03
   - enabled: 1
     path: Assets/Scenes/DeckBuilder.unity
@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: a90b181c498f93841b6ee4327ee870e6
+  - enabled: 1
+    path: Assets/Scenes/Options.unity
+    guid: 7a7f02290a14c4c4c9d6b36c5e651849
   m_configObjects: {}

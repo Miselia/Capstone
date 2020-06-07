@@ -32,10 +32,10 @@ public class DeckLobbyScript : MonoBehaviour
 
         decksAvailable.options.Clear();
 
-        string[] allFilePaths = Directory.GetFiles(@"Assets/Resources/", "*.txt");
+        string[] allFilePaths = Directory.GetFiles(Application.streamingAssetsPath, "*.txt");
         for (int i=0; i < allFilePaths.Length; i++)
         {
-            allFileNames.Add(allFilePaths[i].Replace("Assets/Resources/", "").Replace(".txt", ""));
+            allFileNames.Add(allFilePaths[i].Replace(Application.streamingAssetsPath, "").Replace(".txt", "").Replace("\\", ""));
         }
 
         decksAvailable.AddOptions(allFileNames);

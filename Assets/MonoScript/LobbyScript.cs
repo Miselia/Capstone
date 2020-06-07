@@ -23,12 +23,12 @@ public class LobbyScript : MonoBehaviour
         p1DeckDropdown.options.Clear();
         p2DeckDropdown.options.Clear();
 
-        string[] allFilePaths = Directory.GetFiles(@"Assets/Resources/ValidDecks/", "*.txt");
+        string[] allFilePaths = Directory.GetFiles(Application.streamingAssetsPath + "/ValidDecks/", "*.txt");
 
         // The lobby script will only check the ValidDecks folder to display to the players
         for (int i = 0; i < allFilePaths.Length; i++)
         {
-            allFileNames.Add(allFilePaths[i].Replace("Assets/Resources/ValidDecks/", "").Replace(".txt", ""));
+            allFileNames.Add(allFilePaths[i].Replace(Application.streamingAssetsPath + "/ValidDecks/", "").Replace(".txt", ""));
         }
 
         p1DeckDropdown.AddOptions(allFileNames);
